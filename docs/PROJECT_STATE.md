@@ -37,7 +37,7 @@ Last updated: 2026-11-09
 
 ## Branch integration verification
 
-The feature prototype, tenant detail routes, screen inventory, knowledge banks and expanded tests are integrated with the current main backend and history. The plan/prompt audit passed local `npm run validate:state` (35 tasks, 5 epics, 5 phase gates, 20 knowledge banks) and `npm run verify:local` (46 tests, typecheck, backlog validation, production build, web/API HTTP smokes and high-severity audit). Evidence: `docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md`. PR-head CI run `42702371409` and post-merge main CI run `42702615390` passed, including PostgreSQL 16. Current audit changes are not yet published. Phase gates remain open; no browser review or provider runtime is claimed.
+The feature prototype, tenant detail routes, screen inventory, knowledge banks and expanded tests are integrated with the current main backend and history. The plan/prompt audit passed local `npm run validate:state` (35 tasks, 5 epics, 5 phase gates, 20 knowledge banks) and `npm run verify:local` (46 tests, typecheck, backlog validation, production build, web/API HTTP smokes and high-severity audit). Evidence: `docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md`. PR-head CI run `42702371409` and post-merge main CI run `42702615390` passed, including PostgreSQL 16. The plan/prompt audit is published at `eac29b6a571f4a898320eb14a482b90ed499543a`; GitHub Actions run `42705339401` passed. Phase gates remain open; no browser review or provider runtime is claimed.
 
 ## Current blockers and limits
 
@@ -47,4 +47,4 @@ The feature prototype, tenant detail routes, screen inventory, knowledge banks a
 
 ## Next action
 
-Follow `docs/NEXT_ACTION.md` and `docs/EXECUTION_PLAYBOOK.md`. P0 remains active until its declared criteria pass, while dependency-ready P1-06 local session/tenant contract work may proceed in parallel. P2/P3 remain gated on P1 authorization criteria. Preserve all current main history.
+Follow `docs/NEXT_ACTION.md` and `docs/EXECUTION_PLAYBOOK.md`. P1-06 contract is written; next resolve P0-03 stack fork, then implement and test the server-side session resolver and tenant authorization against the contract. Continue P0 evidence. P2/P3 remain gated on P1 authorization criteria. Preserve all current main history.

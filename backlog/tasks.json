@@ -737,7 +737,7 @@
         "P1-03",
         "P1-04"
       ],
-      "current_status": "READY",
+      "current_status": "IN_PROGRESS",
       "acceptance_criteria": [
         "Actor tenant scope comes only from a verified session",
         "Cross-tenant direct ID and search requests deny without leakage",
@@ -749,13 +749,16 @@
         "revoked membership queued-job test",
         "unauthenticated route test"
       ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
+      "evidence_paths": [
+        "docs/API_CONTRACTS.md",
+        "docs/TEST_EVIDENCE/verification-20261109T214800Z-eac29b6.md"
+      ],
+      "verification_level": "CONTRACT_ONLY_UNVERIFIED",
       "target_environment": "LOCAL_INTEGRATION",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
-      "started_at": null,
+      "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
@@ -763,8 +766,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Write docs/API_CONTRACTS.md definitions for session, actor, organization membership, tenant-derived authorization context, revocation, audit, and unauthenticated/cross-tenant denial cases before choosing an auth library.",
-      "notes": "Local contract and test work is authorized because P1-03 and P1-04 are verified. This does not claim production authentication or authorize real tenant data.",
+      "next_action": "Add session resolution and tenant authorization tests for forged organization claims, membership revocation, and non-disclosing cross-tenant reads; do not choose a production auth provider until stack reconciliation passes.",
+      "notes": "P1-06 contract defined locally; no production login/session resolver is implemented or claimed. P0 remains open. Contract establishes trust boundary and acceptance evidence.",
       "status_history": [
         {
           "from": null,
@@ -772,6 +775,13 @@
           "changed_at": "2026-11-09T19:34:27+00:00",
           "actor": "Codex",
           "evidence": "Seeded from governing specification; not verified."
+        },
+        {
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-09T21:48:00+00:00",
+          "actor": "Codex",
+          "evidence": "docs/API_CONTRACTS.md defines the production session, actor, membership, tenant policy, job reauthorization, audit, and denial contracts; implementation remains unverified."
         }
       ]
     },
@@ -2159,7 +2169,7 @@
         "P0-01",
         "P0-05"
       ],
-      "current_status": "TESTING",
+      "current_status": "VERIFIED",
       "acceptance_criteria": [
         "Continuation signals explicitly resume implementation instead of status-only replies",
         "External browser/interview/provider access blocks only criteria that require it",
@@ -2182,11 +2192,12 @@
         "backlog/phase-gates.json",
         "scripts/validate-backlog.mjs",
         "tests/backlog-validator.test.mjs",
-        "docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md"
+        "docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md",
+        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
       ],
-      "verification_level": "STATE_CHECKS_AND_46_TESTS_PASS; FULL_LOCAL_VERIFICATION_PASS; REMOTE_CI_PENDING",
+      "verification_level": "FULL_LOCAL_AND_REMOTE_CI",
       "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
-      "last_verified_commit": null,
+      "last_verified_commit": "eac29b6a571f4a898320eb14a482b90ed499543a",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -2200,8 +2211,8 @@
         "Only backlog/phase-gates.json determines phase exit criteria.",
         "Buyer interviews, browser access, and live credentials remain task-level validation unless declared as phase criteria."
       ],
-      "next_action": "Review and publish this tested governance increment on current main, then start the P1-06 session and tenant-authorization contract while continuing P0-02/P0-03 evidence.",
-      "notes": "npm run validate:state passes (35 tasks, 5 epics, 5 phase gates, 20 knowledge banks); npm run verify:local passes with 46 tests, typecheck, backlog check, build, web/API smoke, and audit. Remote CI remains pending.",
+      "next_action": "Keep the execution rules active; inspect future task transitions for precise actions, blockers, evidence paths, and passing verification.",
+      "notes": "Plan validator regression coverage and remote GitHub Actions passed on eac29b6a571f4a898320eb14a482b90ed499543a (run 42705339401). This closes only the execution-plan consistency task; P0 gate remains open.",
       "status_history": [
         {
           "from": null,
@@ -2230,6 +2241,13 @@
           "changed_at": "2026-11-09T21:30:00Z",
           "actor": "Codex",
           "evidence": "Backlog/schema checks and 46 local tests passed; full local verification report recorded."
+        },
+        {
+          "from": "TESTING",
+          "to": "VERIFIED",
+          "changed_at": "2026-11-09T21:46:00+00:00",
+          "actor": "Codex",
+          "evidence": "GitHub Actions CI run 42705339401 passed for eac29b6a571f4a898320eb14a482b90ed499543a; local npm run check passed 46 tests and state/backlog validators."
         }
       ]
     }

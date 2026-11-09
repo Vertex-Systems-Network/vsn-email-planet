@@ -20,3 +20,60 @@ Errors use `{error:{code,message}}`; success returns `{data,meta:{environment,or
 ## Provider capability manifest
 
 The framework-neutral local helper in `apps/api/src/capabilities.js` defines operation-level states and fails closed for unknown, unsupported, permission-gated, stale/malformed or duplicate records. See `docs/CAPABILITY_CONTRACT.md`. The provider detail modal renders these records with state, reason, source, timestamp and next action. This is not provider connectivity or production authorization.
+
+## Production identity and tenant authorization contract (P1-06)
+
+This is the implementation contract for the first authenticated API slice. It supersedes fixture bearer identities for any production path. It does not claim that authentication is implemented. The web prototype may continue using public synthetic fixtures only on explicitly local demo routes; those values must never be accepted by production middleware.
+
+### Trust boundary and actor
+
+- An unauthenticated request has no actor. A production actor is created only by server-side session resolution after validating an opaque session secret against its stored digest and checking that the session is active and unexpired.
+- The actor is `{ userId, sessionId, organizationId, membershipRole, membershipVersion }`. It is an immutable request-scoped value, constructed from current database rows. No caller-supplied organization, role, user ID, or membership version is authoritative.
+- A request with multiple memberships must select an organization through a dedicated session-context operation. The server verifies current active membership before changing the session context and rotates the session identifier/secret after the context change. Resource requests cannot switch tenant via a query, header, route, or body field.
+- Disabled users, revoked/expired sessions, suspended or removed memberships, and stale membership versions fail closed before controller or job-handler dispatch.
+
+### Session transport and lifecycle
+
+- Browser sessions use a high-entropy, cryptographically random opaque secret in a `Secure; HttpOnly; SameSite=Lax; Path=/` cookie. Production cookies are host-only and do not specify `Domain`. State-changing browser requests require same-origin validation and a CSRF defense bound to the session. Tokens never appear in URLs, logs, analytics, or client-readable storage.
+- Persist only a keyed digest of the session secret, never the raw secret. Persist user ID, active organization ID, creation/last-seen/absolute-expiry/idle-expiry timestamps, revocation timestamp/reason, and membership version. Secret hashing key rotation and session expiry policy are configuration requirements before deployment.
+- Login and session-context changes rotate secrets; logout revokes the server-side session and clears the cookie with matching attributes. Password reset, user disablement, and security-sensitive membership changes revoke affected sessions. Expiry and revocation are checked on every request, not only when the session is created.
+- Authentication mechanism, credential verification, rate limits, recovery, MFA policy, cookie key management, CSRF token format, and expiry durations remain explicit implementation decisions. Do not claim password/OIDC login until each has a selected design and tests.
+
+### Tenant-scoped authorization
+
+- Each protected request resolves the session and reloads user status and the active organization membership from authoritative storage. The actor's organization and role are derived from that row.
+- Every organization-owned read, direct-ID lookup, search, pagination count, export, and mutation includes the actor organization predicate in the storage query. Post-fetch filtering or a UI-only check is not sufficient. Composite foreign keys should preserve same-tenant relationships where applicable.
+- An unknown ID and an ID owned by another organization return the same non-disclosing `404 RESOURCE_NOT_FOUND` response. Unauthenticated/invalid sessions return `401 AUTH_REQUIRED`. Authenticated actors lacking an operation role return `403 PERMISSION_DENIED` only when disclosing existence is safe; otherwise use the non-disclosing 404 policy. No response includes another tenant's identifiers, counts, names, or timing-sensitive details.
+- Mailbox-content access is a separate capability: an active tenant membership and provider-admin role do not imply content access. The request must also carry a current, mailbox-specific content grant with the required consent state and scope. Apply the same tenant predicate to the grant and mailbox.
+
+### Queued work and revocation
+
+- Enqueue records the initiating user, organization, operation, target IDs, required capability snapshot/version, and minimal audit correlation ID. It must not serialize a bearer/session secret or assume enqueue-time authorization remains valid.
+- Immediately before handler dispatch, the worker reloads user status, current organization membership, target ownership, and required grants/capabilities. Revoked membership or grant yields a terminal `authorization_revoked` outcome and no provider call. A dispatched external mutation with uncertain outcome follows the existing unknown/reconciliation policy; it is never blindly replayed.
+- Persisted queue payloads and retry/dead-letter records are tenant-scoped and redact mailbox content and credentials. Cross-tenant job IDs receive the same non-disclosing not-found behavior as other resources.
+
+### Audit events
+
+- Record successful and denied login/session creation, logout/revocation, organization-context changes, membership role/status changes, authorization denials, and privileged mutations with actor (nullable for pre-auth failures), organization (when known), action, outcome, target type/ID, timestamp, request correlation ID, and allowlisted safe attributes.
+- Never record session secrets, passwords, OAuth tokens, message bodies, full request bodies, or raw authorization headers. Audit writes are append-only for application roles and must not fail open for security-critical authorization or membership mutations.
+- Pre-authentication failures use a platform/security audit scope because no tenant can be trusted. A tenant ID inferred only from untrusted request data is not used as the audit organization.
+
+### Required denial and recovery behavior
+
+| Scenario | Required result | Side effects |
+|---|---|---|
+| Missing, malformed, expired, or revoked session | `401 AUTH_REQUIRED` | No controller/job dispatch; safe security audit event |
+| Active session, disabled user, or inactive membership | `401 AUTH_REQUIRED` or `403 PERMISSION_DENIED` per non-disclosure policy | Revoke session where required; no protected read/write |
+| Cross-tenant direct ID or search | Non-disclosing empty result/`404 RESOURCE_NOT_FOUND` | No foreign row/count/metadata leakage; audit denial |
+| Membership revoked after queue enqueue | Job stops before handler dispatch as `authorization_revoked` | No provider side effect; audit correlation retained |
+| Missing/revoked mailbox content grant | `403 PERMISSION_DENIED` or non-disclosing 404 | No content access; no provider call |
+| Audit persistence unavailable for a security-critical write | Fail closed with service error | Do not perform the protected mutation |
+
+### Acceptance evidence before P1-06 can be verified
+
+1. Unit tests prove untrusted tenant/role fields cannot create or widen an actor.
+2. Two-tenant API tests cover direct IDs, list/search/count/pagination, mutation, and non-disclosing responses.
+3. Session tests cover rotation, expiry, logout/revocation, disabled user, and membership switch/revocation.
+4. A queued-job test revokes membership after enqueue and proves no handler/provider dispatch occurs.
+5. Audit tests prove required actions are recorded and secrets/content are excluded.
+6. The selected identity implementation and the full test suite pass; local contract documentation alone is not production authentication evidence.
