@@ -1,11 +1,11 @@
-# Deployment matrix (planned)
+# Deployment matrix (initial)
 
-| Mode | Current state | Planned dependency |
+| Mode | Status | Notes |
 |---|---|---|
-| Local synthetic demo | Prototype | Node/npm; no provider credentials |
-| Local integration development | Not implemented | PostgreSQL, Redis, mock provider fixtures |
-| Self-hosted VPS / Docker Compose | Not implemented | Persistent PostgreSQL, queue workers, TLS/reverse proxy, backup/object storage |
-| Managed cloud | Not implemented | Tenant/security model, operational SLOs and policy review |
-| Desktop/mobile | Deferred | Web/API stability and platform-specific security/UX gates |
+| Local synthetic demo | Supported | Node 22+, no external dependencies; no real mail |
+| VPS/container self-host | Planned | Needs DB, queue, persistent storage, TLS, workers, measured sizing |
+| Managed cloud | Future | Tenant/data region, operational controls and processor terms required |
+| Shared cPanel hosting | Unsupported assumption | Long-running workers/queue/network egress not guaranteed |
+| Desktop/mobile | Later phases | Only after web and sync security gates |
 
-Do not claim ordinary restricted shared hosting can run the required persistent worker and storage services. Resource sizing requires measured workloads.
+No production sizing or provider-endpoint allowlist is published yet.

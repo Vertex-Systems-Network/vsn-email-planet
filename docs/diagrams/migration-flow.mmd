@@ -1,0 +1,11 @@
+flowchart TD
+  A[Map authorized source/destination] --> B[Preflight and dry-run]
+  B --> C{Hard checks pass?}
+  C -- No --> D[Block with reasons]
+  C -- Yes --> E[Snapshot and manifest]
+  E --> F[Initial transfer]
+  F --> G[Delta sync]
+  G --> H[Verify parity and access]
+  H --> I{Cutover authorized?}
+  I -- No --> J[Retain source and report ready]
+  I -- Yes --> K[Cutover, monitor, verify]

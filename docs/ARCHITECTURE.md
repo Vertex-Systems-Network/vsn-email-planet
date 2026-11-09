@@ -1,40 +1,16 @@
-# Architecture (initial decision)
+# Architecture (initial proposal)
 
-## Boundaries
+Proposed MVP: portable TypeScript-oriented modular monolith. Web/API, identity and policy, connector adapters, durable worker jobs, PostgreSQL state, encrypted object storage and optional search are separated by bounded contracts. No microservice split before measured operational need. No production stack selection is final until `ADR-0001-STACK.md` is complete.
 
-1. **Web client:** Next.js App Router/React; UI never treats hidden controls as authorization.
-2. **API/control plane:** NestJS modular monolith; authenticates users, resolves tenant context server-side, authorizes every read/write, and emits structured outcomes.
-3. **Data plane:** separate, consent-gated mailbox content modules and sync workers; no panel credential implies message access.
-4. **Provider plane:** external systems of record. Adapters declare per-resource capability and reason; unsupported actions fail explicitly.
-5. **Persistence/work:** PostgreSQL is the transactional source of truth. The first job primitive uses tenant-scoped PostgreSQL rows claimed with `FOR UPDATE SKIP LOCKED`, fencing generations and a transactional event outbox. This is a queue-of-record prototype, not yet a production worker or a proven high-throughput substitute for Redis/BullMQ; a broker decision awaits measured throughput/recovery evidence.
+The synthetic prototype is a Node-served dashboard plus a read-only same-origin fixture API with two synthetic organizations. Published fixture bearer tokens model tenant filtering in tests; they are not authentication. Separately, the repository contains a Next.js web app, NestJS API, PostgreSQL migrations, and durable job/worker/outbox primitives with PGlite tests. Those foundations do not establish production authentication, a real PostgreSQL runtime proof, provider connectivity, mailbox-content access, or outbound mail.
 
-The first increments implement a PostgreSQL control-plane schema and checksummed migration runner, tenant-scoped job/outbox lease primitives, a handler-driven worker loop, and a generic outbox publisher callback loop. The runtime API does not yet persist application data or authenticate users. Neither loop is launched by deployment, no provider handlers or broker adapter are connected, and crash/load recovery is not tested. The dashboard is clearly synthetic. API health confirms process availability only.
+## Trust boundaries
+1. Browser session and tenant-scoped UI.
+2. Authenticated API and policy checks (not yet implemented in prototype).
+3. Job queue/workers carrying tenant, connection, permission and idempotency context.
+4. External provider APIs and user-supplied endpoints (SSRF-sensitive).
+5. Encrypted database/object storage; email body/attachments classified as high sensitivity.
+6. Optional model providers receive only approved, redacted input; email remains untrusted data.
 
-## Durable job and outbox contract (prototype)
-
-- Every job is organization-scoped and deduplicated by `(organization_id, idempotency_key)`; mailbox jobs also carry provider-connection and mailbox keys. The payload is represented only by an optional opaque reference; message bodies and credentials do not belong in queue rows.
-- A worker must present an organization ID to claim work. PostgreSQL row locks plus a partial unique mailbox index serialize active work for the same tenant/connection/mailbox. A monotonically increasing lease generation fences stale heartbeat/completion acknowledgements.
-- Expired read-only/internal jobs can be reclaimed within the bounded attempt budget. If an external mutation had crossed the persisted dispatch boundary, lease expiry moves it to `unknown`; another mutation for that mailbox is held until an operator/reconciler confirms applied or confirmed-not-applied. A timeout after a provider request can never be proved safe by a database lease alone.
-- The queued event is inserted in the same transaction as its job. Outbox delivery is at-least-once: a publisher crash after downstream delivery but before acknowledgement can redeliver, so consumers must deduplicate. The generic callback publisher claims/acks events and persists a safe error code, but no broker adapter is connected.
-- `apps/api/db/worker.mjs` runs one job or polls for more using registered handlers, periodic heartbeats and an abort signal; it also runs a callback based outbox publisher. This is infrastructure without provider handlers, a broker adapter or a managed process entrypoint; a hard process kill remains subject to lease expiry/reconciliation.
-- This prototype is not a general-purpose reliable queue guarantee: throughput, lock contention, multi-worker concurrency under PostgreSQL, dead-letter operations, observability, provider-specific reconciliation and process recovery have not been load/chaos tested.
-
-## OAuth and browser trust direction
-
-Because VSN will handle sensitive email data, use a server-side Backend for Frontend (BFF) as the default OAuth connection architecture: Authorization Code + PKCE, provider tokens kept on the server, and an application session cookie for browser calls. Any BFF proxy path must map to explicit provider hosts and allowed methods. User-configured IMAP/SMTP hosts require a separate constrained connector network path and SSRF defenses. This is an architecture direction from RFC 10017, not implemented authentication. Keep provider OAuth consent distinct from VSN user identity and tenant membership.
-
-## Intended trust flow
-
-```mermaid
-flowchart LR
-  U[User] --> W[Web UI]
-  W --> A[Authenticated API]
-  A --> T[Tenant policy]
-  T --> C[Capability-gated modules]
-  C --> D[(PostgreSQL)]
-  C --> Q[Bounded workers]
-  Q --> P[Provider adapters]
-  P --> X[External providers]
-```
-
-Provider reads, sends, mailbox content, secrets and DNS mutation remain out of the first prototype. See `docs/SECURITY_THREAT_MODEL.md` before expanding these boundaries.
+## Diagram
+See [`diagrams/architecture.mmd`](diagrams/architecture.mmd). It is a target architecture, not a claim that these components are implemented.

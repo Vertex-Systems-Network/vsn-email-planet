@@ -1,0 +1,8 @@
+flowchart TD
+  A[Welcome and deployment choice] --> B[Preflight environment]
+  B --> C{Requirements pass?}
+  C -- No --> D[Actionable repair]
+  C -- Yes --> E[Configure DB, workers and storage]
+  E --> F[Protect keys and initialize admin]
+  F --> G[Run migrations and service checks]
+  G --> H[Show verified setup summary]

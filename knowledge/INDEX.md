@@ -1,15 +1,29 @@
-# Persistent knowledge index
+# Knowledge banks
 
-The governing master specification is the complete initial requirement and option bank. Project-specific evidence is maintained in the linked files below; do not duplicate unverified claims into a second vague bank.
+The full bank taxonomy is defined in the master specification. Current active sources:
 
-| Bank | Current source of truth | State |
+| Bank | Location | State |
 |---|---|---|
-| Product requirements / opportunities | Master spec; `docs/ROADMAP.md`; `backlog/tasks.json` | Initial requirements indexed; prioritization ongoing |
-| Provider capability / connector patterns | `docs/PROVIDER_CAPABILITIES.md`; `docs/RESEARCH/PROVIDER_LIMITS.md` | Research only; no adapters |
-| Flows / systems / architecture | `docs/ARCHITECTURE.md`, `docs/diagrams/` | Initial boundary only |
-| Design / screens | `knowledge/design/requirements.yaml`; `knowledge/screens/screen-matrix.csv`; `docs/UX_SPEC.md` | Initial overview screen only |
-| Data / API / security | `docs/DATA_MODEL.md`, `docs/SECURITY_THREAT_MODEL.md`, `docs/TEST_STRATEGY.md` | Contracts and gaps, no production implementation |
-| Migration / recovery | Master spec sections 20–21; P6 backlog seed | Future; not implemented |
-| AI / automation / operations | Master spec sections 5, 8–10, 23–24; P7/P8 gates | Future; no AI integration |
-| Market / research / options | `docs/RESEARCH/` and ADRs | Partial primary-source review |
-| Performance / releases | `docs/DEPLOYMENT_MATRIX.md`; phase gates | No measured benchmark or release artifact |
+| Product requirements | `knowledge/requirements/` + `backlog/tasks.json` | Initial index; scope comes from master spec |
+| Ideas/opportunities | `docs/RESEARCH/MARKET_GAPS.md` | Hypotheses only |
+| Provider capabilities | `knowledge/providers/`, `docs/RESEARCH/PROVIDER_LIMITS.md` | Partial official-source findings |
+| Connector patterns | `docs/ARCHITECTURE.md` | Proposed; no adapter implemented |
+| User flows | `docs/UX_SPEC.md`, `docs/diagrams/` | Initial states only |
+| Systems/architecture | `knowledge/systems/`, `docs/ARCHITECTURE.md` | Proposal |
+| Design/screens | `knowledge/design/`, `knowledge/screens/screen-matrix.csv` | Prototype slice |
+| Data model | `docs/DATA_MODEL.md` | Draft |
+| API/events | Backlog P2/P3 tasks | Not yet specified in detail |
+| Security/abuse | `docs/SECURITY_THREAT_MODEL.md` | Initial threat boundary |
+| Migration/recovery | `docs/PRODUCT_SPEC.md`, backlog P6 | Requirements only |
+| AI | Master specification, backlog P8 | Policy requirement only |
+| Operations | `docs/OPERATIONS_RUNBOOK.md` | Planned |
+| Competitors/research/options | `docs/RESEARCH/` | Partial |
+| Testing | `docs/TEST_STRATEGY.md`, `test/` | Local synthetic tests |
+| Performance/cost | `docs/SLOS.md` | No measurements yet |
+| Releases/compatibility | `docs/DEPLOYMENT_MATRIX.md` | Initial local demo only |
+
+Do not create empty record files merely to make the bank list appear complete. Update these sources with dated evidence as work advances.
+
+## Canonical machine-readable catalog
+
+`knowledge/banks.json` contains 20 bank records with current state, evidence sources, alternatives/tradeoffs, priority, dependencies, review date, decision state, documentation links and existing verification paths. The validator checks uniqueness/completeness; future tests should link to focused tests rather than only strategy documents.

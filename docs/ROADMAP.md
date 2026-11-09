@@ -1,11 +1,17 @@
-# Roadmap and phase gates
+# Roadmap
 
-Phase order and exit criteria follow sections 51–65 of the governing master specification. This project has not completed any product release phase.
+The phase goals and release gates follow the master specification. This repo's task ledger tracks detailed work and evidence.
 
-| Phase | Outcome | State | Evidence / remaining gate |
-|---|---|---|---|
-| P0 | Bounded evidence-based feasibility, architecture, UX, security, backlog and tested prototype | IN_PROGRESS | Source findings and stack ADR started; complete competitor/provider research, model/threat/UX design and local feasibility tests remain |
-| P1 | Reproducible monorepo, web/API, persistence, auth/tenancy, audit, CI and setup | IN_PROGRESS | Workspace/dashboard/health prototype and initial checksummed tenant-keyed control-plane schema; native PostgreSQL, auth, queue and API persistence gates remain |
-| P2–P12 | Provider, inbox, administration, infrastructure, migration, incident, AI, production, desktop, mobile and ecosystem releases | NOT_STARTED | Dependency-ordered; see master specification and `backlog/tasks.json` |
-
-No completion percentage is shown because no phase exit gate is complete.
+| Phase | Focus | Status |
+|---|---|---|
+| P0 | Research, feasibility, product/security/UX/data specifications, prototype | In progress |
+| P1 | Monorepo foundation, auth/tenancy, migrations, audit, CI, installation base | In progress |
+| P2 | Connector SDK, capability engine, cPanel/WHM metadata, generic IMAP discovery | Not started |
+| P3 | Gmail/Graph/IMAP sync, inbox, safe sending and search | Not started |
+| P4 | Provider admin operations and agency controls | Not started |
+| P5 | Topology, DNS, deliverability and monitoring | Not started |
+| P6 | Migration, archive, backup and restore | Not started |
+| P7 | Incident center and governed automation | Not started |
+| P8 | Privacy-governed AI and evaluations | Not started |
+| P9 | Web hardening, self-host installation and release | Not started |
+| P10-P12 | Desktop, mobile, enterprise/ecosystem | Not started |

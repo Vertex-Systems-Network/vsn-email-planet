@@ -2080,6 +2080,56 @@
           "evidence": "Seeded from governing specification; not verified."
         }
       ]
+    },
+    {
+      "id": "P0-06",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Inventory product screens, roles, devices and key states",
+      "outcome": "A complete, traceable design scope exists before expanding UI implementation",
+      "description": "Translate the master screen inventory into a machine-readable route/role/device/state map with truthful implementation status.",
+      "scope": [
+        "knowledge/screens/screen-inventory.json",
+        "test/screen-inventory.test.js",
+        "docs/UX_SPEC.md"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-01",
+        "P0-05"
+      ],
+      "current_status": "VERIFIED",
+      "acceptance_criteria": [
+        "At least 100 routes cover all ten required functional areas",
+        "Each route lists roles, devices, states and implementation status",
+        "Only implemented routes link to existing evidence",
+        "Automated test validates completeness and unique route IDs"
+      ],
+      "test_plan": [
+        "Node test validates screen inventory completeness and evidence references",
+        "npm run check"
+      ],
+      "evidence_paths": [
+        "knowledge/screens/screen-inventory.json",
+        "test/screen-inventory.test.js"
+      ],
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS",
+      "target_environment": "LOCAL_DOCUMENTATION",
+      "last_verified_commit": "0a956fc86542e2b5b1cab053663b0eb7ab6272b7",
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Route/state inventory may be broader than an MVP; phase labels provide sequencing"
+      ],
+      "decisions": [],
+      "next_action": "Revisit only when routes or role/device/state requirements change; keep implementation status synchronized with verified UI evidence.",
+      "notes": "131 route records cover all ten required product areas. Local test validates unique IDs, role/device/state fields, allowed implementation statuses and evidence paths for partial prototype routes. This is scope definition, not route implementation."
     }
   ]
 }

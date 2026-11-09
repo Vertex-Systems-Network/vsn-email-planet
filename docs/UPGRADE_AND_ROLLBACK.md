@@ -1,3 +1,3 @@
 # Upgrade and rollback plan
 
-No persistent database schema or production upgrade exists yet. Future releases must preflight versions and storage, take/verify an application backup, use forward-compatible migrations, record progress, support safe re-entry after interruption and document conditions where rollback is unsafe. Test from each supported previous version before release.
+No persistent production schema exists. Once introduced, upgrades require an explicit supported-version matrix, preflight, verified backup, idempotent migrations, compatible rollback strategy, maintenance/worker coordination and post-upgrade health checks. Never infer rollback safety from reversible application code when data migrations or external provider state changed.

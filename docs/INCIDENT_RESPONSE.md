@@ -1,3 +1,3 @@
-# Incident response (initial)
+# Incident response plan (draft)
 
-The product is not deployed and currently has no customer-data incident surface. Before production, establish severity definitions, on-call ownership, containment, credential/token revocation, audit/evidence preservation, customer/provider notification criteria, privacy/legal escalation, restore verification, postmortems and a tested exercise. Never include message bodies or secrets in support bundles by default.
+No production service exists. Before deployment define severity, on-call owner, evidence preservation, credential/token revocation, tenant/customer notification policy, key rotation, containment, recovery, legal escalation and postmortem. Run synthetic compromise/tenant-isolation drills before release; do not use customer data as a test fixture without authorization.

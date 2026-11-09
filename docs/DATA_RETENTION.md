@@ -1,3 +1,3 @@
-# Data retention plan
+# Data retention draft
 
-No production content is stored. Before adding message persistence, specify per-tenant choices for metadata versus full message cache, attachment lifecycle, search index retention, archive/backup distinction, deletion/tombstones, legal holds, export, consent revocation and key destruction. Logs must never contain raw message bodies, OAuth tokens, passwords or attachments. Retention defaults remain unselected pending product/security design.
+No actual mail or personal data is retained by the prototype. Later data classes need separate retention: credentials/tokens (revocable and encrypted), provider metadata, message metadata/body/attachments, operational logs, audit, archives and backups. Define per-tenant opt-in/indexing, retention windows, legal hold conflicts, export/purge semantics, key lifecycle and deletion evidence before storage implementation.

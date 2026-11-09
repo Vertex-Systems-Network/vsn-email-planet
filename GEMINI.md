@@ -1,3 +1,2 @@
-# Gemini CLI entry
-
-Read [`AGENTS.md`](AGENTS.md), the governing specification, project state, next action, handoff, backlog and relevant ADRs. Inspect Git before edits; run scoped checks; update evidence and checkpoint state. Do not report mocks as live integrations.
+# Gemini CLI startup
+Follow `AGENTS.md` as canonical. Read the master specification and current state/backlog/handoff before acting. Inspect Git first, implement one authorized increment, run applicable checks, record evidence, update state, and checkpoint. Never infer live provider access from mocks.

@@ -1,25 +1,31 @@
-# UX and design specification — initial slice
+# UX foundation and screen-state matrix
 
-## Product principles
+## Product direction options
+1. Dense neutral operations console: high information density, status-first, restrained color. **Selected for prototype** because mail operations require triage and provenance.
+2. Consumer-first unified inbox: approachable but underplays provider/admin diagnostics.
+3. Graph-first infrastructure map: useful specialist view, poor default inbox/operations entry.
 
-- Every view answers current verified state, allowed action, impact, verification/reversal, or next step.
-- Show freshness and provenance. The first dashboard labels every metric as synthetic demo data.
-- Keep dense operations readable, keyboard usable and status understandable without color alone.
-- Use a neutral warm-gray surface, ink/navy navigation, restrained violet brand action and semantic green/amber/red status. Avoid fake real-time indicators.
-- Build responsive layout, reduced-motion behavior, visible focus, semantic landmarks and accessible names from the start. RTL readiness is required before localization release.
+Selection applies to this prototype, not a final product design system. Keep readable surfaces, semantic statuses with text/icons, clear permission labels, and no decorative fake telemetry.
 
-## Visual direction scorecard
+## IA (first navigation slice)
+Overview → Providers → Domains → Mailboxes → Incidents → Migrations → Audit. The prototype implements overview/providers/domains/mailboxes navigation affordances and a synthetic provider inventory only. Unimplemented routes must be visibly unavailable, not pretend to be functional.
 
-| Direction | Strength | Risk | Decision |
-|---|---|---|---|
-| A. Quiet operations console: warm neutral canvas, ink rail, violet action accent | Clear hierarchy, dense-data friendly, distinct without decoration | Requires disciplined spacing and contrast | Selected for prototype |
-| B. High-contrast dark command center | Strong incident visibility | Poor long-session reading and chart density without a dedicated light mode | Deferred |
-| C. Bright consumer mail client | Familiar inbox affordances | Hides admin provenance/risk hierarchy; weak differentiation for operators | Rejected for primary admin shell |
+## Prototype acceptance
+Responsive sidebar/header, keyboard reachable controls, search/filter over fixture rows, resource detail state, explicit synthetic-data banner, status legend and empty-result state. Contrast and full WCAG 2.2 AA audit remain pending.
 
-Selection is a design hypothesis, not a usability study result.
+## Future screen/state matrix
+Use `knowledge/design/requirements.yaml` and `knowledge/screens/screen-matrix.csv`; include role × device × state dimensions as the feature scopes mature.
 
-## Initial route and states
+## Complete screen inventory
 
-`/` — overview dashboard. Shows synthetic sample connection inventory, operational summary and mailbox list; no real provider activity. Initial viewport has navigation, workspace scope, persistent demo notice, operational KPI cards, provider health and recent mailbox table. Search filters the local sample dataset. All other navigation routes are future work and must not imply functionality.
+`knowledge/screens/screen-inventory.json` maps the required route inventory across global, connections, administration, inbox, infrastructure, migration, recovery, automation/AI, reports/operations and installation. Each route carries role, device, state coverage and implementation status. The inventory is scope, not completion evidence; only the current dashboard/provider prototype is marked `PROTOTYPE_PARTIAL`.
 
-Required next states: empty workspace, connection partial/offline, stale observation, filter no-results, permission denied, provider rate limited, narrow viewport, keyboard-only and screen-reader validation.
+
+## Provider capability detail
+
+The provider detail view loads the tenant-scoped synthetic capability endpoint and displays each operation’s state, reason, source, check time and required next action. `NEEDS_CONSENT` remains distinct from panel/admin access; unsupported and provider-disabled states are visible. All values are labeled synthetic. The endpoint has an integration test for same-tenant access, cross-tenant 404 and read-only behavior. Browser visual/accessibility review remains pending.
+
+
+## Domain and mailbox inventory behavior
+
+The Domains and Mailboxes navigation now loads distinct tenant-filtered API resources. Domain rows show domain/provider, unverified DNS status and synthetic mailbox count. Mailbox rows show mailbox/domain/provider, content-access state and fixture status. Search fields follow the resource type; status filters are reset to a valid value when switching views. The detail modal loads metadata through tenant-scoped detail endpoints. These are synthetic examples, not DNS checks or mailbox connections. Local HTTP/filter tests pass; browser layout and accessibility checks remain pending.

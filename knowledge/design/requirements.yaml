@@ -1,47 +1,43 @@
 version: 1
-updated: 2026-11-09
-product: VSN Email Planet
+status: initial
 principles:
-  - Show verified state, provenance, freshness, confidence, allowed action, and next step.
-  - Never make synthetic fixture data look live; persistent demo disclosure is required.
-  - Separate control-plane inventory from separately authorized mail content.
+  - evidence before action
+  - show permission and freshness beside provider state
+  - neutral readable operations surfaces
+  - status cannot rely on color alone
+  - responsive and keyboard usable
+  - label synthetic/demo data visibly
+visual_direction:
+  selected: dense-neutral-operations-console
+  alternatives: [consumer-unified-inbox, graph-first-infrastructure]
 tokens:
-  color:
-    canvas: "#f5f6f8"
-    surface: "#ffffff"
-    ink: "#172033"
-    muted: "#697386"
-    navigation: "#152238"
-    action: "#6659e8"
-    success: "#18794e"
-    warning: "#9a5b00"
-    critical: "#b42318"
-  typography: "Inter/system sans stack; no remote font download in local prototype"
-  radius: [8, 12, 18]
-  spacing_base_px: 4
-accessibility:
-  target: WCAG 2.2 AA for release-critical journeys
-  requirements: [keyboard navigation, visible focus, semantic status text, reduced motion, non-color status cues, logical landmarks]
+  colors:
+    surface: "#f5f7fa"
+    panel: "#ffffff"
+    text: "#14212b"
+    muted: "#61717e"
+    accent: "#176b66"
+    success: "#176b4b"
+    warning: "#8b5b08"
+    danger: "#a33333"
+  typography: "system UI for prototype; production font decision pending"
+  spacing: "4px base scale, prototype-only"
+  focus: "visible 2px accent outline"
 responsive:
-  breakpoints_px: [640, 900, 1200]
-  behavior: "Desktop-first tables become labeled compact cards or horizontally scrollable with preserved headers; navigation collapses with an accessible toggle."
+  desktop: "sidebar plus data table"
+  mobile: "stacked navigation, single-column summary and horizontally scrollable table"
 screens:
   - id: overview
-    route: /
-    roles: [demo-user]
-    states: [synthetic-populated, searching, no-results]
-    evidence: [apps/web/app/page.tsx, apps/web/components/dashboard.tsx]
-  - id: connections
-    route: /connections
-    roles: [tenant-admin]
-    states: [planned]
-    evidence: []
-  - id: inbox
-    route: /inbox
-    roles: [authorized-mailbox-user]
-    states: [planned]
-    evidence: []
-brand_directions:
-  selected: "Quiet operations console: warm neutral workspace, ink/navy rail, restrained violet actions, semantic status colors."
-  hypothesis: true
-  alternatives: [high-contrast-dark-command-center, bright-consumer-mail-client]
+    states: [synthetic, loading, empty, error, filtered-empty]
+    roles: [viewer, operator]
+    implemented: true
+  - id: provider-inventory
+    states: [synthetic, selected, filtered-empty]
+    roles: [viewer, operator]
+    implemented: true
+accessibility:
+  - keyboard navigation
+  - semantic controls and labels
+  - reduced-motion support
+  - no color-only status meaning
+  - WCAG audit pending

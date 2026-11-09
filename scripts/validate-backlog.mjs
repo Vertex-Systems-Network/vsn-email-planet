@@ -20,16 +20,20 @@ for (const task of backlog.tasks ?? []) {
   for (const dependency of task.dependencies) {
     if (!ids.has(dependency)) errors.push(`${task.id}: unknown dependency ${dependency}`);
   }
-  let lastStatus = null;
-  for (const event of task.status_history ?? []) {
+  // `status_history` is optional in schema v1; when present, validate it fully.
+  if (task.status_history !== undefined) {
+    if (!Array.isArray(task.status_history)) errors.push(`${task.id}: status_history must be an array`);
+    let lastStatus = null;
+    for (const event of task.status_history ?? []) {
     if (event.from !== lastStatus) errors.push(`${task.id}: broken status history at ${event.to}`);
     if (event.from !== null && !backlog.status_transitions[event.from]?.includes(event.to)) {
       errors.push(`${task.id}: illegal status history transition ${event.from} -> ${event.to}`);
     }
     if (!backlog.allowed_statuses.includes(event.to)) errors.push(`${task.id}: history has unknown status ${event.to}`);
-    lastStatus = event.to;
+      lastStatus = event.to;
+    }
+    if (lastStatus !== task.current_status) errors.push(`${task.id}: status history does not end at current_status`);
   }
-  if (lastStatus !== task.current_status) errors.push(`${task.id}: status history does not end at current_status`);
 }
 
 for (const [from, targets] of Object.entries(backlog.status_transitions ?? {})) {
