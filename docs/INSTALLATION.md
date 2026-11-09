@@ -1,10 +1,11 @@
-# Installation
+# Local development
 
-## Local demo
+Prerequisites: Node.js 24.15.0 or newer and npm 11. Run `npm ci` from the repository root.
 
-Requires Node `>=22.14 <25` and npm `>=11 <12`. Run `npm ci`, then `npm run dev`; open `http://localhost:3000`. This launches a synthetic dashboard with no provider connectivity. `npm run dev:api` starts an independent health process at `http://localhost:4000/health`.
+- `npm run dev` starts the Next.js web app at `http://localhost:3000`.
+- `npm run dev:api` starts the NestJS health API at `http://localhost:4000/health`.
+- `node scripts/dev-server.mjs` starts the synthetic provider/domain/mailbox prototype at `http://localhost:4173`.
 
-This is not a production installation. Database, Redis, authentication, TLS, secret management, backups, workers and provider connections are not implemented yet.
-# Database migration baseline
+The prototype uses published synthetic fixtures only. Fixture bearer identities are public test values, not authentication. No live provider, OAuth, or mailbox-content access is performed.
 
-For a configured PostgreSQL database, set `DATABASE_URL` in the process environment and run `npm run db:migrate` as a single deployment/release step. The runner applies immutable checksummed migrations under a transaction-scoped advisory lock. It refuses to run without a URL. The first migration creates control-plane metadata only; the HTTP API does not yet persist requests. Never point the migration smoke test at a production database.
+For PostgreSQL migration/runtime checks, configure `DATABASE_URL` to an authorized disposable PostgreSQL database. `npm run test:postgres` is the real-server smoke path; PGlite unit tests do not replace it. Production deployment is not supported yet; restricted shared hosting is not an assumed target.

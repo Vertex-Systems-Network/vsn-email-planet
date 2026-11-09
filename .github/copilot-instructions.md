@@ -1,3 +1,2 @@
-# GitHub Copilot instructions
-
-Follow [`../AGENTS.md`](../AGENTS.md) and the repository's full governing specification. Inspect the current backlog and project state before changing files. Keep tenant authorization server-derived, provider capabilities explicit, email content untrusted, and simulated integrations labeled. Run appropriate checks and update evidence/state with each verified increment.
+# GitHub Copilot repository guidance
+The canonical instructions are in root `AGENTS.md`; the product contract is `AI_Native_Central_Email_Platform_Master_Prompt.md`. Inspect current project state and backlog before edits. Preserve security boundaries and truthful test/provider status. Keep changes focused and documented.

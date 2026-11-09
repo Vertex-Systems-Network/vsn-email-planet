@@ -1,5 +1,3 @@
-# Privacy and consent plan
+# Privacy and consent (initial plan)
 
-The current prototype contains synthetic sample data and does not collect mailbox contents or provider credentials. Future connections must explain requested scope, access route, metadata/content distinction, storage, AI use, retention and revocation before consent. Full-text sync requires separate mailbox-level authorization and a clear no-AI/private mode. Provider admin access does not imply private content access.
-
-Region, data processing agreements, cross-border transfers, deletion/export, worker logs and AI vendor retention require deployment- and market-specific assessment. No legal compliance claim is made.
+The prototype uses synthetic domain/provider labels and contains no message bodies, real users, tokens, cookies or telemetry. Future onboarding must disclose which metadata/content is collected, purpose, retention, model subprocessors and deletion path before authorization. Provider control access and per-mailbox content access require separate grants. No compliance certification is claimed.

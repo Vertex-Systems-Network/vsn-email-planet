@@ -1,0 +1,9 @@
+flowchart TD
+  A[User request] --> B[Resolve identity and tenant]
+  B --> C[Retrieve authorized evidence]
+  C --> D[Draft plan or response]
+  D --> E[Validate policy, PII and recipient]
+  E --> F{Action allowed?}
+  F -- No --> G[Keep draft and explain]
+  F -- Yes --> H[Execute narrow tool]
+  H --> I[Verify effect and audit]

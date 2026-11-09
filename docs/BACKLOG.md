@@ -9,6 +9,7 @@ The authoritative task records and legal status transitions are in `backlog/task
 | P0-01 | P0 | Repository and history audit | VERIFIED | Preserve existing commits; no repeat audit needed |
 | P0-02 | P0 | Research bank | PARTIALLY_VERIFIED | Finish live provider-policy, accessibility and buyer-validation gaps; initial papers/deletion semantics are documented |
 | P0-05 | P0 | Synthetic feasibility workflow | VERIFIED | Review prototype and close remaining P0 evidence gates |
+| P0-06 | P0 | Product screen, role, device and state inventory | VERIFIED | Revisit only when route or access requirements change; keep implementation status tied to UI evidence |
 | P1-01 | P1 | Workspace, rules, CI | PARTIALLY_VERIFIED | Resolve remaining setup/documentation gaps |
 | P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Browser review remains: visual/responsive, keyboard, screen-reader and contrast |
 | P1-03 | P1 | API health process | VERIFIED | Extend beyond process health only after persistence increment |

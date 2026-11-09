@@ -1,0 +1,8 @@
+flowchart TD
+  A[Observation] --> B[Correlate affected resources]
+  B --> C[Attach evidence and confidence]
+  C --> D[Choose scoped diagnostic]
+  D --> E{Authorized action?}
+  E -- No --> F[Report safe recommendation]
+  E -- Yes --> G[Apply scoped change]
+  G --> H[Verify and audit]

@@ -1,0 +1,9 @@
+flowchart TD
+  A[Draft or workflow request] --> B[Check tenant sender recipients]
+  B --> C{Policy allows?}
+  C -- No --> D[Save draft with denial reason]
+  C -- Yes --> E[Persist intent and idempotency key]
+  E --> F[Dispatch to provider]
+  F --> G{Receipt certain?}
+  G -- No --> H[Mark UNKNOWN and reconcile]
+  G -- Yes --> I[Record acceptance and audit]
