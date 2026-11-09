@@ -56,3 +56,9 @@ Verification level: local prototype contract only; not a release gate.
 - Fixture bearer tokens are public source-code test values, not authentication. This prototype has no persisted identity, session security, database, provider access or real message access.
 - PostgreSQL/worker vertical proof is blocked by unavailable local Docker/Podman/PostgreSQL tools; no claim of migration or queue testing.
 - Current slice is pending its own remote CI result until this commit is pushed and the run is inspected.
+
+## Tenant API remote checkpoint
+
+- Commit `2ba00f5d5db977d1845bdf5e7e500a007019834d` confirmed on `feat/phase-0-foundation`.
+- GitHub Actions run `42684912974` completed with `success` on that commit.
+- P1-04 is `DONE` only for its scoped, read-only synthetic API fixture acceptance. It does not mean production authentication, database-backed tenant isolation, live provider access, or P1 as a whole is complete.

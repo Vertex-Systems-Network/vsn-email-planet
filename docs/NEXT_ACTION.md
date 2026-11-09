@@ -1,8 +1,8 @@
 # Next action
 
-1. Checkpoint the read-only tenant API fixture increment and confirm CI on the feature branch.
-2. Inspect branch/status/history and read the latest handoff/backlog.
-3. Complete focused primary-source comparison for hosting/MSP, migration/backup and deliverability categories; validate agency workflow assumptions without claiming a proven gap.
-4. Build a small PostgreSQL tenant-context vertical slice to compare ORM migrations and durable worker recovery; update ADR-0001 with actual outcomes.
-5. Expand the screen-role-device-state matrix, then inspect the local app in a browser for visual and accessibility issues.
-6. Continue with authenticated tenant/API foundation only after the architecture proof; keep provider actions blocked until a sandbox is authorized.
+1. Inspect `git status --short --branch`, `git log --oneline -5`, and this handoff.
+2. Finish primary-source competitor comparison for hosting administration, MSP, migration/backup and deliverability categories; record confidence and keep gap claims as hypotheses.
+3. Expand the route × role × device × state screen matrix for the next scoped milestone, then perform rendered browser/accessibility review.
+4. Continue provider capability/error mock fixtures and integration contract tests without live credentials.
+5. The PostgreSQL/ORM/worker proof is blocked in this workspace (no Docker/Podman/PostgreSQL tools); do not claim it passed. Resume that specific task when an authorized runtime is available.
+6. Keep P0/P1 phase gates open until all critical exit criteria are actually verified.

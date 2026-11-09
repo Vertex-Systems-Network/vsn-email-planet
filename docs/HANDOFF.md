@@ -1,14 +1,13 @@
 # Handoff
 
 **Project:** VSN Email Operations Platform  
-**Branch:** `feat/phase-0-foundation`  
-**Latest confirmed remote checkpoint:** `8723bfc41430a31888365a53c46c2cbe15821030` on `feat/phase-0-foundation`; `git rev-parse HEAD` provides exact local HEAD.  
-**Phase:** P0 and initial P1 prototype slice; open.  
-**Current increment:** 20-bank structured knowledge catalog, seven permission/recovery flow diagrams, and a read-only fixture API with tenant-filtering tests.  
-**Local verification:** `npm run check` passed: 13 tasks, 5 epics, 5 phase gates, 20 banks; 7/7 tests passed on Node 24.22.1.  
-**Remote verification:** Node 24 GitHub Actions run `42683981722` passed for checkpoint `8723bfc41430a31888365a53c46c2cbe15821030`.  
-**External validation:** none; no OAuth/provider/test mailbox or customer content was used.  
-**Unverified:** manual visual/accessibility review, exact production stack proof, live providers.  
-**Next action:** inspect Git status/history and available PostgreSQL/container tooling; complete the ORM/queue vertical slice if a safe local runtime is available.  
-**Blocker:** live provider validation needs an authorized synthetic sandbox.  
-**Remote path:** GitHub API with expected-head checks; no direct shell network path.
+**Branch/HEAD:** `feat/phase-0-foundation` / `2ba00f5d5db977d1845bdf5e7e500a007019834d`  
+**Current phase:** P0 pre-development and P1 foundation slice; overall gates remain open.  
+**Completed increment:** synthetic provider inventory dashboard, same-origin read-only API, two fixture organization identities, tenant-filtered list/detail, content-consent policy helper, 20 knowledge bank records, seven operational diagrams.  
+**Verification:** local `npm run check` passed (14 tasks, 5 epics, 5 gates, 20 banks; 7/7 tests). GitHub Actions run `42684912974` passed on the exact commit.  
+**P1-04 status:** `DONE` for fixture-only API. Fixture bearer tokens are public demo values; this is not authentication or production isolation.  
+**Unverified:** PostgreSQL/ORM/worker vertical proof, browser visual/WCAG review, provider connectivity and production auth.  
+**External validation:** no provider credentials, customer mailbox content, live sends or mutations used.  
+**Known constraint:** no Docker, Podman, `psql` or PostgreSQL server binary is installed in this workspace. Do not invent the DB proof.  
+**Next action:** inspect Git state; complete the remaining primary-source competitor/provider work and full screen matrix. Return to PostgreSQL/worker proof when a local runtime is available; meanwhile keep progressing independent mock/test contracts.  
+**Remote:** branch ref update and file readback confirmed through connected GitHub API.

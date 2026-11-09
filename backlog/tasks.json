@@ -683,7 +683,7 @@
         "P1-01",
         "P1-02"
       ],
-      "current_status": "PARTIALLY_VERIFIED",
+      "current_status": "DONE",
       "acceptance_criteria": [
         "Unauthenticated list receives 401",
         "Tenant list is organization-filtered",
@@ -704,13 +704,13 @@
         "docs/TEST_EVIDENCE/phase-0-foundation.md",
         "docs/API_CONTRACTS.md"
       ],
-      "verification_level": "LOCAL_HTTP_POLICY_TESTS_PASS_REMOTE_PENDING",
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS_SYNTHETIC_ONLY",
       "target_environment": "LOCAL_SYNTHETIC",
-      "last_verified_commit": null,
+      "last_verified_commit": "2ba00f5d5db977d1845bdf5e7e500a007019834d",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
-      "completed_at": null,
+      "completed_at": "2026-11-09",
       "blockers": [],
       "external_requirements": [],
       "risks": [
@@ -719,8 +719,8 @@
       "decisions": [
         "ADR-0001"
       ],
-      "next_action": "Push the local passing API increment and verify its Node 24 CI run.",
-      "notes": "Local HTTP and policy tests pass. Fixture auth is explicitly non-production. Persistent storage and real identity are absent."
+      "next_action": "Keep this contract read-only; replace fixture actor mapping with real auth only after persistent identity/security design is approved.",
+      "notes": "Seven local tests and GitHub Actions run 42684912974 pass for this fixture-only API. No production identity, credentials, persistence or provider access exists."
     }
   ]
 }
