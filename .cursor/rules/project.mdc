@@ -1,0 +1,5 @@
+---
+description: Canonical VSN Email Planet repository and safety rules
+alwaysApply: true
+---
+Follow the root `AGENTS.md` and full master specification. Read current state/backlog/ADR/handoff before editing. Preserve provider capability truth, tenant isolation, least privilege, email-content trust boundaries and send uncertainty. Test each cohesive change, record evidence, update state and checkpoint Git. Design-only requests must not modify production code.

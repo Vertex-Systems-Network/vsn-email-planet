@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "project": "VSN Email Planet",
+  "epics": [
+    {"id":"P0","title":"Pre-development and research","goal":"Evidence-based scope, risk, stack, UX, capability and feasibility foundation","phase":"P0"},
+    {"id":"P1","title":"Repository foundation and DevOps","goal":"Reproducible monorepo, auth/tenancy, API, persistence, audit and install foundation","phase":"P1"},
+    {"id":"P2","title":"Provider connectivity and admin inventory","goal":"Truthful capability engine and permission-scoped provider inventory","phase":"P2"},
+    {"id":"P3","title":"Primary mail sync and unified inbox","goal":"Consent-bound synchronization and safe mail workflows","phase":"P3"}
+  ]
+}

@@ -1,0 +1,9 @@
+flowchart TD
+  A[Compose request] --> B[Verify tenant and sender]
+  B --> C{Policy allows send?}
+  C -- No --> D[Keep as draft]
+  C -- Yes --> E[Persist idempotent send intent]
+  E --> F[Submit through adapter]
+  F --> G{Receipt certain?}
+  G -- Yes --> H[Record provider receipt]
+  G -- No --> I[Mark UNKNOWN and reconcile]

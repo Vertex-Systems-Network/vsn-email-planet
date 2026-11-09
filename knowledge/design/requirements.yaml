@@ -1,0 +1,47 @@
+version: 1
+updated: 2026-11-09
+product: VSN Email Planet
+principles:
+  - Show verified state, provenance, freshness, confidence, allowed action, and next step.
+  - Never make synthetic fixture data look live; persistent demo disclosure is required.
+  - Separate control-plane inventory from separately authorized mail content.
+tokens:
+  color:
+    canvas: "#f5f6f8"
+    surface: "#ffffff"
+    ink: "#172033"
+    muted: "#697386"
+    navigation: "#152238"
+    action: "#6659e8"
+    success: "#18794e"
+    warning: "#9a5b00"
+    critical: "#b42318"
+  typography: "Inter/system sans stack; no remote font download in local prototype"
+  radius: [8, 12, 18]
+  spacing_base_px: 4
+accessibility:
+  target: WCAG 2.2 AA for release-critical journeys
+  requirements: [keyboard navigation, visible focus, semantic status text, reduced motion, non-color status cues, logical landmarks]
+responsive:
+  breakpoints_px: [640, 900, 1200]
+  behavior: "Desktop-first tables become labeled compact cards or horizontally scrollable with preserved headers; navigation collapses with an accessible toggle."
+screens:
+  - id: overview
+    route: /
+    roles: [demo-user]
+    states: [synthetic-populated, searching, no-results]
+    evidence: [apps/web/app/page.tsx, apps/web/components/dashboard.tsx]
+  - id: connections
+    route: /connections
+    roles: [tenant-admin]
+    states: [planned]
+    evidence: []
+  - id: inbox
+    route: /inbox
+    roles: [authorized-mailbox-user]
+    states: [planned]
+    evidence: []
+brand_directions:
+  selected: "Quiet operations console: warm neutral workspace, ink/navy rail, restrained violet actions, semantic status colors."
+  hypothesis: true
+  alternatives: [high-contrast-dark-command-center, bright-consumer-mail-client]

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-11-09",
+  "phases": [
+    {"id":"P0","name":"Pre-development and research","status":"IN_PROGRESS","scope":"Evidence-based product, provider, market, security, UX and stack research; prototype and tests","exit_criteria":["Primary-source research documented with checked dates and confidence","MVP boundaries and risks reviewed","Stack ADR, data model, threat model, UX states and diagrams coherent","Synthetic end-to-end feasibility path and automated checks pass","Backlog and handoff validated"]},
+    {"id":"P1","name":"Repository foundation and DevOps","status":"IN_PROGRESS","scope":"Monorepo, web/API, typed errors, auth/tenancy, persistence, audit, local install and CI","exit_criteria":["Fresh npm ci and reproducible builds","Two authenticated tenants demonstrate API/worker/search isolation","Postgres and queue integration tests pass","Authenticated API and worker health checks pass","CI and setup smoke evidence recorded"]},
+    {"id":"P2","name":"Provider connectivity and admin inventory","status":"NOT_STARTED","scope":"Capability engine, cPanel/WHM, IMAP discovery and connection UX","exit_criteria":["Scoped live or explicitly marked mock connection tests","Provider permissions and capabilities exposed per resource","No content read without separate authorization"]},
+    {"id":"P3","name":"Primary mail sync and unified inbox","status":"NOT_STARTED","scope":"Gmail, Graph and IMAP sync, inbox, drafts, sending and search","exit_criteria":["Initial/incremental sync and recovery tests pass","Tenant ACL and privacy tests pass","Lost-send receipt remains UNKNOWN until reconciled"]},
+    {"id":"P4-P12","name":"Advanced operations and clients","status":"NOT_STARTED","scope":"Provider admin, DNS, migration, backup, incidents, automation, AI, web release, desktop, mobile and enterprise","exit_criteria":["See governing master specification phases P4-P12"]}
+  ]
+}

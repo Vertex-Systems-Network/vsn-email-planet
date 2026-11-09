@@ -1,0 +1,32 @@
+{
+  "name": "vsn-email-planet",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Secure, provider-neutral email operations control plane",
+  "packageManager": "npm@11.9.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @vsn/web",
+    "dev:api": "npm run dev --workspace @vsn/api",
+    "build": "npm run build --workspace @vsn/web && npm run build --workspace @vsn/api",
+    "typecheck": "npm run typecheck --workspace @vsn/web && npm run typecheck --workspace @vsn/api",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "smoke:api": "node scripts/smoke-api.mjs",
+    "smoke:web": "node scripts/smoke-web.mjs",
+    "verify:local": "node scripts/verify-local.mjs",
+    "check:backlog": "node scripts/validate-backlog.mjs"
+  },
+  "engines": {
+    "node": ">=22.14 <25",
+    "npm": ">=11 <12"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,9 @@
+flowchart LR
+  U[User] --> W[Web UI]
+  W --> A[Authenticated API]
+  A --> T[Tenant policy]
+  T --> C[Capability-gated modules]
+  C --> D[(PostgreSQL)]
+  C --> Q[Bounded workers]
+  Q --> P[Provider adapters]
+  P --> X[External providers]
