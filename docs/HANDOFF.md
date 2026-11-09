@@ -1,7 +1,7 @@
 # Handoff
 
 **Project:** VSN Email Operations Platform  
-**Branch/HEAD:** `feat/phase-0-foundation` / latest verified code checkpoint `1f2f7fe67c266152024fd0170c82e124e9555142`  
+**Branch/HEAD:** `feat/phase-0-foundation` / latest verified code checkpoint `6a79099b161d582b918d333a262312fb2fad0862`  
 **Current phase:** P0 pre-development and P1 foundation slice; overall gates remain open.  
 **Completed increment:** synthetic provider inventory dashboard, same-origin read-only API, two fixture organization identities, tenant-filtered list/detail, content-consent policy helper, 20 knowledge bank records, seven operational diagrams, and a validated 131-route inventory across ten product areas.  
 **Verification:** local `npm run check` passed (16 tasks, 5 epics, 5 gates, 20 banks; local and CI 17/17 tests on latest capability-detail checkpoint). GitHub Actions run `42684912974` passed on the API commit; runs `42686590951` (inventory), `42687240875` (capability helper), `42687427358` (state checkpoint), `42689186984` (guarded invocation), and `42689360662` (verification checkpoint) passed on exact commits.  
@@ -16,4 +16,4 @@
 
 **P1-05 status:** implementation is in the working tree and locally API-tested; keep `PARTIALLY_VERIFIED`; the API behavior is tested locally and in CI; the modal still needs shared-browser visual and accessibility review.
 
-**P1-06 status:** API and filter tests pass locally; keep the feature partially verified until the UI receives browser review and the commit passes remote CI.
+**P1-06 status:** API and filter tests pass locally and in CI; keep the feature partially verified until the UI receives browser review.

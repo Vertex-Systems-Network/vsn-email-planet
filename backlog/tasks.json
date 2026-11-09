@@ -889,9 +889,9 @@
         "docs/API_CONTRACTS.md",
         "docs/UX_SPEC.md"
       ],
-      "verification_level": "LOCAL_API_AND_FILTER_TESTS_UI_REVIEW_PENDING",
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_API_FILTER_TESTS_UI_REVIEW_PENDING",
       "target_environment": "LOCAL_SYNTHETIC",
-      "last_verified_commit": null,
+      "last_verified_commit": "6a79099b161d582b918d333a262312fb2fad0862",
       "created_at": "2026-11-10",
       "updated_at": "2026-11-10",
       "started_at": "2026-11-10",
@@ -907,7 +907,7 @@
         "ADR-0001"
       ],
       "next_action": "Run browser and keyboard checks when a shared preview route is available; keep the screen partially verified until then.",
-      "notes": "Local tests verify the API resources, tenant filtering, synthetic-only fields and search/filter behavior. UI code is implemented but not browser inspected."
+      "notes": "Local API, tenant boundary and search/filter tests passed; GitHub Actions run 42695748464 passed on the exact commit. UI code is implemented but not browser inspected."
     }
   ]
 }
