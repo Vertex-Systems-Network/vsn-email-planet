@@ -890,10 +890,13 @@
       "evidence_paths": [
         "apps/api/db/migrations/0003_durable_jobs_and_outbox.sql",
         "apps/api/db/jobs.mjs",
+        "apps/api/db/worker.mjs",
         "tests/operation-jobs.test.mjs",
+        "tests/worker.test.mjs",
         "scripts/smoke-postgres.mjs",
         "docs/DECISIONS/ADR-0002-DURABLE-JOBS.md",
-        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
+        "docs/TEST_EVIDENCE/verification-20261109T205253Z-22387bf.md"
       ],
       "verification_level": "LOCAL_PGLITE_AND_NATIVE_POSTGRES_16_CI",
       "target_environment": "LOCAL_INTEGRATION",
@@ -911,8 +914,8 @@
       "decisions": [
         "Use PostgreSQL SKIP LOCKED as the initial durable queue-of-record prototype with a transactional outbox; do not treat it as the production Redis/BullMQ decision. See docs/DECISIONS/ADR-0002-DURABLE-JOBS.md."
       ],
-      "next_action": "Implement a runnable worker and outbox publisher with graceful interruption, heartbeat/cancellation, and delivery dedupe; then run multi-process crash/recovery, contention and bounded-load tests before marking this task VERIFIED.",
-      "notes": "Local PGlite tests and GitHub Actions PostgreSQL 16 CI verify tenant-scoped idempotent enqueue, concurrent same-mailbox claim serialization (only one worker receives a claim), fencing, lease expiry/reclaim, retry bounds, unknown external mutation/reconciliation and outbox acknowledgement. The task remains partial because there is no long-running worker loop or broker publisher and no multi-process crash/soak/load evidence.",
+      "next_action": "Run PostgreSQL 16 CI on the handler-driven worker, then add an external outbox publisher and provider-independent handlers; follow with multi-process crash/recovery, contention and bounded-load tests before marking this task VERIFIED.",
+      "notes": "PGlite tests verify tenant-scoped idempotent enqueue, concurrent mailbox serialization, fencing, lease reclaim, retry bounds, unknown external mutation/reconciliation, outbox ack, worker heartbeat, safe shutdown and handler outcomes. Native PostgreSQL 16 CI already verifies simultaneous same-mailbox claim and will cover the generic worker runner in the next increment. The task remains partial because the outbox publisher/real handlers, managed worker deployment and multi-process crash/soak/load evidence are absent.",
       "status_history": [
         {
           "from": null,

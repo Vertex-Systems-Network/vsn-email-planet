@@ -9,6 +9,7 @@ import {
   markOutboxEventPublished,
 } from "../apps/api/db/jobs.mjs";
 import { migrateDatabase } from "../apps/api/db/migrate.mjs";
+import { runWorkerOnce } from "../apps/api/db/worker.mjs";
 
 const databaseUrl = process.env.DATABASE_URL;
 if (process.env.VSN_TEST_DATABASE !== "1" || !databaseUrl || !new URL(databaseUrl).pathname.endsWith("/vsn_test")) {
@@ -78,8 +79,16 @@ try {
     assert.ok(secondClaim.job);
     assert.notEqual(secondClaim.job.id, firstClaim.job.id);
     assert.equal(await completeOperationJob(pool, { jobId: secondClaim.job.id, organizationId: queueOrganizationA, workerId: workerAfter, leaseGeneration: secondClaim.job.lease_generation }), true);
+    const workerJob = await enqueueOperationJob(pool, { ...input, operationType: "smoke.worker", idempotencyKey: `queue:${queueOrganizationA}:worker` });
+    const workerResult = await runWorkerOnce({
+      database: pool,
+      organizationId: queueOrganizationA,
+      workerId: workerA,
+      handlers: { "smoke.worker": async () => {} },
+    });
+    assert.deepEqual(workerResult, { status: "succeeded", jobId: workerJob.job.id });
     const events = await claimOutboxEvents(pool, { organizationId: queueOrganizationA, workerId: workerA, leaseDurationMs: 5_000 });
-    assert.equal(events.length, 2);
+    assert.equal(events.length, 3);
     for (const event of events) {
       assert.equal(await markOutboxEventPublished(pool, { eventId: event.id, organizationId: queueOrganizationA, workerId: workerA, leaseGeneration: event.publish_lease_generation }), true);
     }
@@ -91,7 +100,7 @@ try {
     await pool.end();
   }
 
-  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, simultaneous workers serialize mailbox jobs, job enqueue is idempotent, tenant-scoped leases work, and outbox acknowledgement is fenced.");
+  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, simultaneous workers serialize mailbox jobs, the handler-driven worker completes a job, enqueue is idempotent, and outbox acknowledgement is fenced.");
 } finally {
   await client.end();
 }
