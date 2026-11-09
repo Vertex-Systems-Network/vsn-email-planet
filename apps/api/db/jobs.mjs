@@ -254,3 +254,16 @@ export async function markOutboxEventPublished(database, { eventId, organization
   );
   return affectedRows(result) === 1;
 }
+
+export async function recordOutboxPublishFailure(database, { eventId, organizationId, workerId, leaseGeneration, errorCode }) {
+  if (!/^[a-z][a-z0-9_.-]{0,95}$/.test(errorCode ?? "")) throw new TypeError("errorCode must be a safe lowercase code.");
+  const result = await database.query(
+    `UPDATE event_outbox
+     SET last_error_code = $5
+     WHERE id = $1 AND organization_id = $2 AND publish_lease_owner = $3
+       AND publish_lease_generation = $4 AND publish_lease_expires_at > now() AND published_at IS NULL
+     RETURNING id`,
+    [eventId, organizationId, workerId, leaseGeneration, errorCode],
+  );
+  return affectedRows(result) === 1;
+}

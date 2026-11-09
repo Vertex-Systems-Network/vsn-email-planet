@@ -4,6 +4,9 @@ import {
   failOperationJob,
   heartbeatOperationJob,
   markExternalDispatchStarted,
+  claimOutboxEvents,
+  markOutboxEventPublished,
+  recordOutboxPublishFailure,
 } from "./jobs.mjs";
 
 const validDuration = (name, value, minimum = 1_000, maximum = 15 * 60_000) => {
@@ -130,6 +133,75 @@ export async function runWorker({
     results.push(result);
     onResult(result);
     if (result.status === "idle") await abortableDelay(pollIntervalMs, signal);
+  }
+  return results;
+}
+
+export async function runOutboxPublisherOnce({
+  database,
+  organizationId,
+  workerId,
+  publish,
+  limit = 50,
+  leaseDurationMs = 30_000,
+}) {
+  if (!database || !organizationId || !workerId || typeof publish !== "function") {
+    throw new TypeError("database, organizationId, workerId and publish callback are required.");
+  }
+  validDuration("leaseDurationMs", leaseDurationMs);
+  const events = await claimOutboxEvents(database, { organizationId, workerId, limit, leaseDurationMs });
+  const outcomes = [];
+  for (const event of events) {
+    const lease = {
+      eventId: event.id,
+      organizationId,
+      workerId,
+      leaseGeneration: event.publish_lease_generation,
+    };
+    const envelope = {
+      eventId: event.id,
+      organizationId: event.organization_id,
+      aggregateType: event.aggregate_type,
+      aggregateId: event.aggregate_id,
+      eventType: event.event_type,
+      eventVersion: event.event_version,
+      eventSequence: event.event_sequence,
+      idempotencyKey: event.idempotency_key,
+    };
+    try {
+      await publish(envelope);
+    } catch (error) {
+      const errorCode = safeErrorCode(error?.code);
+      const recorded = await recordOutboxPublishFailure(database, { ...lease, errorCode });
+      outcomes.push({ eventId: event.id, status: recorded ? "retry_after_lease" : "lease_lost", errorCode });
+      continue;
+    }
+    const acknowledged = await markOutboxEventPublished(database, lease);
+    outcomes.push({ eventId: event.id, status: acknowledged ? "published" : "lease_lost" });
+  }
+  return outcomes;
+}
+
+export async function runOutboxPublisher({
+  database,
+  organizationId,
+  workerId,
+  publish,
+  limit = 50,
+  leaseDurationMs = 30_000,
+  pollIntervalMs = 1_000,
+  signal,
+  onResult = () => {},
+}) {
+  validDuration("pollIntervalMs", pollIntervalMs, 50, 60_000);
+  const results = [];
+  while (!signal?.aborted) {
+    const outcomes = await runOutboxPublisherOnce({ database, organizationId, workerId, publish, limit, leaseDurationMs });
+    results.push(outcomes);
+    onResult(outcomes);
+    if (outcomes.length === 0 || outcomes.every((outcome) => outcome.status !== "published")) {
+      await abortableDelay(pollIntervalMs, signal);
+    }
   }
   return results;
 }

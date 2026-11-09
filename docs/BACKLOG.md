@@ -14,6 +14,6 @@ The authoritative task records and legal status transitions are in `backlog/task
 | P1-03 | P1 | API health process | VERIFIED | Extend beyond process health only after persistence increment |
 | P1-09 | P1 | CI and verification evidence | PARTIALLY_VERIFIED | Add pending integration/browser/licensing gates |
 | P1-04 | P0 | Tenant-keyed PostgreSQL schema/migrations | VERIFIED | Maintain immutable migrations; production rollout is a separate gate |
-| P1-05 | P1 | Durable job lease/idempotency/outbox primitives | PARTIALLY_VERIFIED | Generic worker loop is implemented; verify its PostgreSQL integration, then add publisher/provider handlers and crash/load evidence |
+| P1-05 | P1 | Durable job lease/idempotency/outbox primitives | PARTIALLY_VERIFIED | Worker loop passes PostgreSQL CI; generic publisher callback is in local testing, then add broker/provider handlers and crash/load evidence |
 
 No product task is marked `DONE`; verified means only that the specific stated acceptance evidence is satisfied. Status changes must follow the transition map and include status history in `backlog/tasks.json`.

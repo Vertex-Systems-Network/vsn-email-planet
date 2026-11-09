@@ -3,7 +3,7 @@ import { test } from "node:test";
 import { PGlite } from "@electric-sql/pglite";
 import { enqueueOperationJob } from "../apps/api/db/jobs.mjs";
 import { migrateDatabase } from "../apps/api/db/migrate.mjs";
-import { runWorker, runWorkerOnce } from "../apps/api/db/worker.mjs";
+import { runOutboxPublisher, runOutboxPublisherOnce, runWorker, runWorkerOnce } from "../apps/api/db/worker.mjs";
 
 const organizationId = "00000000-0000-4000-8000-000000000031";
 const connectionId = "10000000-0000-4000-8000-000000000031";
@@ -118,6 +118,68 @@ test("worker polling stops promptly on abort", async () => {
     const run = runWorker({ database: db, organizationId, workerId, handlers: {}, pollIntervalMs: 500, signal: controller.signal });
     setTimeout(() => controller.abort(), 50);
     assert.deepEqual(await run, [{ status: "idle", reclaimed: 0 }]);
+  } finally {
+    await db.close();
+  }
+});
+
+test("outbox publisher sends a minimal envelope and retries failed delivery after the lease", async () => {
+  const db = await setup();
+  try {
+    await enqueueOperationJob(db, job("publisher:retry"));
+    let deliveries = 0;
+    const failed = await runOutboxPublisherOnce({
+      database: db,
+      organizationId,
+      workerId,
+      leaseDurationMs: 1_000,
+      publish: async (envelope) => {
+        deliveries++;
+        assert.equal(envelope.eventType, "operation.job.queued");
+        assert.equal(envelope.organizationId, organizationId);
+        assert.equal("publish_lease_owner" in envelope, false);
+        const error = new Error("Broker unavailable.");
+        error.code = "broker.unavailable";
+        throw error;
+      },
+    });
+    assert.deepEqual(failed.map((outcome) => outcome.status), ["retry_after_lease"]);
+    const blocked = await runOutboxPublisherOnce({ database: db, organizationId, workerId, publish: async () => { deliveries++; } });
+    assert.deepEqual(blocked, []);
+    await db.query("UPDATE event_outbox SET publish_lease_expires_at = now() - interval '1 second' WHERE organization_id = $1", [organizationId]);
+
+    const retried = await runOutboxPublisherOnce({
+      database: db,
+      organizationId,
+      workerId,
+      publish: async (envelope) => {
+        deliveries++;
+        assert.equal(envelope.idempotencyKey, "publisher:retry");
+      },
+    });
+    assert.deepEqual(retried.map((outcome) => outcome.status), ["published"]);
+    assert.equal(deliveries, 2);
+    const pending = await db.query("SELECT count(*)::int AS count FROM event_outbox WHERE published_at IS NULL");
+    assert.equal(pending.rows[0].count, 0);
+  } finally {
+    await db.close();
+  }
+});
+
+test("outbox publisher polling stops promptly on abort", async () => {
+  const db = await setup();
+  const controller = new AbortController();
+  try {
+    const run = runOutboxPublisher({
+      database: db,
+      organizationId,
+      workerId,
+      publish: async () => {},
+      pollIntervalMs: 500,
+      signal: controller.signal,
+    });
+    setTimeout(() => controller.abort(), 50);
+    assert.deepEqual(await run, [[]]);
   } finally {
     await db.close();
   }

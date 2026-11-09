@@ -3,13 +3,11 @@ import pg from "pg";
 import { randomUUID } from "node:crypto";
 import {
   claimNextOperationJob,
-  claimOutboxEvents,
   completeOperationJob,
   enqueueOperationJob,
-  markOutboxEventPublished,
 } from "../apps/api/db/jobs.mjs";
 import { migrateDatabase } from "../apps/api/db/migrate.mjs";
-import { runWorkerOnce } from "../apps/api/db/worker.mjs";
+import { runOutboxPublisherOnce, runWorkerOnce } from "../apps/api/db/worker.mjs";
 
 const databaseUrl = process.env.DATABASE_URL;
 if (process.env.VSN_TEST_DATABASE !== "1" || !databaseUrl || !new URL(databaseUrl).pathname.endsWith("/vsn_test")) {
@@ -87,11 +85,16 @@ try {
       handlers: { "smoke.worker": async () => {} },
     });
     assert.deepEqual(workerResult, { status: "succeeded", jobId: workerJob.job.id });
-    const events = await claimOutboxEvents(pool, { organizationId: queueOrganizationA, workerId: workerA, leaseDurationMs: 5_000 });
-    assert.equal(events.length, 3);
-    for (const event of events) {
-      assert.equal(await markOutboxEventPublished(pool, { eventId: event.id, organizationId: queueOrganizationA, workerId: workerA, leaseGeneration: event.publish_lease_generation }), true);
-    }
+    const publishedEvents = [];
+    const publishResults = await runOutboxPublisherOnce({
+      database: pool,
+      organizationId: queueOrganizationA,
+      workerId: workerA,
+      publish: async (event) => { publishedEvents.push(event); },
+    });
+    assert.equal(publishResults.length, 3);
+    assert.equal(publishResults.every((result) => result.status === "published"), true);
+    assert.equal(publishedEvents.length, 3);
   } finally {
     await pool.query("DELETE FROM event_outbox WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
     await pool.query("DELETE FROM operation_jobs WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
@@ -100,7 +103,7 @@ try {
     await pool.end();
   }
 
-  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, simultaneous workers serialize mailbox jobs, the handler-driven worker completes a job, enqueue is idempotent, and outbox acknowledgement is fenced.");
+  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, simultaneous workers serialize mailbox jobs, the handler-driven worker completes a job, enqueue is idempotent, and the outbox publisher sends and acknowledges its events.");
 } finally {
   await client.end();
 }
