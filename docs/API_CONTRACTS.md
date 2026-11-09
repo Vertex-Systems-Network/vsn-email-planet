@@ -10,3 +10,8 @@ This is a prototype contract, not a versioned production API. Server binds to `1
 | `POST/PUT/PATCH/DELETE /api/*` | fixture bearer token required | Returns 405; no provider mutation exists. | Explicitly unavailable |
 
 Errors use `{error:{code,message}}`; success returns `{data,meta:{environment,organizationId,role}}`. Fixture actor tokens are public strings in source and are not a session, credential, or usable production authorization. No database, real authentication, OAuth, mailbox-content endpoint, sending or external service call is implemented.
+
+
+## Provider capability manifest
+
+The framework-neutral local helper in `apps/api/src/capabilities.js` defines operation-level states and fails closed for unknown, unsupported, permission-gated, stale/malformed or duplicate records. See `docs/CAPABILITY_CONTRACT.md`. This is not provider connectivity or production authorization.

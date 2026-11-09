@@ -31,7 +31,7 @@
       "id": "P2-CONNECTORS",
       "phase": "P2",
       "title": "Provider connector and capability engine",
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "tasks": [
         "P2-01",
         "P2-02"

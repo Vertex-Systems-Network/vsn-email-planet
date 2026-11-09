@@ -76,3 +76,11 @@ Verification level: local prototype contract only; not a release gate.
 - `knowledge/screens/screen-inventory.json` contains 131 unique route records over all ten product areas. Each record declares roles, devices, required states and a truthful implementation status; partial prototype evidence paths are checked on disk.
 - This verifies inventory structure and traceability only; it does not imply the listed screens are implemented. P0-06 is verified at this documentation/test scope.
 - Node emitted inherited npm warning: `Unknown env config "http-proxy"`; no repository dependency or test failure resulted.
+
+- Remote inventory checkpoint `0a956fc86542e2b5b1cab053663b0eb7ab6272b7` passed GitHub Actions run `42686590951` (commit-specific workflow job: `verify`, success).
+
+## Provider capability policy helper (local working tree)
+
+- `npm run check` passes on Node `v24.22.1`: 15 tasks, 5 epics, 5 gates, 20 banks; 12/12 tests pass, 0 fail, 0 skipped.
+- Four tests cover read-only support, separate consent, unsupported/undeclared fail-closed decisions, malformed/duplicate records and read-only consistency.
+- This helper is not a live connector, authentication layer or provider probe. Remote CI is pending the next commit.
