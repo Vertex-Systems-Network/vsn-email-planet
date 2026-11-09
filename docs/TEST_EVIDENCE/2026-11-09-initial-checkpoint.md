@@ -198,3 +198,11 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 - GitHub Actions CI: PASS; all steps completed, including native PostgreSQL 16 migration smoke.
 - Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42689994446
 - UI candidate licenses and maintenance signals were reviewed as research only; no UI packages were installed.
+
+## Latest main CI checkpoint
+
+- Recorded: 2026-11-09
+- Commit: `f65f0efba54540492dd0f25ba97e597cc3810e2b`
+- GitHub Actions CI: PASS; run completed with `success` (workflow `CI`, run `42690403340`).
+- Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42690403340
+- The subsequent research-register and handoff edits in the working increment have not yet been tested or published.
