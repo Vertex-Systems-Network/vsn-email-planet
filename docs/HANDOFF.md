@@ -1,7 +1,7 @@
 # Resumable handoff
 
 PROJECT: VSN Email Planet — Universal Email Operations Control Platform
-BRANCH/HEAD: `main` / `82889744af107e8788abc9976023c4001ab7d7d0` (working tree matches `origin/main`).
+BRANCH/HEAD: `main` / `720b912f6281ef2ce5ef8debf4dee665d4092fbe` (working tree matches `origin/main`).
 CURRENT PHASE: P0 active; P1 foundation increment in progress.
 SCOPE JUST COMPLETED: repository/history/spec audit; stack ADR and baseline rules/state/backlog; synthetic web/API prototype; tenant-keyed PostgreSQL schema and checksummed migrations.
 VERIFICATION: fresh install, typecheck, 11 tests, PGlite migration/upgrade/rollback/tenant-constraint checks, production build, web/API HTTP smoke checks, backlog validation and high-severity dependency audit passed locally. GitHub Actions CI passed on the code SHA `97582d1f8f5851c755141035b64d71104f364359`, including native PostgreSQL 16 checks, and on the current research SHA. See `docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md`.

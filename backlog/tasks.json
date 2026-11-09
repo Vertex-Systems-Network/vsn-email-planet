@@ -213,30 +213,30 @@
         "docs/RESEARCH/MARKET_GAPS.md",
         "docs/RESEARCH/PRICING_VALIDATION.md"
       ],
-      "verification_level": "DATED_PRIMARY_SOURCE_RESEARCH_SNAPSHOT",
+      "verification_level": "DATED_PRIMARY_SOURCE_AND_UI_LICENSE_SNAPSHOT",
       "target_environment": "PUBLIC_DOCUMENTATION",
-      "last_verified_commit": null,
+      "last_verified_commit": "720b912f6281ef2ce5ef8debf4dee665d4092fbe",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [
-        "No owner/buyer interviews or hands-on competitor trials have been completed; public vendor claims are not independent validation."
+        "No owner/buyer interviews or hands-on competitor trials have been completed; public vendor claims and repository popularity metrics are not independent validation."
       ],
       "external_requirements": [],
       "risks": [
-        "Provider OAuth policies, provider API limits, commercial pricing, feature availability and standards may change; recheck before implementation/release."
+        "Provider OAuth policies, API limits, commercial pricing, feature availability and standards may change; recheck before integration/release."
       ],
       "decisions": [],
-      "next_action": "Review UI library licenses, map remaining provider policy and operational limits, select relevant research papers, and validate buyer workflows/pricing before positioning claims.",
-      "notes": "Expanded official-source research across shared inbox, first-party administration, cPanel/Plesk, migration (CloudM/imapsync), SaaS backup (Barracuda/Dropsuite), Gmail/Graph permissions, IMAP/SMTP/message formats and 2026 OAuth BCP updates. No competitive gap or willingness-to-pay claim is validated.",
+      "next_action": "Review provider deletion/retention policies and relevant security/distributed-systems papers; run one real screen accessibility/component trial and validate buyer workflows/pricing before positioning claims.",
+      "notes": "Dated official-source pass spans unified/shared inbox, first-party cloud admin, hosting panels, migration, SaaS backup, Gmail/Graph permission models, IMAP/SMTP/message-format standards, OAuth RFC updates and UI library license/maintenance shortlist. No UI dependency selected; no differentiator or willingness-to-pay claim validated.",
       "status_history": [
         {
           "from": null,
           "to": "PARTIALLY_VERIFIED",
-          "changed_at": "2026-11-09T20:04:46.629Z",
+          "changed_at": "2026-11-09T20:10:07.442Z",
           "actor": "Codex",
-          "evidence": "Expanded and dated source summaries in docs/RESEARCH; market differentiation, provider-policy breadth, UI licensing, academic evidence and buyer validation remain incomplete."
+          "evidence": "Research artifacts updated and published at this commit; source claims are dated and categorized; hands-on UI/competitor and buyer-validation evidence remains open."
         }
       ]
     },
