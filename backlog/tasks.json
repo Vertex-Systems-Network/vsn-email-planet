@@ -826,9 +826,9 @@
         "test/prototype.test.js",
         "docs/API_CONTRACTS.md"
       ],
-      "verification_level": "API_LOCAL_INTEGRATION_UI_REVIEW_PENDING",
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_API_TESTS_UI_REVIEW_PENDING",
       "target_environment": "LOCAL_SYNTHETIC",
-      "last_verified_commit": null,
+      "last_verified_commit": "1f2f7fe67c266152024fd0170c82e124e9555142",
       "created_at": "2026-11-10",
       "updated_at": "2026-11-10",
       "started_at": "2026-11-10",
@@ -844,7 +844,7 @@
         "ADR-0001"
       ],
       "next_action": "Use the shared preview path for a browser and keyboard review when available; do not claim visual verification until then.",
-      "notes": "Synthetic capability API route passes HTTP tests for tenant isolation, provenance fields and mutation rejection. Modal rendering is implemented but not browser/screenshot/accessibility tested."
+      "notes": "Synthetic capability API route passes local and GitHub Actions HTTP integration tests for tenant isolation, provenance fields and mutation rejection. UI implementation is pushed but modal rendering remains unverified in a browser."
     }
   ]
 }
