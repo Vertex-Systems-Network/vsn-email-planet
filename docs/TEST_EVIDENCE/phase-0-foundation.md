@@ -19,3 +19,9 @@ Environment: local workspace, Node.js `v24.22.1`, npm `11.9.0`; no dependency in
 - npm emitted inherited environment warning: `Unknown env config "http-proxy"`; this is outside repository configuration. The repo has no external package dependencies.
 
 Verification level: local prototype contract only; not a release gate.
+
+## Remote checkpoint
+
+- Commit `d56218336d205174d4b3e1c5cb8f5e5ee2db51a4` was confirmed on `feat/phase-0-foundation`.
+- GitHub Actions run `42681659739` (`Local checks`) completed with conclusion `success` for that exact commit on 2026-11-09.
+- Remote `README.md`, `AGENTS.md`, `package.json`, evidence file and backlog were fetched from the feature ref and matched expected content.
