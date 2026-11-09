@@ -261,7 +261,7 @@
       "dependencies": [
         "P0-01"
       ],
-      "current_status": "TESTING",
+      "current_status": "VERIFIED",
       "acceptance_criteria": [
         "ADR compares credible alternatives and tradeoffs",
         "Versions are pinned after installation",
@@ -276,11 +276,12 @@
         "docs/DECISIONS/ADR-0001-STACK.md",
         "docs/RESEARCH/OPTIONS.md",
         "docs/ARCHITECTURE.md",
-        "docs/TEST_EVIDENCE/verification-20261109T215427Z-f37f830.md"
+        "docs/TEST_EVIDENCE/verification-20261109T215427Z-f37f830.md",
+        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
       ],
-      "verification_level": "LOCAL_FULL_PASS_REMOTE_CI_PENDING; LOAD_AND_DEPLOYMENT_BENCHMARKS_PENDING",
+      "verification_level": "FULL_LOCAL_AND_REMOTE_CI_BASELINE; LOAD_AND_DEPLOYMENT_BENCHMARKS_OPEN",
       "target_environment": "LOCAL",
-      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
+      "last_verified_commit": "5f182a8d49ab7f02b3397f5c6d4bfc23869fb6e2",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -295,8 +296,8 @@
         "The dependency-free Node server is a temporary synthetic test harness and will be retired after fixture equivalence.",
         "No Redis, ORM, concrete object store, production auth provider, or microservice split is selected."
       ],
-      "next_action": "Publish the stack reconciliation and confirm its GitHub Actions run; keep workload and deployment measurements explicitly open.",
-      "notes": "Fresh npm ci, typecheck, 46 tests, backlog validation, production build, web/API HTTP smokes and high-severity npm audit passed locally. Remote CI is pending; workload and deployment benchmarks remain open and do not block this baseline selection.",
+      "next_action": "Reopen only if workload or deployment evidence contradicts the provisional stack; keep load and deployment benchmark work tracked independently.",
+      "notes": "Fresh install, typecheck, 46 tests, backlog/state validation, production build, web/API smoke checks and npm audit passed locally in docs/TEST_EVIDENCE/verification-20261109T215427Z-f37f830.md. Commit 5f182a8d49ab7f02b3397f5c6d4bfc23869fb6e2 passed GitHub Actions run 42707221259 including PostgreSQL 16. Workload, operational deployment and disaster-recovery benchmarks remain unverified and do not block the provisional baseline decision.",
       "status_history": [
         {
           "from": null,
@@ -346,6 +347,13 @@
           "changed_at": "2026-11-09T21:54:30+00:00",
           "actor": "Codex",
           "evidence": "docs/TEST_EVIDENCE/verification-20261109T215427Z-f37f830.md records a fresh local install, typecheck, 46 tests, production build, API/web smoke checks and npm audit; remote CI pending."
+        },
+        {
+          "from": "TESTING",
+          "to": "VERIFIED",
+          "changed_at": "2026-11-09T21:58:00+00:00",
+          "actor": "Codex",
+          "evidence": "Commit 5f182a8d49ab7f02b3397f5c6d4bfc23869fb6e2 passed full GitHub Actions run 42707221259; local fresh install, typecheck, build, 46 tests, web/API smoke and npm audit passed."
         }
       ]
     },
@@ -762,9 +770,11 @@
       ],
       "evidence_paths": [
         "docs/API_CONTRACTS.md",
-        "docs/TEST_EVIDENCE/verification-20261109T214800Z-eac29b6.md"
+        "apps/api/src/session-auth.js",
+        "tests/session-auth.test.mjs",
+        "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md"
       ],
-      "verification_level": "CONTRACT_ONLY_UNVERIFIED",
+      "verification_level": "SESSION_PRIMITIVE_LOCAL_TESTS_PASS; PERSISTENCE_AND_HTTP_INTEGRATION_PENDING",
       "target_environment": "LOCAL_INTEGRATION",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
@@ -777,8 +787,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Add session resolution and tenant authorization tests for forged organization claims, membership revocation, and non-disclosing cross-tenant reads; do not choose a production auth provider until stack reconciliation passes.",
-      "notes": "P1-06 contract defined locally; no production login/session resolver is implemented or claimed. P0 remains open. Contract establishes trust boundary and acceptance evidence.",
+      "next_action": "Add a checksummed PostgreSQL session migration and repository adapter, then install an API guard that calls resolveSessionActor before protected handlers; test it against native PostgreSQL and unauthenticated/cross-tenant HTTP requests.",
+      "notes": "The session primitive creates a 256-bit opaque secret, stores/compares keyed HMAC digests, and derives frozen actor scope from current user/membership rows. Local unit tests cover invalid, revoked, expired, disabled, stale membership, and forged request claims. It is not wired into NestJS routes and no persistent session table or login flow exists.",
       "status_history": [
         {
           "from": null,
