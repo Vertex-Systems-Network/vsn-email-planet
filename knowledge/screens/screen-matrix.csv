@@ -1,7 +1,8 @@
-screen,route,role,device,state,design,implementation,evidence
-Overview,/,demo-user,desktop,synthetic-populated,initial direction,implemented-unverified,none
-Overview,/,demo-user,desktop,searching,initial direction,implemented-unverified,none
-Overview,/,demo-user,desktop,no-results,initial direction,implemented-unverified,none
-Overview,/,demo-user,mobile,synthetic-populated,initial direction,implemented-unverified,none
-Connections,/connections,tenant-admin,desktop,planned,not-started,not-started,none
-Inbox,/inbox,authorized-mailbox-user,desktop,planned,not-started,not-started,none
+screen,role,device,state,implemented,evidence
+Overview,viewer,desktop,synthetic,true,apps/web/index.html
+Overview,operator,mobile,synthetic,true,apps/web/index.html
+Provider inventory,viewer,desktop,selected,true,apps/web/index.html
+Provider inventory,operator,desktop,filtered-empty,true,apps/web/app.js
+Mailbox detail,operator,desktop,empty,false,backlog/tasks.json
+Migration,operator,desktop,preflight,false,backlog/tasks.json
+Incident center,operator,desktop,evidence,false,backlog/tasks.json

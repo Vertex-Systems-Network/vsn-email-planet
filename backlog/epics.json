@@ -1,10 +1,62 @@
 {
   "schema_version": 1,
-  "project": "VSN Email Planet",
   "epics": [
-    {"id":"P0","title":"Pre-development and research","goal":"Evidence-based scope, risk, stack, UX, capability and feasibility foundation","phase":"P0"},
-    {"id":"P1","title":"Repository foundation and DevOps","goal":"Reproducible monorepo, auth/tenancy, API, persistence, audit and install foundation","phase":"P1"},
-    {"id":"P2","title":"Provider connectivity and admin inventory","goal":"Truthful capability engine and permission-scoped provider inventory","phase":"P2"},
-    {"id":"P3","title":"Primary mail sync and unified inbox","goal":"Consent-bound synchronization and safe mail workflows","phase":"P3"}
+    {
+      "id": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Pre-development and evidence",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        "P0-01",
+        "P0-02",
+        "P0-03",
+        "P0-04",
+        "P0-05",
+        "P0-06"
+      ]
+    },
+    {
+      "id": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Local web platform foundation",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        "P1-01",
+        "P1-02",
+        "P1-03",
+        "P1-04",
+        "P1-05",
+        "P1-06"
+      ]
+    },
+    {
+      "id": "P2-CONNECTORS",
+      "phase": "P2",
+      "title": "Provider connector and capability engine",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        "P2-01",
+        "P2-02"
+      ]
+    },
+    {
+      "id": "P3-MAIL",
+      "phase": "P3",
+      "title": "Mail synchronization and unified inbox",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P3-01",
+        "P3-02"
+      ]
+    },
+    {
+      "id": "P9-RELEASE",
+      "phase": "P9",
+      "title": "Self-host release gates",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P9-01"
+      ]
+    }
   ]
 }

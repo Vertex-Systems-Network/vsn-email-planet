@@ -1,16 +1,14 @@
-# Standards and provider source notes
+# Standards and primary sources
 
-Checked 2026-11-09. Primary source snippets are summarized; confirm again before implementation/release.
+Checked 2026-11-09. These references anchor requirements; implementation must revalidate version and applicability at release.
 
-- **Gmail history:** [Synchronize clients](https://developers.google.com/workspace/gmail/api/guides/sync) and [history.list](https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.history/list). Incremental sync requires a recent history ID; if the ID is unavailable, HTTP 404 means perform a full sync. The history horizon is not guaranteed indefinitely.
-- **Microsoft Graph messages:** [Delta query for messages](https://learn.microsoft.com/en-us/graph/delta-query-messages). Use per-folder delta flows and persist the returned delta link for the next round; supported options are constrained.
-- **Next.js:** [App Router](https://nextjs.org/docs/app) and [self-hosting](https://nextjs.org/docs/app/guides/self-hosting). Current documented self-host options include Node.js server and Docker; reverse proxy is recommended.
-- **NestJS:** [First steps](https://docs.nestjs.com/first-steps) documents TypeScript/Node support; version support and exact compatibility must be checked in the stack lockfile.
-- **OAuth:** [RFC 9700](https://www.rfc-editor.org/rfc/rfc9700.html) is a security BCP candidate; OAuth flow/scopes need provider-specific review before any live auth.
-- **Browser OAuth:** [RFC 10017 (August 2026)](https://www.rfc-editor.org/rfc/rfc10017.html) is the current IETF BCP for browser OAuth. It recommends Authorization Code + PKCE; for business, sensitive and personal-data applications it strongly recommends a Backend for Frontend (BFF), with OAuth tokens kept server-side. A BFF must restrict proxy destinations to explicit approved hosts/paths. This product handles mailbox data, so BFF/session-cookie architecture should be the default design to validate before authentication implementation.
-- **JWT client assertions:** [RFC 10070 (November 2026)](https://www.rfc-editor.org/rfc/rfc10070.html) updates OAuth assertion profiles; for JWT client authentication, the `aud` claim must contain only the authorization server's issuer identifier. Any private-key JWT implementation must check current provider conformance against this update.
-- **Email protocol and format:** [RFC 9051](https://www.rfc-editor.org/rfc/rfc9051.html) defines IMAP4rev2, [RFC 5321](https://www.rfc-editor.org/rfc/rfc5321.html) SMTP, and [RFC 5322](https://www.rfc-editor.org/rfc/rfc5322.html) Internet message format. They are protocol baselines, not a substitute for server capability negotiation, MIME parser hardening, or provider-specific behavior tests.
-- **Gmail scope classification:** [Google's Gmail scope table](https://developers.google.com/workspace/gmail/api/auth/scopes) recommends the narrowest scopes; message-reading/modifying scopes are generally restricted, and server-side storage/transmission of restricted-scope data triggers a security-assessment requirement. [Google's user-data policy](https://developers.google.com/workspace/workspace-api-user-data-developer-policy) lists built-in/web email clients as an approved Gmail-scope use case, subject to its conditions and verification process.
-- **Microsoft Graph permissions:** [Microsoft's permissions reference](https://learn.microsoft.com/en-us/graph/permissions-reference) separates delegated access (signed-in user's mailbox) from application access (tenant-wide mailbox authority) and identifies admin-consent requirements. Application permissions require an explicit least-privilege and mailbox-scope design; provider admin consent is not itself VSN tenant authorization.
+- OAuth 2.0 Security Best Current Practice, RFC 9700 (2025): https://www.rfc-editor.org/rfc/rfc9700.html — modern OAuth threat mitigations; primary IETF standard.
+- Gmail sync guide: https://developers.google.com/workspace/gmail/api/guides/sync — full sync initially and when partial history is unavailable; history cursor can expire.
+- Gmail `users.history.list`: https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.history/list — stale/out-of-date `startHistoryId` can return HTTP 404; perform full sync.
+- Gmail OAuth scopes: https://developers.google.com/workspace/gmail/api/auth/scopes — choose narrow scopes; restricted server-side data storage/transmission can require security assessment.
+- Microsoft Graph message delta: https://learn.microsoft.com/en-us/graph/api/message-delta — folder-scoped incremental changes with continuation/delta links.
+- cPanel UAPI and account feature docs: https://api.docs.cpanel.net/ and https://docs.cpanel.net/cpanel/email/email-accounts/ — verify operation, release, authorization and host policy before coding.
+- JMAP Core RFC 8620: https://www.rfc-editor.org/rfc/rfc8620.html.
+- Internet Message Format RFC 5322: https://www.rfc-editor.org/rfc/rfc5322.
 
-This is a bounded standards snapshot, not a compliance review. It does not examine every RFC, provider policy, UI library license, deployment jurisdiction, or legal obligation; backlog keeps these open.
+Source evidence and implications are summarized in `docs/RESEARCH/PROVIDER_LIMITS.md`. This is bounded initial research, not legal or provider approval.

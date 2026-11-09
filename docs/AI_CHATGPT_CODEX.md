@@ -1,3 +1,6 @@
 # ChatGPT/Codex workflow
-
-Follow root `AGENTS.md`; it is canonical. Start with Git state, `docs/PROJECT_STATE.md`, `docs/NEXT_ACTION.md`, `docs/HANDOFF.md`, backlog and ADRs. Use npm workspace scripts and only report completed checks with saved evidence. `design it` is design-only; `continue` means resume the highest-priority unblocked item. Never claim remote push or external provider results without tool evidence.
+1. Read root `AGENTS.md`, the master product specification, `PROJECT_STATE.md`, `NEXT_ACTION.md`, `HANDOFF.md`, and backlog.
+2. Inspect `git status`, branch, HEAD, recent commits, and relevant code before edits.
+3. Choose a highest-priority unblocked task; build and run only relevant verification.
+4. Record real commands/results, update machine-readable state, and checkpoint the authorized branch.
+5. Treat external-provider checks as blocked until actually authorized and evidenced.

@@ -1,9 +1,8 @@
-flowchart LR
-  U[User] --> W[Web UI]
-  W --> A[Authenticated API]
-  A --> T[Tenant policy]
-  T --> C[Capability-gated modules]
-  C --> D[(PostgreSQL)]
-  C --> Q[Bounded workers]
-  Q --> P[Provider adapters]
-  P --> X[External providers]
+flowchart TB
+  UI["Web client"] --> API["API and tenant policy"]
+  API --> DB[("PostgreSQL")]
+  API --> Q["Durable workers"]
+  Q --> P["Provider adapters"]
+  P --> EXT["External mail and DNS providers"]
+  Q --> OBJ[("Encrypted object storage")]
+  API --> AUD["Audit and observability"]

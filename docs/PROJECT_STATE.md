@@ -1,39 +1,20 @@
 # Project state
 
-Last updated: 2026-11-09
+- Product: VSN Email Operations Platform (`Vertex-Systems-Network/vsn-email-planet`).
+- Active phase: P0 pre-development. P0 is not complete. P1 and later phases remain gated and must not be advanced until P0 exit criteria are evidenced and explicitly closed.
+- Repository audit: public repository, default branch `main`; it had no files, commits or branches before this work. Connected account has admin/maintain/push permissions. No earlier project history was overwritten.
+- Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md`, v1.0, 1,578 lines, SHA-256 `9fcd9418a6ee6d9774a8c292fb51642ea14e679b9ae7c7f8dc6843abe922d6ed`.
+- Stack direction: provisional React/Vite UI + NestJS modular API/worker + PostgreSQL. ADR-0001 remains PROPOSED pending exact ORM, queue, object-store and tenant-context proof.
+- Prototype: responsive dashboard plus read-only HTTP API with synthetic providers, two fixture tenant identities, tenant-filtered list/detail and content-consent policy primitive. Demo tokens are public test fixtures, not real auth. No live provider, mailbox content, persistence/DB, queue, send or admin mutation.
+- Feature-branch functional checkpoint: tenant-scoped domain/mailbox list and detail APIs at `8d5a6c063f0a09f15704c7c9d9b863b0cfed5f5e` (run `42696725821` passed). Integration work also retains main history and is subject to its own Actions run. UI visual/accessibility review remains pending.
+- Node 24 workflow passed in run `42684912974` for the API code and run `42685169153` for the state checkpoint and run `42685740925` for the prior research checkpoint and run `42686590951` for inventory and `42687240875` for capability policy; both were successful on their exact commits.
+- Latest integration-tree local verification: `npm run check`, `npm run typecheck`, `npm run build`, `npm run smoke:api`, and `npm run smoke:web` pass; 17 tasks, 5 epics, 5 gates, 20 bank records, and 42 Node tests validate. Remote Actions for the integration commit are pending. Fixture API behavior does not establish production authentication or provider access.
+- Knowledge catalog now covers all 20 domains, with current-state and evidence links; seven operational diagrams specify consent/reconciliation/send/migration/install/incident/AI flows. Diagram/code parity is pending because product flows are not implemented.
+- External validation: no provider credentials or customer mailbox data used. Browser visual/accessibility review remains pending: shared Chrome could not reach executor loopback (`net::ERR_CONNECTION_REFUSED`), while local in-process HTTP tests pass.
+- Remaining P0 gates: provider/competitor coverage and agency validation; machine-validated 131-route screen/role/device/state inventory is complete; final architecture/stack selection with vertical-slice evidence. PostgreSQL/worker proof is currently blocked because the workspace has no Docker/Podman/PostgreSQL binary.
 
-## Verified repository facts
+- Provider capability policy helper is implemented locally in `apps/api/src/capabilities.js`; nine capability/adapter contract tests pass locally and in CI run `42689186984`. Provider integrations remain unimplemented.
 
-- GitHub repository: `Vertex-Systems-Network/vsn-email-planet`, public, default branch `main`.
-- History audit correction: the remote was **not** commit-empty. `main` contained a README initialization (`4758f49`), a zero-byte governing-spec placeholder (`ad2cf39`), and the complete 1,578-line specification (`9182b40`). There was no earlier product code, but all three commits are preserved in the current history. The first local clone had not fetched the current remote branch; this was detected and corrected before publishing implementation.
-- The initial README called the project “VSN Orbicore Email Operations Platform”; the current requested product name, VSN Email Planet, is used in the maintained project docs and app.
-- Current checkout is the authorized `main` branch. Development and push authorization are present in the project request.
-- Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md` (v1.0, 2026-11-09), 1,578 lines / 139,581 bytes; read in full.
-- Initial stack decision: npm workspaces, Next.js App Router + React for web, NestJS API, TypeScript, future PostgreSQL/Redis integration. See ADR-0001.
+- Some exploratory later-phase capability code exists in the repository. It does not advance phase gates or change the active P0 priority.
 
-## Delivery state
-
-- P0: In progress. Repository/history audit is accurate and prior commits are preserved; research snapshots and a synthetic feasibility slice are recorded. Complete market/provider/security/design research and a feasibility prototype review remain open.
-- P1: In progress. The repository foundation, synthetic responsive dashboard, process-only health route, tenant-keyed PostgreSQL control-plane schema, checksummed migration runner, job/outbox lease primitives, handler-driven worker loop and callback publisher loop are implemented. P1-05 is partially verified, including same-mailbox concurrency and worker execution under native PostgreSQL. API persistence is not wired into request handling; authentication, a deployed worker, broker adapter and live provider handlers remain open.
-- Local verification: fresh `npm ci`, typecheck, 24 automated tests (including PGlite migrations, queue transitions, worker heartbeats/shutdown and callback publisher failure/retry), backlog validation, production build, HTTP smoke checks and high-severity npm audit passed on the current dirty P1-05 worktree. See `docs/TEST_EVIDENCE/verification-20261109T205824Z-09ef29a.md`.
-- GitHub Actions passed for the bootstrap and PostgreSQL increments; native PostgreSQL 16 checks passed on `97582d1f8f5851c755141035b64d71104f364359`, including the real `pg` migration runner and cross-tenant foreign-key denial. Research checkpoint `720b912f6281ef2ce5ef8debf4dee665d4092fbe` also passed CI.
-- Latest pre-checkpoint GitHub Actions run: current `main` at `f65f0efba54540492dd0f25ba97e597cc3810e2b`, run `42690403340`, completed successfully. The Phase 0 paper/standards register now includes scoped findings and limitations for distributed processing, CRDT synchronization, multi-tenant isolation and OAuth; it does not close P0.
-- Provider deletion documentation now distinguishes Gmail permanent delete from trash, Microsoft Graph purge/hold behavior, and cPanel Exim queue deletion. These are documentation findings only; mailbox-wide retention and all live behavior remain unverified. Research/docs commit `44c027b9e310253a66887bb664f1b880fb46c199` passed GitHub Actions run `42690990759`.
-- Provider-research follow-up commit `9b408f3a3bf5a31864d8b3274f14a34ab451a8a0` passed GitHub Actions run `42691389648`. P1-05 local code now has PostgreSQL job/outbox primitives, but its CI validation is pending.
-- Preserved historical GitHub Actions runs in `docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md`; local verification reports now use unique filenames to avoid overwriting earlier checkpoints.
-- P1-05 concurrency-fix commit `b6b7be32c3ea699da7ebdda7c6caa5f7e1df0259` passed full CI run `42695894564`, including native PostgreSQL 16 simultaneous claims. No worker loop, publisher, process crash recovery or load test is claimed.
-- Worker runner commit `09ef29a3091188417cd95c988f3fbb2c0ab9efc1` passed full CI run `42697393221`, including PostgreSQL 16 job-handler execution. A generic callback outbox publisher has since passed local tests; its PostgreSQL CI is pending.
-- Visual browser review and accessibility audit remain pending. The dashboard is explicitly labeled synthetic and states that no providers are connected.
-- Product runtime state: local synthetic demo only. No real provider connection, mail read/send, mailbox administration, migration or backup functionality is implemented.
-- Security state: not production-ready; no production authentication or tenant persistence. The sample-domain policy functions are defense-in-depth examples, not a substitute for server authentication.
-- License: proprietary notice retained; the owner has not selected a public license.
-
-## Current blockers and limits
-
-- No authorized provider sandbox credentials or controlled test mailbox; live provider validation is therefore unavailable. No secret values are recorded here.
-- Pricing and differentiator claims require further primary-source market research and user validation.
-- OAuth consent/verification, privacy/legal review and any provider app registrations are external release dependencies.
-
-## Next action
-
-Follow `docs/NEXT_ACTION.md`. Preserve the existing three-commit history; do not repeat the completed repository audit.
+- Tenant/mailbox detail endpoints and API-backed detail modals passed local and feature-branch CI checks. Browser review remains pending.
