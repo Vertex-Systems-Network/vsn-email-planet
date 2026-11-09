@@ -1,7 +1,8 @@
-import { demoProviders, demoDomains, filterProviders } from './data.js';
+import { DEMO_TOKEN, demoDomains, filterProviders } from './data.js';
 const el = id => document.getElementById(id);
 const safe = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let currentView = 'overview';
+let demoProviders = [];
 const viewCopy = {
   overview: ['Operations overview','A clear view of provider connections and mailbox inventory.','Provider connections'],
   providers: ['Provider connections','Inspect demo connection scope and explicit content access.','Provider connections'],
@@ -61,4 +62,8 @@ el('permissionInfo').addEventListener('click', () => el('infoDialog').showModal(
 el('closeInfo').addEventListener('click', () => el('infoDialog').close());
 el('selectAll').addEventListener('change', event => document.querySelectorAll('#providerRows input[type=checkbox]').forEach(input => input.checked = event.target.checked));
 document.addEventListener('keydown', event => { if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') { event.preventDefault(); el('search').focus(); } });
-renderMetrics(); renderRows(); renderDomains();
+renderDomains();
+fetch('/api/providers', { headers: { authorization: `Bearer ${DEMO_TOKEN}` } })
+  .then(response => { if (!response.ok) throw new Error('Demo inventory unavailable'); return response.json(); })
+  .then(payload => { demoProviders = payload.data; renderMetrics(); renderRows(); })
+  .catch(() => { renderMetrics(); renderRows(); showToast('Local synthetic API is unavailable.'); });

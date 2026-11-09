@@ -42,3 +42,17 @@ Verification level: local prototype contract only; not a release gate.
 - `npm run check` passed on local Node `v24.22.1`: state validator recognized 13 task records, 5 epics, 5 phase gates and 20 knowledge-bank records; 6 Node tests passed, 0 failed, 0 skipped.
 - New tests confirm bank IDs and required fields, resolve all listed documentation/test paths, and verify consent, unknown-send and cutover gates are present in flow diagrams.
 - This verifies catalog consistency and flow artifacts only; it does not verify working product integrations.
+
+## Remote bank/diagram checkpoint
+
+- Commit `8723bfc41430a31888365a53c46c2cbe15821030` confirmed on `feat/phase-0-foundation`.
+- GitHub Actions run `42683981722` completed with conclusion `success` for that commit; the bank catalog and flow integrity suite therefore passed both locally and remotely.
+
+## Read-only tenant API fixture slice
+
+- `npm run check` passed locally on Node `v24.22.1`: 14 tasks, 5 epics, 5 gates and 20 banks validate; 7 tests pass, 0 fail, 0 skipped.
+- HTTP tests cover `/api/health`, unauthenticated `401`, tenant-filtered provider list, cross-tenant direct-ID `404`, mutation `405`, `no-store` and clickjacking headers, plus path traversal rejection.
+- Policy tests verify mailbox-content read requires a same-tenant explicit grant and granted consent.
+- Fixture bearer tokens are public source-code test values, not authentication. This prototype has no persisted identity, session security, database, provider access or real message access.
+- PostgreSQL/worker vertical proof is blocked by unavailable local Docker/Podman/PostgreSQL tools; no claim of migration or queue testing.
+- Current slice is pending its own remote CI result until this commit is pushed and the run is inspected.

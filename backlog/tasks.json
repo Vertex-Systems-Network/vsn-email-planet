@@ -163,14 +163,18 @@
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
+      "blockers": [
+        "No PostgreSQL server or Docker/Podman runtime is available in this workspace; no DB/worker vertical-slice result can be claimed."
+      ],
+      "external_requirements": [
+        "Authorized local PostgreSQL runtime or container capability for migration/tenant transaction proof"
+      ],
       "risks": [
         "Overly broad product scope"
       ],
       "decisions": [],
-      "next_action": "Prototype React/Vite UI with NestJS API and PostgreSQL tenant transaction boundary; compare ORM migration and pg-boss worker recovery before locking.",
-      "notes": "Preliminary scorecard and portability rationale are recorded. ORM, job queue, blob store, versions, RLS and fresh-install architecture still require prototype evidence; ADR remains PROPOSED."
+      "next_action": "Continue non-database prototype and source research; run DB/worker proof when an authorized PostgreSQL runtime becomes available.",
+      "notes": "Stack scorecard remains provisional. docker, podman, psql and postgres are absent from this workspace, so DB/queue vertical-slice validation is blocked technically; mocks and further source research remain possible."
     },
     {
       "id": "P0-04",
@@ -306,7 +310,7 @@
         "apps/web/app.js",
         "apps/web/styles.css"
       ],
-      "verification_level": "LOCAL_HTTP_AND_UNIT_TESTS",
+      "verification_level": "LOCAL_HTTP_AND_TENANT_FIXTURE_TESTS",
       "target_environment": "LOCAL_SYNTHETIC",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
@@ -321,8 +325,8 @@
       "decisions": [
         "ADR-0001"
       ],
-      "next_action": "Perform browser visual/responsive review when available; then continue the foundation API increment.",
-      "notes": "Search, status filter, details, synthetic-state indicators, HTTP serving, and traversal rejection covered by local tests. Manual browser and WCAG review remain unverified."
+      "next_action": "Perform manual browser visual/accessibility review; do not infer it from HTTP tests.",
+      "notes": "Dashboard fetches its provider rows from same-origin local API. Cross-tenant direct IDs and public fixture-token boundaries are tested; browser visual/WCAG remain pending."
     },
     {
       "id": "P1-03",
@@ -627,7 +631,7 @@
       "dependencies": [
         "P0-01"
       ],
-      "current_status": "PARTIALLY_VERIFIED",
+      "current_status": "DONE",
       "acceptance_criteria": [
         "Twenty unique bank entries describe actual state and link available evidence",
         "Core connection, sync, send, migration, incident, AI and install flows are represented",
@@ -643,8 +647,65 @@
         "docs/diagrams/connection-flow.mmd",
         "test/knowledge-banks.test.js"
       ],
-      "verification_level": "LOCAL_BANK_AND_FLOW_TESTS_PASS",
+      "verification_level": "LOCAL_TESTS_AND_REMOTE_CI_PASS",
       "target_environment": "LOCAL",
+      "last_verified_commit": "8723bfc41430a31888365a53c46c2cbe15821030",
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": "2026-11-09",
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Bank status can become stale if not maintained with code"
+      ],
+      "decisions": [],
+      "next_action": "Maintain bank state as architecture and implementation facts evolve.",
+      "notes": "Twenty bank entries and seven flow diagrams validated by local tests and GitHub Actions run 42683981722 on the committed feature branch."
+    },
+    {
+      "id": "P1-04",
+      "epic": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Add read-only tenant-scoped fixture API skeleton",
+      "outcome": "The prototype UI reads API-backed provider rows with tested tenant filtering and explicit content grants",
+      "description": "Serve local synthetic read-only provider API; fixture identities model organization scope while remaining explicitly non-auth credentials.",
+      "scope": [
+        "apps/api/src/fixtures.js",
+        "apps/api/src/policy.js",
+        "apps/api/src/service.js",
+        "scripts/dev-server.mjs"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-01",
+        "P1-02"
+      ],
+      "current_status": "PARTIALLY_VERIFIED",
+      "acceptance_criteria": [
+        "Unauthenticated list receives 401",
+        "Tenant list is organization-filtered",
+        "Cross-tenant direct resource ID receives non-disclosing 404",
+        "Mailbox content requires separate explicit consent grant",
+        "Provider mutations return 405 and no state changes",
+        "All API records and tokens are labeled as local fixtures"
+      ],
+      "test_plan": [
+        "Node HTTP unauth/list/detail/mutation tests",
+        "policy unit tests for tenant and content grant",
+        "npm run check"
+      ],
+      "evidence_paths": [
+        "apps/api/src/service.js",
+        "apps/api/src/policy.js",
+        "test/prototype.test.js",
+        "docs/TEST_EVIDENCE/phase-0-foundation.md",
+        "docs/API_CONTRACTS.md"
+      ],
+      "verification_level": "LOCAL_HTTP_POLICY_TESTS_PASS_REMOTE_PENDING",
+      "target_environment": "LOCAL_SYNTHETIC",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
@@ -653,11 +714,13 @@
       "blockers": [],
       "external_requirements": [],
       "risks": [
-        "Bank status can become stale if not maintained with code"
+        "Public fixture tokens are not authentication and must never be reused for real data"
       ],
-      "decisions": [],
-      "next_action": "Checkpoint the catalog and diagrams, then confirm CI run on the committed feature ref.",
-      "notes": "Local validator and six tests pass; remote CI and follow-on maintenance are not yet confirmed."
+      "decisions": [
+        "ADR-0001"
+      ],
+      "next_action": "Push the local passing API increment and verify its Node 24 CI run.",
+      "notes": "Local HTTP and policy tests pass. Fixture auth is explicitly non-production. Persistent storage and real identity are absent."
     }
   ]
 }

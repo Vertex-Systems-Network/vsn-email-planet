@@ -1,9 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { demoProviders, demoDomains, filterProviders } from '../apps/web/data.js';
+import { demoDomains, filterProviders } from '../apps/web/data.js';
+import { demoProviders } from '../apps/api/src/fixtures.js';
+import { canReadMailboxContent, getTenantResource, listTenantResources } from '../apps/api/src/policy.js';
 
 test('demo provider inventory is clearly synthetic and does not contain message content', () => {
-  assert.equal(demoProviders.length, 2);
+  assert.equal(demoProviders.length, 3);
   for (const provider of demoProviders) {
     assert.match(provider.id, /^demo-/);
     assert.ok(provider.note.includes('Synthetic') || provider.note.includes('Synthetic host'));
@@ -14,10 +16,11 @@ test('demo provider inventory is clearly synthetic and does not contain message 
 });
 
 test('filterProviders matches provider, account, host, and status case-insensitively', () => {
-  assert.equal(filterProviders(demoProviders, 'GOOGLE').length, 1);
-  assert.equal(filterProviders(demoProviders, 'example.test').length, 1);
-  assert.equal(filterProviders(demoProviders, '', 'attention')[0].id, 'demo-cpanel-1');
-  assert.equal(filterProviders(demoProviders, 'missing').length, 0);
+  const tenantRows = listTenantResources({ organizationId: 'demo-org-northstar' }, demoProviders);
+  assert.equal(filterProviders(tenantRows, 'GOOGLE').length, 1);
+  assert.equal(filterProviders(tenantRows, 'example.test').length, 1);
+  assert.equal(filterProviders(tenantRows, '', 'attention')[0].id, 'demo-cpanel-1');
+  assert.equal(filterProviders(tenantRows, 'missing').length, 0);
 });
 
 test('domain fixture never asserts verified public DNS state', () => {
@@ -43,4 +46,28 @@ test('development server serves app assets and refuses paths outside web root', 
   assert.equal(js.status, 200);
   const traversal = await fetch(`${base}/%2e%2e%2fREADME.md`);
   assert.equal(traversal.status, 404);
+  const health = await fetch(`${base}/api/health`);
+  assert.equal((await health.json()).environment, 'LOCAL_SYNTHETIC');
+  const denied = await fetch(`${base}/api/providers`);
+  assert.equal(denied.status, 401);
+  const own = await fetch(`${base}/api/providers`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
+  const ownPayload = await own.json();
+  assert.equal(ownPayload.data.length, 2);
+  assert.equal(ownPayload.data.some(row => row.id === 'demo-graph-1'), false);
+  assert.equal(ownPayload.meta.organizationId, 'demo-org-northstar');
+  assert.equal(own.headers.get('cache-control'), 'no-store');
+  assert.equal(own.headers.get('x-frame-options'), 'DENY');
+  const hidden = await fetch(`${base}/api/providers/demo-graph-1`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
+  assert.equal(hidden.status, 404);
+  const mutation = await fetch(`${base}/api/providers`, { method: 'DELETE', headers: { authorization: 'Bearer fixture-local-northstar' } });
+  assert.equal(mutation.status, 405);
+});
+
+test('tenant policy hides other organization resources and requires separate content grant', () => {
+  const actor = { organizationId: 'demo-org-northstar', role: 'operator' };
+  assert.equal(listTenantResources(actor, demoProviders).length, 2);
+  assert.equal(getTenantResource(actor, 'demo-graph-1', demoProviders), null);
+  assert.equal(canReadMailboxContent(actor, { organizationId: 'demo-org-northstar', contentRead: true, consentStatus: 'granted' }), true);
+  assert.equal(canReadMailboxContent(actor, { organizationId: 'demo-org-northstar', contentRead: true, consentStatus: 'missing' }), false);
+  assert.equal(canReadMailboxContent(actor, { organizationId: 'demo-org-fieldnotes', contentRead: true, consentStatus: 'granted' }), false);
 });
