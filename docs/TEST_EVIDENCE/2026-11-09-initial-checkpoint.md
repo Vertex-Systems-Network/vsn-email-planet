@@ -205,4 +205,12 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 - Commit: `f65f0efba54540492dd0f25ba97e597cc3810e2b`
 - GitHub Actions CI: PASS; run completed with `success` (workflow `CI`, run `42690403340`).
 - Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42690403340
-- The subsequent research-register and handoff edits in the working increment have not yet been tested or published.
+- This checkpoint contains the reviewed research register and updated handoff metadata.
+
+## Research register CI checkpoint
+
+- Recorded: 2026-11-09
+- Commit: `44c027b9e310253a66887bb664f1b880fb46c199`
+- GitHub Actions CI: PASS; all workflow jobs completed successfully (run `42690990759`).
+- Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42690990759
+- Provider deletion and state updates in the next docs-only increment have passed `npm run check:backlog` and `git diff --check`, but remain to be published and checked by CI.

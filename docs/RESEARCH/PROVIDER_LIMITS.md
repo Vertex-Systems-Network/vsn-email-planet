@@ -8,4 +8,13 @@
 - **DirectAdmin:** vendor documents a new API and legacy API; exact email actions, supported versions and scope remain to be mapped before choosing an adapter. Source: [API access](https://docs.directadmin.com/developer/api/index.html).
 - **Generic IMAP/SMTP:** RFC/protocol, TLS, auth and server-specific behavior research remains open.
 
+## Deletion, recoverability and retention semantics
+
+- **Gmail API:** `users.messages.delete` immediately and permanently deletes a message and cannot be undone; Google's method docs explicitly recommend `messages.trash` instead. Trash is a separate operation, and the API exposes `untrash`. The API docs do not establish a universal retention period for a trashed message, so do not promise one. Sources: [delete](https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/delete), [trash](https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/trash), [untrash](https://developers.google.com/workspace/gmail/api/reference/rest/v1/users.messages/untrash).
+- **Microsoft Graph:** message `permanentDelete` places the message in the mailbox's Purges folder; Outlook clients cannot access it, and absent a hold, permanent deletion occurs after a set period. This means application-side deletion completion and final backend erasure are distinct states. The cited API page refers administrators to Exchange deleted-item retention configuration; do not assume a fixed period across tenants. Source: [message: permanentDelete](https://learn.microsoft.com/en-us/graph/api/message-permanentdelete?view=graph-rest-1.0).
+- **cPanel/WHM:** cPanel's Exim queue guidance says removed/deleted queued messages cannot be recovered. This is a queue-specific behavior, not a general guarantee about mailbox deletion or backups. Source: [How to Manage Your Exim Queue](https://docs.cpanel.net/knowledge-base/email/how-to-manage-your-exim-queue/).
+- **Product implication:** destructive operations need explicit action labels and a confirmation/approval policy that distinguishes move-to-trash, recoverable deletion, permanent deletion, and provider/host retention outside application control. Audit records should track requested operation, provider response and any known hold/retention state without claiming physical erasure unless the provider confirms it.
+
+This is a documentation review only. No messages were deleted, no tenant retention policy was inspected, and no live account or provider policy was tested.
+
 No actual provider connection or limit was tested against a live account. cPanel UAPI docs were reviewed; legacy API2 endpoints remain visible in official docs, so implementation should use current supported UAPI operations unless a verified compatibility case is documented.
