@@ -10,6 +10,10 @@
 
 The first increment implements a PostgreSQL control-plane schema and checksummed migration runner, but the runtime API does not yet persist application data or authenticate users. No workers or providers are connected. The dashboard is clearly synthetic. API health confirms process availability only.
 
+## OAuth and browser trust direction
+
+Because VSN will handle sensitive email data, use a server-side Backend for Frontend (BFF) as the default OAuth connection architecture: Authorization Code + PKCE, provider tokens kept on the server, and an application session cookie for browser calls. Any BFF proxy path must map to explicit provider hosts and allowed methods. User-configured IMAP/SMTP hosts require a separate constrained connector network path and SSRF defenses. This is an architecture direction from RFC 10017, not implemented authentication. Keep provider OAuth consent distinct from VSN user identity and tenant membership.
+
 ## Intended trust flow
 
 ```mermaid

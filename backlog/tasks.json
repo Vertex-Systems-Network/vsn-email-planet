@@ -213,36 +213,30 @@
         "docs/RESEARCH/MARKET_GAPS.md",
         "docs/RESEARCH/PRICING_VALIDATION.md"
       ],
-      "verification_level": "PARTIAL_PRIMARY_SOURCE_REVIEW",
+      "verification_level": "DATED_PRIMARY_SOURCE_RESEARCH_SNAPSHOT",
       "target_environment": "PUBLIC_DOCUMENTATION",
-      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
+      "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [],
+      "blockers": [
+        "No owner/buyer interviews or hands-on competitor trials have been completed; public vendor claims are not independent validation."
+      ],
       "external_requirements": [],
       "risks": [
-        "Pricing and competitor capability claims may change"
+        "Provider OAuth policies, provider API limits, commercial pricing, feature availability and standards may change; recheck before implementation/release."
       ],
       "decisions": [],
-      "next_action": "Compare named unified inbox, shared inbox, admin, migration and backup products using official current product/pricing pages",
-      "notes": "No competitor gap or price is yet validated.",
+      "next_action": "Review UI library licenses, map remaining provider policy and operational limits, select relevant research papers, and validate buyer workflows/pricing before positioning claims.",
+      "notes": "Expanded official-source research across shared inbox, first-party administration, cPanel/Plesk, migration (CloudM/imapsync), SaaS backup (Barracuda/Dropsuite), Gmail/Graph permissions, IMAP/SMTP/message formats and 2026 OAuth BCP updates. No competitive gap or willingness-to-pay claim is validated.",
       "status_history": [
         {
           "from": null,
           "to": "PARTIALLY_VERIFIED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
+          "changed_at": "2026-11-09T20:04:46.629Z",
           "actor": "Codex",
-          "evidence": [
-            "docs/RESEARCH/COMPETITORS.md",
-            "docs/RESEARCH/STANDARDS.md",
-            "docs/RESEARCH/PROVIDER_LIMITS.md",
-            "docs/RESEARCH/PAPERS.md",
-            "docs/RESEARCH/UI_LIBRARIES.md",
-            "docs/RESEARCH/MARKET_GAPS.md",
-            "docs/RESEARCH/PRICING_VALIDATION.md"
-          ]
+          "evidence": "Expanded and dated source summaries in docs/RESEARCH; market differentiation, provider-policy breadth, UI licensing, academic evidence and buyer validation remain incomplete."
         }
       ]
     },

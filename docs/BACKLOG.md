@@ -7,7 +7,7 @@ The authoritative task records and legal status transitions are in `backlog/task
 | ID | Priority | Work | State | Next action |
 |---|---|---|---|---|
 | P0-01 | P0 | Repository and history audit | VERIFIED | Preserve existing commits; no repeat audit needed |
-| P0-02 | P0 | Research bank | PARTIALLY_VERIFIED | Complete dated competitor/provider research |
+| P0-02 | P0 | Research bank | PARTIALLY_VERIFIED | Finish UI license, policy/research and buyer-validation gaps |
 | P0-05 | P0 | Synthetic feasibility workflow | VERIFIED | Review prototype and close remaining P0 evidence gates |
 | P1-01 | P1 | Workspace, rules, CI | PARTIALLY_VERIFIED | Resolve remaining setup/documentation gaps |
 | P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Complete visual and accessibility review |
