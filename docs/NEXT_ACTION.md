@@ -1,13 +1,12 @@
 # Exact next action
 
-The P0 gate remains open. Continue the current Phase 0 work and close P0 only when every exit criterion in `backlog/phase-gates.json` has evidence. P1 foundation code already exists, but do not advance to P1-06 or begin P2/P3 until the P0 gate is explicitly closed.
+P0 remains active and cannot be marked complete until every exit criterion in `backlog/phase-gates.json` has evidence. That gate controls phase completion and dependent provider/data-plane work; it does not suspend independent, reversible security-foundation work. Buyer interviews and manual browser checks are not additional phase gates unless they are explicitly added to `backlog/phase-gates.json`.
 
-1. Continue P0-02: finish bounded competitor/standards and provider policy research from primary sources; record mailbox-wide retention/erasure and remaining provider permissions. Keep buyer validation open until actual agency/MSP workflows and pricing are validated.
-2. Continue P0-03: reconcile the chosen web/API/database/worker stack with existing implementation; retain evidence from real PostgreSQL 16 CI, then complete clean-boot, self-host footprint and dependency-recovery proof before closing the architecture decision.
-3. Continue P0-04: verify user journeys, viewport behavior, keyboard/focus states and screen-reader behavior against the running dashboard. The shared browser could not reach the local server, so manual visual/accessibility review is still pending.
+1. **Next implementation task: P1-06 identity/session contract.** Its declared dependencies P1-03 and P1-04 are verified. Define session, actor, membership, tenant-derived authorization context, revocation, audit, and unauthenticated/cross-tenant denial contracts before choosing an auth library. Keep this work synthetic/local and do not expose customer data.
+2. **P0-03 stack reconciliation:** resolve the competing Next.js/NestJS and dependency-free Node prototype paths. Record one canonical runnable path and a migration/deprecation decision before expanding either implementation.
+3. Continue P0-02 source-backed provider retention/permission research and P0-04 browser/accessibility evidence where tools allow. If browser access or buyer interviews remain unavailable, record those criteria as pending and proceed with independent work; do not add them as hard phase gates by prose.
 4. Keep provider credentials absent. Use synthetic data and mocks until an authorized sandbox and controlled mailbox are available.
-5. Keep P0 open while external buyer or browser evidence is missing. Update task evidence and phase-gates only from verified results; do not relabel missing evidence as complete.
-6. After P0 passes its exit criteria, resume P1 in backlog dependency order, beginning with the remaining authenticated identity/tenant authorization work. Keep P1-05 partially verified until broker/process recovery and bounded-load evidence exists.
-7. Do not report or start P2/P3 as the active phase until P1 exit criteria are verified and the P1 gate is closed.
+5. Keep P0 open until the actual criteria in `backlog/phase-gates.json` pass. Keep P1-05 partially verified until broker/process recovery and bounded-load evidence exists.
+6. Do not start P2/P3 connector or mail-data-plane releases until the P1 exit criteria and authorization gates pass. Continue local contracts, safety infrastructure, and tests when independent and reversible.
 
-First resume command: `git status --short --branch && git log --oneline -5 && sed -n '1,240p' docs/PROJECT_STATE.md && sed -n '1,160p' docs/NEXT_ACTION.md`.
+First resume command: `git status --short --branch && git log --oneline -5 && sed -n '1,240p' docs/PROJECT_STATE.md && sed -n '1,160p' docs/NEXT_ACTION.md && cat docs/EXECUTION_PLAYBOOK.md`.

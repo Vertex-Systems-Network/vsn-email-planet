@@ -8,7 +8,7 @@ Last updated: 2026-11-09
 - History audit correction: the remote was **not** commit-empty. `main` contained a README initialization (`4758f49`), a zero-byte governing-spec placeholder (`ad2cf39`), and the complete 1,578-line specification (`9182b40`). There was no earlier product code, but all three commits are preserved in the current history. The first local clone had not fetched the current remote branch; this was detected and corrected before publishing implementation.
 - The initial README called the project “VSN Orbicore Email Operations Platform”; the current requested product name, VSN Email Planet, is used in the maintained project docs and app.
 - PR #5 integrated the feature branch into `main` at `7b199403ad8e53a6b7845b1eaa302f5efcf5d4e2`, preserving current main-only history and verified updates.
-- Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md` (v1.0, 2026-11-09), 1,578 lines / 139,581 bytes; read in full.
+- Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md` (v1.0 plus execution addendum, 2026-11-09), 1,592 lines / 142,653 bytes; read in full before the addendum.
 - Initial stack decision: npm workspaces, Next.js App Router + React for web, NestJS API, TypeScript, future PostgreSQL/Redis integration. See ADR-0001.
 
 ## Delivery state
@@ -28,9 +28,16 @@ Last updated: 2026-11-09
 - Security state: not production-ready; no production authentication or tenant persistence. The sample-domain policy functions are defense-in-depth examples, not a substitute for server authentication.
 - License: proprietary notice retained; the owner has not selected a public license.
 
+## Execution-plan audit (2026-11-09)
+
+- Root cause: the master prompt already required autonomous continuation, but `docs/NEXT_ACTION.md` had added buyer interviews and inaccessible manual browser review as prerequisites to P1-06. Those are not in the machine-readable P0 exit gate, so the prose could stall independent security-foundation work indefinitely.
+- A second planning gap is the presence of both the original Next.js/NestJS implementation and a dependency-free Node prototype. P0-03 now explicitly requires a canonical-path decision before expanding either.
+- The previous backlog validator accepted duplicate evidence paths, dependency cycles, vague active next actions, and stale blockers. New regression checks cover those cases, and stale no-push/CI-pending blockers have been removed.
+- The master spec and agent rules now define continuation signals as execution requests, require a pivot around unavailable environments, and make `backlog/phase-gates.json` the only phase-gate source. P0 remains open until its declared criteria pass; P1-06 contract work may proceed because its dependencies are verified. P2/P3 remain gated on P1 authorization criteria.
+
 ## Branch integration verification
 
-The feature prototype, tenant detail routes, screen inventory, knowledge banks and expanded tests are integrated with the current main backend and history. Local integration-tree checks passed: `npm ci`, `npm run check` (34 backlog tasks, 42 tests), `npm run typecheck`, `npm run build`, `npm run smoke:api`, and `npm run smoke:web`. PR-head CI run `42702371409` and post-merge main CI run `42702615390` both passed, including the PostgreSQL 16 integration step. Phase gates remain open; no browser review or provider runtime is claimed.
+The feature prototype, tenant detail routes, screen inventory, knowledge banks and expanded tests are integrated with the current main backend and history. The plan/prompt audit passed local `npm run validate:state` (35 tasks, 5 epics, 5 phase gates, 20 knowledge banks) and `npm run verify:local` (46 tests, typecheck, backlog validation, production build, web/API HTTP smokes and high-severity audit). Evidence: `docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md`. PR-head CI run `42702371409` and post-merge main CI run `42702615390` passed, including PostgreSQL 16. Current audit changes are not yet published. Phase gates remain open; no browser review or provider runtime is claimed.
 
 ## Current blockers and limits
 
@@ -40,4 +47,4 @@ The feature prototype, tenant detail routes, screen inventory, knowledge banks a
 
 ## Next action
 
-Follow `docs/NEXT_ACTION.md` strictly. P0 remains active; do not advance P1 authentication or P2/P3 work until the P0 exit criteria are evidenced and the gate is closed. Preserve all current main history.
+Follow `docs/NEXT_ACTION.md` and `docs/EXECUTION_PLAYBOOK.md`. P0 remains active until its declared criteria pass, while dependency-ready P1-06 local session/tenant contract work may proceed in parallel. P2/P3 remain gated on P1 authorization criteria. Preserve all current main history.

@@ -2,6 +2,8 @@
 
 The phase goals and release gates follow the master specification. This repo's task ledger tracks detailed work and evidence.
 
+`backlog/phase-gates.json` is the sole source of phase exit criteria. P0 remains open until its listed criteria pass, but independent, reversible P1 security-foundation work may proceed when its task dependencies are verified. Buyer interviews, live credentials, and manual browser evidence are task-level validation and do not freeze unrelated work. P2/P3 provider and mail-data-plane delivery remains gated on P1 authorization and safety criteria. Reconcile the existing Next/Nest and dependency-free Node paths before expanding the app.
+
 | Phase | Focus | Status |
 |---|---|---|
 | P0 | Research, feasibility, product/security/UX/data specifications, prototype | In progress |

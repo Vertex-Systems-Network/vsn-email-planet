@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-10",
+  "updated_at": "2026-11-09",
   "allowed_statuses": [
     "DISCOVERED",
     "RESEARCHING",
@@ -220,15 +220,15 @@
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [
-        "No owner/buyer interviews or hands-on competitor trials have been completed; public vendor claims and repository popularity metrics are not independent validation."
+      "blockers": [],
+      "external_requirements": [
+        "Owner/buyer interviews and hands-on competitor trials require separately authorized outreach; this evidence is non-gating for independent implementation."
       ],
-      "external_requirements": [],
       "risks": [
         "Provider OAuth policies, API limits, commercial pricing, feature availability and standards may change; recheck before integration/release."
       ],
       "decisions": [],
-      "next_action": "Review provider deletion/retention policies and relevant security/distributed-systems papers; run one real screen accessibility/component trial and validate buyer workflows/pricing before positioning claims.",
+      "next_action": "Review official mailbox retention/erasure and provider-permission documentation; update docs/RESEARCH/PROVIDER_LIMITS.md with checked date, exact behavior, and confidence. Keep buyer interviews as separate external validation.",
       "notes": "Dated official-source pass spans unified/shared inbox, first-party cloud admin, hosting panels, migration, SaaS backup, Gmail/Graph permission models, IMAP/SMTP/message-format standards, OAuth RFC updates and UI library license/maintenance shortlist. No UI dependency selected; no differentiator or willingness-to-pay claim validated.",
       "status_history": [
         {
@@ -291,7 +291,7 @@
       "decisions": [
         "Next.js App Router + NestJS API; PostgreSQL/Redis are planned, not installed"
       ],
-      "next_action": "Measure clean boot, API/web footprint, local self-host and dependency recovery before finalizing the stack.",
+      "next_action": "Compare the existing Next.js/NestJS app and dependency-free Node prototype; record one canonical runnable stack plus a migration/deprecation plan in ADR-0001, then verify clean install/build.",
       "notes": "The chosen baseline builds locally. Workload, deployment, performance and real-provider SDK benchmarks remain open.",
       "status_history": [
         {
@@ -389,7 +389,7 @@
       "decisions": [
         "Quiet operations-console direction selected as a testable hypothesis"
       ],
-      "next_action": "Verify keyboard/focus/viewport states against the running dashboard",
+      "next_action": "Add automated viewport and keyboard checks that run in CI; keep interactive screen-reader review pending until a browser can reach the app.",
       "notes": "Initial screen does not cover the full screen inventory.",
       "status_history": [
         {
@@ -525,25 +525,24 @@
         "package-lock.json",
         "AGENTS.md",
         ".github/workflows/ci.yml",
-        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
+        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
       ],
-      "verification_level": "LOCAL_CLEAN_INSTALL_TYPECHECK_TEST_BUILD; REMOTE_CI_PENDING",
+      "verification_level": "LOCAL_CLEAN_INSTALL_TYPECHECK_TEST_BUILD; REMOTE_CI_PASS; LICENSE_DECISION_OPEN",
       "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
       "last_verified_commit": "4526f0ff2ab4dda705ed3d1328be545a77662597",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [
-        "First checkpoint has not yet been pushed; remote GitHub Actions status is pending."
-      ],
+      "blockers": [],
       "external_requirements": [],
       "risks": [
         "Public repository has no selected open-source license"
       ],
       "decisions": [],
-      "next_action": "Continue resolving documented setup and infrastructure gaps against the roadmap.",
-      "notes": "Fresh install, local checks and remote CI passed for the repository foundation. Accessibility implementation commit eadd7d8 passed run 42699266795; backlog-ledger recovery commit 4526f0f passed run 42700469822. The intervening 3ed6cba documentation commit failed its backlog validation and is preserved in CI history. No license grant is selected.",
+      "next_action": "Continue with the exact independent priority in docs/NEXT_ACTION.md; preserve reproducible scripts and current cross-agent rules.",
+      "notes": "Fresh install, checks, and remote CI pass for the repository foundation. The stale no-push/CI-pending blocker was removed. Public license selection remains an owner decision, separate from implementation verification.",
       "status_history": [
         {
           "from": null,
@@ -606,14 +605,13 @@
         "apps/web/app/globals.css",
         "apps/web/components/dashboard.tsx",
         "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
-        "docs/TEST_EVIDENCE/verification-20261109T210340Z-c1d1652.md",
         "docs/TEST_EVIDENCE/verification-20261109T210340Z-c1d1652.md"
       ],
       "verification_level": "LOCAL_BUILD_AND_HTTP_SMOKE; FULL_CI; VISUAL_A11Y_PENDING",
       "target_environment": "LOCAL_BROWSER",
       "last_verified_commit": "eadd7d8ce32778f9a5af589e2c590b9fd487ce89",
       "created_at": "2026-11-09",
-      "updated_at": "2026-11-10",
+      "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
@@ -622,7 +620,7 @@
         "No usability study or automated a11y report yet"
       ],
       "decisions": [],
-      "next_action": "Complete browser-based visual/responsive review and manual keyboard/screen-reader smoke.",
+      "next_action": "Run viewport and keyboard checks with a browser runner that can reach the app; record manual screen-reader review separately.",
       "notes": "Commit eadd7d8 passed full CI run 42699266795 and local typecheck, build, unit and HTTP smoke checks after adding mobile-nav expanded/controls state, Escape dismissal, focus restoration, offscreen hidden state and a screen-reader table caption. Shared Chrome could not connect to the local dev-server port; browser rendering, contrast, manual keyboard/screen-reader operation and automated accessibility scan remain pending.",
       "status_history": [
         {
@@ -765,8 +763,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Design identity/session and membership data contracts before selecting auth implementation",
-      "notes": "Do not expose real tenant data until this gate passes.",
+      "next_action": "Write docs/API_CONTRACTS.md definitions for session, actor, organization membership, tenant-derived authorization context, revocation, audit, and unauthenticated/cross-tenant denial cases before choosing an auth library.",
+      "notes": "Local contract and test work is authorized because P1-03 and P1-04 are verified. This does not claim production authentication or authorize real tenant data.",
       "status_history": [
         {
           "from": null,
@@ -900,14 +898,13 @@
         "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
         "docs/TEST_EVIDENCE/verification-20261109T205253Z-22387bf.md",
         "docs/TEST_EVIDENCE/verification-20261109T205824Z-09ef29a.md",
-        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md",
         "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
       ],
       "verification_level": "LOCAL_PGLITE; POSTGRES_16_CI_WORKER_AND_PUBLISHER",
       "target_environment": "LOCAL_INTEGRATION",
       "last_verified_commit": "c1d1652384db8d27b3bddbfbe222b7971ffc9f26",
       "created_at": "2026-11-09",
-      "updated_at": "2026-11-10",
+      "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
@@ -919,7 +916,7 @@
       "decisions": [
         "Use PostgreSQL SKIP LOCKED as the initial durable queue-of-record prototype with a transactional outbox; do not treat it as the production Redis/BullMQ decision. See docs/DECISIONS/ADR-0002-DURABLE-JOBS.md."
       ],
-      "next_action": "Implement provider-independent handlers and a broker adapter, then verify process interruption/recovery, contention and bounded load before any production queue decision.",
+      "next_action": "After P1-06 contract work, split broker adapter, process-crash recovery, and bounded-load evidence into separate testable backlog tasks.",
       "notes": "24 local tests cover tenant-scoped idempotent enqueue, concurrent mailbox serialization, lease fencing/reclaim, bounded retry, unknown mutation/reconciliation, worker heartbeat/shutdown/handler results, and callback outbox publish failure/retry. Commits 09ef29a and c1d1652 passed native PostgreSQL 16 worker and publisher execution in CI. No broker adapter, provider handlers, managed worker process, process-crash or soak/load evidence exists.",
       "status_history": [
         {
@@ -990,7 +987,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Inspect upstream requirements and implement implement secret references and auditable policy decisions",
+      "next_action": "After P1-06 authorization contracts, define the encrypted secret-reference lifecycle and audit-event schema with redaction cases.",
       "notes": "Seeded from the governing specification; no implementation or verification is claimed.",
       "status_history": [
         {
@@ -1040,7 +1037,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Inspect upstream requirements and implement build local development and self-host deployment baseline",
+      "next_action": "After canonical stack selection, add a clean-start self-host configuration with readiness checks and non-secret defaults.",
       "notes": "Seeded from the governing specification; no implementation or verification is claimed.",
       "status_history": [
         {
@@ -1081,23 +1078,22 @@
         ".github/workflows/ci.yml",
         ".github/dependabot.yml",
         "scripts/verify-local.mjs",
-        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
+        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
       ],
-      "verification_level": "LOCAL_CHECK_RUNNER_AND_WORKFLOW_DEFINED; REMOTE_CI_PENDING",
+      "verification_level": "WORKFLOW_AND_LOCAL_RUNNER; FULL_CI_PASS; ARTIFACT_PROVENANCE_OPEN",
       "target_environment": "LOCAL_INTEGRATION",
       "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": null,
       "completed_at": null,
-      "blockers": [
-        "First checkpoint has not yet been pushed; remote GitHub Actions status is pending."
-      ],
+      "blockers": [],
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Push checkpoint, inspect GitHub Actions and resolve any workflow errors.",
-      "notes": "Local verification pipeline and dependency audit passed; GitHub Actions has not yet run remotely.",
+      "next_action": "Add workflow artifact upload for the verification report and confirm the artifact name contains the tested commit SHA.",
+      "notes": "Required local and remote checks currently pass. Remaining acceptance: CI uploads a uniquely named verification report with tested commit provenance; workflow/test history stays accurate.",
       "status_history": [
         {
           "from": null,
@@ -1176,7 +1172,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Inspect upstream requirements and implement specify installation wizard and tenant-isolation acceptance flow",
+      "next_action": "Define two-tenant setup fixtures and interrupted-setup retry cases before implementing the installation flow.",
       "notes": "Seeded from the governing specification; no implementation or verification is claimed.",
       "status_history": [
         {
@@ -1224,7 +1220,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-04, P1-06 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1273,7 +1269,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P2-01, P1-07 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1321,7 +1317,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P2-01, P2-02 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1370,7 +1366,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P2-01, P2-05 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1418,7 +1414,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-06, P1-07 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1467,7 +1463,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P2-01, P2-05 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1515,7 +1511,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P2-01, P2-05 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1565,7 +1561,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-05, P2-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1614,7 +1610,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-05, P2-05 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1663,7 +1659,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-04, P2-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1713,7 +1709,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P3-03, P3-08 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1762,7 +1758,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-07, P2-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1812,7 +1808,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P3-07, P7-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1865,7 +1861,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P1-10, P2-05, P3-08, P6-01, P7-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1912,7 +1908,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P9-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -1960,7 +1956,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P9-01, P10-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -2007,7 +2003,7 @@
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Do not start until dependencies and phase gate are met; inspect the master spec section for this phase.",
+      "next_action": "Keep deferred until dependencies P9-01 meet their acceptance gates; then split this scope into tested increments.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -2069,7 +2065,7 @@
         "Mailbox content privacy and threading errors"
       ],
       "decisions": [],
-      "next_action": "Do not start until the provider sync and tenant authorization contracts are implemented.",
+      "next_action": "Keep deferred until P1-06, P2-05, and P3-03 pass; then specify mailbox ACL and revocation tests.",
       "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
@@ -2140,6 +2136,100 @@
             "knowledge/screens/screen-inventory.json",
             "test/screen-inventory.test.js"
           ]
+        }
+      ]
+    },
+    {
+      "id": "P0-07",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Enforce autonomous execution and plan consistency",
+      "outcome": "Continuation requests produce working increments and the plan cannot silently stall on non-gating external evidence.",
+      "description": "Reconcile the master prompt, agent rules, next action and phase gates; strengthen backlog validation and add regression coverage for stale/ambiguous planning state.",
+      "scope": [
+        "continuation contract",
+        "phase-gate source of truth",
+        "task quality validation",
+        "recovery checkpoint"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": "Codex",
+      "dependencies": [
+        "P0-01",
+        "P0-05"
+      ],
+      "current_status": "TESTING",
+      "acceptance_criteria": [
+        "Continuation signals explicitly resume implementation instead of status-only replies",
+        "External browser/interview/provider access blocks only criteria that require it",
+        "Phase-gate criteria have one machine-readable source and allow independent safe work",
+        "Backlog check rejects duplicate evidence, invalid dependencies/cycles, blocked-status mismatches, and vague active actions",
+        "Known stale blockers and duplicate evidence are removed from the current ledger"
+      ],
+      "test_plan": [
+        "npm run check:backlog",
+        "npm run validate:state",
+        "npm test",
+        "npm run verify:local",
+        "GitHub Actions full workflow"
+      ],
+      "evidence_paths": [
+        "AGENTS.md",
+        "AI_Native_Central_Email_Platform_Master_Prompt.md",
+        "docs/EXECUTION_PLAYBOOK.md",
+        "docs/NEXT_ACTION.md",
+        "backlog/phase-gates.json",
+        "scripts/validate-backlog.mjs",
+        "tests/backlog-validator.test.mjs",
+        "docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md"
+      ],
+      "verification_level": "STATE_CHECKS_AND_46_TESTS_PASS; FULL_LOCAL_VERIFICATION_PASS; REMOTE_CI_PENDING",
+      "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Overly strict validation could misclassify a legitimate task as blocked or incomplete."
+      ],
+      "decisions": [
+        "Only backlog/phase-gates.json determines phase exit criteria.",
+        "Buyer interviews, browser access, and live credentials remain task-level validation unless declared as phase criteria."
+      ],
+      "next_action": "Review and publish this tested governance increment on current main, then start the P1-06 session and tenant-authorization contract while continuing P0-02/P0-03 evidence.",
+      "notes": "npm run validate:state passes (35 tasks, 5 epics, 5 phase gates, 20 knowledge banks); npm run verify:local passes with 46 tests, typecheck, backlog check, build, web/API smoke, and audit. Remote CI remains pending.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T21:00:00Z",
+          "actor": "Codex",
+          "evidence": "Found prose-level external prerequisites absent from the machine-readable P0 gate and validator gaps in the current backlog."
+        },
+        {
+          "from": "DISCOVERED",
+          "to": "SPECIFIED",
+          "changed_at": "2026-11-09T21:01:00Z",
+          "actor": "Codex",
+          "evidence": "Defined bounded rule, phase-gate, validator, and regression-test acceptance criteria."
+        },
+        {
+          "from": "SPECIFIED",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-09T21:02:00Z",
+          "actor": "Codex",
+          "evidence": "Started updating prompt, agent rules, phase gate, and active next action."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-09T21:30:00Z",
+          "actor": "Codex",
+          "evidence": "Backlog/schema checks and 46 local tests passed; full local verification report recorded."
         }
       ]
     }

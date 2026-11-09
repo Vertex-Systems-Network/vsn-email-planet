@@ -1555,6 +1555,20 @@ These primary documents ground initial implementation decisions. Save URLs, acce
 
 **The mission is fulfilled when an authorized user can install the web product, connect permitted email providers, actually manage supported mailboxes, safely read/send mail with correct identities, diagnose provider issues, migrate and recover data with trustworthy verification, automate narrow safe workflows, and view truthful status—while separate desktop and mobile release phases subsequently pass their own platform gates.**
 
+## 77. Execution enforcement addendum (2026-11-09)
+
+This addendum clarifies the execution contract where planning and tool limits previously caused progress-only turns. It does not weaken provider authorization, security gates, test requirements, or phase exit criteria.
+
+1. A user continuation signal (`...`, `continue`, or a progress ping) during an active development request is an instruction to resume work. Give a short answer to any direct question, then execute the next repository task; do not stop after a status report while an unblocked task remains.
+2. A blocked criterion is not a blocked project. Record the exact unavailable capability, observed failure, and one attempted workaround. Then move to the next independent highest-priority task. Do not wait for browser access, buyer interviews, live credentials, or another session when local research, mock behavior, contracts, tests, documentation, or tooling can progress.
+3. Convert roadmap themes into bounded acceptance-sized tasks before implementation. Every active task must name the outcome, dependencies, files/artifact, test command and fixture, target environment, evidence path, blockers, and executable next action. Split broad tasks spanning independent services, failure modes, or release gates.
+4. `docs/EXECUTION_PLAYBOOK.md` defines the mandatory loop and plan-quality gate. `scripts/validate-backlog.mjs` and CI must reject duplicate evidence, malformed dependencies, stale blocker/status combinations, vague active next actions, and any dependency cycle.
+5. After an environment failure, diagnose once and try one reasonable fallback. If it still fails, checkpoint the limitation and continue elsewhere rather than repeating the failure or returning only a progress message.
+6. Before pushing, validate the actual commit tree/backlog and run required tests locally. After pushing, confirm the remote SHA and CI. Update `docs/PROJECT_STATE.md`, `docs/NEXT_ACTION.md`, `docs/HANDOFF.md`, and the task ledger from observed results; never infer a pass from local success or a queued CI run.
+7. Report phase counts and evidence, not a guessed percentage. Phase exit criteria still govern release; incomplete external validation must remain visible without blocking unrelated safe development.
+8. `backlog/phase-gates.json` is the sole source of phase exit criteria. Do not add hard prerequisites only in `docs/NEXT_ACTION.md`. Buyer interviews, live provider accounts, and manual browser review remain task-level validation unless explicitly listed in the phase gate; lack of access blocks only the affected evidence. Safe, reversible foundation work may proceed in parallel when its recorded dependencies pass. Do not claim the phase is complete until every declared exit criterion passes.
+9. Resolve architecture forks before adding a second implementation path. If the repository contains two competing stacks or prototypes, the next task must choose one canonical runnable path, define the status/migration of the other, and verify the choice against real CI and local install evidence.
+
 ---
 
 # COPY-PASTE STARTER MESSAGE FOR ANY CODING AGENT

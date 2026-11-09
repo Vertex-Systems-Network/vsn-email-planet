@@ -10,6 +10,12 @@ This repository builds a provider-neutral, secure, multi-tenant Email Operations
 - Avoid secrets in files, logs, prompts, and commits. No destructive production actions, unauthorized mail access, DNS cutover, or unapproved external sending.
 - On resume, inspect current branch/HEAD and exact task state; do not rerun valid checks or duplicate in-flight work. Use small checkpoint commits and update backlog/evidence/handoff.
 - `design it` is design-only. Continue the highest-priority unblocked task otherwise. Record external validation blockers and proceed with synthetic fixtures.
+- A user continuation signal (`...`, `continue`, `?`) means resume execution. Answer a direct question briefly, then work on a concrete repository task; do not send progress-only turns while unblocked work remains.
+- A blocker pauses only the criterion that needs the unavailable resource. Record the observed failure and one fallback attempt, then move to the next independent task. Never make buyer interviews, live credentials, or browser access a prerequisite for unrelated local design, implementation, tests, or research.
+- Phase gates are defined only by `backlog/phase-gates.json`. Do not add extra hard gates in prose. External validation remains visible as a blocker/risk on the affected task and cannot block unrelated work. Security prerequisites still block dependent data-plane/provider work.
+- Active backlog tasks need a bounded outcome, dependencies, observable acceptance criteria, named tests/fixtures, evidence path, exact blockers, and executable next action. Split work that spans independent subsystems or failure modes.
+- Before a checkpoint, validate task consistency and the exact Git tree. If CI detects a repository-state error, fix it locally, rerun the failing check, and preserve both failure and recovery evidence.
+- Before ending a turn, continue the highest-priority unblocked task when possible. Otherwise state the exact next file/command and the concrete tool or authorization limit.
 
 ## Commands
 - `node scripts/validate-state.mjs` validates backlog/state schemas.
