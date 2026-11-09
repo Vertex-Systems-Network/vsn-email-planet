@@ -11,3 +11,16 @@ Checked: 2026-11-09. Evidence below is from product-owner documentation/pricing 
 
 ## Initial product implication
 Existing tools address client mail collaboration, personal unified inbox, or protocol/API bridging. A unified operations product combining authorized admin inventory, mail workflows, infrastructure diagnostics, incident evidence, migration and recovery is a **combined opportunity hypothesis**, not a validated market gap or uniqueness claim. Next research should compare Plesk/DirectAdmin, MSP tools, backup/migration products and agency users.
+
+## Hosting, migration and deliverability categories
+
+| Product/category | Verified scope | Limits/implication | Source |
+|---|---|---|---|
+| Plesk Obsidian — hosting control panel | Official XML API documents mail account creation and settings; docs say admin/customer may modify account settings depending on context. | Integrations are version/API/role dependent; panel mail administration does not itself prove message-content authorization. | https://docs.plesk.com/en-US/obsidian/api-rpc/about-xml-api/reference/managing-mail.34477/ ; https://docs.plesk.com/en-US/obsidian/api-rpc/about-xml-api/reference/managing-mail/modifying-mail-account-settings.34506/ |
+| DirectAdmin — hosting control panel | Latest API docs describe a bundled OpenAPI 2.0 spec; legacy API docs include virtual POP list/quota/create/modify/delete operations. | The legacy surface differs from current API; some GUI functionality may require additional discovery. Pin version and operation permissions in probes. | https://docs.directadmin.com/developer/api/index.html ; https://docs.directadmin.com/developer/api/legacy-api.html |
+| imapsync — IMAP migration/backup utility | Official project describes recursive incremental transfer, resumable without duplicates; supports Windows/Linux/macOS. | CLI utility, IMAP-only; project states no calendar/contact migration, no local-directory backup/restore, and not for two-way synchronization of active accounts. Migration tooling already exists; product opportunity must be in safe orchestration, fidelity evidence, admin inventory and recovery—not claiming mailbox transfer novelty. | https://imapsync.lamiral.info/ |
+| dmarcian / EasyDMARC — DMARC monitoring | Both provide DMARC reporting/monitoring and domain-focused plans; pricing/features are tiered by monitored domains, traffic/reports, history or custom plan. | Specialist deliverability products exist. A wider platform could integrate/aggregate evidence, but must not duplicate mature reports without user value. | https://dmarcian.com/pricing/ ; https://easydmarc.com/pricing/businesses |
+
+## Revised opportunity label
+
+The evidence supports an **integration hypothesis**: connect hosting-panel inventory with specialized inbox, migration, and DMARC tools under one permission-aware workspace. It does not validate customer demand, competitive uniqueness, migration fidelity, or willingness to pay. Agency/MSP interviews and hands-on product trials remain necessary before roadmap lock.

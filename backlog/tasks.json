@@ -109,8 +109,8 @@
         "Provider policies and docs can change"
       ],
       "decisions": [],
-      "next_action": "Review endpoint-level cPanel UAPI function/role docs and complete scoped provider capability matrix; no live sandbox has been tested.",
-      "notes": "Expanded official-source research includes Gmail 404 recovery/scopes, Graph permissions/lifecycle, cPanel UAPI and OAuth RFC 9700. Remains partial until connector-specific limits and live sandbox needs are scoped."
+      "next_action": "Map endpoint-level roles/scopes for Plesk and DirectAdmin alongside Gmail/Graph/cPanel; keep real connector tests blocked without a sandbox.",
+      "notes": "Official docs now cover Gmail, Graph permissions/lifecycle, cPanel UAPI, Plesk XML mail API, DirectAdmin current+legacy API and OAuth RFC. No live host was tested."
     },
     {
       "id": "P0-03",
@@ -216,12 +216,16 @@
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
+      "blockers": [
+        "No direct user interview evidence is available in this workspace; market-gap conclusion remains low confidence."
+      ],
+      "external_requirements": [
+        "Agency/MSP workflow interviews or authorized product trial needed to validate demand and willingness-to-pay"
+      ],
       "risks": [],
       "decisions": [],
-      "next_action": "Compare hosting admin, MSP, migration/backup, and deliverability tools from primary documentation; validate agency jobs-to-be-done.",
-      "notes": "Front, Missive, Thunderbird and EmailEngine official pages reviewed; Microsoft and cPanel provider evidence is in PROVIDER_LIMITS. Broader MSP/migration/archive comparison and user research remain open."
+      "next_action": "Interview agency/MSP users and compare practical workflows against shortlisted inbox/admin/migration/DMARC products; no validated gap claim.",
+      "notes": "Official-source review now includes Front, Missive, Thunderbird, EmailEngine, Plesk, DirectAdmin, imapsync, dmarcian and EasyDMARC. Customer demand and willingness-to-pay remain unvalidated."
     },
     {
       "id": "P1-01",
@@ -317,7 +321,9 @@
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [],
+      "blockers": [
+        "Shared Chrome cannot reach the executor loopback URL; browser screenshot/review path unavailable in current environment."
+      ],
       "external_requirements": [],
       "risks": [
         "Static prototype is not production auth/data architecture"
@@ -325,8 +331,8 @@
       "decisions": [
         "ADR-0001"
       ],
-      "next_action": "Perform manual browser visual/accessibility review; do not infer it from HTTP tests.",
-      "notes": "Dashboard fetches its provider rows from same-origin local API. Cross-tenant direct IDs and public fixture-token boundaries are tested; browser visual/WCAG remain pending."
+      "next_action": "Run manual visual/responsive/accessibility review when an approved shared preview path is available.",
+      "notes": "Local HTTP and UI data tests pass, but no browser screenshot/visual review was completed because the cloud browser returned net::ERR_CONNECTION_REFUSED on 127.0.0.1."
     },
     {
       "id": "P1-03",

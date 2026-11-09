@@ -13,3 +13,9 @@ Reviewed 2026-11-09 against official docs. These sources do not replace account-
 | OAuth | RFC 9700 is the current OAuth 2.0 Security BCP and deprecates insecure modes. | PKCE/state/nonce, exact redirects, modern token handling and documented threat review before provider auth. | https://www.rfc-editor.org/rfc/rfc9700.html |
 
 Open: endpoint-level UAPI methods/role coverage, host-specific API restrictions, provider admin consent verification, IMAP OAuth/TLS matrix and live behavior. No sandbox credentials were supplied; no live provider test has occurred.
+
+## Hosting-panel follow-up
+
+- Plesk Obsidian XML API has mail account management operations; its docs describe administrator/customer contexts and versioned request packets. Do not assume every role or installation supports the same mutations. Official docs: https://docs.plesk.com/en-US/obsidian/api-rpc/about-xml-api/reference/managing-mail.34477/ and https://docs.plesk.com/en-US/obsidian/api-rpc/about-xml-api/reference/managing-mail/modifying-mail-account-settings.34506/.
+- DirectAdmin current API docs say an OpenAPI 2.0 description is bundled with the server. Legacy docs list `CMD_API_POP` for list/quota/create/modify/delete. Treat old and current API surfaces separately and discover per host/version. Official docs: https://docs.directadmin.com/developer/api/index.html and https://docs.directadmin.com/developer/api/legacy-api.html.
+- No panel sandbox was available; these are documentation findings only.

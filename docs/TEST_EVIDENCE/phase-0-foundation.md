@@ -62,3 +62,9 @@ Verification level: local prototype contract only; not a release gate.
 - Commit `2ba00f5d5db977d1845bdf5e7e500a007019834d` confirmed on `feat/phase-0-foundation`.
 - GitHub Actions run `42684912974` completed with `success` on that commit.
 - P1-04 is `DONE` only for its scoped, read-only synthetic API fixture acceptance. It does not mean production authentication, database-backed tenant isolation, live provider access, or P1 as a whole is complete.
+
+## Browser visual review attempt
+
+- Started the local app server on `127.0.0.1:4173`; the in-process Node HTTP integration tests pass.
+- Tried to open the local URL in the shared Chrome browser. The browser could not reach the executor loopback (`net::ERR_CONNECTION_REFUSED`), so no screenshot, responsive, keyboard or visual review is claimed.
+- This is a browser-to-executor network isolation limitation, not an observed application HTTP failure. Browser/WCAG QA remains open until a preview is exposed through an approved shared path.
