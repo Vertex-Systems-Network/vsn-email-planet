@@ -30,3 +30,9 @@ Verification level: local prototype contract only; not a release gate.
 
 - After the research/Node-runtime updates, `npm run check` again passed locally on Node `v24.22.1`: state validation passed; 4 tests passed, 0 failed, 0 skipped.
 - CI has passed previously on commit `53d8e479bddaa6bcb82ae41c4828cdd7a8a6da7e` using the prior Node 22 workflow. The updated Node 24 workflow still requires its own remote run; no pass is claimed for it yet.
+
+## Node 24 CI checkpoint
+
+- Updated workflow targets the Node 24 line; repository engine minimum is 24.15.0 (local runner Node `v24.22.1`).
+- GitHub Actions run `42683074539` completed `success` for commit `de10775593ac60771a0b5cada7ea583a0ddd9b70` on 2026-11-09.
+- This confirms the repo state/fixture tests on GitHub Actions Node 24. It does not add provider, browser, security penetration, or production-release evidence.
