@@ -1,24 +1,19 @@
-# VSN Email Planet — Agent Rules
+# Repository instructions
 
-This repository implements a provider-neutral, secure, AI-assisted multi-tenant Email Operations Control Platform. The full governing contract is [`AI_Native_Central_Email_Platform_Master_Prompt.md`](AI_Native_Central_Email_Platform_Master_Prompt.md).
+This repository builds a provider-neutral, secure, multi-tenant Email Operations Control Platform. The canonical product and safety contract is `AI_Native_Central_Email_Platform_Master_Prompt.md` (read completely). Before editing, inspect Git status/history, `docs/PROJECT_STATE.md`, `docs/NEXT_ACTION.md`, `docs/HANDOFF.md`, backlog, and relevant ADRs.
 
-## Required startup
-
-Inspect `git status`, branch, HEAD, recent commits, tree and CI. Read this file, the master specification, `docs/PROJECT_STATE.md`, `docs/NEXT_ACTION.md`, `docs/HANDOFF.md`, `backlog/tasks.json`, and applicable ADRs before editing. Check for an existing task/lease and select the highest-priority unblocked work.
-
-## Mandatory engineering rules
-
-- Complete one cohesive increment, run its relevant checks, record actual evidence, update the JSON backlog and handoff, then checkpoint Git.
-- `DONE` requires committed code, passing tests, acceptance evidence and current documentation. Mocks and local fixtures never count as live provider validation.
-- Keep control-plane administration separate from mailbox content access. Panel credentials do not grant universal inbox access. Enforce tenant scope in APIs, workers, search, attachments and exports using server-derived authorization context.
-- Provider actions must be capability-gated, least-privilege, auditable and truthful. Never claim an unsupported or simulated action succeeded.
-- Outbound mail defaults to draft-only; a lost send response becomes `UNKNOWN` and must be reconciled before retry.
-- Treat email and attachment content as untrusted input. Never expose messages, credentials or tokens to an unapproved AI service.
-- Never bypass OAuth/MFA, perform unauthorized DNS changes, send unapproved mail, delete original data, push secrets, or force-push.
-- `design it` is design-only. `continue` resumes from repository state. If blocked, persist the exact blocker and continue with independent work.
-- Do not run duplicate installers or repeat valid checks when relevant inputs have not changed.
-- When working under `apps/web`, read its nested `AGENTS.md` and the relevant installed Next.js framework guide before editing framework APIs. Root rules remain canonical.
+## Required workflow
+- Work one cohesive, authorized increment at a time. Preserve existing behavior and document decisions.
+- Provider access is capability- and permission-specific. A hosting-panel credential does not imply mailbox-content consent. Never label mock fixtures as live integrations.
+- Enforce tenant authorization at every API, worker, search, object, and AI boundary. Treat email content as untrusted input. Sending stays draft-only unless narrowly authorized by policy.
+- Do not claim a test, feature, phase, integration, artifact, or remote push passed unless its evidence exists. `DONE` requires committed code, applicable passing tests, acceptance evidence and docs.
+- Avoid secrets in files, logs, prompts, and commits. No destructive production actions, unauthorized mail access, DNS cutover, or unapproved external sending.
+- On resume, inspect current branch/HEAD and exact task state; do not rerun valid checks or duplicate in-flight work. Use small checkpoint commits and update backlog/evidence/handoff.
+- `design it` is design-only. Continue the highest-priority unblocked task otherwise. Record external validation blockers and proceed with synthetic fixtures.
 
 ## Commands
+- `node scripts/validate-state.mjs` validates backlog/state schemas.
+- `node --test` runs the built-in Node test suite.
+- `npm run dev` serves the dependency-free prototype on port 4173.
 
-Use Node `>=22.14 <25` and npm `>=11 <12`; `package.json` pins npm. From the repository root run `npm ci`, `npm run dev`, `npm run dev:api`, `npm run typecheck`, `npm test`, `npm run check:backlog`, and `npm run build` as relevant. Never put secrets in `.env.example`, fixtures, screenshots or commits.
+See `docs/PROJECT_STATE.md` and `docs/NEXT_ACTION.md` for current status. Model-specific files must defer to this file.

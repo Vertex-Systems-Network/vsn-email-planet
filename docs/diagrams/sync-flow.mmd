@@ -1,0 +1,11 @@
+flowchart TD
+  A[Webhook or poll hint] --> B[Verify source and deduplicate]
+  B --> C[Acquire mailbox lease]
+  C --> D[Load committed cursor]
+  D --> E[Fetch provider changes]
+  E --> F{Cursor valid?}
+  F -- No --> G[Schedule full reconciliation]
+  F -- Yes --> H[Normalize and deduplicate]
+  G --> H
+  H --> I[Commit changes and cursor atomically]
+  I --> J[Audit and release lease]

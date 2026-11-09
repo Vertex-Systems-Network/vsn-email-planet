@@ -14,12 +14,14 @@
     "db:migrate": "node apps/api/db/migrate.mjs",
     "build": "npm run build --workspace @vsn/web && npm run build --workspace @vsn/api",
     "typecheck": "npm run typecheck --workspace @vsn/web && npm run typecheck --workspace @vsn/api",
-    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs test/*.test.js",
     "test:postgres": "node scripts/smoke-postgres.mjs",
     "smoke:api": "node scripts/smoke-api.mjs",
     "smoke:web": "node scripts/smoke-web.mjs",
     "verify:local": "node scripts/verify-local.mjs",
-    "check:backlog": "node scripts/validate-backlog.mjs"
+    "check:backlog": "node scripts/validate-backlog.mjs",
+    "validate:state": "node scripts/validate-state.mjs",
+    "check": "npm run check:backlog && npm run validate:state && npm test"
   },
   "engines": {
     "node": ">=22.14 <25",
@@ -31,5 +33,6 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "typescript": "5.9.3"
-  }
+  },
+  "type": "module"
 }

@@ -1,0 +1,4381 @@
+{
+  "schema_version": 1,
+  "source": "AI_Native_Central_Email_Platform_Master_Prompt.md section 27 and installation screens section 40",
+  "last_reviewed": "2026-11-09",
+  "screen_count": 131,
+  "screens": [
+    {
+      "id": "sign-in",
+      "area": "global",
+      "phase": "P1",
+      "title": "Sign in",
+      "roles": [
+        "anonymous",
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "signup-invite",
+      "area": "global",
+      "phase": "P1",
+      "title": "Sign up or accept invitation",
+      "roles": [
+        "anonymous",
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mfa-challenge",
+      "area": "global",
+      "phase": "P1",
+      "title": "MFA challenge",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "account-recovery",
+      "area": "global",
+      "phase": "P1",
+      "title": "Account recovery",
+      "roles": [
+        "anonymous",
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "user-profile",
+      "area": "global",
+      "phase": "P1",
+      "title": "User profile",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "organization-list",
+      "area": "global",
+      "phase": "P1",
+      "title": "Organizations",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "organization-switcher",
+      "area": "global",
+      "phase": "P1",
+      "title": "Organization switcher",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "workspace-home",
+      "area": "global",
+      "phase": "P1",
+      "title": "Workspace home",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "PROTOTYPE_PARTIAL",
+      "evidence_paths": [
+        "apps/web/index.html"
+      ],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "settings",
+      "area": "global",
+      "phase": "P1",
+      "title": "Settings",
+      "roles": [
+        "user",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "language-theme",
+      "area": "global",
+      "phase": "P1",
+      "title": "Language and theme settings",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "notification-center",
+      "area": "global",
+      "phase": "P1",
+      "title": "Notification center",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "audit-history",
+      "area": "global",
+      "phase": "P1",
+      "title": "Audit history",
+      "roles": [
+        "auditor",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "help-center",
+      "area": "global",
+      "phase": "P1",
+      "title": "Help and support",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "command-palette",
+      "area": "global",
+      "phase": "P1",
+      "title": "Command palette",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "global-search",
+      "area": "global",
+      "phase": "P1",
+      "title": "Global search",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "alerts",
+      "area": "global",
+      "phase": "P1",
+      "title": "Alerts overview",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "provider-catalog",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Provider catalog",
+      "roles": [
+        "operator",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "connection-wizard",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Provider connection wizard",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "oauth-consent",
+      "area": "connections",
+      "phase": "P2",
+      "title": "OAuth permission explanation",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "imap-manual-setup",
+      "area": "connections",
+      "phase": "P2",
+      "title": "IMAP/SMTP manual connection",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "connection-test",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Connection test results",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "capability-summary",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Provider capability summary",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-access-approval",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Mailbox content access approval",
+      "roles": [
+        "mailbox_owner",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "bulk-import-preview",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Bulk connection import preview",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "connection-detail",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Connection detail",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "connection-errors",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Connection diagnostics",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "connection-reconnect",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Reconnect provider",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "token-expiry",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Token expiry and re-consent",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "connection-disconnect",
+      "area": "connections",
+      "phase": "P2",
+      "title": "Disconnect and retention choices",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "operations-dashboard",
+      "area": "admin",
+      "phase": "P2",
+      "title": "Operations dashboard",
+      "roles": [
+        "operator",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "PROTOTYPE_PARTIAL",
+      "evidence_paths": [
+        "apps/web/index.html"
+      ],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "provider-inventory",
+      "area": "admin",
+      "phase": "P2",
+      "title": "Provider inventory",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "PROTOTYPE_PARTIAL",
+      "evidence_paths": [
+        "apps/web/index.html"
+      ],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "account-hierarchy",
+      "area": "admin",
+      "phase": "P2",
+      "title": "Provider account hierarchy",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "domain-inventory",
+      "area": "admin",
+      "phase": "P2",
+      "title": "Domain inventory",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "PROTOTYPE_PARTIAL",
+      "evidence_paths": [
+        "apps/web/index.html"
+      ],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-inventory",
+      "area": "admin",
+      "phase": "P2",
+      "title": "Mailbox inventory",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-detail",
+      "area": "admin",
+      "phase": "P2",
+      "title": "Mailbox detail",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-create",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Create mailbox",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-edit",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Edit mailbox settings",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-disable",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Disable mailbox",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-restore",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Restore mailbox",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-quotas",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Mailbox quota management",
+      "roles": [
+        "email_admin",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-aliases",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Aliases",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-forwarders",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Forwarders and catch-all",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-delegates",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Groups and delegated access",
+      "roles": [
+        "email_admin",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "shared-mailboxes",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Shared inbox administration",
+      "roles": [
+        "email_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "users-teams-roles",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Users, teams and roles",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "client-portal",
+      "area": "admin",
+      "phase": "P4",
+      "title": "Client portal",
+      "roles": [
+        "client",
+        "agency_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "unified-inbox",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Unified inbox",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "account-inbox",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Per-account inbox",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "folder-label-view",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Folders and labels",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "message-thread",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Message thread",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "compose",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Compose message",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "reply-forward",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Reply, reply-all and forward",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "attachment-viewer",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Attachment preview/download",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "advanced-search",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Advanced search",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "drafts",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Drafts",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "sent-mail",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Sent mail",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "scheduled-mail",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Scheduled mail",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "spam-trash",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Spam and trash",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "snooze-reminders",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Snooze and reminders",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "assignments-notes",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Assignments and internal notes",
+      "roles": [
+        "agent",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "tags-templates",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Tags and templates",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "identity-signature",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Sender identities and signatures",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "keyboard-accessibility",
+      "area": "inbox",
+      "phase": "P3",
+      "title": "Keyboard and accessibility help",
+      "roles": [
+        "user"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "topology-map",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Infrastructure topology map",
+      "roles": [
+        "operator",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "tablet"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "domain-detail",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Domain infrastructure detail",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "dns-inspector",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "DNS inspector",
+      "roles": [
+        "operator",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "dns-change-diff",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "DNS change preview and diff",
+      "roles": [
+        "operator",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "authentication-validation",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "SPF/DKIM/DMARC validation",
+      "roles": [
+        "operator",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mx-routing",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "MX routing view",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "deliverability-tests",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Deliverability tests",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "incident-center",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Incident center",
+      "roles": [
+        "operator",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "incident-detail",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Incident detail and evidence",
+      "roles": [
+        "operator",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "diagnosis-view",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Diagnosis and confidence",
+      "roles": [
+        "operator",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "remediation-preview",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Remediation plan preview",
+      "roles": [
+        "operator",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "health-timeline",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Health timeline",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "configuration-snapshots",
+      "area": "infrastructure",
+      "phase": "P5",
+      "title": "Configuration snapshots and drift",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-source-destination",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Migration source and destination",
+      "roles": [
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "mailbox-mapping",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Mailbox and identity mapping",
+      "roles": [
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "discovery-results",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Migration discovery results",
+      "roles": [
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-preflight",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Preflight and compatibility report",
+      "roles": [
+        "migration_operator",
+        "client"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-simulator",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Migration readiness simulator",
+      "roles": [
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-timeline",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Migration state timeline",
+      "roles": [
+        "migration_operator",
+        "client"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-progress",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Transfer progress and checkpoints",
+      "roles": [
+        "migration_operator",
+        "client"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-exceptions",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Exception queue",
+      "roles": [
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-delta-sync",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Delta sync status",
+      "roles": [
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-verification",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Parity verification report",
+      "roles": [
+        "migration_operator",
+        "client"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-cutover",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Cutover procedure and approval",
+      "roles": [
+        "organization_admin",
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "migration-rollback",
+      "area": "migration",
+      "phase": "P6",
+      "title": "Rollback plan and outcome",
+      "roles": [
+        "organization_admin",
+        "migration_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "backup-inventory",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Backup inventory",
+      "roles": [
+        "operator",
+        "viewer"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "backup-schedule",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Backup schedule",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "storage-destinations",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Storage destinations",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "encryption-retention",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Encryption and retention policy",
+      "roles": [
+        "security_analyst",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "archive-search",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Archive search",
+      "roles": [
+        "auditor",
+        "mailbox_owner"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "restore-wizard",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Restore wizard",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "restore-preview",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Restore conflict preview",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "restore-results",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Restore results and history",
+      "roles": [
+        "operator",
+        "mailbox_owner"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "data-export",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Data export",
+      "roles": [
+        "auditor",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "legal-hold",
+      "area": "recovery",
+      "phase": "P6",
+      "title": "Legal hold controls",
+      "roles": [
+        "compliance_admin"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "automation-overview",
+      "area": "automation_ai",
+      "phase": "P7",
+      "title": "Automation overview",
+      "roles": [
+        "operator",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "action-policy",
+      "area": "automation_ai",
+      "phase": "P8",
+      "title": "AI/action policy",
+      "roles": [
+        "security_analyst",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "model-privacy",
+      "area": "automation_ai",
+      "phase": "P8",
+      "title": "Model and privacy configuration",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "workflow-templates",
+      "area": "automation_ai",
+      "phase": "P7",
+      "title": "Workflow templates",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "workflow-canvas",
+      "area": "automation_ai",
+      "phase": "P7",
+      "title": "Workflow builder canvas",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "tablet"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "workflow-versions",
+      "area": "automation_ai",
+      "phase": "P7",
+      "title": "Workflow versions and rollback",
+      "roles": [
+        "operator",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "workflow-runs",
+      "area": "automation_ai",
+      "phase": "P7",
+      "title": "Workflow run list",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "workflow-trace",
+      "area": "automation_ai",
+      "phase": "P7",
+      "title": "Workflow trace detail",
+      "roles": [
+        "operator",
+        "auditor"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "ai-draft-validation",
+      "area": "automation_ai",
+      "phase": "P8",
+      "title": "AI draft and validation",
+      "roles": [
+        "user",
+        "agent"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "ai-costs",
+      "area": "automation_ai",
+      "phase": "P8",
+      "title": "AI usage and cost",
+      "roles": [
+        "billing_viewer",
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "ai-action-log",
+      "area": "automation_ai",
+      "phase": "P8",
+      "title": "AI action and audit log",
+      "roles": [
+        "auditor",
+        "security_analyst"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "usage-analytics",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Usage analytics",
+      "roles": [
+        "billing_viewer",
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "client-reports",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Client reports",
+      "roles": [
+        "agency_admin",
+        "client"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "comparison-charts",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Provider comparison charts",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "tablet"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "service-health",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Uptime and service health",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "capacity-costs",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Capacity and cost overview",
+      "roles": [
+        "billing_viewer",
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "integration-status",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Integration status",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "worker-queues",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Worker queues and leases",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "job-logs",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Job logs",
+      "roles": [
+        "platform_operator",
+        "auditor"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "provider-rate-limits",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "Provider rate limits",
+      "roles": [
+        "operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "installation-upgrade",
+      "area": "reports_ops",
+      "phase": "P9",
+      "title": "Installation and upgrades",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "support-diagnostics",
+      "area": "reports_ops",
+      "phase": "P9",
+      "title": "Support diagnostics",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "api-keys-webhooks",
+      "area": "reports_ops",
+      "phase": "P1",
+      "title": "API keys and webhooks",
+      "roles": [
+        "organization_admin"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-welcome",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Install welcome and deployment choice",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop",
+        "mobile"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-preflight",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Environment preflight",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-database",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Database setup",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-worker",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Worker and queue setup",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-storage",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Object storage setup",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-security",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Key and TLS security setup",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-admin",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Initial administrator setup",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-provider",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Optional first provider setup",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "install-verification",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Service verification and finish",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    },
+    {
+      "id": "upgrade-repair",
+      "area": "installation",
+      "phase": "P9",
+      "title": "Upgrade, repair and rollback",
+      "roles": [
+        "platform_operator"
+      ],
+      "devices": [
+        "desktop"
+      ],
+      "required_states": [
+        "empty",
+        "loading",
+        "populated",
+        "validation_error",
+        "permission_denied",
+        "partial_permission",
+        "provider_offline",
+        "rate_limited",
+        "stale_data",
+        "partial_success",
+        "job_running",
+        "failed",
+        "retryable",
+        "dark_light",
+        "keyboard_screen_reader"
+      ],
+      "implementation_status": "NOT_STARTED",
+      "evidence_paths": [],
+      "last_reviewed": "2026-11-09"
+    }
+  ]
+}

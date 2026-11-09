@@ -1,25 +1,18 @@
-# Product specification — MVP boundary
-
-The governing full feature catalog remains `AI_Native_Central_Email_Platform_Master_Prompt.md`. This document records the first product boundary, not a reduction of the longer roadmap.
+# Product scope and MVP boundary
 
 ## Product
+A self-hostable, multi-tenant email operations control plane combining mailbox workflows with authorized provider administration. External providers remain the mail system of record unless a separately configured archive policy applies.
 
-VSN Email Planet is a web-first Email Operations Control Plane for individuals, agencies and operators managing multiple providers. It joins administration, health, routing, migration and authorized mail workflows while keeping the external provider as system of record. The Email Control Plane, Email Data Plane and External Provider Plane remain separate.
+## MVP sequencing
+Web-first foundation; identity/tenant policy and audit; connection and capability inventory; synthetic local fixtures; then provider connectors and mail sync in dependency order. P0 research must identify feasibility, scopes, licensing, deployment constraints and UX before locking production dependencies.
 
-## Initial delivery boundary
+## Non-negotiable behavior
+- Separate control-plane administration from mailbox-content authorization.
+- Show capability status, provenance, freshness and required permission for every connector action.
+- Enforce tenant policy in APIs, workers, search, objects and AI tools.
+- Persist uncertain outbound results as `UNKNOWN`; reconcile before retry.
+- Treat email content as untrusted; AI starts draft-only and cannot grant itself privileges.
+- Make unsupported and blocked states visible; no mock-success or fabricated metrics.
+- Preserve original mailbox data by default during migration and restore.
 
-1. Reproducible local web/API monorepo.
-2. Authenticated users, organizations/workspaces, server-derived membership and audit.
-3. Provider connection/capability catalog and metadata inventory; message content is separate and consent-gated.
-4. Synthetic demonstration data before credentials exist; no fake integration-success path.
-5. Provider adapters are introduced only with documented capabilities, typed errors, permissions and recovery semantics.
-
-The current increment only delivers the local shell, a process-only health endpoint, sample-domain authorization helpers and tests. It does not deliver items 2–5 above.
-
-## Non-goals for initial phases
-
-No new public MTA/relay, universal provider support, provider-password-based private inbox access, unrestricted auto-send, automatic DNS cutover, source deletion after migration, guaranteed zero downtime, or compliance claim without evidence.
-
-## Success evidence
-
-First internal milestone: clean install/build, interactive labeled demo, process-only API health, cross-tenant exclusion and separate mailbox content grant tests. P1 release gate additionally requires real authenticated API sessions, persistence, workers, two-tenant adversarial tests and reproducible CI. Product launch requires P9 security, installation, restore, performance, provider and operational evidence.
+See the master specification for full personas, scope, journeys, acceptance scenarios and phase gates.

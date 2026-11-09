@@ -1,0 +1,12 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://vsn.example/schemas/backlog-task.schema.json",
+  "title":"Project task ledger",
+  "type":"object",
+  "required":["schema_version","allowed_statuses","tasks"],
+  "properties":{
+    "schema_version":{"const":1},
+    "allowed_statuses":{"type":"array","items":{"type":"string"},"uniqueItems":true},
+    "tasks":{"type":"array","items":{"type":"object","required":["id","epic","phase","title","outcome","description","scope","priority","complexity","owner_agent","dependencies","current_status","acceptance_criteria","test_plan","evidence_paths","verification_level","target_environment","last_verified_commit","created_at","updated_at","started_at","completed_at","blockers","external_requirements","risks","decisions","next_action","notes"]}}
+  }
+}

@@ -1,3 +1,3 @@
-# Installation wizard specification
+# Installation wizard scope
 
-The full planned sequence follows master section 40: welcome/deployment, system preflight, database, queue, storage, key/TLS security, initial admin, URLs/webhooks, optional first provider, verification and finish, plus repair/upgrade/restore. It must be re-enterable and non-destructive, never log an initial admin password, and must work without a provider account. No wizard UI or production setup is implemented yet.
+Planned graphical wizard: environment preflight; database; durable queue/worker; object storage; encryption-key lifecycle; initial admin; public URL/TLS/OAuth callback setup; optional first authorized provider; service verification; report. It must be resumable and non-destructive. No wizard implementation is claimed. The Node static prototype is not the server installer.
