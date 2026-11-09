@@ -15,8 +15,8 @@
       <nav id="navigation">
         <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
         <button class="nav-item" data-view="providers"><span>⊙</span> Providers <i>2</i></button>
-        <button class="nav-item" data-view="domains"><span>◇</span> Domains <i>3</i></button>
-        <button class="nav-item" data-view="mailboxes"><span>▤</span> Mailboxes <i>6</i></button>
+        <button class="nav-item" data-view="domains"><span>◇</span> Domains <i>2</i></button>
+        <button class="nav-item" data-view="mailboxes"><span>▤</span> Mailboxes <i>5</i></button>
         <button class="nav-item locked" aria-disabled="true" title="Not available in this prototype"><span>◉</span> Incidents <small>Later</small></button>
         <button class="nav-item locked" aria-disabled="true" title="Not available in this prototype"><span>⇄</span> Migrations <small>Later</small></button>
       </nav>
@@ -31,7 +31,7 @@
         <section class="panel inventory-panel">
           <div class="panel-heading"><div><div class="heading-line"><h2 id="tableHeading">Provider connections</h2><span class="count-pill" id="rowCount">2</span></div><p id="tableDescription">Synthetic fixture data · Capability and permission are shown separately.</p></div><button class="button button-secondary" id="exportButton">Export view <span>↓</span></button></div>
           <div class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search provider, host or status" aria-label="Search provider inventory"><kbd>⌘ K</kbd></label><label class="filter"><span>State</span><select id="statusFilter" aria-label="Filter by state"><option value="all">All states</option><option value="connected">Connected</option><option value="attention">Needs attention</option></select></label><button class="filter-button" id="resetFilters">↺ <span>Reset</span></button><span class="result-count" id="resultCount"></span></div>
-          <div class="table-wrap"><table><thead><tr><th><input type="checkbox" aria-label="Select all visible providers" id="selectAll"></th><th>PROVIDER / ACCOUNT</th><th>ACCESS SCOPE</th><th>STATUS</th><th>LAST CHECKED</th><th></th></tr></thead><tbody id="providerRows"></tbody></table><div class="empty-state" id="emptyState" hidden><span>⌕</span><b>No matching connections</b><p>Try changing your search or state filter.</p><button class="button button-secondary" id="clearSearch">Clear filters</button></div></div>
+          <div class="table-wrap"><table><thead id="providerHeader"></thead><tbody id="providerRows"></tbody></table><div class="empty-state" id="emptyState" hidden><span>⌕</span><b>No matching records</b><p>Try changing your search or state filter.</p><button class="button button-secondary" id="clearSearch">Clear filters</button></div></div>
           <footer class="table-footer"><span id="footerRange"></span><div><button class="page-arrow" disabled aria-label="Previous page">‹</button><span class="page-number">1</span><button class="page-arrow" disabled aria-label="Next page">›</button></div></footer>
         </section>
         <section class="bottom-grid"><div class="panel domain-card"><div class="panel-heading compact"><div><h2>Domain inventory</h2><p>Synthetic resource examples</p></div><button class="text-button" data-view="domains">View all <span>→</span></button></div><div id="domainList"></div></div><div class="panel integrity-card"><div class="integrity-heading"><div class="integrity-icon">⌁</div><span class="tag-muted">Prototype</span></div><h2>Permissions are explicit</h2><p>A provider connection does not automatically grant access to private mailbox contents. This demo keeps that boundary visible.</p><button class="text-button" id="permissionInfo">Read the access model <span>→</span></button></div></section>

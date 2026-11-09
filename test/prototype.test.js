@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { demoDomains, filterProviders } from '../apps/web/data.js';
-import { demoProviders } from '../apps/api/src/fixtures.js';
+import { filterDomains, filterMailboxes, filterProviders } from '../apps/web/data.js';
+import { demoDomains, demoMailboxes, demoProviders } from '../apps/api/src/fixtures.js';
 import { canReadMailboxContent, getTenantResource, listTenantResources } from '../apps/api/src/policy.js';
 
 test('demo provider inventory is clearly synthetic and does not contain message content', () => {
@@ -23,10 +23,23 @@ test('filterProviders matches provider, account, host, and status case-insensiti
   assert.equal(filterProviders(tenantRows, 'missing').length, 0);
 });
 
+test('domain and mailbox views search their own synthetic metadata', () => {
+  assert.equal(filterDomains(demoDomains, 'AGENCY').length, 1);
+  assert.equal(filterDomains(demoDomains, '', 'attention').length, 2);
+  assert.equal(filterMailboxes(demoMailboxes, 'SUPPORT').length, 1);
+  assert.equal(filterMailboxes(demoMailboxes, 'example-agency.test').length, 2);
+  assert.equal(filterMailboxes(demoMailboxes, '', 'synthetic').length, 2);
+});
+
 test('domain fixture never asserts verified public DNS state', () => {
   assert.equal(demoDomains.length, 3);
-  assert.ok(demoDomains.some(domain => domain.state === 'Unverified'));
+  assert.ok(demoDomains.every(domain => domain.dnsStatus === 'Unverified'));
   assert.ok(demoDomains.every(domain => domain.domain.endsWith('.example') || domain.domain.endsWith('.test') || domain.domain.endsWith('.invalid')));
+  for (const mailbox of demoMailboxes) {
+    assert.ok(mailbox.id.startsWith('mailbox-'));
+    assert.equal('messages' in mailbox, false);
+    assert.equal('credentials' in mailbox, false);
+  }
 });
 
 test('development server serves app assets and refuses paths outside web root', async t => {
@@ -57,6 +70,20 @@ test('development server serves app assets and refuses paths outside web root', 
   assert.equal(ownPayload.meta.organizationId, 'demo-org-northstar');
   assert.equal(own.headers.get('cache-control'), 'no-store');
   assert.equal(own.headers.get('x-frame-options'), 'DENY');
+  const ownDomainsResponse = await fetch(`${base}/api/domains`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
+  const ownDomains = await ownDomainsResponse.json();
+  assert.equal(ownDomains.data.length, 2);
+  assert.equal(ownDomains.data.some(row => row.domain.endsWith('.invalid')), false);
+  assert.equal(ownDomains.data.some(row => 'organizationId' in row), false);
+  assert.equal(ownDomains.meta.environment, 'LOCAL_SYNTHETIC');
+  const ownMailboxesResponse = await fetch(`${base}/api/mailboxes`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
+  const ownMailboxes = await ownMailboxesResponse.json();
+  assert.equal(ownMailboxes.data.length, 5);
+  assert.equal(ownMailboxes.data.some(row => 'messages' in row || 'credentials' in row), false);
+  const otherDomains = await fetch(`${base}/api/domains`, { headers: { authorization: 'Bearer fixture-local-fieldnotes' } });
+  assert.equal((await otherDomains.json()).data.length, 1);
+  const mailboxMutation = await fetch(`${base}/api/mailboxes`, { method: 'POST', headers: { authorization: 'Bearer fixture-local-northstar' } });
+  assert.equal(mailboxMutation.status, 405);
   const hidden = await fetch(`${base}/api/providers/demo-graph-1`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
   assert.equal(hidden.status, 404);
   const capabilityResponse = await fetch(`${base}/api/providers/demo-cpanel-1/capabilities`, { headers: { authorization: 'Bearer fixture-local-northstar' } });

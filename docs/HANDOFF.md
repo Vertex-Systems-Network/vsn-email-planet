@@ -12,6 +12,8 @@
 **Next action:** inspect Git state; continue provider-specific mock cases and non-database architecture work; keep live cPanel verification blocked until an authorized sandbox exists. Return to PostgreSQL/worker proof when a local runtime is available; meanwhile keep progressing independent mock/test contracts.  
 **Remote:** branch ref update and file readback confirmed through connected GitHub API.
 
-**Latest increment:** provider capability manifest is served from `GET /api/providers/{id}/capabilities` and rendered in the provider detail modal with state, reason, source, timestamp and next step. Local tests and CI pass. Browser visual/accessibility review is pending. No live provider calls exist.
+**Current local increment (not pushed):** Domains and Mailboxes navigation loads distinct tenant-filtered synthetic data with resource-specific fields, search/status filters and details. Local tests pass 18/18; browser review and remote CI for this increment remain pending. No live provider calls exist.
 
 **P1-05 status:** implementation is in the working tree and locally API-tested; keep `PARTIALLY_VERIFIED`; the API behavior is tested locally and in CI; the modal still needs shared-browser visual and accessibility review.
+
+**P1-06 status:** API and filter tests pass locally; keep the feature partially verified until the UI receives browser review and the commit passes remote CI.

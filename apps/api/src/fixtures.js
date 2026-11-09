@@ -9,6 +9,21 @@ export const demoProviders = Object.freeze([
   Object.freeze({ id: 'demo-graph-1', organizationId: 'demo-org-fieldnotes', name: 'Microsoft Graph', account: 'fieldnotes.invalid', host: 'graph.microsoft.test', scope: 'No consent', contentAccess: 'Not granted', status: 'attention', checked: 'Example fixture', icon: 'M', iconClass: 'graph', note: 'Synthetic second tenant; no Graph tenant is connected.' })
 ]);
 
+export const demoDomains = Object.freeze([
+  Object.freeze({ id: 'domain-northstar-example', organizationId: 'demo-org-northstar', domain: 'northstar.example', provider: 'Google Workspace fixture', status: 'synthetic', dnsStatus: 'Unverified', mailboxCount: 3, checked: 'Example fixture' }),
+  Object.freeze({ id: 'domain-agency-test', organizationId: 'demo-org-northstar', domain: 'example-agency.test', provider: 'cPanel fixture', status: 'attention', dnsStatus: 'Unverified', mailboxCount: 2, checked: 'Example fixture' }),
+  Object.freeze({ id: 'domain-fieldnotes-invalid', organizationId: 'demo-org-fieldnotes', domain: 'fieldnotes.invalid', provider: 'No provider connection', status: 'attention', dnsStatus: 'Unverified', mailboxCount: 1, checked: 'Example fixture' })
+]);
+
+export const demoMailboxes = Object.freeze([
+  Object.freeze({ id: 'mailbox-ops-northstar', organizationId: 'demo-org-northstar', email: 'ops@northstar.example', domain: 'northstar.example', provider: 'Google Workspace fixture', status: 'synthetic', contentAccess: 'Not granted', checked: 'Example fixture' }),
+  Object.freeze({ id: 'mailbox-support-northstar', organizationId: 'demo-org-northstar', email: 'support@northstar.example', domain: 'northstar.example', provider: 'Google Workspace fixture', status: 'synthetic', contentAccess: 'Not granted', checked: 'Example fixture' }),
+  Object.freeze({ id: 'mailbox-owner-northstar', organizationId: 'demo-org-northstar', email: 'owner@northstar.example', domain: 'northstar.example', provider: 'Google Workspace fixture', status: 'attention', contentAccess: 'Separate authorization required', checked: 'Example fixture' }),
+  Object.freeze({ id: 'mailbox-sales-agency', organizationId: 'demo-org-northstar', email: 'sales@example-agency.test', domain: 'example-agency.test', provider: 'cPanel fixture', status: 'attention', contentAccess: 'Separate authorization required', checked: 'Example fixture' }),
+  Object.freeze({ id: 'mailbox-admin-agency', organizationId: 'demo-org-northstar', email: 'admin@example-agency.test', domain: 'example-agency.test', provider: 'cPanel fixture', status: 'attention', contentAccess: 'Not granted', checked: 'Example fixture' }),
+  Object.freeze({ id: 'mailbox-info-fieldnotes', organizationId: 'demo-org-fieldnotes', email: 'info@fieldnotes.invalid', domain: 'fieldnotes.invalid', provider: 'Microsoft Graph fixture', status: 'attention', contentAccess: 'Not granted', checked: 'Example fixture' })
+]);
+
 export const demoCapabilities = Object.freeze({
   'demo-google-1': Object.freeze({ provider: 'Google Workspace', environment: 'LOCAL_SYNTHETIC', capabilities: Object.freeze([
     Object.freeze({ operation: 'list_mailboxes', resource_type: 'connection', state: 'READ_ONLY', reason: 'The fixture includes mailbox metadata only.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'No action required for this demo listing.' }),

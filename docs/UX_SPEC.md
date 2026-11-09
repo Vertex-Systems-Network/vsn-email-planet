@@ -24,3 +24,8 @@ Use `knowledge/design/requirements.yaml` and `knowledge/screens/screen-matrix.cs
 ## Provider capability detail
 
 The provider detail view loads the tenant-scoped synthetic capability endpoint and displays each operation’s state, reason, source, check time and required next action. `NEEDS_CONSENT` remains distinct from panel/admin access; unsupported and provider-disabled states are visible. All values are labeled synthetic. The endpoint has an integration test for same-tenant access, cross-tenant 404 and read-only behavior. Browser visual/accessibility review remains pending.
+
+
+## Domain and mailbox inventory behavior
+
+The Domains and Mailboxes navigation now loads distinct tenant-filtered API resources. Domain rows show domain/provider, unverified DNS status and synthetic mailbox count. Mailbox rows show mailbox/domain/provider, content-access state and fixture status. Search fields follow the resource type; status filters are reset to a valid value when switching views. The detail modal shows metadata only. These are synthetic examples, not DNS checks or mailbox connections. Local HTTP/filter tests pass; browser layout and accessibility checks remain pending.

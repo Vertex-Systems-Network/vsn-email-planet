@@ -1,4 +1,4 @@
-import { demoActors, demoCapabilities, demoProviders } from './fixtures.js';
+import { demoActors, demoCapabilities, demoDomains, demoMailboxes, demoProviders } from './fixtures.js';
 import { getTenantResource, listTenantResources } from './policy.js';
 
 function sendJson(response, status, payload) {
@@ -30,6 +30,14 @@ export function handleApi(request, response, url) {
   if (!actor) return sendJson(response, 401, { error: { code: 'AUTH_REQUIRED', message: 'Use a published local demo fixture identity.' } });
   if (url.pathname === '/api/providers' && request.method === 'GET') {
     const records = listTenantResources(actor, demoProviders).map(({ organizationId, ...safe }) => safe);
+    return sendJson(response, 200, { data: records, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
+  }
+  if (url.pathname === '/api/domains' && request.method === 'GET') {
+    const records = listTenantResources(actor, demoDomains).map(({ organizationId, ...safe }) => safe);
+    return sendJson(response, 200, { data: records, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
+  }
+  if (url.pathname === '/api/mailboxes' && request.method === 'GET') {
+    const records = listTenantResources(actor, demoMailboxes).map(({ organizationId, ...safe }) => safe);
     return sendJson(response, 200, { data: records, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
   }
   const capabilitiesMatch = /^\/api\/providers\/([a-z0-9-]+)\/capabilities$/.exec(url.pathname);

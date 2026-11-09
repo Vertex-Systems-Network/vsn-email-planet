@@ -100,3 +100,10 @@ Verification level: local prototype contract only; not a release gate.
 - The HTTP integration test validates synthetic manifest fields and `LOCAL_SYNTHETIC` provenance, same-tenant access, cross-tenant non-disclosing 404, and mutation rejection.
 - The provider detail modal renders operation state, reason, required action, source and check timestamp. It has not been visually inspected in a browser; keyboard/accessibility review is pending.
 - This path makes no provider call and does not grant mailbox access. GitHub Actions run `42690829638` passed on commit `1f2f7fe67c266152024fd0170c82e124e9555142`; endpoint integration tests passed in the `verify` job.
+
+
+## Tenant-scoped domain and mailbox inventory (local working tree)
+
+- `npm run check` passes: 17 tasks, 5 epics, 5 gates, 20 banks; 18/18 Node tests pass, 0 fail, 0 skipped. Both changed JavaScript modules pass `node --check`.
+- HTTP integration tests verify the northstar fixture receives 2 domains and 5 mailbox records, the fieldnotes fixture receives only its own domain, organization IDs are stripped from responses, mailbox payloads contain no message/credential fields, and mutations return 405.
+- Search/status tests cover domain and mailbox fields. The app renders distinct table columns and detail content per resource type. Browser layout/accessibility review and remote CI remain pending push.

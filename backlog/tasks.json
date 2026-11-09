@@ -845,6 +845,69 @@
       ],
       "next_action": "Use the shared preview path for a browser and keyboard review when available; do not claim visual verification until then.",
       "notes": "Synthetic capability API route passes local and GitHub Actions HTTP integration tests for tenant isolation, provenance fields and mutation rejection. UI implementation is pushed but modal rendering remains unverified in a browser."
+    },
+    {
+      "id": "P1-06",
+      "epic": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Implement tenant-scoped domain and mailbox inventory views",
+      "outcome": "Domains and mailboxes navigation shows the correct resource types with safe metadata",
+      "description": "Serve separate synthetic, tenant-filtered domain and mailbox inventories and connect each navigation view to its own search, status filter and table columns.",
+      "scope": [
+        "GET /api/domains",
+        "GET /api/mailboxes",
+        "domain and mailbox fixtures",
+        "resource-specific search and status filters",
+        "record detail modal"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-04",
+        "P1-05"
+      ],
+      "current_status": "PARTIALLY_VERIFIED",
+      "acceptance_criteria": [
+        "Domain route returns only records matching the fixture actor's organization",
+        "Mailbox route returns metadata without message bodies or credentials",
+        "Domains and Mailboxes views display distinct fields and resource-specific filters",
+        "Cross-tenant rows are excluded and fixture status is explicit",
+        "No provider mutation or external provider call is made"
+      ],
+      "test_plan": [
+        "Node HTTP tests for tenant-specific counts, metadata shape and mutation rejection",
+        "Unit tests for domain/mailbox search and status filters",
+        "Browser review for navigation, empty state and detail modal when preview is available"
+      ],
+      "evidence_paths": [
+        "apps/api/src/fixtures.js",
+        "apps/api/src/service.js",
+        "apps/web/app.js",
+        "apps/web/data.js",
+        "test/prototype.test.js",
+        "docs/API_CONTRACTS.md",
+        "docs/UX_SPEC.md"
+      ],
+      "verification_level": "LOCAL_API_AND_FILTER_TESTS_UI_REVIEW_PENDING",
+      "target_environment": "LOCAL_SYNTHETIC",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": "2026-11-10",
+      "completed_at": null,
+      "blockers": [
+        "Shared browser cannot reach executor loopback; rendered UI review is unavailable in current environment."
+      ],
+      "external_requirements": [],
+      "risks": [
+        "The domain and mailbox screens have not had browser layout/accessibility review."
+      ],
+      "decisions": [
+        "ADR-0001"
+      ],
+      "next_action": "Run browser and keyboard checks when a shared preview route is available; keep the screen partially verified until then.",
+      "notes": "Local tests verify the API resources, tenant filtering, synthetic-only fields and search/filter behavior. UI code is implemented but not browser inspected."
     }
   ]
 }

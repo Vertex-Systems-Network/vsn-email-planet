@@ -6,6 +6,8 @@ This is a prototype contract, not a versioned production API. Server binds to `1
 |---|---|---|---|
 | `GET /api/health` | none | Returns `LOCAL_SYNTHETIC`, `persistent:false`, `providersConnected:false`. | Implemented |
 | `GET /api/providers` | public fixture bearer token | Returns only resources matching the fixture actor's organization, with `no-store`. | Implemented for local fixtures |
+| `GET /api/domains` | public fixture bearer token | Returns only the actor's synthetic domain metadata; DNS status is explicitly unverified. | Implemented locally |
+| `GET /api/mailboxes` | public fixture bearer token | Returns only the actor's synthetic mailbox metadata; no message or credential fields exist. | Implemented locally |
 | `GET /api/providers/{id}` | public fixture bearer token | Returns same-tenant resource or non-disclosing 404. | Implemented for local fixtures |
 | `GET /api/providers/{id}/capabilities` | public fixture bearer token | Returns that tenant’s synthetic operation-level capability manifest or non-disclosing 404. Mutations are not supported. | Implemented for local fixtures |
 | `POST/PUT/PATCH/DELETE /api/*` | fixture bearer token required | Returns 405; no provider mutation exists. | Explicitly unavailable |
