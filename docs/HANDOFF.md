@@ -1,13 +1,14 @@
 # Handoff
 
 **Project:** VSN Email Operations Platform  
-**Branch/HEAD:** `feat/phase-0-foundation` / `d56218336d205174d4b3e1c5cb8f5e5ee2db51a4`  
-**Current phase:** P0 plus P1 foundation slice; both open.  
-**Scope completed:** full governing spec retained; repo rules, project-state/backlog, initial evidence-based provider/security notes, architecture/security/data/UX drafts, CI workflow, local synthetic operations dashboard.  
-**Verification:** `npm run check` PASS (ledger validation and 4/4 tests). GitHub Actions run `42681659739` PASS against the same commit. HTTP integration test confirms static server response and rejects traversal path; provider/email operations are not implemented.  
-**External validation:** no live providers or OAuth; no credentials or real message content. Manual browser visual/accessibility review remains pending.  
-**Uncommitted changes:** local follow-up state/evidence update is in progress; the current pushed commit is clean and confirmed.  
-**Push status:** confirmed remote feature branch update and file readback. Main is default and unchanged.  
-**Known risks:** production stack not locked; Google restricted-scope assessment and provider admin differences require research; no DB/auth/worker or tenant isolation implementation yet.  
-**Next action:** finish the weighted P0 stack decision and focused competitor/provider research; first run `git status --short --branch && git log --oneline -5`, then update ADR/research and choose the next unblocked foundation task.  
-**Blockers:** live-provider verification needs an authorized synthetic/sandbox account; no credentials were supplied. Continue with mocks.
+**Branch:** `feat/phase-0-foundation`  
+**HEAD:** inspect exact current SHA with `git rev-parse HEAD` (this document is committed with the checkpoint that confirms its own state).  
+**Current phase:** P0 and initial P1 prototype; both open.  
+**Scope:** governing specification, AI rules, progress ledger, evidence-backed provider constraints, preliminary stack scorecard, competitor/UI findings, architecture/security/data/UX docs, CI, and a synthetic local dashboard.  
+**Local verification:** latest `npm run check` passed on Node 24.22.1: state validation and 4/4 tests.  
+**Remote verification:** previous CI run `42682210139` passed on Node 22 at `53d8e479bddaa6bcb82ae41c4828cdd7a8a6da7e`; current Node 24 workflow needs a new run.  
+**Provider validation:** none. No OAuth, cPanel/WHM host, customer mailbox, send, admin mutation, or production deployment was used.  
+**Unverified:** browser-rendered visual QA, WCAG, live providers, and production stack vertical slice.  
+**Next action:** after the checkpoint, run `git status --short --branch && git log --oneline -5`; then complete exact ORM/job queue decision with a PostgreSQL tenant-context vertical slice and verify the Node 24 workflow.  
+**Blocker:** live-provider checks require an authorized synthetic sandbox; keep mock work moving until available.  
+**Remote path:** GitHub API; branch updates have used an expected-head check and were read back after push.

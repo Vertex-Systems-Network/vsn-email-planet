@@ -25,3 +25,8 @@ Verification level: local prototype contract only; not a release gate.
 - Commit `d56218336d205174d4b3e1c5cb8f5e5ee2db51a4` was confirmed on `feat/phase-0-foundation`.
 - GitHub Actions run `42681659739` (`Local checks`) completed with conclusion `success` for that exact commit on 2026-11-09.
 - Remote `README.md`, `AGENTS.md`, `package.json`, evidence file and backlog were fetched from the feature ref and matched expected content.
+
+## Follow-up local run
+
+- After the research/Node-runtime updates, `npm run check` again passed locally on Node `v24.22.1`: state validation passed; 4 tests passed, 0 failed, 0 skipped.
+- CI has passed previously on commit `53d8e479bddaa6bcb82ae41c4828cdd7a8a6da7e` using the prior Node 22 workflow. The updated Node 24 workflow still requires its own remote run; no pass is claimed for it yet.

@@ -4,7 +4,7 @@ A secure, provider-neutral email operations control plane. The product specifica
 
 ## Start the local synthetic prototype
 
-Requires Node.js 22+. Run `npm run dev`, then open http://localhost:4173. All displayed organizations, providers, accounts, and statuses are synthetic fixtures; this prototype performs no provider connections or mail access.
+Requires Node.js 24.15.0 or newer. Run `npm run dev`, then open http://localhost:4173. All displayed organizations, providers, accounts, and statuses are synthetic fixtures; this prototype performs no provider connections or mail access.
 
 ## Verify
 

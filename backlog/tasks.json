@@ -109,8 +109,8 @@
         "Provider policies and docs can change"
       ],
       "decisions": [],
-      "next_action": "Review Microsoft lifecycle, cPanel endpoint-specific docs, IMAP security, and live provider policy details",
-      "notes": "Initial bounded evidence only; competitor and pricing comparisons remain hypotheses."
+      "next_action": "Review endpoint-level cPanel UAPI function/role docs and complete scoped provider capability matrix; no live sandbox has been tested.",
+      "notes": "Expanded official-source research includes Gmail 404 recovery/scopes, Graph permissions/lifecycle, cPanel UAPI and OAuth RFC 9700. Remains partial until connector-specific limits and live sandbox needs are scoped."
     },
     {
       "id": "P0-03",
@@ -153,7 +153,8 @@
         "docs/SECURITY_THREAT_MODEL.md",
         "docs/DATA_MODEL.md",
         "docs/UX_SPEC.md",
-        "docs/DEPLOYMENT_MATRIX.md"
+        "docs/DEPLOYMENT_MATRIX.md",
+        "docs/RESEARCH/OPTIONS.md"
       ],
       "verification_level": "NOT_YET_TESTED",
       "target_environment": "DOCS_AND_PROTOTYPE",
@@ -168,8 +169,8 @@
         "Overly broad product scope"
       ],
       "decisions": [],
-      "next_action": "Finish UX state inventory and scored stack/deployment decision",
-      "notes": "Keep architecture proposal separate from working prototype."
+      "next_action": "Prototype React/Vite UI with NestJS API and PostgreSQL tenant transaction boundary; compare ORM migration and pg-boss worker recovery before locking.",
+      "notes": "Preliminary scorecard and portability rationale are recorded. ORM, job queue, blob store, versions, RLS and fresh-install architecture still require prototype evidence; ADR remains PROPOSED."
     },
     {
       "id": "P0-04",
@@ -190,7 +191,7 @@
       "dependencies": [
         "P0-01"
       ],
-      "current_status": "READY",
+      "current_status": "PARTIALLY_VERIFIED",
       "acceptance_criteria": [
         "Dated source-based comparison with confidence",
         "No unsupported differentiation/pricing claims",
@@ -202,22 +203,21 @@
       "evidence_paths": [
         "docs/RESEARCH/COMPETITORS.md",
         "docs/RESEARCH/MARKET_GAPS.md",
-        "docs/RESEARCH/UI_LIBRARIES.md",
         "docs/RESEARCH/PRICING_VALIDATION.md"
       ],
-      "verification_level": "NOT_YET_TESTED",
+      "verification_level": "OFFICIAL_PRODUCT_SOURCE_REVIEW_PARTIAL",
       "target_environment": "RESEARCH",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
-      "started_at": null,
+      "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Collect official current feature/licensing/pricing evidence for two high-value competitor categories",
-      "notes": "Time-box competitor research before implementation scope is locked."
+      "next_action": "Compare hosting admin, MSP, migration/backup, and deliverability tools from primary documentation; validate agency jobs-to-be-done.",
+      "notes": "Front, Missive, Thunderbird and EmailEngine reviewed from official pages. Findings are limited to cited facts; no validated gap/uniqueness claim."
     },
     {
       "id": "P1-01",
@@ -342,7 +342,7 @@
       "dependencies": [
         "P1-01"
       ],
-      "current_status": "VERIFIED",
+      "current_status": "IMPLEMENTED_UNVERIFIED",
       "acceptance_criteria": [
         "Pinned supported Node major used locally and CI",
         "CI runs validation and tests on PR/push",
@@ -356,19 +356,19 @@
         ".github/workflows/ci.yml",
         "docs/TEST_EVIDENCE/phase-0-foundation.md"
       ],
-      "verification_level": "GITHUB_ACTIONS_SUCCESS",
+      "verification_level": "LOCAL_CHECKS_PASS_REMOTE_NODE24_RUN_PENDING",
       "target_environment": "GITHUB_ACTIONS",
       "last_verified_commit": "d56218336d205174d4b3e1c5cb8f5e5ee2db51a4",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
-      "completed_at": "2026-11-09",
+      "completed_at": null,
       "blockers": [],
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Keep CI green as P0 architecture and research advance.",
-      "notes": "Workflow configured for Node 22 and local validation/tests; remote run has not occurred."
+      "next_action": "Confirm the Node 24 GitHub Actions run on the next checkpoint; only then restore VERIFIED.",
+      "notes": "Prior Node 22 workflow run passed on commit d562183. Runtime baseline changed to match current Nest CLI support evidence; Node 24 workflow has not run yet."
     },
     {
       "id": "P2-01",

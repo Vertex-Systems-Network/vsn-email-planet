@@ -1,8 +1,8 @@
 # Next action
 
-1. Inspect `git status --short --branch` and latest history; resume on `feat/phase-0-foundation`.
-2. Complete the time-boxed P0 stack scorecard and select a production candidate only after first-party provider/library/deployment evidence is recorded in ADR-0001.
-3. Finish the full UX page/state inventory and a focused official-source competitor/pricing comparison; distinguish hypotheses from validated gaps.
-4. Improve machine-readable ledger validation (schema-required fields, state transitions and phase-to-task consistency) and add relevant tests.
-5. Perform browser visual/responsive/accessibility review when shared local preview can be inspected; keep that acceptance item open until actual evidence exists.
-6. Proceed to the next dependency-ready P1 slice only after P0 architecture decisions permit it; run local checks, update evidence, commit and push to this feature branch.
+1. Inspect branch, HEAD and clean status after the current checkpoint.
+2. Observe the new Node 24 CI run; record its actual status and only then mark the CI task verified.
+3. Complete a bounded PostgreSQL/ORM/job-queue proof using synthetic tenant data. Compare transaction/migration ergonomics, worker lease recovery and DB contention; update ADR-0001 with evidence.
+4. Finish P0 provider limits and competitor comparisons (hosting panels, MSP, migration/backup/deliverability) with official sources and confidence labels.
+5. Expand the UX screen/state matrix and perform browser visual/accessibility review when the local preview can be inspected.
+6. Continue to authenticated tenant isolation/API foundation after the stack proof; keep mock/live integration status distinct.
