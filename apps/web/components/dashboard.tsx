@@ -47,6 +47,7 @@ export function Dashboard() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("All status");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const onShortcut = (event: KeyboardEvent) => {
@@ -58,6 +59,16 @@ export function Dashboard() {
     window.addEventListener("keydown", onShortcut);
     return () => window.removeEventListener("keydown", onShortcut);
   }, []);
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setMobileNavOpen(false);
+      mobileMenuRef.current?.focus();
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [mobileNavOpen]);
   const visibleRows = useMemo(() => mailboxRows.filter((row) => {
     const term = query.trim().toLowerCase();
     const matchesTerm = !term || `${row.address} ${row.client} ${row.provider}`.toLowerCase().includes(term);
@@ -68,11 +79,11 @@ export function Dashboard() {
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      <aside className={`sidebar ${mobileNavOpen ? "sidebar-open" : ""}`} aria-label="Primary navigation">
+      <aside id="primary-navigation" className={`sidebar ${mobileNavOpen ? "sidebar-open" : ""}`} aria-label="Primary navigation">
         <div className="brand-row">
           <div className="brand-mark" aria-hidden="true"><span /><span /><span /></div>
           <div className="brand-copy"><strong>Email Planet</strong><span>by VSN</span></div>
-          <button className="rail-collapse icon-button" aria-label="Close navigation" onClick={() => setMobileNavOpen(false)}><PanelLeftClose size={17} /></button>
+          <button className="rail-collapse icon-button" aria-label="Close navigation" onClick={() => { setMobileNavOpen(false); mobileMenuRef.current?.focus(); }}><PanelLeftClose size={17} /></button>
         </div>
 
         <button className="workspace-switcher" aria-label="Current workspace: Pella Global Agency" disabled title="Workspace switching is not implemented yet">
@@ -111,11 +122,11 @@ export function Dashboard() {
         </div>
       </aside>
 
-      {mobileNavOpen && <button className="nav-backdrop" aria-label="Close navigation menu" onClick={() => setMobileNavOpen(false)} />}
+      {mobileNavOpen && <button className="nav-backdrop" aria-label="Close navigation menu" onClick={() => { setMobileNavOpen(false); mobileMenuRef.current?.focus(); }} />}
 
       <main id="main-content" className="main-area">
         <header className="topbar">
-          <button className="mobile-menu icon-button" aria-label="Open navigation" onClick={() => setMobileNavOpen(true)}><Menu size={19} /></button>
+          <button ref={mobileMenuRef} className="mobile-menu icon-button" aria-label="Open navigation" aria-controls="primary-navigation" aria-expanded={mobileNavOpen} onClick={() => setMobileNavOpen(true)}><Menu size={19} /></button>
           <div className="breadcrumbs"><span>Workspace</span><span className="crumb-divider">/</span><strong>Overview</strong></div>
           <div className="topbar-actions">
             <label className="global-search">
@@ -215,6 +226,7 @@ export function Dashboard() {
             </div>
             <div className="table-scroll">
               <table>
+                <caption className="sr-only">Sample mailbox inventory with client, provider, status, and last check time</caption>
                 <thead><tr><th scope="col"><input aria-label="Select all visible sample mailboxes" type="checkbox" disabled /></th><th scope="col">MAILBOX</th><th scope="col">CLIENT</th><th scope="col">PROVIDER</th><th scope="col">STATUS</th><th scope="col">LAST CHECKED</th><th scope="col"><span className="sr-only">Actions</span></th></tr></thead>
                 <tbody>
                   {visibleRows.map((row) => <tr key={row.id}>

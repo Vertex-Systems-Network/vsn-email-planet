@@ -10,10 +10,10 @@ The authoritative task records and legal status transitions are in `backlog/task
 | P0-02 | P0 | Research bank | PARTIALLY_VERIFIED | Finish live provider-policy, accessibility and buyer-validation gaps; initial papers/deletion semantics are documented |
 | P0-05 | P0 | Synthetic feasibility workflow | VERIFIED | Review prototype and close remaining P0 evidence gates |
 | P1-01 | P1 | Workspace, rules, CI | PARTIALLY_VERIFIED | Resolve remaining setup/documentation gaps |
-| P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Complete visual and accessibility review |
+| P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Browser review remains: visual/responsive, keyboard, screen-reader and contrast |
 | P1-03 | P1 | API health process | VERIFIED | Extend beyond process health only after persistence increment |
 | P1-09 | P1 | CI and verification evidence | PARTIALLY_VERIFIED | Add pending integration/browser/licensing gates |
 | P1-04 | P0 | Tenant-keyed PostgreSQL schema/migrations | VERIFIED | Maintain immutable migrations; production rollout is a separate gate |
-| P1-05 | P1 | Durable job lease/idempotency/outbox primitives | PARTIALLY_VERIFIED | Worker loop passes PostgreSQL CI; generic publisher callback is in local testing, then add broker/provider handlers and crash/load evidence |
+| P1-05 | P1 | Durable job lease/idempotency/outbox primitives | PARTIALLY_VERIFIED | Worker and callback publisher pass PostgreSQL 16 CI; add broker/provider-independent handlers and crash/load evidence |
 
 No product task is marked `DONE`; verified means only that the specific stated acceptance evidence is satisfied. Status changes must follow the transition map and include status history in `backlog/tasks.json`.

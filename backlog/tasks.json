@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-10",
   "allowed_statuses": [
     "DISCOVERED",
     "RESEARCHING",
@@ -605,13 +605,14 @@
         "apps/web/app/page.tsx",
         "apps/web/app/globals.css",
         "apps/web/components/dashboard.tsx",
-        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
+        "docs/TEST_EVIDENCE/verification-20261109T210340Z-c1d1652.md"
       ],
       "verification_level": "PRODUCTION_BUILD_AND_HTTP_CONTENT_SMOKE; VISUAL_A11Y_PENDING",
       "target_environment": "LOCAL_BROWSER",
       "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "updated_at": "2026-11-10",
       "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
@@ -620,8 +621,8 @@
         "No usability study or automated a11y report yet"
       ],
       "decisions": [],
-      "next_action": "Run visual, keyboard, responsive and accessibility review in a browser.",
-      "notes": "Production HTML and synthetic disclosure were verified. Search behavior, keyboard-only flow, responsive rendering, contrast and WCAG audit still need browser review.",
+      "next_action": "Complete browser-based visual/responsive review and manual keyboard/screen-reader smoke.",
+      "notes": "Local typecheck, production build and HTTP smoke pass after adding mobile-nav expanded/controls state, Escape dismissal, focus restoration, offscreen hidden state and a screen-reader table caption. Browser rendering, contrast, manual keyboard/screen-reader operation and automated accessibility scan remain pending.",
       "status_history": [
         {
           "from": null,
@@ -897,11 +898,12 @@
         "docs/DECISIONS/ADR-0002-DURABLE-JOBS.md",
         "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md",
         "docs/TEST_EVIDENCE/verification-20261109T205253Z-22387bf.md",
-        "docs/TEST_EVIDENCE/verification-20261109T205824Z-09ef29a.md"
+        "docs/TEST_EVIDENCE/verification-20261109T205824Z-09ef29a.md",
+        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
       ],
-      "verification_level": "LOCAL_PGLITE; POSTGRES_16_CI_WORKER; PUBLISHER_CI_PENDING",
+      "verification_level": "LOCAL_PGLITE; POSTGRES_16_CI_WORKER_AND_PUBLISHER",
       "target_environment": "LOCAL_INTEGRATION",
-      "last_verified_commit": "09ef29a3091188417cd95c988f3fbb2c0ab9efc1",
+      "last_verified_commit": "c1d1652384db8d27b3bddbfbe222b7971ffc9f26",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-10",
       "started_at": "2026-11-09",
@@ -915,8 +917,8 @@
       "decisions": [
         "Use PostgreSQL SKIP LOCKED as the initial durable queue-of-record prototype with a transactional outbox; do not treat it as the production Redis/BullMQ decision. See docs/DECISIONS/ADR-0002-DURABLE-JOBS.md."
       ],
-      "next_action": "Run PostgreSQL 16 CI on the callback publisher, then connect a broker adapter and provider-independent handlers; follow with multi-process crash/recovery, contention and bounded-load tests before marking VERIFIED.",
-      "notes": "24 local tests cover tenant-scoped idempotent enqueue, concurrent mailbox serialization, lease fencing/reclaim, bounded retry, unknown mutation/reconciliation, worker heartbeat/shutdown/handler results, and callback outbox publish failure/retry. Commit 09ef29a passed native PostgreSQL 16 worker execution in CI. The current callback publisher local increment is pending PostgreSQL CI. The task remains partial because no broker adapter, provider handlers, managed worker process or process-crash/soak/load evidence exists.",
+      "next_action": "Implement provider-independent handlers and a broker adapter, then verify process interruption/recovery, contention and bounded load before any production queue decision.",
+      "notes": "24 local tests cover tenant-scoped idempotent enqueue, concurrent mailbox serialization, lease fencing/reclaim, bounded retry, unknown mutation/reconciliation, worker heartbeat/shutdown/handler results, and callback outbox publish failure/retry. Commits 09ef29a and c1d1652 passed native PostgreSQL 16 worker and publisher execution in CI. No broker adapter, provider handlers, managed worker process, process-crash or soak/load evidence exists.",
       "status_history": [
         {
           "from": null,
