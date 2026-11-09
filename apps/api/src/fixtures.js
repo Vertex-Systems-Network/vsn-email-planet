@@ -8,3 +8,21 @@ export const demoProviders = Object.freeze([
   Object.freeze({ id: 'demo-cpanel-1', organizationId: 'demo-org-northstar', name: 'cPanel UAPI', account: 'mail.example-agency.test', host: 'cpanel.example.test', scope: 'Account inventory', contentAccess: 'Separate authorization required', status: 'attention', checked: 'Example fixture', icon: 'cP', iconClass: 'panel', note: 'Synthetic host; panel access does not imply message access.' }),
   Object.freeze({ id: 'demo-graph-1', organizationId: 'demo-org-fieldnotes', name: 'Microsoft Graph', account: 'fieldnotes.invalid', host: 'graph.microsoft.test', scope: 'No consent', contentAccess: 'Not granted', status: 'attention', checked: 'Example fixture', icon: 'M', iconClass: 'graph', note: 'Synthetic second tenant; no Graph tenant is connected.' })
 ]);
+
+export const demoCapabilities = Object.freeze({
+  'demo-google-1': Object.freeze({ provider: 'Google Workspace', environment: 'LOCAL_SYNTHETIC', capabilities: Object.freeze([
+    Object.freeze({ operation: 'list_mailboxes', resource_type: 'connection', state: 'READ_ONLY', reason: 'The fixture includes mailbox metadata only.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'No action required for this demo listing.' }),
+    Object.freeze({ operation: 'fetch_message', resource_type: 'mailbox', state: 'NEEDS_CONSENT', reason: 'Message content access is not granted by this fixture.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'Explicit mailbox-content consent and a supported provider authorization would be required.' }),
+    Object.freeze({ operation: 'provision_mailbox', resource_type: 'domain', state: 'UNSUPPORTED', reason: 'No provider administration adapter is connected.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'Use a supported admin connector after implementation.' })
+  ]) }),
+  'demo-cpanel-1': Object.freeze({ provider: 'cPanel UAPI', environment: 'LOCAL_SYNTHETIC', capabilities: Object.freeze([
+    Object.freeze({ operation: 'list_domains', resource_type: 'connection', state: 'READ_ONLY', reason: 'Synthetic account inventory can be listed.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'No action required for this demo listing.' }),
+    Object.freeze({ operation: 'list_mailboxes', resource_type: 'domain', state: 'NEEDS_ADMIN', reason: 'The simulated cPanel role does not grant mailbox inventory access.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'Ask a hosting administrator to grant the required UAPI role.' }),
+    Object.freeze({ operation: 'fetch_message', resource_type: 'mailbox', state: 'NEEDS_CONSENT', reason: 'Panel administration does not grant message-content access.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'Obtain separate mailbox authorization using an implemented access route.' }),
+    Object.freeze({ operation: 'provision_mailbox', resource_type: 'domain', state: 'PROVIDER_DISABLED', reason: 'The simulated host has disabled the relevant provider function.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'Contact the hosting provider or choose an enabled management route.' })
+  ]) }),
+  'demo-graph-1': Object.freeze({ provider: 'Microsoft Graph', environment: 'LOCAL_SYNTHETIC', capabilities: Object.freeze([
+    Object.freeze({ operation: 'list_mailboxes', resource_type: 'connection', state: 'NEEDS_CONSENT', reason: 'No Graph admin or delegated consent exists in this fixture.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'An authorized tenant admin would need to grant the applicable Graph permissions.' }),
+    Object.freeze({ operation: 'fetch_message', resource_type: 'mailbox', state: 'NEEDS_CONSENT', reason: 'No mailbox-content permission exists in this fixture.', source: 'synthetic demo fixture', checked_at: '2026-11-10T00:00:00.000Z', required_action: 'Obtain explicit supported mailbox authorization.' })
+  ]) })
+});

@@ -7,6 +7,7 @@ This is a prototype contract, not a versioned production API. Server binds to `1
 | `GET /api/health` | none | Returns `LOCAL_SYNTHETIC`, `persistent:false`, `providersConnected:false`. | Implemented |
 | `GET /api/providers` | public fixture bearer token | Returns only resources matching the fixture actor's organization, with `no-store`. | Implemented for local fixtures |
 | `GET /api/providers/{id}` | public fixture bearer token | Returns same-tenant resource or non-disclosing 404. | Implemented for local fixtures |
+| `GET /api/providers/{id}/capabilities` | public fixture bearer token | Returns that tenant’s synthetic operation-level capability manifest or non-disclosing 404. Mutations are not supported. | Implemented for local fixtures |
 | `POST/PUT/PATCH/DELETE /api/*` | fixture bearer token required | Returns 405; no provider mutation exists. | Explicitly unavailable |
 
 Errors use `{error:{code,message}}`; success returns `{data,meta:{environment,organizationId,role}}`. Fixture actor tokens are public strings in source and are not a session, credential, or usable production authorization. No database, real authentication, OAuth, mailbox-content endpoint, sending or external service call is implemented.
@@ -14,4 +15,4 @@ Errors use `{error:{code,message}}`; success returns `{data,meta:{environment,or
 
 ## Provider capability manifest
 
-The framework-neutral local helper in `apps/api/src/capabilities.js` defines operation-level states and fails closed for unknown, unsupported, permission-gated, stale/malformed or duplicate records. See `docs/CAPABILITY_CONTRACT.md`. This is not provider connectivity or production authorization.
+The framework-neutral local helper in `apps/api/src/capabilities.js` defines operation-level states and fails closed for unknown, unsupported, permission-gated, stale/malformed or duplicate records. See `docs/CAPABILITY_CONTRACT.md`. The provider detail modal renders these records with state, reason, source, timestamp and next action. This is not provider connectivity or production authorization.

@@ -1,4 +1,4 @@
-import { demoActors, demoProviders } from './fixtures.js';
+import { demoActors, demoCapabilities, demoProviders } from './fixtures.js';
 import { getTenantResource, listTenantResources } from './policy.js';
 
 function sendJson(response, status, payload) {
@@ -31,6 +31,16 @@ export function handleApi(request, response, url) {
   if (url.pathname === '/api/providers' && request.method === 'GET') {
     const records = listTenantResources(actor, demoProviders).map(({ organizationId, ...safe }) => safe);
     return sendJson(response, 200, { data: records, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
+  }
+  const capabilitiesMatch = /^\/api\/providers\/([a-z0-9-]+)\/capabilities$/.exec(url.pathname);
+  if (capabilitiesMatch && request.method === 'GET') {
+    const provider = getTenantResource(actor, capabilitiesMatch[1], demoProviders);
+    const manifest = demoCapabilities[capabilitiesMatch[1]];
+    if (!provider || !manifest) return sendJson(response, 404, { error: { code: 'RESOURCE_NOT_FOUND', message: 'Provider connection not found.' } });
+    return sendJson(response, 200, {
+      data: manifest,
+      meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role }
+    });
   }
   const match = /^\/api\/providers\/([a-z0-9-]+)$/.exec(url.pathname);
   if (match && request.method === 'GET') {

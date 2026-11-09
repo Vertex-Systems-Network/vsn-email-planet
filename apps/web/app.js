@@ -44,10 +44,21 @@ function showToast(text) {
   const toast = el('toast'); toast.textContent = text; toast.classList.add('show');
   clearTimeout(showToast.timer); showToast.timer = setTimeout(() => toast.classList.remove('show'), 2300);
 }
+const capabilityTone = state => ['SUPPORTED','READ_ONLY'].includes(state) ? 'available' : ['NEEDS_CONSENT','NEEDS_ADMIN','NEEDS_WHITELIST','NEEDS_LICENSE','RATE_LIMITED'].includes(state) ? 'gated' : 'unavailable';
+function renderCapabilityRows(capabilities) {
+  return capabilities.map(item => `<article class="capability-row"><div class="capability-top"><b>${safe(item.operation.replaceAll('_', ' '))}</b><span class="capability-state ${capabilityTone(item.state)}">${safe(item.state.replaceAll('_', ' '))}</span></div><p>${safe(item.reason)}</p><small><b>Next:</b> ${safe(item.required_action)}</small><small class="capability-source">${safe(item.source)} · checked ${safe(item.checked_at)}</small></article>`).join('');
+}
 function showDetails(id) {
   const p = demoProviders.find(item => item.id === id); if (!p) return;
-  el('detailContent').innerHTML = `<div class="dialog-icon">${safe(p.icon)}</div><p class="eyebrow">SYNTHETIC CONNECTION DETAIL</p><h2>${safe(p.name)}</h2><p>${safe(p.note)}</p><p><b>Inventory capability:</b> ${safe(p.scope)}<br><b>Message content access:</b> ${safe(p.contentAccess)}<br><b>Observation:</b> ${safe(p.checked)}</p><span class="tag-muted">No real provider request was made</span>`;
+  el('detailContent').innerHTML = `<div class="dialog-icon">${safe(p.icon)}</div><p class="eyebrow">SYNTHETIC CONNECTION DETAIL</p><h2>${safe(p.name)}</h2><p>${safe(p.note)}</p><p><b>Inventory scope:</b> ${safe(p.scope)}<br><b>Message content:</b> ${safe(p.contentAccess)}<br><b>Fixture status:</b> ${safe(p.checked)}</p><section class="capability-section" aria-labelledby="capabilityHeading"><div class="capability-heading"><h3 id="capabilityHeading">Operation capabilities</h3><span>Fixture only</span></div><div class="capability-list" id="capabilityList" aria-live="polite"><p class="capability-loading">Loading synthetic capability records…</p></div></section><span class="tag-muted">No real provider request was made</span>`;
   el('detailDialog').showModal();
+  fetch(`/api/providers/${encodeURIComponent(id)}/capabilities`, { headers: { authorization: `Bearer ${DEMO_TOKEN}` } })
+    .then(response => { if (!response.ok) throw new Error('Capability manifest unavailable'); return response.json(); })
+    .then(payload => {
+      const list = el('capabilityList');
+      if (list) list.innerHTML = renderCapabilityRows(payload.data.capabilities);
+    })
+    .catch(() => { const list = el('capabilityList'); if (list) list.textContent = 'Synthetic capability records are unavailable.'; });
 }
 el('navigation').addEventListener('click', event => { const button = event.target.closest('[data-view]'); if (button) setView(button.dataset.view); });
 document.addEventListener('click', event => { const detail = event.target.closest('[data-detail]'); if (detail) showDetails(detail.dataset.detail); const route = event.target.closest('[data-view]'); if (route && route.closest('.panel')) setView(route.dataset.view); });

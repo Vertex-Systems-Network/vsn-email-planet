@@ -92,3 +92,11 @@ Verification level: local prototype contract only; not a release gate.
 - Contract tests confirm allowed synthetic operations return provenance; `NEEDS_ADMIN`, `PROVIDER_DISABLED`, `RATE_LIMITED` and `UNSUPPORTED` never dispatch handlers; a missing handler fails as `BROKEN`; unclassified adapter exceptions are sanitized.
 - cPanel-like cases are synthetic only. No provider host, credential, mailbox or network call was used. Live validation still requires an authorized sandbox.
 - GitHub Actions run `42689186984` passed on commit `b1640660f866c9dc1ad804eff9348d8bea3cfd2e`; the `verify` job passed.
+
+
+## Provider capability detail view and tenant-scoped API (local working tree)
+
+- `npm run check` passes locally: state validation recognizes 16 tasks and 17/17 Node tests pass. `node --check apps/web/app.js` and `node --check apps/api/src/service.js` pass.
+- The HTTP integration test validates synthetic manifest fields and `LOCAL_SYNTHETIC` provenance, same-tenant access, cross-tenant non-disclosing 404, and mutation rejection.
+- The provider detail modal renders operation state, reason, required action, source and check timestamp. It has not been visually inspected in a browser; keyboard/accessibility review is pending.
+- This path makes no provider call and does not grant mailbox access. Remote CI is pending push.

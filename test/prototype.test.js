@@ -59,6 +59,17 @@ test('development server serves app assets and refuses paths outside web root', 
   assert.equal(own.headers.get('x-frame-options'), 'DENY');
   const hidden = await fetch(`${base}/api/providers/demo-graph-1`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
   assert.equal(hidden.status, 404);
+  const capabilityResponse = await fetch(`${base}/api/providers/demo-cpanel-1/capabilities`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
+  const capabilityPayload = await capabilityResponse.json();
+  assert.equal(capabilityResponse.status, 200);
+  assert.equal(capabilityPayload.data.environment, 'LOCAL_SYNTHETIC');
+  assert.ok(capabilityPayload.data.capabilities.some(item => item.state === 'NEEDS_CONSENT' && item.operation === 'fetch_message'));
+  assert.ok(capabilityPayload.data.capabilities.some(item => item.state === 'PROVIDER_DISABLED'));
+  assert.ok(capabilityPayload.data.capabilities.every(item => item.reason && item.source && item.checked_at && item.required_action));
+  const hiddenCapabilities = await fetch(`${base}/api/providers/demo-graph-1/capabilities`, { headers: { authorization: 'Bearer fixture-local-northstar' } });
+  assert.equal(hiddenCapabilities.status, 404);
+  const capabilityMutation = await fetch(`${base}/api/providers/demo-cpanel-1/capabilities`, { method: 'POST', headers: { authorization: 'Bearer fixture-local-northstar' } });
+  assert.equal(capabilityMutation.status, 405);
   const mutation = await fetch(`${base}/api/providers`, { method: 'DELETE', headers: { authorization: 'Bearer fixture-local-northstar' } });
   assert.equal(mutation.status, 405);
 });

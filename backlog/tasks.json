@@ -784,6 +784,67 @@
       "decisions": [],
       "next_action": "Revisit only when routes or role/device/state requirements change; keep implementation status synchronized with verified UI evidence.",
       "notes": "131 route records cover all ten required product areas. Local test validates unique IDs, role/device/state fields, allowed implementation statuses and evidence paths for partial prototype routes. This is scope definition, not route implementation."
+    },
+    {
+      "id": "P1-05",
+      "epic": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Show provider capability matrix in connection details",
+      "outcome": "Operators can distinguish available, gated and unavailable actions with evidence and a next step",
+      "description": "Expose the tenant-scoped capability manifest in the synthetic provider detail modal while preserving explicit demo boundaries.",
+      "scope": [
+        "tenant-scoped capability endpoint",
+        "provider detail modal",
+        "state/reason/source/time/next action",
+        "read-only behavior"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-02",
+        "P1-04",
+        "P2-01"
+      ],
+      "current_status": "PARTIALLY_VERIFIED",
+      "acceptance_criteria": [
+        "Same-tenant viewer receives synthetic capability records",
+        "Cross-tenant provider capability lookup returns non-disclosing 404",
+        "Each row displays state, reason, source, checked time and next action",
+        "Consent and unsupported states are visibly distinct",
+        "No provider mutation or live call is performed"
+      ],
+      "test_plan": [
+        "Node HTTP integration tests for authorization, fields and mutation rejection",
+        "Browser review of modal and keyboard accessibility when shared preview is available"
+      ],
+      "evidence_paths": [
+        "apps/api/src/service.js",
+        "apps/api/src/fixtures.js",
+        "apps/web/app.js",
+        "apps/web/styles.css",
+        "test/prototype.test.js",
+        "docs/API_CONTRACTS.md"
+      ],
+      "verification_level": "API_LOCAL_INTEGRATION_UI_REVIEW_PENDING",
+      "target_environment": "LOCAL_SYNTHETIC",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": "2026-11-10",
+      "completed_at": null,
+      "blockers": [
+        "Shared browser cannot reach executor loopback; rendered UI review is unavailable in current environment."
+      ],
+      "external_requirements": [],
+      "risks": [
+        "Client-side modal rendering has not had a screenshot/accessibility review."
+      ],
+      "decisions": [
+        "ADR-0001"
+      ],
+      "next_action": "Use the shared preview path for a browser and keyboard review when available; do not claim visual verification until then.",
+      "notes": "Synthetic capability API route passes HTTP tests for tenant isolation, provenance fields and mutation rejection. Modal rendering is implemented but not browser/screenshot/accessibility tested."
     }
   ]
 }

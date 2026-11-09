@@ -19,3 +19,8 @@ Use `knowledge/design/requirements.yaml` and `knowledge/screens/screen-matrix.cs
 ## Complete screen inventory
 
 `knowledge/screens/screen-inventory.json` maps the required route inventory across global, connections, administration, inbox, infrastructure, migration, recovery, automation/AI, reports/operations and installation. Each route carries role, device, state coverage and implementation status. The inventory is scope, not completion evidence; only the current dashboard/provider prototype is marked `PROTOTYPE_PARTIAL`.
+
+
+## Provider capability detail
+
+The provider detail view loads the tenant-scoped synthetic capability endpoint and displays each operation’s state, reason, source, check time and required next action. `NEEDS_CONSENT` remains distinct from panel/admin access; unsupported and provider-disabled states are visible. All values are labeled synthetic. The endpoint has an integration test for same-tenant access, cross-tenant 404 and read-only behavior. Browser visual/accessibility review remains pending.
