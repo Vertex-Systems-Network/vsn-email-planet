@@ -1,0 +1,611 @@
+{
+  "schema_version": 1,
+  "allowed_statuses": [
+    "DISCOVERED",
+    "RESEARCHING",
+    "SPECIFIED",
+    "READY",
+    "IN_PROGRESS",
+    "IMPLEMENTED_UNVERIFIED",
+    "TESTING",
+    "PARTIALLY_VERIFIED",
+    "BLOCKED_EXTERNAL_VALIDATION",
+    "BLOCKED_AUTH",
+    "BLOCKED_TECHNICAL",
+    "FAILED",
+    "VERIFIED",
+    "DONE",
+    "DEFERRED",
+    "REJECTED"
+  ],
+  "tasks": [
+    {
+      "id": "P0-01",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Audit repository and preserve governing contract",
+      "outcome": "A traceable initial project state with the full product specification",
+      "description": "Inspect org repo, refs and history; retain the full specification and note initial empty state.",
+      "scope": [
+        "GitHub repository metadata",
+        "initial refs/history",
+        "specification hash"
+      ],
+      "priority": "P0",
+      "complexity": "S",
+      "owner_agent": null,
+      "dependencies": [],
+      "current_status": "VERIFIED",
+      "acceptance_criteria": [
+        "Public repository and permissions recorded",
+        "Empty start state and no prior branches/commits checked",
+        "Full spec stored in repository with matching digest"
+      ],
+      "test_plan": [
+        "GitHub repo/ref/commit API inspection",
+        "local SHA-256 comparison"
+      ],
+      "evidence_paths": [
+        "docs/PROJECT_STATE.md",
+        "AI_Native_Central_Email_Platform_Master_Prompt.md"
+      ],
+      "verification_level": "REPOSITORY_AUDIT",
+      "target_environment": "GITHUB_PUBLIC",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": "2026-11-09",
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Complete project bootstrap and establish a verified checkpoint",
+      "notes": "GitHub API confirmed repo public and empty at start. Main initialization commits: 4758f49 and 9182b40; feature branch created from spec commit. SHA evidence recorded in project state."
+    },
+    {
+      "id": "P0-02",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Document primary-source provider and security constraints",
+      "outcome": "Backlog decisions grounded in official provider standards/docs",
+      "description": "Review first-party OAuth, Gmail sync/scopes, Graph delta and cPanel references; identify launch blockers.",
+      "scope": [
+        "OAuth RFC",
+        "Gmail API",
+        "Graph Mail API",
+        "cPanel UAPI"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-01"
+      ],
+      "current_status": "PARTIALLY_VERIFIED",
+      "acceptance_criteria": [
+        "Dated primary links and implications captured",
+        "Gmail cursor recovery and restricted-scope implications documented",
+        "Remaining provider unknowns remain explicit"
+      ],
+      "test_plan": [
+        "Source URL and claim review"
+      ],
+      "evidence_paths": [
+        "docs/RESEARCH/STANDARDS.md",
+        "docs/RESEARCH/PROVIDER_LIMITS.md",
+        "docs/RESEARCH/STANDARDS.md"
+      ],
+      "verification_level": "PRIMARY_SOURCE_REVIEW_PARTIAL",
+      "target_environment": "RESEARCH",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Provider policies and docs can change"
+      ],
+      "decisions": [],
+      "next_action": "Review Microsoft lifecycle, cPanel endpoint-specific docs, IMAP security, and live provider policy details",
+      "notes": "Initial bounded evidence only; competitor and pricing comparisons remain hypotheses."
+    },
+    {
+      "id": "P0-03",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Finalize MVP architecture and data/security requirements",
+      "outcome": "Evidence-based, security-reviewed implementation plan",
+      "description": "Compare stack candidates, define tenant data model, flows, threat boundaries and deployment matrix.",
+      "scope": [
+        "stack scorecard",
+        "ADR",
+        "data model",
+        "threat model",
+        "UX spec",
+        "deployment matrix"
+      ],
+      "priority": "P0",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-02"
+      ],
+      "current_status": "IN_PROGRESS",
+      "acceptance_criteria": [
+        "Weighted stack comparison in ADR",
+        "MVP UX and route/state matrix specified",
+        "Data classification and tenant boundaries documented",
+        "Deployment constraints tied to worker requirements"
+      ],
+      "test_plan": [
+        "Architecture consistency review",
+        "backlog and diagram validation"
+      ],
+      "evidence_paths": [
+        "docs/ARCHITECTURE.md",
+        "docs/DATA_MODEL.md",
+        "docs/SECURITY_THREAT_MODEL.md",
+        "docs/UX_SPEC.md",
+        "docs/DECISIONS/ADR-0001-STACK.md",
+        "docs/SECURITY_THREAT_MODEL.md",
+        "docs/DATA_MODEL.md",
+        "docs/UX_SPEC.md",
+        "docs/DEPLOYMENT_MATRIX.md"
+      ],
+      "verification_level": "NOT_YET_TESTED",
+      "target_environment": "DOCS_AND_PROTOTYPE",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Overly broad product scope"
+      ],
+      "decisions": [],
+      "next_action": "Finish UX state inventory and scored stack/deployment decision",
+      "notes": "Keep architecture proposal separate from working prototype."
+    },
+    {
+      "id": "P0-04",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Complete time-boxed market and design research",
+      "outcome": "Competitor and UI choices supported by evidence",
+      "description": "Compare provider-neutral email operations categories and candidate UI components; validate pricing hypotheses.",
+      "scope": [
+        "competitors",
+        "market gap",
+        "UI libraries",
+        "pricing"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-01"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Dated source-based comparison with confidence",
+        "No unsupported differentiation/pricing claims",
+        "Record selected/deferred/rejected options"
+      ],
+      "test_plan": [
+        "Source freshness and license review"
+      ],
+      "evidence_paths": [
+        "docs/RESEARCH/COMPETITORS.md",
+        "docs/RESEARCH/MARKET_GAPS.md",
+        "docs/RESEARCH/UI_LIBRARIES.md",
+        "docs/RESEARCH/PRICING_VALIDATION.md"
+      ],
+      "verification_level": "NOT_YET_TESTED",
+      "target_environment": "RESEARCH",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Collect official current feature/licensing/pricing evidence for two high-value competitor categories",
+      "notes": "Time-box competitor research before implementation scope is locked."
+    },
+    {
+      "id": "P1-01",
+      "epic": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Create repository rules and durable project ledger",
+      "outcome": "A future agent can resume without chat memory",
+      "description": "Add canonical instructions, model adapters, project state, roadmap, backlog and validation tooling.",
+      "scope": [
+        "AGENTS.md",
+        "assistant rule files",
+        "backlog schemas",
+        "state docs"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-01"
+      ],
+      "current_status": "VERIFIED",
+      "acceptance_criteria": [
+        "Rules point to canonical spec",
+        "Task/epic/gate files parse and validate",
+        "Handoff names exact next command and blockers"
+      ],
+      "test_plan": [
+        "npm run validate",
+        "node tests for invariants"
+      ],
+      "evidence_paths": [
+        "AGENTS.md",
+        "backlog/tasks.json",
+        "backlog/epics.json",
+        "backlog/phase-gates.json",
+        "docs/HANDOFF.md"
+      ],
+      "verification_level": "STATE_VALIDATION_AND_UNIT_TESTS",
+      "target_environment": "LOCAL",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": "2026-11-09",
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Continue P1 with the authenticated API and tenant foundation after P0 architecture decisions.",
+      "notes": "Repository instruction, state/backlog, and handoff foundation validated locally; no production auth implemented."
+    },
+    {
+      "id": "P1-02",
+      "epic": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Build a truthful runnable synthetic operations dashboard",
+      "outcome": "Useful local UI proof for account inventory and status navigation",
+      "description": "Create responsive static dashboard using explicit synthetic fixture data; no real connection or mail claims.",
+      "scope": [
+        "dashboard view",
+        "provider/account table",
+        "search/filter",
+        "navigation states",
+        "demo labels"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-01"
+      ],
+      "current_status": "PARTIALLY_VERIFIED",
+      "acceptance_criteria": [
+        "Runs locally using documented Node command",
+        "Filters synthetic resources and shows capability provenance",
+        "No provider credentials, mail content, or fake live status",
+        "Usable responsive layout and keyboard controls"
+      ],
+      "test_plan": [
+        "Node built-in interaction/data tests",
+        "HTTP smoke test",
+        "manual browser review when available"
+      ],
+      "evidence_paths": [
+        "apps/web/index.html",
+        "apps/web/app.js",
+        "apps/web/styles.css"
+      ],
+      "verification_level": "LOCAL_HTTP_AND_UNIT_TESTS",
+      "target_environment": "LOCAL_SYNTHETIC",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Static prototype is not production auth/data architecture"
+      ],
+      "decisions": [
+        "ADR-0001"
+      ],
+      "next_action": "Perform browser visual/responsive review when available; then continue the foundation API increment.",
+      "notes": "Search, status filter, details, synthetic-state indicators, HTTP serving, and traversal rejection covered by local tests. Manual browser and WCAG review remain unverified."
+    },
+    {
+      "id": "P1-03",
+      "epic": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Add CI and reproducible project verification",
+      "outcome": "Deterministic checks with explicit Node version",
+      "description": "Add GitHub Actions CI for validation and test commands without unneeded external services.",
+      "scope": [
+        "workflow",
+        "Node version",
+        "state/test checks"
+      ],
+      "priority": "P1",
+      "complexity": "S",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-01"
+      ],
+      "current_status": "IMPLEMENTED_UNVERIFIED",
+      "acceptance_criteria": [
+        "Pinned supported Node major used locally and CI",
+        "CI runs validation and tests on PR/push",
+        "Workflow avoids secrets and network-dependent tests"
+      ],
+      "test_plan": [
+        "Workflow YAML inspection",
+        "local npm run check"
+      ],
+      "evidence_paths": [
+        ".github/workflows/ci.yml"
+      ],
+      "verification_level": "WORKFLOW_FILE_PRESENT_NOT_RUN",
+      "target_environment": "GITHUB_ACTIONS",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Observe first GitHub Actions run after checkpoint; do not claim CI pass before evidence.",
+      "notes": "Workflow configured for Node 22 and local validation/tests; remote run has not occurred."
+    },
+    {
+      "id": "P2-01",
+      "epic": "P2-CONNECTORS",
+      "phase": "P2",
+      "title": "Define provider connector contract and capability states",
+      "outcome": "Provider actions surface truthful, permission-scoped support",
+      "description": "Typed adapter contract with operation-level capability manifests and typed provider error outcomes.",
+      "scope": [
+        "connector SDK",
+        "capabilities",
+        "error taxonomy"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-03",
+        "P1-02"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Manifest reports state, reason, source, checked_at and required action",
+        "Unsupported/needs_permission distinct from errors",
+        "No mock-success for unavailable operations"
+      ],
+      "test_plan": [
+        "Capability contract fixtures",
+        "negative authorization tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_TESTED",
+      "target_environment": "LOCAL_MOCK",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Complete architecture/stack P0 contract then implement capability core",
+      "notes": ""
+    },
+    {
+      "id": "P2-02",
+      "epic": "P2-CONNECTORS",
+      "phase": "P2",
+      "title": "cPanel UAPI metadata connector feasibility",
+      "outcome": "Discover authorized domain/mailbox metadata without inferring content rights",
+      "description": "Review required UAPI operations, API token scopes, host-specific access and safe endpoint validation.",
+      "scope": [
+        "cPanel UAPI",
+        "host permissions",
+        "SSRF policy"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-01"
+      ],
+      "current_status": "BLOCKED_EXTERNAL_VALIDATION",
+      "acceptance_criteria": [
+        "Official endpoint/permission mapping recorded",
+        "Mock contract passes",
+        "Live check remains gated on an authorized sandbox"
+      ],
+      "test_plan": [
+        "Mock responses for supported/disabled/forbidden/rate-limited hosts"
+      ],
+      "evidence_paths": [
+        "docs/RESEARCH/PROVIDER_LIMITS.md"
+      ],
+      "verification_level": "NOT_YET_TESTED",
+      "target_environment": "LOCAL_MOCK",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [
+        "No cPanel/WHM sandbox credentials supplied"
+      ],
+      "external_requirements": [
+        "Authorized cPanel/WHM test host and scoped API token"
+      ],
+      "risks": [
+        "Hosting providers may disable API functions"
+      ],
+      "decisions": [],
+      "next_action": "Continue mock contract without live credentials",
+      "notes": "Do not stall independent P0/P1 work."
+    },
+    {
+      "id": "P3-01",
+      "epic": "P3-MAIL",
+      "phase": "P3",
+      "title": "Gmail sync recovery design",
+      "outcome": "Expired history cursor does not silently skip messages",
+      "description": "Plan durable per-mailbox history cursors and full-reconciliation fallback after documented 404.",
+      "scope": [
+        "history cursor",
+        "watch/reconciliation",
+        "idempotent merge"
+      ],
+      "priority": "P0",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-01"
+      ],
+      "current_status": "SPECIFIED",
+      "acceptance_criteria": [
+        "404 begins controlled reconcile",
+        "cursor only advances after successful merge",
+        "duplicate event and worker restart tests"
+      ],
+      "test_plan": [
+        "Gmail mock history 404",
+        "worker interruption",
+        "duplicate webhook"
+      ],
+      "evidence_paths": [
+        "docs/RESEARCH/PROVIDER_LIMITS.md",
+        "docs/TEST_STRATEGY.md"
+      ],
+      "verification_level": "SPECIFICATION_ONLY",
+      "target_environment": "LOCAL_MOCK",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Missed sync changes if cursor recovery is incorrect"
+      ],
+      "decisions": [],
+      "next_action": "Implement only after connector contract and persistence design",
+      "notes": "No Gmail implementation exists yet."
+    },
+    {
+      "id": "P3-02",
+      "epic": "P3-MAIL",
+      "phase": "P3",
+      "title": "Safe outbound uncertainty contract",
+      "outcome": "Timeout after dispatch cannot silently cause duplicate email",
+      "description": "Persist send intent/idempotency and reconcile acceptance uncertainty before retry.",
+      "scope": [
+        "send states",
+        "provider idempotency",
+        "audit"
+      ],
+      "priority": "P0",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-01"
+      ],
+      "current_status": "SPECIFIED",
+      "acceptance_criteria": [
+        "Timeout becomes UNKNOWN",
+        "No blind replay",
+        "User-visible state and resolution provenance"
+      ],
+      "test_plan": [
+        "Lost SMTP/API response fixture",
+        "duplicate intent fixture"
+      ],
+      "evidence_paths": [
+        "docs/PRODUCT_SPEC.md",
+        "docs/TEST_STRATEGY.md"
+      ],
+      "verification_level": "SPECIFICATION_ONLY",
+      "target_environment": "LOCAL_MOCK",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Duplicate external side effect"
+      ],
+      "decisions": [],
+      "next_action": "Implement contract in mail-data phase after auth/idempotency design",
+      "notes": "No outbound sending exists yet."
+    },
+    {
+      "id": "P9-01",
+      "epic": "P9-RELEASE",
+      "phase": "P9",
+      "title": "Self-host release gates and artifact pipeline",
+      "outcome": "Reproducible, verifiable web release",
+      "description": "Build release packaging, SBOM, checksums, install/upgrade/rollback and production gates after features stabilize.",
+      "scope": [
+        "container",
+        "artifact",
+        "security",
+        "restore",
+        "release report"
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-03",
+        "P3-01",
+        "P3-02"
+      ],
+      "current_status": "DEFERRED",
+      "acceptance_criteria": [
+        "Artifact ties to commit and hash",
+        "Install/upgrade/restore verified",
+        "External blockers transparent"
+      ],
+      "test_plan": [
+        "Release checks",
+        "fresh install and restore drill"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_TESTED",
+      "target_environment": "CI",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Resume after web product and platform foundation exist",
+      "notes": "Premature release pipeline deferred."
+    }
+  ]
+}

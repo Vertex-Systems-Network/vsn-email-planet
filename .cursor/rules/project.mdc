@@ -1,0 +1,5 @@
+---
+description: Canonical VSN email platform project rules
+alwaysApply: true
+---
+Read and follow root `AGENTS.md` and `AI_Native_Central_Email_Platform_Master_Prompt.md`. Inspect current Git/state/backlog first. Preserve tenant isolation, least privilege, explicit provider capability, privacy, draft-only outbound defaults, test evidence, and accurate checkpoints. Never represent simulated provider data as live.

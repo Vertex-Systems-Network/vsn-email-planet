@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "phases": [
+    {"id":"P0","name":"Pre-development and research","status":"IN_PROGRESS","exit_criteria":["Research and primary-source provider limits documented","MVP, UX, threat, data and architecture decisions recorded","Machine-readable backlog and rules validated","Runnable synthetic prototype and initial checks pass"]},
+    {"id":"P1","name":"Repository foundation and DevOps","status":"IN_PROGRESS","exit_criteria":["Fresh local setup reproducible","Authenticated API and tenant model implemented","Cross-tenant isolation tests pass","CI/build and install foundation pass"]},
+    {"id":"P2","name":"Provider connectivity and admin inventory","status":"NOT_STARTED","exit_criteria":["Connector capability/permission tests pass","Mock and authorized live inventory paths distinguished"]},
+    {"id":"P3","name":"Primary mail sync and inbox","status":"NOT_STARTED","exit_criteria":["Sync recovery and safe send uncertainty tests pass"]},
+    {"id":"P9","name":"Web release readiness","status":"NOT_STARTED","exit_criteria":["Install/restore, security, performance, accessibility, artifact and release gates pass"]}
+  ]
+}

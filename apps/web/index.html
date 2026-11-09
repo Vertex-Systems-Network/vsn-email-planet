@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fa"><title>VSN MailOps — Operations overview</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="demo-banner"><span class="demo-dot"></span> Synthetic prototype · No mailboxes connected · No provider data is accessed</div>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <a class="brand" href="#overview"><span class="brand-mark">V</span><span><b>VSN</b><small>MAIL OPERATIONS</small></span></a>
+      <div class="workspace"><span class="workspace-avatar">D</span><span><b>Demo workspace</b><small>Local synthetic data</small></span><span class="chevron">⌄</span></div>
+      <div class="nav-label">WORKSPACE</div>
+      <nav id="navigation">
+        <button class="nav-item active" data-view="overview"><span>◫</span> Overview</button>
+        <button class="nav-item" data-view="providers"><span>⊙</span> Providers <i>2</i></button>
+        <button class="nav-item" data-view="domains"><span>◇</span> Domains <i>3</i></button>
+        <button class="nav-item" data-view="mailboxes"><span>▤</span> Mailboxes <i>6</i></button>
+        <button class="nav-item locked" aria-disabled="true" title="Not available in this prototype"><span>◉</span> Incidents <small>Later</small></button>
+        <button class="nav-item locked" aria-disabled="true" title="Not available in this prototype"><span>⇄</span> Migrations <small>Later</small></button>
+      </nav>
+      <div class="sidebar-bottom"><div class="nav-label">SYSTEM</div><button class="nav-item locked" aria-disabled="true"><span>⚙</span> Settings <small>Later</small></button><div class="user-chip"><div class="user-avatar">A</div><span><b>Alex Morgan</b><small>Demo operator</small></span><span class="more">···</span></div></div>
+    </aside>
+    <main class="main">
+      <header class="topbar"><div class="breadcrumbs"><span>Workspace</span><b>/</b><strong id="crumb">Overview</strong></div><div class="top-actions"><span class="local-badge"><span></span> Local demo</span><button class="icon-button" aria-label="Help">?</button><div class="top-avatar">A</div></div></header>
+      <section class="content">
+        <div class="page-heading"><div><p class="eyebrow">MONDAY, NOVEMBER 9, 2026</p><h1 id="title">Operations overview</h1><p class="subtitle" id="subtitle">A clear view of provider connections and mailbox inventory.</p></div><button class="button button-primary" id="connectButton"><span>＋</span> Add a provider</button></div>
+        <div class="notice"><span class="notice-icon">i</span><p><b>This is a local demo.</b> The accounts below are synthetic examples. Provider connection, mailbox access, and message operations are not implemented.</p><button aria-label="Dismiss notice" id="dismissNotice">×</button></div>
+        <div class="metric-grid" id="metrics"></div>
+        <section class="panel inventory-panel">
+          <div class="panel-heading"><div><div class="heading-line"><h2 id="tableHeading">Provider connections</h2><span class="count-pill" id="rowCount">2</span></div><p id="tableDescription">Synthetic fixture data · Capability and permission are shown separately.</p></div><button class="button button-secondary" id="exportButton">Export view <span>↓</span></button></div>
+          <div class="toolbar"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search provider, host or status" aria-label="Search provider inventory"><kbd>⌘ K</kbd></label><label class="filter"><span>State</span><select id="statusFilter" aria-label="Filter by state"><option value="all">All states</option><option value="connected">Connected</option><option value="attention">Needs attention</option></select></label><button class="filter-button" id="resetFilters">↺ <span>Reset</span></button><span class="result-count" id="resultCount"></span></div>
+          <div class="table-wrap"><table><thead><tr><th><input type="checkbox" aria-label="Select all visible providers" id="selectAll"></th><th>PROVIDER / ACCOUNT</th><th>ACCESS SCOPE</th><th>STATUS</th><th>LAST CHECKED</th><th></th></tr></thead><tbody id="providerRows"></tbody></table><div class="empty-state" id="emptyState" hidden><span>⌕</span><b>No matching connections</b><p>Try changing your search or state filter.</p><button class="button button-secondary" id="clearSearch">Clear filters</button></div></div>
+          <footer class="table-footer"><span id="footerRange"></span><div><button class="page-arrow" disabled aria-label="Previous page">‹</button><span class="page-number">1</span><button class="page-arrow" disabled aria-label="Next page">›</button></div></footer>
+        </section>
+        <section class="bottom-grid"><div class="panel domain-card"><div class="panel-heading compact"><div><h2>Domain inventory</h2><p>Synthetic resource examples</p></div><button class="text-button" data-view="domains">View all <span>→</span></button></div><div id="domainList"></div></div><div class="panel integrity-card"><div class="integrity-heading"><div class="integrity-icon">⌁</div><span class="tag-muted">Prototype</span></div><h2>Permissions are explicit</h2><p>A provider connection does not automatically grant access to private mailbox contents. This demo keeps that boundary visible.</p><button class="text-button" id="permissionInfo">Read the access model <span>→</span></button></div></section>
+        <footer class="page-footer"><span>VSN MailOps <span class="footer-dot">·</span> Phase 0 prototype</span><span>All data shown is synthetic</span></footer>
+      </section>
+    </main>
+  </div>
+  <dialog id="detailDialog" class="dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form><div id="detailContent"></div></dialog>
+  <dialog id="infoDialog" class="dialog info-dialog"><form method="dialog"><button class="dialog-close" aria-label="Close">×</button></form><div class="dialog-icon">◈</div><p class="eyebrow">ACCESS BOUNDARY</p><h2>Provider control and mailbox content are separate permissions.</h2><p>Hosting-panel administration can expose permitted account inventory and settings. It does not grant blanket permission to read message bodies. Content sync needs a distinct, supported authorization for each provider and mailbox.</p><button class="button button-primary" id="closeInfo">Understood</button></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

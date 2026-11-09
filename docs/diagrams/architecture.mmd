@@ -1,0 +1,8 @@
+flowchart TB
+  UI["Web client"] --> API["API and tenant policy"]
+  API --> DB[("PostgreSQL")]
+  API --> Q["Durable workers"]
+  Q --> P["Provider adapters"]
+  P --> EXT["External mail and DNS providers"]
+  Q --> OBJ[("Encrypted object storage")]
+  API --> AUD["Audit and observability"]

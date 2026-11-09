@@ -1,0 +1,3 @@
+# Initial stack options and scorecard status
+
+The production stack is not yet selected. Provisional criteria follow the master brief: security/privacy 25%, correctness/functionality 20%, maintenance 15%, portability 15%, cost/performance 10%, UX/a11y 10%, licensing/lock-in 5%. Candidate direction: TypeScript modular monolith with separate web, API and workers; evaluate Next.js/React plus NestJS against alternatives, PostgreSQL ORM options, Redis queue, S3-compatible storage, and Docker Compose. Record evidence and scores before lock; the dependency-free Node prototype is only a feasibility artifact.

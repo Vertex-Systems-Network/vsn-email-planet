@@ -1,0 +1,43 @@
+version: 1
+status: initial
+principles:
+  - evidence before action
+  - show permission and freshness beside provider state
+  - neutral readable operations surfaces
+  - status cannot rely on color alone
+  - responsive and keyboard usable
+  - label synthetic/demo data visibly
+visual_direction:
+  selected: dense-neutral-operations-console
+  alternatives: [consumer-unified-inbox, graph-first-infrastructure]
+tokens:
+  colors:
+    surface: "#f5f7fa"
+    panel: "#ffffff"
+    text: "#14212b"
+    muted: "#61717e"
+    accent: "#176b66"
+    success: "#176b4b"
+    warning: "#8b5b08"
+    danger: "#a33333"
+  typography: "system UI for prototype; production font decision pending"
+  spacing: "4px base scale, prototype-only"
+  focus: "visible 2px accent outline"
+responsive:
+  desktop: "sidebar plus data table"
+  mobile: "stacked navigation, single-column summary and horizontally scrollable table"
+screens:
+  - id: overview
+    states: [synthetic, loading, empty, error, filtered-empty]
+    roles: [viewer, operator]
+    implemented: true
+  - id: provider-inventory
+    states: [synthetic, selected, filtered-empty]
+    roles: [viewer, operator]
+    implemented: true
+accessibility:
+  - keyboard navigation
+  - semantic controls and labels
+  - reduced-motion support
+  - no color-only status meaning
+  - WCAG audit pending
