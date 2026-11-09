@@ -7,7 +7,7 @@ Last updated: 2026-11-09
 - GitHub repository: `Vertex-Systems-Network/vsn-email-planet`, public, default branch `main`.
 - History audit correction: the remote was **not** commit-empty. `main` contained a README initialization (`4758f49`), a zero-byte governing-spec placeholder (`ad2cf39`), and the complete 1,578-line specification (`9182b40`). There was no earlier product code, but all three commits are preserved in the current history. The first local clone had not fetched the current remote branch; this was detected and corrected before publishing implementation.
 - The initial README called the project “VSN Orbicore Email Operations Platform”; the current requested product name, VSN Email Planet, is used in the maintained project docs and app.
-- Authorized destination branch is `main`; the feature integration is proceeding through PR #5 to preserve all current main-only history and verified updates.
+- PR #5 integrated the feature branch into `main` at `7b199403ad8e53a6b7845b1eaa302f5efcf5d4e2`, preserving current main-only history and verified updates.
 - Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md` (v1.0, 2026-11-09), 1,578 lines / 139,581 bytes; read in full.
 - Initial stack decision: npm workspaces, Next.js App Router + React for web, NestJS API, TypeScript, future PostgreSQL/Redis integration. See ADR-0001.
 
@@ -19,7 +19,7 @@ Last updated: 2026-11-09
 - GitHub Actions passed for the bootstrap and PostgreSQL increments; native PostgreSQL 16 checks passed on `97582d1f8f5851c755141035b64d71104f364359`, including the real `pg` migration runner and cross-tenant foreign-key denial. Research checkpoint `720b912f6281ef2ce5ef8debf4dee665d4092fbe` also passed CI.
 - Latest pre-checkpoint GitHub Actions run: current `main` at `f65f0efba54540492dd0f25ba97e597cc3810e2b`, run `42690403340`, completed successfully. The Phase 0 paper/standards register now includes scoped findings and limitations for distributed processing, CRDT synchronization, multi-tenant isolation and OAuth; it does not close P0.
 - Provider deletion documentation now distinguishes Gmail permanent delete from trash, Microsoft Graph purge/hold behavior, and cPanel Exim queue deletion. These are documentation findings only; mailbox-wide retention and all live behavior remain unverified. Research/docs commit `44c027b9e310253a66887bb664f1b880fb46c199` passed GitHub Actions run `42690990759`.
-- Provider-research follow-up commit `9b408f3a3bf5a31864d8b3274f14a34ab451a8a0` passed GitHub Actions run `42691389648`. P1-05 local code now has PostgreSQL job/outbox primitives, but its CI validation is pending.
+- Provider-research follow-up commit `9b408f3a3bf5a31864d8b3274f14a34ab451a8a0` passed GitHub Actions run `42691389648`. P1-05 queue, worker and outbox increments later passed PostgreSQL 16 CI runs recorded below.
 - Preserved historical GitHub Actions runs in `docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md`; local verification reports now use unique filenames to avoid overwriting earlier checkpoints.
 - P1-05 concurrency-fix commit `b6b7be32c3ea699da7ebdda7c6caa5f7e1df0259` passed full CI run `42695894564`, including native PostgreSQL 16 simultaneous claims. No worker loop, publisher, process crash recovery or load test is claimed.
 - Worker runner commit `09ef29a3091188417cd95c988f3fbb2c0ab9efc1` passed full CI run `42697393221`, including PostgreSQL 16 job-handler execution. Callback publisher commit `c1d1652384db8d27b3bddbfbe222b7971ffc9f26` passed CI run `42698327621`, including the PostgreSQL 16 publisher callback smoke, 24 unit tests, typecheck, build, both HTTP smokes, backlog validation and npm audit.
@@ -30,7 +30,7 @@ Last updated: 2026-11-09
 
 ## Branch integration verification
 
-The feature prototype, tenant detail routes, screen inventory, knowledge banks and expanded tests are integrated with the current main backend and history. Local integration-tree checks passed: `npm ci`, `npm run check` (34 backlog tasks, 42 tests), `npm run typecheck`, `npm run build`, `npm run smoke:api`, and `npm run smoke:web`. Integration-tree CI is pending. Phase gates remain open; no browser review or provider runtime is claimed.
+The feature prototype, tenant detail routes, screen inventory, knowledge banks and expanded tests are integrated with the current main backend and history. Local integration-tree checks passed: `npm ci`, `npm run check` (34 backlog tasks, 42 tests), `npm run typecheck`, `npm run build`, `npm run smoke:api`, and `npm run smoke:web`. PR-head CI run `42702371409` and post-merge main CI run `42702615390` both passed, including the PostgreSQL 16 integration step. Phase gates remain open; no browser review or provider runtime is claimed.
 
 ## Current blockers and limits
 

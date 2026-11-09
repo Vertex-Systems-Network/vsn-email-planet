@@ -13,7 +13,7 @@ Scope: integrated `main`'s NestJS/PostgreSQL/durable-job foundation with the fea
 - `npm run smoke:api` — PASS; health endpoint reports process status only.
 - `npm run smoke:web` — PASS; web root returns 200 and retains the synthetic-data notice.
 
-The main 33-task historical ledger remains intact, and feature task P0-06 is preserved as the 34th entry. The legacy backlog validator validates `status_history` whenever present; schema v1 does not require that optional field. `scripts/validate-state.mjs` also checks task, epic, gate, and knowledge-bank consistency.
+The main 33-task historical ledger remains intact, and feature task P0-06 is preserved as the 34th entry. PR #5 merged to `main` at `7b199403ad8e53a6b7845b1eaa302f5efcf5d4e2`. GitHub Actions run `42702371409` passed for the PR head; post-merge main run `42702615390` passed, including native PostgreSQL 16 integration tests. The legacy backlog validator validates `status_history` whenever present; schema v1 does not require that optional field. `scripts/validate-state.mjs` also checks task, epic, gate, and knowledge-bank consistency.
 
 ## Limits
 
@@ -22,4 +22,4 @@ The main 33-task historical ledger remains intact, and feature task P0-06 is pre
 - No browser-rendered visual or accessibility review was performed.
 - Existing later-phase code is not evidence that P0/P1/P2/P3 phase gates are closed.
 
-Verification level: local integrated code and test suite only. Remote Actions status must be checked after the merge commit is pushed.
+Verification level: local integrated code/tests plus successful PR-head and post-merge GitHub Actions. This does not close P0/P1 phase gates or establish provider integration, production readiness, or browser visual/a11y review.
