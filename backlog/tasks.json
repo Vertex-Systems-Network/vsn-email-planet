@@ -399,7 +399,7 @@
         "P0-03",
         "P1-02"
       ],
-      "current_status": "PARTIALLY_VERIFIED",
+      "current_status": "VERIFIED",
       "acceptance_criteria": [
         "Manifest reports state, reason, source, checked_at and required action",
         "Unsupported/needs_permission distinct from errors",
@@ -412,21 +412,22 @@
       "evidence_paths": [
         "apps/api/src/capabilities.js",
         "test/capabilities.test.js",
+        "test/provider-contract.test.js",
         "docs/CAPABILITY_CONTRACT.md"
       ],
-      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS_SYNTHETIC_ONLY",
+      "verification_level": "LOCAL_CONTRACT_AND_MOCK_TESTS_PASS",
       "target_environment": "LOCAL_MOCK",
-      "last_verified_commit": "83b9d3ff59eb4864541840f6bc31805969efa1a6",
+      "last_verified_commit": null,
       "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "updated_at": "2026-11-10",
       "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
       "risks": [],
       "decisions": [],
-      "next_action": "Resume after the architecture decision to define adapter boundaries and add provider mock integration contracts.",
-      "notes": "Implemented a framework-neutral, fail-closed capability manifest validator and decision helper. Four local tests cover listed states, consent gating, unsupported and undeclared operations, malformed/duplicate manifests, and read-only consistency. No provider adapter or live probe exists; stack decision remains open. GitHub Actions run 42687240875 passed on the exact commit."
+      "next_action": "Integrate this boundary when the P0 stack decision is made; add concrete provider adapter contracts and operation-specific mock fixtures before any live connector.",
+      "notes": "Framework-neutral invocation boundary validates capability state before dispatch, attaches provenance to allowed results, fails BROKEN when an allowed operation has no handler, sanitizes unclassified adapter exceptions, and preserves typed transient outcomes. Local mock tests pass. No authentication, database, provider adapter, or live probe is implemented."
     },
     {
       "id": "P2-02",
@@ -446,7 +447,7 @@
       "dependencies": [
         "P2-01"
       ],
-      "current_status": "BLOCKED_EXTERNAL_VALIDATION",
+      "current_status": "PARTIALLY_VERIFIED",
       "acceptance_criteria": [
         "Official endpoint/permission mapping recorded",
         "Mock contract passes",
@@ -456,17 +457,19 @@
         "Mock responses for supported/disabled/forbidden/rate-limited hosts"
       ],
       "evidence_paths": [
-        "docs/RESEARCH/PROVIDER_LIMITS.md"
+        "docs/RESEARCH/PROVIDER_LIMITS.md",
+        "apps/api/src/capabilities.js",
+        "test/provider-contract.test.js"
       ],
-      "verification_level": "NOT_YET_TESTED",
+      "verification_level": "LOCAL_SYNTHETIC_MOCKS_PASS_LIVE_BLOCKED",
       "target_environment": "LOCAL_MOCK",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "updated_at": "2026-11-10",
       "started_at": null,
       "completed_at": null,
       "blockers": [
-        "No cPanel/WHM sandbox credentials supplied"
+        "No authorized cPanel/WHM sandbox credentials supplied; live API behavior remains unverified."
       ],
       "external_requirements": [
         "Authorized cPanel/WHM test host and scoped API token"
@@ -475,8 +478,8 @@
         "Hosting providers may disable API functions"
       ],
       "decisions": [],
-      "next_action": "Continue mock contract without live credentials",
-      "notes": "Do not stall independent P0/P1 work."
+      "next_action": "Use an authorized sandbox for UAPI role/function checks; until then keep metadata scenarios synthetic and do not enable real provider calls.",
+      "notes": "Local mock contract covers metadata listing, needs-admin, provider-disabled, rate-limited, unsupported, missing-handler and sanitized-failure outcomes. No network call or live cPanel host was used."
     },
     {
       "id": "P3-01",

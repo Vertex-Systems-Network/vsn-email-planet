@@ -84,3 +84,11 @@ Verification level: local prototype contract only; not a release gate.
 - `npm run check` passes on Node `v24.22.1`: 15 tasks, 5 epics, 5 gates, 20 banks; 12/12 tests pass, 0 fail, 0 skipped.
 - Four tests cover read-only support, separate consent, unsupported/undeclared fail-closed decisions, malformed/duplicate records and read-only consistency.
 - This helper is not a live connector, authentication layer or provider probe. GitHub Actions run `42687240875` passed on commit `83b9d3ff59eb4864541840f6bc31805969efa1a6`.
+
+
+## Guarded provider invocation and synthetic outcomes (local working tree)
+
+- `npm run check` passed on Node `v24.22.1`: state validation succeeds; 17/17 tests pass, 0 fail, 0 skipped.
+- Contract tests confirm allowed synthetic operations return provenance; `NEEDS_ADMIN`, `PROVIDER_DISABLED`, `RATE_LIMITED` and `UNSUPPORTED` never dispatch handlers; a missing handler fails as `BROKEN`; unclassified adapter exceptions are sanitized.
+- cPanel-like cases are synthetic only. No provider host, credential, mailbox or network call was used. Live validation still requires an authorized sandbox.
+- Remote CI for this exact increment is pending push.

@@ -12,4 +12,4 @@ The allowed states are `SUPPORTED`, `READ_ONLY`, `NEEDS_CONSENT`, `NEEDS_ADMIN`,
 
 `apps/api/src/capabilities.js` validates manifests and provides a fail-closed operation decision/assertion. `test/capabilities.test.js` covers metadata-only access, separate message consent, unsupported and undeclared operations, malformed/duplicate records, and inconsistent write/read-only claims.
 
-All test data is synthetic. The helper does not authenticate a user, grant consent, call a provider, or implement the entire typed connector interface. P2-01 remains partially verified pending the stack decision, provider adapter boundaries, and adapter-level mock integration tests.
+All test data is synthetic. The helper does not authenticate a user, grant consent, call a provider, or implement the entire typed connector interface. The framework-neutral invocation contract and synthetic adapter boundary are verified locally. Concrete provider adapters remain unimplemented and must follow the final stack/auth decisions.

@@ -14,6 +14,16 @@ export const CAPABILITY_STATES = Object.freeze([
 
 const EXECUTABLE_STATES = new Set(['SUPPORTED', 'READ_ONLY']);
 
+export class ProviderOperationError extends Error {
+  constructor({ code, operation, message, requiredAction = 'Review the provider capability and access policy.' }) {
+    super(message);
+    this.name = 'ProviderOperationError';
+    this.code = code;
+    this.operation = operation;
+    this.requiredAction = requiredAction;
+  }
+}
+
 export function validateCapabilityManifest(manifest) {
   const errors = [];
   if (!manifest || typeof manifest !== 'object' || Array.isArray(manifest)) {
@@ -65,10 +75,45 @@ export function capabilityDecision(manifest, operation, resourceType = 'connecti
 export function assertCapabilityAllows(manifest, operation, resourceType = 'connection') {
   const decision = capabilityDecision(manifest, operation, resourceType);
   if (!decision.allowed) {
-    const error = new Error(`Provider operation ${operation} is ${decision.state.toLowerCase()}: ${decision.reasons.join(' ')}`);
-    error.code = decision.state;
-    error.capability = decision;
-    throw error;
+    throw new ProviderOperationError({
+      code: decision.state,
+      operation,
+      message: `Provider operation ${operation} is ${decision.state.toLowerCase()}: ${decision.reasons.join(' ')}`,
+      requiredAction: decision.required_action
+    });
   }
   return decision;
+}
+
+export async function invokeProviderOperation({ connector, manifest, operation, resourceType = 'connection', context, input }) {
+  const capability = assertCapabilityAllows(manifest, operation, resourceType);
+  const handler = connector?.operations?.[operation];
+  if (typeof handler !== 'function') {
+    throw new ProviderOperationError({
+      code: 'BROKEN',
+      operation,
+      message: `Provider declared ${operation} as available but supplied no operation handler.`,
+      requiredAction: 'Repair the connector implementation and run its contract tests.'
+    });
+  }
+  try {
+    const data = await handler({ context, input });
+    return {
+      data,
+      meta: {
+        provider: manifest.provider ?? connector.name ?? 'unknown',
+        environment: manifest.environment ?? 'UNSPECIFIED',
+        operation,
+        capability: { state: capability.state, source: capability.source, checked_at: capability.checked_at }
+      }
+    };
+  } catch (error) {
+    if (error instanceof ProviderOperationError) throw error;
+    throw new ProviderOperationError({
+      code: 'BROKEN',
+      operation,
+      message: 'Provider operation failed without a classified provider outcome.',
+      requiredAction: 'Inspect sanitized connector diagnostics and retry only after the provider state is known.'
+    });
+  }
 }
