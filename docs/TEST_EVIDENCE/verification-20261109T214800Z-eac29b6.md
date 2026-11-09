@@ -21,4 +21,4 @@ The existing suite verifies tenant-keyed resource isolation, separate mailbox-co
 
 ## Remote verification
 
-The parent commit `eac29b6a571f4a898320eb14a482b90ed499543a` passed GitHub Actions run `42705339401`, including PostgreSQL 16. This contract-only working change has not yet been pushed or covered by remote CI.
+The parent commit `eac29b6a571f4a898320eb14a482b90ed499543a` passed GitHub Actions run `42705339401`, including PostgreSQL 16. The contract was published in commit `46afedbc9a14a50bb0c1ff15185251d687e828b4`; GitHub Actions run `42706037041` passed, including PostgreSQL 16. Authentication is still only a contract, not runtime functionality.
