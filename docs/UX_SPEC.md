@@ -15,3 +15,7 @@ Responsive sidebar/header, keyboard reachable controls, search/filter over fixtu
 
 ## Future screen/state matrix
 Use `knowledge/design/requirements.yaml` and `knowledge/screens/screen-matrix.csv`; include role × device × state dimensions as the feature scopes mature.
+
+## Complete screen inventory
+
+`knowledge/screens/screen-inventory.json` maps the required route inventory across global, connections, administration, inbox, infrastructure, migration, recovery, automation/AI, reports/operations and installation. Each route carries role, device, state coverage and implementation status. The inventory is scope, not completion evidence; only the current dashboard/provider prototype is marked `PROTOTYPE_PARTIAL`.

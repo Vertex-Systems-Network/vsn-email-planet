@@ -68,3 +68,11 @@ Verification level: local prototype contract only; not a release gate.
 - Started the local app server on `127.0.0.1:4173`; the in-process Node HTTP integration tests pass.
 - Tried to open the local URL in the shared Chrome browser. The browser could not reach the executor loopback (`net::ERR_CONNECTION_REFUSED`), so no screenshot, responsive, keyboard or visual review is claimed.
 - This is a browser-to-executor network isolation limitation, not an observed application HTTP failure. Browser/WCAG QA remains open until a preview is exposed through an approved shared path.
+
+
+## Screen inventory verification
+
+- `npm run check` passed locally on Node `v24.22.1`: 15 tasks, 5 epics, 5 phase gates and 20 bank records validate; 8/8 tests pass, 0 fail, 0 skipped.
+- `knowledge/screens/screen-inventory.json` contains 131 unique route records over all ten product areas. Each record declares roles, devices, required states and a truthful implementation status; partial prototype evidence paths are checked on disk.
+- This verifies inventory structure and traceability only; it does not imply the listed screens are implemented. P0-06 is verified at this documentation/test scope.
+- Node emitted inherited npm warning: `Unknown env config "http-proxy"`; no repository dependency or test failure resulted.
