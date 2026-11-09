@@ -1,14 +1,30 @@
 # Resumable handoff
 
-PROJECT: VSN Email Planet — Universal Email Operations Control Platform
-BRANCH/HEAD: `main` includes remote session-resolver progress through `025a7c04231007139e82c90f79ce4c317df0dc7c`; local integration is being verified before publication.
+PROJECT: VSN Email Planet — Universal Email Operations Control Platform  
+REPOSITORY: `Vertex-Systems-Network/vsn-email-planet`  
+BRANCH/HEAD: GitHub remote `main`; resolve its live SHA before every continuation.  
 CURRENT PHASE: P0 active; P1 foundation increment in progress.
-SCOPE JUST COMPLETED: repository/history/spec audit; autonomous-execution plan repair; P1-06 identity/session contract and tested opaque-session resolver primitive; canonical Next.js/NestJS/PostgreSQL path and synthetic Node harness disposition; tenant-keyed PostgreSQL schema and checksummed migrations; provider-retention research checkpoint.
-MAIN CI: execution plan fix `eac29b6a571f4a898320eb14a482b90ed499543a` passed run `42705339401`; identity contract `46afedbc9a14a50bb0c1ff15185251d687e828b4` passed run `42706037041`; latest stack reconciliation commit `5f182a8d49ab7f02b3397f5c6d4bfc23869fb6e2` passed run `42707221259`.
-INTEGRATION VERIFICATION: before the plan/prompt audit, local `npm ci`, `npm run check` (34 tasks and 42 tests), `npm run typecheck`, `npm run build`, `npm run smoke:api`, and `npm run smoke:web` passed. Current audit checks pass for 35 tasks, 5 epics, 5 phase gates, 20 knowledge banks and 46 tests; fresh install, typecheck, build, HTTP smokes and npm audit also pass. Evidence: `docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md`. Plan/prompt audit published at `eac29b6a571f4a898320eb14a482b90ed499543a`; GitHub Actions run `42705339401` passed. P1-06 contract is published in `docs/API_CONTRACTS.md`; local `npm run check` passes 46 tests and GitHub Actions run `42706037041` passed. The contract and local session resolver tests exist; no persistent session repository, NestJS guard or login flow is yet wired.
-VERIFICATION: baseline code SHA `97582d1f8f5851c755141035b64d71104f364359` passed GitHub Actions including PostgreSQL 16; research checkpoints `f65f0efba54540492dd0f25ba97e597cc3810e2b` (run `42690403340`), `44c027b9e310253a66887bb664f1b880fb46c199` (run `42690990759`) and `9b408f3a3bf5a31864d8b3274f14a34ab451a8a0` (run `42691389648`) passed. Queue concurrency fix `b6b7be32c3ea699da7ebdda7c6caa5f7e1df0259` passed full CI run `42695894564`; generic worker runner `09ef29a3091188417cd95c988f3fbb2c0ab9efc1` passed full CI run `42697393221`; callback publisher `c1d1652384db8d27b3bddbfbe222b7971ffc9f26` passed full CI run `42698327621`; accessibility follow-up `eadd7d8ce32778f9a5af589e2c590b9fd487ce89` passed full CI run `42699266795`, including PostgreSQL 16. The first state-doc checkpoint `3ed6cba` failed backlog validation due to a malformed transferred JSON blob; recovery commit `4526f0ff2ab4dda705ed3d1328be545a77662597` restored the valid ledger and passed full CI run `42700469822`. Checkpoint `2cb7eb0b1eab9353651243a69c4377465f404191` passed full CI run `42700880201`, including the backlog validator. Local `npm run check:backlog` also passes. Browser-based manual review remains pending because shared Chrome could not connect to the local server port. See `docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md` and `docs/TEST_EVIDENCE/verification-20261109T210340Z-c1d1652.md`.
-EXTERNAL VALIDATION: not performed. No provider accounts or credentials are configured.
-KNOWN RISKS: no production auth or provider integration; generic worker/publisher loops have no provider handlers, connected broker or managed process and are not hard-crash/load tested; key management and license are open.
-PUSH STATUS: Remote main advanced during local integration with session-auth implementation. The local research/evidence checkpoint is being merged with this newer main before publishing; stale local feature branch excluded because it removes current application paths.
-NEXT ACTION: add a checksummed PostgreSQL session migration/repository and NestJS guard around `resolveSessionActor`, then verify unauthenticated and cross-tenant denials over HTTP and native PostgreSQL membership revocation. P0-03 stack baseline is verified; load/deployment benchmarks remain open. Keep P0 open and P2/P3 gated on P1 authorization.
-BLOCKERS: external live-provider verification needs authorized sandbox accounts and app registrations; no secrets should be requested until integration scope is implemented.
+
+## Verified remote checkpoint
+
+- Audit baseline: `main` at `81e5a8552d3d51d51b37f5fbdb176c7f87bfe71c`; CI run `42710075852` passed.
+- PR #5 is merged. Remote `feat/phase-0-foundation` is zero commits ahead and 11 behind `main`; no unique feature work is waiting there.
+- This is the VSN Email Planet repository only. VSN Orbicore and WooCommerce projects remain in their own repositories. Any Multi-Hosting integration belongs behind the documented scoped API contract.
+- The prior handoff's “local integration before publication” and “push pending” wording was stale and has been removed.
+
+## Product status
+
+- P0: open. P0-01/P0-03/P0-05/P0-06/P0-07 verified; P0-02 and P0-04 partially verified. Research, UX evidence, and the P0 gate remain open.
+- P1: open. Workspace/dashboard/health/schema work exists. P1-05 durable queue/worker/outbox primitives are partially verified. P1-06 identity/session runtime is in progress; the persistent session repository and NestJS guard are not yet wired.
+- No production authentication, live provider connection, mailbox read/send, provider administration, or production readiness is claimed.
+- Latest integrated research and code checkpoints are recorded in `docs/PROJECT_STATE.md` and `docs/TEST_EVIDENCE/`.
+
+## Next action
+
+Implement P1-06: add the checksummed PostgreSQL session migration/repository, wire `resolveSessionActor` into a NestJS guard, and add remote CI coverage for unauthenticated and cross-tenant HTTP denials plus membership revocation on native PostgreSQL. Continue independent P0-02 research and P0-04 CI-capable accessibility checks.
+
+## Work and verification rules
+
+- GitHub remote is the only source of truth for Codex work on this repo. Do not use local clones, worktrees, or scratch copies for implementation or verification.
+- Make changes directly in GitHub, publish them to this repository, then verify the remote ref and GitHub Actions result before reporting completion.
+- If remote CI cannot provide a required check, document that exact limitation and keep its acceptance criterion open. Never report a local-only change or result as complete.

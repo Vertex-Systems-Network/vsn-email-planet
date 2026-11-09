@@ -49,3 +49,8 @@ Before each checkpoint, reject stale contradictions: `BLOCKED_*` requires a bloc
 ## Anti-stall rule
 
 When an environment tool fails, make at most one focused diagnosis and one reasonable fallback attempt. If the same capability remains unavailable, record the failure and move on. Do not repeat status messages, retries, or environment waits without new evidence.
+
+
+## Remote-only rule for Codex project work
+
+The user designated GitHub as the sole workspace/source of truth for this project. Codex must read and change files through GitHub, publish each authorized increment to `Vertex-Systems-Network/vsn-email-planet`, and verify the remote commit and GitHub Actions run before reporting completion. Do not use a local clone, worktree, or scratch copy for repository implementation or tests. If the remote CI environment cannot perform a required check, record the exact gap and leave that acceptance criterion open. Resolve the live remote ref before each edit and use a compare-and-swap update so concurrent work is never overwritten.

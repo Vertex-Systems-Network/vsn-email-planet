@@ -23,3 +23,13 @@ This repository builds a provider-neutral, secure, multi-tenant Email Operations
 - `npm run dev` serves the dependency-free prototype on port 4173.
 
 See `docs/PROJECT_STATE.md` and `docs/NEXT_ACTION.md` for current status. Model-specific files must defer to this file.
+
+
+## Canonical repository and remote-only workflow
+
+- This repository is exclusively **VSN Email Planet**: `Vertex-Systems-Network/vsn-email-planet`. Do not place code, plans, artifacts, or task records for VSN Orbicore, WooCommerce plugins, or other products here. Work for another product belongs in that product's own repository.
+- VSN Email Planet may integrate with the separate Multi-Hosting Control Platform only through the documented, versioned API and scoped identity contract. Do not copy that product's source, backlog, or implementation into this repository.
+- For Codex work on this project, GitHub's remote repository is the sole source of truth. Make repository changes directly through GitHub; do not create or edit a local clone, worktree, or scratch copy.
+- Publish every authorized code or documentation change to this repository before reporting it as completed. Verify the resulting remote branch/ref and its GitHub Actions checks. Do not report local-only changes as project progress.
+- Run verification through the repository's GitHub Actions workflow. If a required check cannot run remotely, record the exact missing check and leave its acceptance criterion open; do not substitute an unpushed local result.
+- Before every change, resolve the live `main` SHA and inspect the target file at that ref. Preserve unrelated history and use a compare-and-swap ref update; if the remote head changes, reread and rebase the intended edit instead of overwriting it.

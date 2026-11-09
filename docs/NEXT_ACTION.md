@@ -1,12 +1,26 @@
 # Exact next action
 
-P0 remains active and cannot be marked complete until every exit criterion in `backlog/phase-gates.json` has evidence. That gate controls phase completion and dependent provider/data-plane work; it does not suspend independent, reversible security-foundation work. Buyer interviews and manual browser checks are not additional phase gates unless they are explicitly added to `backlog/phase-gates.json`.
+**Canonical repo:** [Vertex-Systems-Network/vsn-email-planet](https://github.com/Vertex-Systems-Network/vsn-email-planet)  
+**Source of truth:** GitHub remote only. Do not implement or test from a local clone/worktree.
 
-1. **P0-03 stack reconciliation:** ADR-0001 now selects the existing Next.js/React + NestJS + PostgreSQL path provisionally and demotes the dependency-free Node server to a temporary synthetic fixture harness. A fresh local install, typecheck, 46 tests, production build, web/API smoke checks and high-severity audit passed; CI run `42707221259` also passed on commit `5f182a8d49ab7f02b3397f5c6d4bfc23869fb6e2`. P0-03 baseline is verified. Keep performance/deployment benchmarks open as separate work.
-2. **P1-06 identity/session runtime:** the contract in `docs/API_CONTRACTS.md` is complete. A framework-neutral session-resolution primitive is implemented and locally tested. Next add a checksummed PostgreSQL session migration and repository adapter, wire `resolveSessionActor` into a NestJS API guard, and test real HTTP denial and native-PostgreSQL membership revocation. Do not choose an auth provider or claim production login until these implementation choices and tests are evidenced.
-3. Continue P0-02 source-backed provider retention/permission research and P0-04 browser/accessibility evidence where tools allow. If browser access or buyer interviews remain unavailable, record those criteria as pending and proceed with independent work; do not add them as hard phase gates by prose.
-4. Keep provider credentials absent. Use synthetic data and mocks until an authorized sandbox and controlled mailbox are available.
-5. Keep P0 open until the actual criteria in `backlog/phase-gates.json` pass. Keep P1-05 partially verified until broker/process recovery and bounded-load evidence exists.
-6. Do not start P2/P3 connector or mail-data-plane releases until the P1 exit criteria and authorization gates pass. Continue local contracts, safety infrastructure, and tests when independent and reversible.
+## Active work
 
-First resume command: `git status --short --branch && git log --oneline -5 && sed -n '1,240p' docs/PROJECT_STATE.md && sed -n '1,160p' docs/NEXT_ACTION.md && cat docs/EXECUTION_PLAYBOOK.md`.
+1. Continue **P1-06 identity/session runtime**. The identity contract and framework-neutral resolver are already documented and tested.
+2. Add a checksummed PostgreSQL session migration and repository adapter.
+3. Wire `resolveSessionActor` into a NestJS API guard before protected handlers.
+4. Add and run remote CI cases for unauthenticated denial, cross-tenant denial, and membership revocation against native PostgreSQL.
+5. Update task evidence and this handoff only when the remote checks pass. Keep P1-06 open until then.
+
+## Parallel P0 work
+
+- Continue dated, primary-source provider retention/permission research under P0-02.
+- Add automated viewport and keyboard checks for P0-04 if they can run in GitHub Actions. Keep interactive visual/screen-reader evidence explicitly pending until a supported remote browser runner is available.
+- Do not treat interviews, browser access, provider credentials, or live mailboxes as prerequisites for unrelated, reversible work.
+- P0 remains open until every P0 exit criterion in `backlog/phase-gates.json` has evidence. P2/P3 connector and mail-data-plane work remains gated by the P1 authorization criteria.
+
+## Remote-only publication
+
+- Read the current remote `main` ref and the target files before editing.
+- Create the change directly in GitHub; publish it to this repository and verify the new remote SHA.
+- Use GitHub Actions for checks. Record the run URL, tested commit, result, and any check unavailable remotely.
+- If `main` advances during an edit, stop the ref update, reread the changed files, and reapply only the intended change.
