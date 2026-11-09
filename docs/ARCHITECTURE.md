@@ -14,3 +14,7 @@ The synthetic prototype is a Node-served dashboard plus a read-only same-origin 
 
 ## Diagram
 See [`diagrams/architecture.mmd`](diagrams/architecture.mmd). It is a target architecture, not a claim that these components are implemented.
+
+## Canonical implementation path
+
+ADR-0001 establishes Next.js/React (`apps/web`) + NestJS (`apps/api`) + PostgreSQL as the provisional MVP baseline. Business policy and provider operations remain in the API/shared domain boundary; do not duplicate them in Next routes. The Node static server under `scripts/dev-server.mjs` is a temporary synthetic fixture harness, not a competing product stack. Redis, ORM, concrete object storage and microservice decomposition are not selected. See `docs/DECISIONS/ADR-0001-STACK.md` for tradeoffs, constraints and harness retirement steps.

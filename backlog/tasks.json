@@ -261,7 +261,7 @@
       "dependencies": [
         "P0-01"
       ],
-      "current_status": "PARTIALLY_VERIFIED",
+      "current_status": "TESTING",
       "acceptance_criteria": [
         "ADR compares credible alternatives and tradeoffs",
         "Versions are pinned after installation",
@@ -274,9 +274,11 @@
       ],
       "evidence_paths": [
         "docs/DECISIONS/ADR-0001-STACK.md",
-        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+        "docs/RESEARCH/OPTIONS.md",
+        "docs/ARCHITECTURE.md",
+        "docs/TEST_EVIDENCE/verification-20261109T215427Z-f37f830.md"
       ],
-      "verification_level": "SPECIFIED_AND_BUILT; BENCHMARKS_PENDING",
+      "verification_level": "LOCAL_FULL_PASS_REMOTE_CI_PENDING; LOAD_AND_DEPLOYMENT_BENCHMARKS_PENDING",
       "target_environment": "LOCAL",
       "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
@@ -289,10 +291,12 @@
         "Architecture choice has not yet passed workload or deployment benchmarks"
       ],
       "decisions": [
-        "Next.js App Router + NestJS API; PostgreSQL/Redis are planned, not installed"
+        "Next.js/React web plus NestJS API and PostgreSQL is the provisional canonical MVP baseline.",
+        "The dependency-free Node server is a temporary synthetic test harness and will be retired after fixture equivalence.",
+        "No Redis, ORM, concrete object store, production auth provider, or microservice split is selected."
       ],
-      "next_action": "Compare the existing Next.js/NestJS app and dependency-free Node prototype; record one canonical runnable stack plus a migration/deprecation plan in ADR-0001, then verify clean install/build.",
-      "notes": "The chosen baseline builds locally. Workload, deployment, performance and real-provider SDK benchmarks remain open.",
+      "next_action": "Publish the stack reconciliation and confirm its GitHub Actions run; keep workload and deployment measurements explicitly open.",
+      "notes": "Fresh npm ci, typecheck, 46 tests, backlog validation, production build, web/API HTTP smokes and high-severity npm audit passed locally. Remote CI is pending; workload and deployment benchmarks remain open and do not block this baseline selection.",
       "status_history": [
         {
           "from": null,
@@ -335,6 +339,13 @@
           "changed_at": "2026-11-09T19:34:27+00:00",
           "actor": "Codex",
           "evidence": "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+        },
+        {
+          "from": "PARTIALLY_VERIFIED",
+          "to": "TESTING",
+          "changed_at": "2026-11-09T21:54:30+00:00",
+          "actor": "Codex",
+          "evidence": "docs/TEST_EVIDENCE/verification-20261109T215427Z-f37f830.md records a fresh local install, typecheck, 46 tests, production build, API/web smoke checks and npm audit; remote CI pending."
         }
       ]
     },

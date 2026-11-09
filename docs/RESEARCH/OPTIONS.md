@@ -4,11 +4,12 @@ Checked 2026-11-09. This is a documented engineering judgment based on primary d
 
 | Candidate direction | Security | Coverage | Maintenance | Portability | Cost | UX/a11y | License | Weighted score |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| React/Vite UI + NestJS modular API/worker + PostgreSQL; evaluate pg-boss/ORM before pin | 4 | 4 | 4 | 5 | 4 | 4 | 4 | 4.15 |
-| Next.js full-stack app + PostgreSQL, separate worker | 4 | 4 | 5 | 4 | 3 | 5 | 4 | 4.15 |
+| Next.js/React UI + NestJS API/worker + PostgreSQL (current repo) | 4 | 4 | 4 | 5 | 4 | 4 | 4 | 4.15 |
+| React/Vite UI + NestJS API/worker + PostgreSQL | 4 | 4 | 4 | 5 | 4 | 4 | 4 | 4.15 |
+| Next.js full-stack app + PostgreSQL, separate worker | 4 | 3 | 4 | 4 | 4 | 5 | 4 | 3.90 |
 | Django web/API + PostgreSQL + separate frontend/worker | 4 | 4 | 4 | 4 | 4 | 3 | 4 | 3.90 |
 
-Scores are hypotheses; the tie between first two is intentional. Selected **provisional direction**: React/Vite + NestJS as a modular monolith because this authenticated operations app has little public SEO need, static assets can be served same-origin, and API/worker contracts remain explicit. Next.js remains a viable alternative if integrated server rendering reduces measured complexity. No framework dependency has been installed or benchmarked.
+Scores remain qualitative hypotheses, not benchmark results. **ADR-0001 selects the existing Next.js/React + NestJS + PostgreSQL modular monolith as the provisional MVP baseline.** Next.js and Vite tie in this scorecard; the existing pinned, tested Next.js frontend breaks the tie by avoiding an unsubstantiated migration. Keep business policy and provider operations in NestJS. The dependency-free Node fixture harness is retained temporarily for synthetic tests only. Fresh-install, build, security/performance, deployment and workload evidence remain tracked separately; the selection is not production readiness.
 
 ## Decisions still open before locking exact production stack
 - ORM: compare Prisma and Drizzle on generated migration clarity, PostgreSQL RLS/context, transaction control and team ergonomics. Prisma supports PostgreSQL and current repo shows Apache-2.0; add migration proof before selection.
@@ -28,4 +29,4 @@ Primary evidence:
 - Nest and Next licenses: https://github.com/nestjs/nest ; https://github.com/vercel/next.js
 
 ## Current decision
-`ADR-0001` remains PROPOSED. Adopt the React/Vite + NestJS + PostgreSQL direction for the next architecture prototype, but do not lock ORM/queue/object storage or production versions until a vertical slice measures migrations, tenant context and worker recovery.
+`ADR-0001` selects Next.js/React + NestJS + PostgreSQL + Node 24 as the provisional MVP baseline because the existing repo builds and the alternative would be a migration without demonstrated value. ORM, Redis/broker, concrete object storage, operational deployment and production readiness remain unselected or unverified.

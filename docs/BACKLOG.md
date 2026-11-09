@@ -11,7 +11,7 @@ The authoritative task records and legal status transitions are in `backlog/task
 | P0-05 | P0 | Synthetic feasibility workflow | VERIFIED | Review prototype and close remaining P0 evidence gates |
 | P0-06 | P0 | Product screen, role, device and state inventory | VERIFIED | Revisit only when route or access requirements change; keep implementation status tied to UI evidence |
 | P0-07 | P0 | Enforce autonomous execution and plan consistency | VERIFIED | Preserve guardrails and keep validator enforced |
-| P0-03 | P0 | Stack decision and feasibility | PARTIALLY_VERIFIED | Resolve Next/Nest versus dependency-free Node implementation fork |
+| P0-03 | P0 | Stack decision and feasibility | TESTING | Confirm full CI for canonical Next/Nest/PostgreSQL baseline; benchmarks remain open |
 | P0-04 | P0 | UX and screen foundation | PARTIALLY_VERIFIED | Add CI-runnable viewport/keyboard checks; manual browser review remains pending |
 | P1-01 | P1 | Workspace, rules, CI | PARTIALLY_VERIFIED | Continue with the exact executable action in `docs/NEXT_ACTION.md` |
 | P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Run viewport and keyboard checks through a browser runner that can reach the app |
