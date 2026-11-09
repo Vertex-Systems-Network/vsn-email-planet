@@ -2,7 +2,7 @@
 
 - Status: Accepted for the initial development baseline; subject to benchmark and security review.
 - Date: 2026-11-09
-- Context: the product requires a self-hostable web UI, typed modular API, long-running provider jobs, and future desktop/mobile reuse. This repository was empty; no stack compatibility constraints existed.
+- Context: the product requires a self-hostable web UI, typed modular API, long-running provider jobs, and future desktop/mobile reuse. Existing Git history contained only a README and the governing specification; no product code or stack constraints existed.
 - Sources checked: Next.js App Router and self-hosting docs (Node/Docker supported, reverse proxy recommended); NestJS current docs (TypeScript/Node, modular API); npm registry reported Next.js 16.4.5 on 2026-11-09; workspace runtime has Node 24.22.1 and npm 11.9.0.
 
 ## Scorecard (1–5; weighted score / 5)

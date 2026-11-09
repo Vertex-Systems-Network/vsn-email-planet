@@ -6,11 +6,13 @@ The authoritative task records and legal status transitions are in `backlog/task
 
 | ID | Priority | Work | State | Next action |
 |---|---|---|---|---|
-| P0-05 | P0 | Synthetic feasibility workflow | IMPLEMENTED_UNVERIFIED | Install and run local checks |
-| P1-01 | P1 | Workspace, rules, CI | IMPLEMENTED_UNVERIFIED | Verify scripts and fresh install |
-| P1-02 | P1 | Dashboard | IMPLEMENTED_UNVERIFIED | Build and inspect visual/accessibility behavior |
-| P1-03 | P1 | API health process | IMPLEMENTED_UNVERIFIED | Run HTTP smoke test |
+| P0-01 | P0 | Repository and history audit | VERIFIED | Preserve existing commits; no repeat audit needed |
 | P0-02 | P0 | Research bank | PARTIALLY_VERIFIED | Complete dated competitor/provider research |
-| P1-06 | P0 | Auth and tenant authorization | READY | Design trusted identity/session model |
+| P0-05 | P0 | Synthetic feasibility workflow | VERIFIED | Review prototype and close remaining P0 evidence gates |
+| P1-01 | P1 | Workspace, rules, CI | PARTIALLY_VERIFIED | Resolve remaining setup/documentation gaps |
+| P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Complete visual and accessibility review |
+| P1-03 | P1 | API health process | VERIFIED | Extend beyond process health only after persistence increment |
+| P1-09 | P1 | CI and verification evidence | PARTIALLY_VERIFIED | Add pending integration/browser/licensing gates |
+| P1-04 | P0 | Tenant-keyed PostgreSQL schema/migrations | PARTIALLY_VERIFIED | Verify the native PostgreSQL CI smoke and production-driver path |
 
-No task in this initial scaffold is marked `DONE`. Status changes must follow the transition map and include changed-by/changed-at history in task `notes` or evidence.
+No product task is marked `DONE`; verified means only that the specific stated acceptance evidence is satisfied. Status changes must follow the transition map and include status history in `backlog/tasks.json`.

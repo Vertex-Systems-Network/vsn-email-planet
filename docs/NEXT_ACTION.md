@@ -1,7 +1,7 @@
 # Exact next action
 
-1. Commit the verified foundation on `main`, push it, and confirm the remote `main` ref and GitHub Actions run.
-2. Continue P1-06 identity/session and tenant authorization design, starting with explicit threat cases and negative isolation tests.
+1. Checkpoint the P1-04 migration increment after local verification, then inspect its native PostgreSQL CI result and fix any failure before advancing.
+2. Follow with P1-06 authenticated identity and tenant authorization after the persistence boundary is concretely designed; begin with explicit threat cases and negative isolation tests.
 3. Keep provider credentials absent; use mocks/synthetic fixtures until a sandbox and controlled mailbox are authorized.
 4. Resume the highest-priority open backlog item and record implementation and test evidence before updating its status.
 

@@ -121,7 +121,7 @@
       "id": "P0-01",
       "epic": "P0",
       "phase": "P0",
-      "title": "Audit empty repository and Git history",
+      "title": "Audit repository contents and Git history",
       "outcome": "Preserve pre-existing work and establish a verified baseline",
       "description": "Inspect remote metadata, local clone, refs, status, history and files.",
       "scope": [
@@ -149,7 +149,7 @@
       ],
       "verification_level": "REMOTE_METADATA_AND_LOCAL_GIT",
       "target_environment": "GITHUB_AND_LOCAL",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -159,7 +159,7 @@
       "risks": [],
       "decisions": [],
       "next_action": "Retain baseline evidence and link it to the first commit",
-      "notes": "The repository was empty (remote size 0, no commits, no tracked files); do not repeat this audit unless state changes.",
+      "notes": "Audited original main history: README initialization (4758f49), empty specification placeholder (ad2cf39), and full governing specification (9182b40). No product code existed. All prior commits are preserved; local checkout was synchronized with remote before implementation.",
       "status_history": [
         {
           "from": null,
@@ -215,7 +215,7 @@
       ],
       "verification_level": "PARTIAL_PRIMARY_SOURCE_REVIEW",
       "target_environment": "PUBLIC_DOCUMENTATION",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -284,7 +284,7 @@
       ],
       "verification_level": "SPECIFIED_AND_BUILT; BENCHMARKS_PENDING",
       "target_environment": "LOCAL",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -382,7 +382,7 @@
       ],
       "verification_level": "SPECIFIED; IMPLEMENTED_SCREEN_CHECK_PENDING",
       "target_environment": "LOCAL_BROWSER",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -455,7 +455,7 @@
       ],
       "verification_level": "LOCAL_CI_AND_HTTP_SMOKES",
       "target_environment": "LOCAL_SYNTHETIC",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -535,7 +535,7 @@
       ],
       "verification_level": "LOCAL_CLEAN_INSTALL_TYPECHECK_TEST_BUILD; REMOTE_CI_PENDING",
       "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -615,7 +615,7 @@
       ],
       "verification_level": "PRODUCTION_BUILD_AND_HTTP_CONTENT_SMOKE; VISUAL_A11Y_PENDING",
       "target_environment": "LOCAL_BROWSER",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -688,7 +688,7 @@
       ],
       "verification_level": "LOCAL_BUILD_AND_HTTP_SMOKE",
       "target_environment": "LOCAL",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -795,7 +795,7 @@
       "dependencies": [
         "P1-01"
       ],
-      "current_status": "READY",
+      "current_status": "PARTIALLY_VERIFIED",
       "acceptance_criteria": [
         "Tenant-owned rows include organization_id",
         "Migrations are deterministic and reversible where safe",
@@ -806,20 +806,32 @@
         "Upgrade from prior schema",
         "Cross-tenant query negative test"
       ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
+      "evidence_paths": [
+        "apps/api/db/migrations/0001_control_plane.sql",
+        "apps/api/db/migrate.mjs",
+        "tests/db-migrations.test.mjs",
+        "scripts/smoke-postgres.mjs",
+        "docs/DATA_MODEL.md",
+        "docs/RESEARCH/ORM_MIGRATION_EVALUATION.md",
+        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+      ],
+      "verification_level": "PGLITE_POSTGRES_SEMANTICS_AND_NEGATIVE_TENANT_FK_TESTS",
       "target_environment": "LOCAL_INTEGRATION",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
-      "started_at": null,
+      "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [],
+      "blockers": [
+        "Native PostgreSQL 16 / node-postgres verification is configured in GitHub Actions but has not yet run for this increment."
+      ],
       "external_requirements": [],
-      "risks": [],
+      "risks": [
+        "PGlite does not prove native network-driver behavior, multi-process advisory-lock behavior, extensions, or production migration performance."
+      ],
       "decisions": [],
-      "next_action": "Inspect upstream requirements and implement design postgresql schema and migration workflow",
-      "notes": "Seeded from the governing specification; no implementation or verification is claimed.",
+      "next_action": "Verify the native PostgreSQL CI smoke and upgrade behavior; then continue the API persistence and identity boundary.",
+      "notes": "Implemented a control-plane-only schema, transactional checksummed migration runner with transaction advisory lock, and PGlite tests for clean apply, idempotency, schema upgrade with existing data, checksum drift, rollback, and cross-tenant FK denial. Full local verification passed with 11 total tests. Native PostgreSQL CI result and API persistence remain unverified.",
       "status_history": [
         {
           "from": null,
@@ -827,6 +839,27 @@
           "changed_at": "2026-11-09T19:34:27+00:00",
           "actor": "Codex",
           "evidence": "Seeded from governing specification; not verified."
+        },
+        {
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-09T19:43:00+00:00",
+          "actor": "Codex",
+          "evidence": "Started migration tooling evaluation and tenant-keyed schema implementation."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-09T19:48:00+00:00",
+          "actor": "Codex",
+          "evidence": "PGlite migration, checksum, rollback and tenant constraint test suite added."
+        },
+        {
+          "from": "TESTING",
+          "to": "PARTIALLY_VERIFIED",
+          "changed_at": "2026-11-09T19:56:55.489Z",
+          "actor": "Codex",
+          "evidence": "Fresh npm ci, typecheck, all 11 tests (including PGlite schema upgrade), backlog validation, production builds, HTTP smokes, and npm audit passed. Native PostgreSQL CI smoke is pending."
         }
       ]
     },
@@ -1012,7 +1045,7 @@
       ],
       "verification_level": "LOCAL_CHECK_RUNNER_AND_WORKFLOW_DEFINED; REMOTE_CI_PENDING",
       "target_environment": "LOCAL_INTEGRATION",
-      "last_verified_commit": "faa09fc",
+      "last_verified_commit": "315737ac1b46fc2b9a827bf70a929fa4319c32c1",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": null,

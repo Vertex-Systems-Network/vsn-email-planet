@@ -8,7 +8,7 @@
 4. **Provider plane:** external systems of record. Adapters declare per-resource capability and reason; unsupported actions fail explicitly.
 5. **Persistence/work:** PostgreSQL as transactional source of truth; Redis/BullMQ or equivalent for bounded durable work with idempotency, leases and per-tenant concurrency. Selection awaits implementation/benchmark evidence.
 
-The first increment does not implement API authentication, persistence, workers, or providers. The dashboard is clearly synthetic. API health confirms process availability only.
+The first increment implements a PostgreSQL control-plane schema and checksummed migration runner, but the runtime API does not yet persist application data or authenticate users. No workers or providers are connected. The dashboard is clearly synthetic. API health confirms process availability only.
 
 ## Intended trust flow
 

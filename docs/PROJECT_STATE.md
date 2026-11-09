@@ -5,16 +5,18 @@ Last updated: 2026-11-09
 ## Verified repository facts
 
 - GitHub repository: `Vertex-Systems-Network/vsn-email-planet`, public, default branch `main`.
-- The repository was empty when audited: GitHub reported size 0; the local clone had no commits and no tracked files. No earlier product implementation or commit history existed to preserve.
+- History audit correction: the remote was **not** commit-empty. `main` contained a README initialization (`4758f49`), a zero-byte governing-spec placeholder (`ad2cf39`), and the complete 1,578-line specification (`9182b40`). There was no earlier product code, but all three commits are preserved in the current history. The first local clone had not fetched the current remote branch; this was detected and corrected before publishing implementation.
+- The initial README called the project “VSN Orbicore Email Operations Platform”; the current requested product name, VSN Email Planet, is used in the maintained project docs and app.
 - Current checkout is the authorized `main` branch. Development and push authorization are present in the project request.
 - Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md` (v1.0, 2026-11-09), 1,578 lines / 139,581 bytes; read in full.
 - Initial stack decision: npm workspaces, Next.js App Router + React for web, NestJS API, TypeScript, future PostgreSQL/Redis integration. See ADR-0001.
 
 ## Delivery state
 
-- P0: In progress. Empty-repository audit, research snapshots, feasibility and setup artifacts are recorded; complete market/provider/security/design research and a feasibility prototype remain open.
-- P1: In progress. The repository foundation, synthetic responsive dashboard, process-only health route, backlog validator, and local CI-equivalent command sequence are implemented. There is no authentication, database, queue or live provider adapter yet.
-- Local verification: typecheck, 5 automated tests, backlog validation, production build, HTTP smoke checks and high-severity npm audit passed. See `docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md`; GitHub Actions has not yet run for the initial push.
+- P0: In progress. Repository/history audit is now accurate and prior commits are preserved; research snapshots and a synthetic feasibility slice are recorded. Complete market/provider/security/design research and a feasibility prototype review remain open.
+- P1: In progress. The repository foundation, synthetic responsive dashboard, process-only health route, tenant-keyed PostgreSQL control-plane schema and checksummed migration runner are implemented. API persistence is not wired into request handling; authentication, queue and live provider adapters remain open.
+- Local verification: fresh `npm ci`, typecheck, 11 automated tests (including PGlite migrations), backlog validation, production build, HTTP smoke checks and high-severity npm audit passed. See `docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md`.
+- The bootstrap commit's GitHub Actions CI passed. A native PostgreSQL 16 CI migration/tenant-constraint smoke was added after that run and is pending verification on the next pushed commit.
 - Visual browser review and accessibility audit remain pending. The dashboard is explicitly labeled synthetic and states that no providers are connected.
 - Product runtime state: local synthetic demo only. No real provider connection, mail read/send, mailbox administration, migration or backup functionality is implemented.
 - Security state: not production-ready; no production authentication or tenant persistence. The sample-domain policy functions are defense-in-depth examples, not a substitute for server authentication.
@@ -28,4 +30,4 @@ Last updated: 2026-11-09
 
 ## Next action
 
-Follow `docs/NEXT_ACTION.md`. Do not skip the backlog or repeat the empty-repository audit.
+Follow `docs/NEXT_ACTION.md`. Preserve the existing three-commit history; do not repeat the completed repository audit.

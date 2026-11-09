@@ -3,6 +3,8 @@ import { fileURLToPath } from "node:url";
 import { mkdir, writeFile } from "node:fs/promises";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
+const baseRevision = spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).stdout.trim();
+const dirty = spawnSync("git", ["status", "--porcelain"], { cwd: root, encoding: "utf8" }).stdout.trim().length > 0;
 const commands = [
   ["npm ci", ["ci"]],
   ["npm run typecheck", ["run", "typecheck"]],
@@ -31,7 +33,8 @@ const lines = [
   `Recorded: ${new Date().toISOString()}`,
   `Node: ${process.version}`,
   `npm: ${spawnSync("npm", ["--version"], { cwd: root, encoding: "utf8" }).stdout.trim()}`,
-  "Git revision at run: no prior repository commit (first checkpoint pending).",
+  `Git base revision at run: ${baseRevision || "unknown"}.`,
+  `Working tree at verification start: ${dirty ? "contains uncommitted changes" : "clean"}.`,
   "Environment: local synthetic development environment; no external provider credentials or private mailbox data.",
   "",
 ];
@@ -42,5 +45,5 @@ for (const result of results) {
 
 const reportPath = new URL("../docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md", import.meta.url);
 await mkdir(new URL("../docs/TEST_EVIDENCE/", import.meta.url), { recursive: true });
-await writeFile(reportPath, `${lines.join("\n")}\n`);
+await writeFile(reportPath, `${lines.join("\n").trimEnd()}\n`);
 if (results.some((result) => result.exitCode !== 0)) process.exitCode = 1;
