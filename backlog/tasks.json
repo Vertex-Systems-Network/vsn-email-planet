@@ -211,7 +211,8 @@
         "docs/RESEARCH/PAPERS.md",
         "docs/RESEARCH/UI_LIBRARIES.md",
         "docs/RESEARCH/MARKET_GAPS.md",
-        "docs/RESEARCH/PRICING_VALIDATION.md"
+        "docs/RESEARCH/PRICING_VALIDATION.md",
+        "docs/TEST_EVIDENCE/2026-11-10-provider-retention-research.md"
       ],
       "verification_level": "DATED_PRIMARY_SOURCE_AND_UI_LICENSE_SNAPSHOT",
       "target_environment": "PUBLIC_DOCUMENTATION",
@@ -229,7 +230,7 @@
       ],
       "decisions": [],
       "next_action": "Review official mailbox retention/erasure and provider-permission documentation; update docs/RESEARCH/PROVIDER_LIMITS.md with checked date, exact behavior, and confidence. Keep buyer interviews as separate external validation.",
-      "notes": "Dated official-source pass spans unified/shared inbox, first-party cloud admin, hosting panels, migration, SaaS backup, Gmail/Graph permission models, IMAP/SMTP/message-format standards, OAuth RFC updates and UI library license/maintenance shortlist. No UI dependency selected; no differentiator or willingness-to-pay claim validated.",
+      "notes": "Dated official-source pass spans unified/shared inbox, first-party cloud admin, hosting panels, migration, SaaS backup, Gmail/Graph permission models, IMAP/SMTP/message-format standards, OAuth RFC updates and UI library license/maintenance shortlist. No UI dependency selected; no differentiator or willingness-to-pay claim validated. Local follow-up recorded official provider retention/erasure semantics and permission boundaries in docs/TEST_EVIDENCE/2026-11-10-provider-retention-research.md; buyer validation remains open.",
       "status_history": [
         {
           "from": null,
