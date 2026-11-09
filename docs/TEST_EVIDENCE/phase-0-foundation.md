@@ -113,4 +113,4 @@ Verification level: local prototype contract only; not a release gate.
 
 - `GET /api/domains/{id}` and `GET /api/mailboxes/{id}` now return same-tenant synthetic records, strip internal organization IDs, and return 404 for cross-tenant IDs. Mutation attempts return 405.
 - Provider, domain and mailbox detail modals load their tenant-scoped detail/capability APIs. `npm run check` passes with 18/18 tests; `node --check` passes for both changed JavaScript modules.
-- Browser visual/accessibility review remains pending. Remote CI for this increment is pending push.
+- Browser visual/accessibility review remains pending. GitHub Actions run `42696725821` passed on commit `8d5a6c063f0a09f15704c7c9d9b863b0cfed5f5e`.

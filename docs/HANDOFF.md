@@ -19,4 +19,4 @@
 **P1-06 status:** API and filter tests pass locally and in CI; keep the feature partially verified until the UI receives browser review.
 
 
-**Unpushed local increment:** domain/mailbox detail endpoints now enforce same-tenant direct-ID access and the modal fetches their data from those endpoints. Local `npm run check` passes 18/18; commit and CI are pending.
+**Latest code increment:** domain/mailbox detail endpoints enforce same-tenant direct-ID access and the modal fetches their data from those endpoints. Local tests and CI pass on `8d5a6c063f0a09f15704c7c9d9b863b0cfed5f5e` (run `42696725821`); browser review remains pending.
