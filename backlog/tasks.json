@@ -414,9 +414,9 @@
         "test/capabilities.test.js",
         "docs/CAPABILITY_CONTRACT.md"
       ],
-      "verification_level": "LOCAL_CONTRACT_TESTS_PASS",
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS_SYNTHETIC_ONLY",
       "target_environment": "LOCAL_MOCK",
-      "last_verified_commit": null,
+      "last_verified_commit": "83b9d3ff59eb4864541840f6bc31805969efa1a6",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
@@ -426,7 +426,7 @@
       "risks": [],
       "decisions": [],
       "next_action": "Resume after the architecture decision to define adapter boundaries and add provider mock integration contracts.",
-      "notes": "Implemented a framework-neutral, fail-closed capability manifest validator and decision helper. Four local tests cover listed states, consent gating, unsupported and undeclared operations, malformed/duplicate manifests, and read-only consistency. No provider adapter or live probe exists; stack decision remains open."
+      "notes": "Implemented a framework-neutral, fail-closed capability manifest validator and decision helper. Four local tests cover listed states, consent gating, unsupported and undeclared operations, malformed/duplicate manifests, and read-only consistency. No provider adapter or live probe exists; stack decision remains open. GitHub Actions run 42687240875 passed on the exact commit."
     },
     {
       "id": "P2-02",

@@ -83,4 +83,4 @@ Verification level: local prototype contract only; not a release gate.
 
 - `npm run check` passes on Node `v24.22.1`: 15 tasks, 5 epics, 5 gates, 20 banks; 12/12 tests pass, 0 fail, 0 skipped.
 - Four tests cover read-only support, separate consent, unsupported/undeclared fail-closed decisions, malformed/duplicate records and read-only consistency.
-- This helper is not a live connector, authentication layer or provider probe. Remote CI is pending the next commit.
+- This helper is not a live connector, authentication layer or provider probe. GitHub Actions run `42687240875` passed on commit `83b9d3ff59eb4864541840f6bc31805969efa1a6`.
