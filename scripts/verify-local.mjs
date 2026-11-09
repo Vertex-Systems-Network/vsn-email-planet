@@ -43,7 +43,10 @@ for (const result of results) {
   lines.push(`## ${result.label}`, "", `- Status: ${result.exitCode === 0 ? "PASS" : "FAIL"}`, `- Started: ${result.started}`, `- Ended: ${result.ended}`, `- Exit code: ${result.exitCode}`, "", "```text", ...(result.output ? result.output.split("\n").slice(-24) : ["No command output."]), "```", "");
 }
 
-const reportPath = new URL("../docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md", import.meta.url);
+const reportDate = new Date().toISOString();
+const reportStamp = reportDate.replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+const reportSha = (baseRevision || "uncommitted").slice(0, 7);
+const reportPath = new URL(`../docs/TEST_EVIDENCE/verification-${reportStamp}-${reportSha}.md`, import.meta.url);
 await mkdir(new URL("../docs/TEST_EVIDENCE/", import.meta.url), { recursive: true });
 await writeFile(reportPath, `${lines.join("\n").trimEnd()}\n`);
 if (results.some((result) => result.exitCode !== 0)) process.exitCode = 1;

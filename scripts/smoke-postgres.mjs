@@ -1,5 +1,13 @@
 import assert from "node:assert/strict";
 import pg from "pg";
+import { randomUUID } from "node:crypto";
+import {
+  claimNextOperationJob,
+  claimOutboxEvents,
+  completeOperationJob,
+  enqueueOperationJob,
+  markOutboxEventPublished,
+} from "../apps/api/db/jobs.mjs";
 import { migrateDatabase } from "../apps/api/db/migrate.mjs";
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -36,7 +44,39 @@ try {
     await client.query("ROLLBACK");
   }
 
-  console.log("Native PostgreSQL migration smoke passed: migrations are idempotent and tenant-key constraints reject cross-organization links.");
+  const pool = new pg.Pool({ connectionString: databaseUrl, application_name: "vsn-email-planet-jobs-smoke" });
+  const queueOrganizationA = randomUUID();
+  const queueOrganizationB = randomUUID();
+  const queueConnectionId = randomUUID();
+  const workerId = randomUUID();
+  try {
+    await pool.query("INSERT INTO organizations (id, slug, display_name) VALUES ($1, $2, 'Queue tenant A'), ($3, $4, 'Queue tenant B')", [queueOrganizationA, `queue-a-${queueOrganizationA.slice(0, 8)}`, queueOrganizationB, `queue-b-${queueOrganizationB.slice(0, 8)}`]);
+    await pool.query(
+      "INSERT INTO provider_connections (id, organization_id, provider_key, external_account_id, display_name) VALUES ($1, $2, 'imap', 'queue-acct-a', 'Queue mailbox server A')",
+      [queueConnectionId, queueOrganizationA],
+    );
+    const input = { organizationId: queueOrganizationA, providerConnectionId: queueConnectionId, mailboxKey: "queue-mailbox", operationType: "smoke.sync", effectClass: "read_only", idempotencyKey: `queue:${queueOrganizationA}:one` };
+    const first = await enqueueOperationJob(pool, input);
+    const duplicate = await enqueueOperationJob(pool, input);
+    assert.equal(first.created, true);
+    assert.equal(duplicate.created, false);
+    assert.equal(duplicate.job.id, first.job.id);
+    const claimed = await claimNextOperationJob(pool, { organizationId: queueOrganizationA, workerId, leaseDurationMs: 5_000 });
+    assert.equal(claimed.job.id, first.job.id);
+    assert.equal((await claimNextOperationJob(pool, { organizationId: queueOrganizationB, workerId, leaseDurationMs: 5_000 })).job, null);
+    assert.equal(await completeOperationJob(pool, { jobId: first.job.id, organizationId: queueOrganizationA, workerId, leaseGeneration: claimed.job.lease_generation }), true);
+    const events = await claimOutboxEvents(pool, { organizationId: queueOrganizationA, workerId, leaseDurationMs: 5_000 });
+    assert.equal(events.length, 1);
+    assert.equal(await markOutboxEventPublished(pool, { eventId: events[0].id, organizationId: queueOrganizationA, workerId, leaseGeneration: events[0].publish_lease_generation }), true);
+  } finally {
+    await pool.query("DELETE FROM event_outbox WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
+    await pool.query("DELETE FROM operation_jobs WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
+    await pool.query("DELETE FROM provider_connections WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
+    await pool.query("DELETE FROM organizations WHERE id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
+    await pool.end();
+  }
+
+  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, idempotent job enqueue/tenant-scoped lease claim works, and outbox acknowledgement is fenced.");
 } finally {
   await client.end();
 }

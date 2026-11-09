@@ -12,7 +12,6 @@
     "dev": "npm run dev --workspace @vsn/web",
     "dev:api": "npm run dev --workspace @vsn/api",
     "db:migrate": "node apps/api/db/migrate.mjs",
-    "db:migrate": "node apps/api/db/migrate.mjs",
     "build": "npm run build --workspace @vsn/web && npm run build --workspace @vsn/api",
     "typecheck": "npm run typecheck --workspace @vsn/web && npm run typecheck --workspace @vsn/api",
     "test": "node --experimental-strip-types --test tests/*.test.mjs",

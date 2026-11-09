@@ -876,7 +876,7 @@
       "dependencies": [
         "P1-04"
       ],
-      "current_status": "READY",
+      "current_status": "TESTING",
       "acceptance_criteria": [
         "Job context carries tenant and operation identifiers",
         "Duplicate delivery is idempotent",
@@ -887,20 +887,32 @@
         "Worker interruption and reclaim",
         "Concurrent mailbox job test"
       ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
+      "evidence_paths": [
+        "apps/api/db/migrations/0003_durable_jobs_and_outbox.sql",
+        "apps/api/db/jobs.mjs",
+        "tests/operation-jobs.test.mjs",
+        "scripts/smoke-postgres.mjs",
+        "docs/DECISIONS/ADR-0002-DURABLE-JOBS.md",
+        "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
+      ],
+      "verification_level": "LOCAL_PGLITE_BUILD; NATIVE_POSTGRES_CI_PENDING",
       "target_environment": "LOCAL_INTEGRATION",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
-      "started_at": null,
+      "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Inspect upstream requirements and implement add bounded worker and idempotency primitives",
-      "notes": "Seeded from the governing specification; no implementation or verification is claimed.",
+      "risks": [
+        "A DB fencing generation cannot stop an already-running worker from issuing a remote effect after lease expiry unless the provider supports idempotency/fencing; ambiguous external mutations are therefore marked unknown and held.",
+        "PostgreSQL queue throughput, multi-process fairness, publisher delivery duplication, crash recovery and operational recovery are not load/chaos validated."
+      ],
+      "decisions": [
+        "Use PostgreSQL SKIP LOCKED as the initial durable queue-of-record prototype with a transactional outbox; do not treat it as the production Redis/BullMQ decision. See docs/DECISIONS/ADR-0002-DURABLE-JOBS.md."
+      ],
+      "next_action": "Run native PostgreSQL 16 CI against the queue API smoke, fix any driver/SQL differences, then record the exact commit and CI run. Keep production worker, load and chaos tests open.",
+      "notes": "Implemented tenant-scoped PostgreSQL queue-of-record primitives and transactional enqueue outbox. PGlite tests cover duplicate-key binding, tenant scope, mailbox serialization, stale fencing, safe lease reclaim, unknown external mutation/reconciliation, retry bounds and outbox acknowledgement. No poller, broker publisher or provider integration is implemented. Production queue selection remains open pending benchmark.",
       "status_history": [
         {
           "from": null,
@@ -908,6 +920,20 @@
           "changed_at": "2026-11-09T19:34:27+00:00",
           "actor": "Codex",
           "evidence": "Seeded from governing specification; not verified."
+        },
+        {
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-09T20:17:00+00:00",
+          "actor": "Codex",
+          "evidence": "P1-04 is verified; implementation started with tenant-scoped job leases and idempotent outbox requirements."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-09T20:25:00+00:00",
+          "actor": "Codex",
+          "evidence": "18 PGlite integration tests, TypeScript checks, production build and backlog validation pass locally; native PostgreSQL 16 queue API validation is pending CI."
         }
       ]
     },

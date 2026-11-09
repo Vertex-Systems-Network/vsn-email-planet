@@ -14,10 +14,10 @@ test("control-plane migrations apply once and are idempotent", async () => {
   try {
     const first = await migrateDatabase(db, { executeSql: (sql) => db.exec(sql) });
     const second = await migrateDatabase(db, { executeSql: (sql) => db.exec(sql) });
-    assert.deepEqual(first.applied, ["0001_control_plane.sql", "0002_organization_updated_at.sql"]);
+    assert.deepEqual(first.applied, ["0001_control_plane.sql", "0002_organization_updated_at.sql", "0003_durable_jobs_and_outbox.sql"]);
     assert.deepEqual(second.applied, []);
     const history = await db.query("SELECT migration_id, checksum_sha256 FROM app_meta.schema_migrations");
-    assert.equal(history.rows.length, 2);
+    assert.equal(history.rows.length, 3);
     assert.match(history.rows[0].checksum_sha256, /^[a-f0-9]{64}$/);
   } finally {
     await db.close();
