@@ -36,3 +36,9 @@ Verification level: local prototype contract only; not a release gate.
 - Updated workflow targets the Node 24 line; repository engine minimum is 24.15.0 (local runner Node `v24.22.1`).
 - GitHub Actions run `42683074539` completed `success` for commit `de10775593ac60771a0b5cada7ea583a0ddd9b70` on 2026-11-09.
 - This confirms the repo state/fixture tests on GitHub Actions Node 24. It does not add provider, browser, security penetration, or production-release evidence.
+
+## Knowledge banks and operational flows
+
+- `npm run check` passed on local Node `v24.22.1`: state validator recognized 13 task records, 5 epics, 5 phase gates and 20 knowledge-bank records; 6 Node tests passed, 0 failed, 0 skipped.
+- New tests confirm bank IDs and required fields, resolve all listed documentation/test paths, and verify consent, unknown-send and cutover gates are present in flow diagrams.
+- This verifies catalog consistency and flow artifacts only; it does not verify working product integrations.

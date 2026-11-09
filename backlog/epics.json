@@ -1,10 +1,58 @@
 {
   "schema_version": 1,
   "epics": [
-    {"id":"P0-RESEARCH","phase":"P0","title":"Pre-development and evidence","status":"IN_PROGRESS","tasks":["P0-01","P0-02","P0-03","P0-04"]},
-    {"id":"P1-FOUNDATION","phase":"P1","title":"Local web platform foundation","status":"IN_PROGRESS","tasks":["P1-01","P1-02","P1-03"]},
-    {"id":"P2-CONNECTORS","phase":"P2","title":"Provider connector and capability engine","status":"NOT_STARTED","tasks":["P2-01","P2-02"]},
-    {"id":"P3-MAIL","phase":"P3","title":"Mail synchronization and unified inbox","status":"NOT_STARTED","tasks":["P3-01","P3-02"]},
-    {"id":"P9-RELEASE","phase":"P9","title":"Self-host release gates","status":"NOT_STARTED","tasks":["P9-01"]}
+    {
+      "id": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Pre-development and evidence",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        "P0-01",
+        "P0-02",
+        "P0-03",
+        "P0-04",
+        "P0-05"
+      ]
+    },
+    {
+      "id": "P1-FOUNDATION",
+      "phase": "P1",
+      "title": "Local web platform foundation",
+      "status": "IN_PROGRESS",
+      "tasks": [
+        "P1-01",
+        "P1-02",
+        "P1-03"
+      ]
+    },
+    {
+      "id": "P2-CONNECTORS",
+      "phase": "P2",
+      "title": "Provider connector and capability engine",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P2-01",
+        "P2-02"
+      ]
+    },
+    {
+      "id": "P3-MAIL",
+      "phase": "P3",
+      "title": "Mail synchronization and unified inbox",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P3-01",
+        "P3-02"
+      ]
+    },
+    {
+      "id": "P9-RELEASE",
+      "phase": "P9",
+      "title": "Self-host release gates",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P9-01"
+      ]
+    }
   ]
 }

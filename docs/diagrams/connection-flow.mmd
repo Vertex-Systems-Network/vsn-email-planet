@@ -1,0 +1,10 @@
+flowchart TD
+  A[Select provider] --> B[Explain scopes and data use]
+  B --> C[Authenticate by supported flow]
+  C --> D{Authorization valid?}
+  D -- No --> E[Show reconnect guidance]
+  D -- Yes --> F[Probe capabilities and inventory]
+  F --> G{Content separately authorized?}
+  G -- No --> H[Metadata-only connection]
+  G -- Yes --> I[Queue mailbox sync]
+  I --> J[Report actual status]

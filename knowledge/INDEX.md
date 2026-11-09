@@ -23,3 +23,7 @@ The full bank taxonomy is defined in the master specification. Current active so
 | Releases/compatibility | `docs/DEPLOYMENT_MATRIX.md` | Initial local demo only |
 
 Do not create empty record files merely to make the bank list appear complete. Update these sources with dated evidence as work advances.
+
+## Canonical machine-readable catalog
+
+`knowledge/banks.json` contains 20 bank records with current state, evidence sources, alternatives/tradeoffs, priority, dependencies, review date, decision state, documentation links and existing verification paths. The validator checks uniqueness/completeness; future tests should link to focused tests rather than only strategy documents.

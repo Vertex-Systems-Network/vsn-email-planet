@@ -607,6 +607,57 @@
       "decisions": [],
       "next_action": "Resume after web product and platform foundation exist",
       "notes": "Premature release pipeline deferred."
+    },
+    {
+      "id": "P0-05",
+      "epic": "P0-RESEARCH",
+      "phase": "P0",
+      "title": "Seed durable knowledge banks and operational flow maps",
+      "outcome": "A future agent can navigate the 20 knowledge domains and follow core permission/recovery paths",
+      "description": "Add a structured, non-empty bank catalog, index, flow diagrams, and validation tests without declaring unimplemented features complete.",
+      "scope": [
+        "knowledge/banks.json",
+        "knowledge/INDEX.md",
+        "docs/diagrams/*-flow.mmd",
+        "bank integrity tests"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-01"
+      ],
+      "current_status": "PARTIALLY_VERIFIED",
+      "acceptance_criteria": [
+        "Twenty unique bank entries describe actual state and link available evidence",
+        "Core connection, sync, send, migration, incident, AI and install flows are represented",
+        "Automated check rejects missing catalog fields and missing referenced files"
+      ],
+      "test_plan": [
+        "npm run validate",
+        "npm test knowledge-bank suite"
+      ],
+      "evidence_paths": [
+        "knowledge/banks.json",
+        "knowledge/INDEX.md",
+        "docs/diagrams/connection-flow.mmd",
+        "test/knowledge-banks.test.js"
+      ],
+      "verification_level": "LOCAL_BANK_AND_FLOW_TESTS_PASS",
+      "target_environment": "LOCAL",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Bank status can become stale if not maintained with code"
+      ],
+      "decisions": [],
+      "next_action": "Checkpoint the catalog and diagrams, then confirm CI run on the committed feature ref.",
+      "notes": "Local validator and six tests pass; remote CI and follow-on maintenance are not yet confirmed."
     }
   ]
 }
