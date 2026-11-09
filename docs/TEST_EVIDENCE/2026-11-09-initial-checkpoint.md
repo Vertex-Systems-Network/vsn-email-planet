@@ -172,7 +172,7 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 - Recorded: 2026-11-09T19:57:25Z
 - Existing `main` history preserved: `4758f49` README initialization, `ad2cf39` empty spec placeholder, `9182b40` full specification. No prior application code was present.
 - Bootstrap checkpoint `315737ac1b46fc2b9a827bf70a929fa4319c32c1` passed GitHub Actions CI (run `42685458941`, success): https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42685458941
-- The native PostgreSQL service and smoke script were added after that baseline run; a new run is required to verify the database increment.
+- At the time of this baseline entry, native PostgreSQL smoke verification was still pending; the later successful PostgreSQL run is recorded below.
 
 ## Native PostgreSQL CI verification
 
@@ -181,3 +181,12 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 - GitHub Actions CI: PASS; all steps succeeded, including `npm run test:postgres` against PostgreSQL 16 (`pg` driver), `npm test`, typecheck, build, web/API smokes, backlog validation and high-severity npm audit.
 - Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42688360871
 - This verifies the schema/migration task acceptance. It does not indicate the Nest API has connected to the database or that production auth/persistence is implemented.
+
+
+## Current Phase 0 research checkpoint CI
+
+- Recorded: 2026-11-09T20:07:37+00:00
+- Commit: `82889744af107e8788abc9976023c4001ab7d7d0`
+- GitHub Actions CI: PASS, including native PostgreSQL 16 migration smoke; all job steps completed successfully.
+- Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42689547230
+- UI library findings in this checkpoint are research only; no UI dependencies were added.
