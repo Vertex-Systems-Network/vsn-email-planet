@@ -16,3 +16,5 @@
 - Provider capability policy helper is implemented locally in `apps/api/src/capabilities.js`; nine capability/adapter contract tests pass locally and in CI run `42689186984`. Provider integrations remain unimplemented.
 
 - P2-01 connector invocation boundary enforces manifest decisions before handler dispatch; P2-02 synthetic cPanel-like mock outcomes cover permission, disabled, throttled and unsupported behavior. P1-05 API route passed local and remote integration tests; capability modal is implemented but not browser-rendered. P1-06 adds tenant-filtered domain/mailbox APIs and distinct UI tables; local and remote tests pass, but browser review remains pending.
+
+- Current local code increment adds same-tenant domain/mailbox detail endpoints and API-backed detail modals. Local HTTP coverage and script syntax checks pass; this increment is not yet pushed, and browser review remains pending.

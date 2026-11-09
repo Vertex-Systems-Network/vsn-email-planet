@@ -858,7 +858,9 @@
         "GET /api/mailboxes",
         "domain and mailbox fixtures",
         "resource-specific search and status filters",
-        "record detail modal"
+        "record detail modal",
+        "GET /api/domains/{id}",
+        "GET /api/mailboxes/{id}"
       ],
       "priority": "P1",
       "complexity": "M",
@@ -873,7 +875,8 @@
         "Mailbox route returns metadata without message bodies or credentials",
         "Domains and Mailboxes views display distinct fields and resource-specific filters",
         "Cross-tenant rows are excluded and fixture status is explicit",
-        "No provider mutation or external provider call is made"
+        "No provider mutation or external provider call is made",
+        "Domain and mailbox detail endpoints return same-tenant records and non-disclosing 404 for cross-tenant IDs"
       ],
       "test_plan": [
         "Node HTTP tests for tenant-specific counts, metadata shape and mutation rejection",
@@ -907,7 +910,7 @@
         "ADR-0001"
       ],
       "next_action": "Run browser and keyboard checks when a shared preview route is available; keep the screen partially verified until then.",
-      "notes": "Local API, tenant boundary and search/filter tests passed; GitHub Actions run 42695748464 passed on the exact commit. UI code is implemented but not browser inspected."
+      "notes": "Local tests verify tenant-scoped domain/mailbox lists and detail endpoints, metadata-only response shape, mutation rejection, and resource-specific filtering. UI detail modal now retrieves detail through the same tenant-scoped API; browser inspection remains pending."
     }
   ]
 }

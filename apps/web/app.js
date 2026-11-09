@@ -67,9 +67,21 @@ function renderCapabilityRows(capabilities) {
 function showDetails(id) {
   const p = currentRecords.find(item => item.id === id); if (!p) return;
   const provider = currentView === 'overview' || currentView === 'providers';
-  const title = provider ? p.name : currentView === 'domains' ? p.domain : p.email;
-  const detail = provider ? `<p><b>Inventory scope:</b> ${safe(p.scope)}<br><b>Message content:</b> ${safe(p.contentAccess)}<br><b>Fixture status:</b> ${safe(p.checked)}</p><section class="capability-section" aria-labelledby="capabilityHeading"><div class="capability-heading"><h3 id="capabilityHeading">Operation capabilities</h3><span>Fixture only</span></div><div class="capability-list" id="capabilityList" aria-live="polite"><p class="capability-loading">Loading synthetic capability records…</p></div></section>` : currentView === 'domains' ? `<p><b>Provider:</b> ${safe(p.provider)}<br><b>DNS state:</b> ${safe(p.dnsStatus)}<br><b>Synthetic mailbox count:</b> ${safe(p.mailboxCount)}<br><b>Observation:</b> ${safe(p.checked)}</p>` : `<p><b>Domain:</b> ${safe(p.domain)}<br><b>Provider:</b> ${safe(p.provider)}<br><b>Content access:</b> ${safe(p.contentAccess)}<br><b>Record status:</b> ${safe(p.status)}<br><b>Observation:</b> ${safe(p.checked)}</p>`;
-  el('detailContent').innerHTML = `<div class="dialog-icon">${provider ? safe(p.icon) : currentView === 'domains' ? '◇' : '▤'}</div><p class="eyebrow">SYNTHETIC ${entityLabel(currentView)} DETAIL</p><h2>${safe(title)}</h2>${provider ? `<p>${safe(p.note)}</p>` : ''}${detail}<span class="tag-muted">No real provider request was made</span>`;
+  if (!provider) {
+    const view = currentView;
+    const title = view === 'domains' ? p.domain : p.email;
+    el('detailContent').innerHTML = `<div class="dialog-icon">${view === 'domains' ? '◇' : '▤'}</div><p class="eyebrow">SYNTHETIC ${entityLabel(view)} DETAIL</p><h2>${safe(title)}</h2><p class="capability-loading" aria-live="polite">Loading tenant-scoped metadata…</p>`;
+    el('detailDialog').showModal();
+    const path = view === 'domains' ? `/api/domains/${encodeURIComponent(id)}` : `/api/mailboxes/${encodeURIComponent(id)}`;
+    fetch(path, { headers: { authorization: `Bearer ${DEMO_TOKEN}` } })
+      .then(response => { if (!response.ok) throw new Error('Resource detail unavailable'); return response.json(); })
+      .then(payload => { if (el('detailDialog').open) el('detailContent').innerHTML = renderResourceDetail(view, payload.data); })
+      .catch(() => { if (el('detailDialog').open) el('detailContent').textContent = 'Synthetic resource detail is unavailable.'; });
+    return;
+  }
+  const title = p.name;
+  const detail = `<p><b>Inventory scope:</b> ${safe(p.scope)}<br><b>Message content:</b> ${safe(p.contentAccess)}<br><b>Fixture status:</b> ${safe(p.checked)}</p><section class="capability-section" aria-labelledby="capabilityHeading"><div class="capability-heading"><h3 id="capabilityHeading">Operation capabilities</h3><span>Fixture only</span></div><div class="capability-list" id="capabilityList" aria-live="polite"><p class="capability-loading">Loading synthetic capability records…</p></div></section>`;
+  el('detailContent').innerHTML = `<div class="dialog-icon">${safe(p.icon)}</div><p class="eyebrow">SYNTHETIC ${entityLabel(currentView)} DETAIL</p><h2>${safe(title)}</h2><p>${safe(p.note)}</p>${detail}<span class="tag-muted">No real provider request was made</span>`;
   el('detailDialog').showModal();
   if (!provider) return;
   fetch(`/api/providers/${encodeURIComponent(id)}/capabilities`, { headers: { authorization: `Bearer ${DEMO_TOKEN}` } })
@@ -79,6 +91,10 @@ function showDetails(id) {
       if (list) list.innerHTML = renderCapabilityRows(payload.data.capabilities);
     })
     .catch(() => { const list = el('capabilityList'); if (list) list.textContent = 'Synthetic capability records are unavailable.'; });
+}
+function renderResourceDetail(view, p) {
+  if (view === 'domains') return `<div class="dialog-icon">◇</div><p class="eyebrow">SYNTHETIC DOMAIN DETAIL</p><h2>${safe(p.domain)}</h2><p><b>Provider:</b> ${safe(p.provider)}<br><b>DNS state:</b> ${safe(p.dnsStatus)}<br><b>Synthetic mailbox count:</b> ${safe(p.mailboxCount)}<br><b>Observation:</b> ${safe(p.checked)}</p><span class="tag-muted">No DNS lookup was performed</span>`;
+  return `<div class="dialog-icon">▤</div><p class="eyebrow">SYNTHETIC MAILBOX DETAIL</p><h2>${safe(p.email)}</h2><p><b>Domain:</b> ${safe(p.domain)}<br><b>Provider:</b> ${safe(p.provider)}<br><b>Content access:</b> ${safe(p.contentAccess)}<br><b>Record status:</b> ${safe(p.status)}<br><b>Observation:</b> ${safe(p.checked)}</p><span class="tag-muted">No mailbox content was accessed</span>`;
 }
 function entityLabel(view) { return view === 'domains' ? 'DOMAIN' : view === 'mailboxes' ? 'MAILBOX' : 'CONNECTION'; }
 el('navigation').addEventListener('click', event => { const button = event.target.closest('[data-view]'); if (button) setView(button.dataset.view); });

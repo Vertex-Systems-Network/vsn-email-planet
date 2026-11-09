@@ -17,3 +17,6 @@
 **P1-05 status:** implementation is in the working tree and locally API-tested; keep `PARTIALLY_VERIFIED`; the API behavior is tested locally and in CI; the modal still needs shared-browser visual and accessibility review.
 
 **P1-06 status:** API and filter tests pass locally and in CI; keep the feature partially verified until the UI receives browser review.
+
+
+**Unpushed local increment:** domain/mailbox detail endpoints now enforce same-tenant direct-ID access and the modal fetches their data from those endpoints. Local `npm run check` passes 18/18; commit and CI are pending.

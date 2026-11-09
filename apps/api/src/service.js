@@ -36,9 +36,23 @@ export function handleApi(request, response, url) {
     const records = listTenantResources(actor, demoDomains).map(({ organizationId, ...safe }) => safe);
     return sendJson(response, 200, { data: records, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
   }
+  const domainMatch = /^\/api\/domains\/([a-z0-9-]+)$/.exec(url.pathname);
+  if (domainMatch && request.method === 'GET') {
+    const resource = getTenantResource(actor, domainMatch[1], demoDomains);
+    if (!resource) return sendJson(response, 404, { error: { code: 'RESOURCE_NOT_FOUND', message: 'Domain record not found.' } });
+    const { organizationId, ...safe } = resource;
+    return sendJson(response, 200, { data: safe, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
+  }
   if (url.pathname === '/api/mailboxes' && request.method === 'GET') {
     const records = listTenantResources(actor, demoMailboxes).map(({ organizationId, ...safe }) => safe);
     return sendJson(response, 200, { data: records, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
+  }
+  const mailboxMatch = /^\/api\/mailboxes\/([a-z0-9-]+)$/.exec(url.pathname);
+  if (mailboxMatch && request.method === 'GET') {
+    const resource = getTenantResource(actor, mailboxMatch[1], demoMailboxes);
+    if (!resource) return sendJson(response, 404, { error: { code: 'RESOURCE_NOT_FOUND', message: 'Mailbox record not found.' } });
+    const { organizationId, ...safe } = resource;
+    return sendJson(response, 200, { data: safe, meta: { environment: 'LOCAL_SYNTHETIC', organizationId: actor.organizationId, role: actor.role } });
   }
   const capabilitiesMatch = /^\/api\/providers\/([a-z0-9-]+)\/capabilities$/.exec(url.pathname);
   if (capabilitiesMatch && request.method === 'GET') {

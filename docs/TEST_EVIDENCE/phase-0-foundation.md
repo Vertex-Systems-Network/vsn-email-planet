@@ -107,3 +107,10 @@ Verification level: local prototype contract only; not a release gate.
 - `npm run check` passes: 17 tasks, 5 epics, 5 gates, 20 banks; 18/18 Node tests pass, 0 fail, 0 skipped. Both changed JavaScript modules pass `node --check`.
 - HTTP integration tests verify the northstar fixture receives 2 domains and 5 mailbox records, the fieldnotes fixture receives only its own domain, organization IDs are stripped from responses, mailbox payloads contain no message/credential fields, and mutations return 405.
 - Search/status tests cover domain and mailbox fields. The app renders distinct table columns and detail content per resource type. Browser layout/accessibility review remains pending. GitHub Actions run `42695748464` passed on commit `6a79099b161d582b918d333a262312fb2fad0862`.
+
+
+## Tenant-scoped resource details (local working tree)
+
+- `GET /api/domains/{id}` and `GET /api/mailboxes/{id}` now return same-tenant synthetic records, strip internal organization IDs, and return 404 for cross-tenant IDs. Mutation attempts return 405.
+- Provider, domain and mailbox detail modals load their tenant-scoped detail/capability APIs. `npm run check` passes with 18/18 tests; `node --check` passes for both changed JavaScript modules.
+- Browser visual/accessibility review remains pending. Remote CI for this increment is pending push.
