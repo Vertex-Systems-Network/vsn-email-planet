@@ -94,7 +94,7 @@ export async function claimNextOperationJob(database, { workerId, leaseDurationM
     );
 
     const candidate = await client.query(
-      `SELECT job.id
+      `SELECT job.id, job.organization_id, job.provider_connection_id, job.mailbox_key
        FROM operation_jobs AS job
        WHERE job.status IN ('queued', 'retry_wait') AND job.available_at <= now()
          AND job.attempt_count < job.max_attempts
@@ -123,6 +123,21 @@ export async function claimNextOperationJob(database, { workerId, leaseDurationM
     );
 
     if (!candidate.rows[0]) return { job: null, reclaimed: affectedRows(reclaimedMutations) + affectedRows(reclaimedSafeJobs) };
+    const selected = candidate.rows[0];
+    if (selected.mailbox_key !== null) {
+      const mailboxLockKey = JSON.stringify([selected.organization_id, selected.provider_connection_id, selected.mailbox_key]);
+      await client.query("SELECT pg_advisory_xact_lock(hashtextextended($1, 0))", [mailboxLockKey]);
+      const activeMailboxJob = await client.query(
+        `SELECT id FROM operation_jobs
+         WHERE status = 'running' AND organization_id = $1
+           AND provider_connection_id IS NOT DISTINCT FROM $2 AND mailbox_key = $3
+         LIMIT 1`,
+        [selected.organization_id, selected.provider_connection_id, selected.mailbox_key],
+      );
+      if (activeMailboxJob.rows[0]) {
+        return { job: null, reclaimed: affectedRows(reclaimedMutations) + affectedRows(reclaimedSafeJobs) };
+      }
+    }
     const claimed = await client.query(
       `UPDATE operation_jobs
        SET status = 'running', lease_owner = $2, lease_generation = lease_generation + 1,
@@ -130,7 +145,7 @@ export async function claimNextOperationJob(database, { workerId, leaseDurationM
            attempt_count = attempt_count + 1, updated_at = now()
        WHERE id = $1 AND status IN ('queued', 'retry_wait')
        RETURNING *`,
-      [candidate.rows[0].id, workerId, durationMs],
+      [selected.id, workerId, durationMs],
     );
     return { job: claimed.rows[0] ?? null, reclaimed: affectedRows(reclaimedMutations) + affectedRows(reclaimedSafeJobs) };
   });

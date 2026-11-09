@@ -48,7 +48,9 @@ try {
   const queueOrganizationA = randomUUID();
   const queueOrganizationB = randomUUID();
   const queueConnectionId = randomUUID();
-  const workerId = randomUUID();
+  const workerA = randomUUID();
+  const workerB = randomUUID();
+  const workerAfter = randomUUID();
   try {
     await pool.query("INSERT INTO organizations (id, slug, display_name) VALUES ($1, $2, 'Queue tenant A'), ($3, $4, 'Queue tenant B')", [queueOrganizationA, `queue-a-${queueOrganizationA.slice(0, 8)}`, queueOrganizationB, `queue-b-${queueOrganizationB.slice(0, 8)}`]);
     await pool.query(
@@ -58,16 +60,29 @@ try {
     const input = { organizationId: queueOrganizationA, providerConnectionId: queueConnectionId, mailboxKey: "queue-mailbox", operationType: "smoke.sync", effectClass: "read_only", idempotencyKey: `queue:${queueOrganizationA}:one` };
     const first = await enqueueOperationJob(pool, input);
     const duplicate = await enqueueOperationJob(pool, input);
+    const second = await enqueueOperationJob(pool, { ...input, idempotencyKey: `queue:${queueOrganizationA}:two` });
     assert.equal(first.created, true);
     assert.equal(duplicate.created, false);
     assert.equal(duplicate.job.id, first.job.id);
-    const claimed = await claimNextOperationJob(pool, { organizationId: queueOrganizationA, workerId, leaseDurationMs: 5_000 });
-    assert.equal(claimed.job.id, first.job.id);
-    assert.equal((await claimNextOperationJob(pool, { organizationId: queueOrganizationB, workerId, leaseDurationMs: 5_000 })).job, null);
-    assert.equal(await completeOperationJob(pool, { jobId: first.job.id, organizationId: queueOrganizationA, workerId, leaseGeneration: claimed.job.lease_generation }), true);
-    const events = await claimOutboxEvents(pool, { organizationId: queueOrganizationA, workerId, leaseDurationMs: 5_000 });
-    assert.equal(events.length, 1);
-    assert.equal(await markOutboxEventPublished(pool, { eventId: events[0].id, organizationId: queueOrganizationA, workerId, leaseGeneration: events[0].publish_lease_generation }), true);
+    const concurrentClaims = await Promise.all([
+      claimNextOperationJob(pool, { organizationId: queueOrganizationA, workerId: workerA, leaseDurationMs: 5_000 }),
+      claimNextOperationJob(pool, { organizationId: queueOrganizationA, workerId: workerB, leaseDurationMs: 5_000 }),
+    ]);
+    const firstClaim = concurrentClaims.find((claim) => claim.job);
+    assert.ok(firstClaim);
+    assert.equal(concurrentClaims.filter((claim) => claim.job).length, 1);
+    assert.equal((await claimNextOperationJob(pool, { organizationId: queueOrganizationA, workerId: workerAfter, leaseDurationMs: 5_000 })).job, null);
+    assert.equal((await claimNextOperationJob(pool, { organizationId: queueOrganizationB, workerId: workerAfter, leaseDurationMs: 5_000 })).job, null);
+    assert.equal(await completeOperationJob(pool, { jobId: firstClaim.job.id, organizationId: queueOrganizationA, workerId: firstClaim.job.lease_owner, leaseGeneration: firstClaim.job.lease_generation }), true);
+    const secondClaim = await claimNextOperationJob(pool, { organizationId: queueOrganizationA, workerId: workerAfter, leaseDurationMs: 5_000 });
+    assert.ok(secondClaim.job);
+    assert.notEqual(secondClaim.job.id, firstClaim.job.id);
+    assert.equal(await completeOperationJob(pool, { jobId: secondClaim.job.id, organizationId: queueOrganizationA, workerId: workerAfter, leaseGeneration: secondClaim.job.lease_generation }), true);
+    const events = await claimOutboxEvents(pool, { organizationId: queueOrganizationA, workerId: workerA, leaseDurationMs: 5_000 });
+    assert.equal(events.length, 2);
+    for (const event of events) {
+      assert.equal(await markOutboxEventPublished(pool, { eventId: event.id, organizationId: queueOrganizationA, workerId: workerA, leaseGeneration: event.publish_lease_generation }), true);
+    }
   } finally {
     await pool.query("DELETE FROM event_outbox WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
     await pool.query("DELETE FROM operation_jobs WHERE organization_id = ANY($1::uuid[])", [[queueOrganizationA, queueOrganizationB]]);
@@ -76,7 +91,7 @@ try {
     await pool.end();
   }
 
-  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, idempotent job enqueue/tenant-scoped lease claim works, and outbox acknowledgement is fenced.");
+  console.log("Native PostgreSQL smoke passed: migrations are idempotent, tenant keys reject cross-organization links, simultaneous workers serialize mailbox jobs, job enqueue is idempotent, tenant-scoped leases work, and outbox acknowledgement is fenced.");
 } finally {
   await client.end();
 }
