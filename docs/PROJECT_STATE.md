@@ -13,10 +13,10 @@ Last updated: 2026-11-09
 
 ## Delivery state
 
-- P0: In progress. Repository/history audit is now accurate and prior commits are preserved; research snapshots and a synthetic feasibility slice are recorded. Complete market/provider/security/design research and a feasibility prototype review remain open.
+- P0: In progress. Repository/history audit is accurate and prior commits are preserved; research snapshots and a synthetic feasibility slice are recorded. Complete market/provider/security/design research and a feasibility prototype review remain open.
 - P1: In progress. The repository foundation, synthetic responsive dashboard, process-only health route, tenant-keyed PostgreSQL control-plane schema and checksummed migration runner are implemented. API persistence is not wired into request handling; authentication, queue and live provider adapters remain open.
 - Local verification: fresh `npm ci`, typecheck, 11 automated tests (including PGlite migrations), backlog validation, production build, HTTP smoke checks and high-severity npm audit passed. See `docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md`.
-- The bootstrap commit's GitHub Actions CI passed. A native PostgreSQL 16 CI migration/tenant-constraint smoke was added after that run and is pending verification on the next pushed commit.
+- The bootstrap commit's GitHub Actions CI passed. Native PostgreSQL 16 CI also passed on `97582d1f8f5851c755141035b64d71104f364359`, including the real `pg` migration runner and cross-tenant foreign-key denial.
 - Visual browser review and accessibility audit remain pending. The dashboard is explicitly labeled synthetic and states that no providers are connected.
 - Product runtime state: local synthetic demo only. No real provider connection, mail read/send, mailbox administration, migration or backup functionality is implemented.
 - Security state: not production-ready; no production authentication or tenant persistence. The sample-domain policy functions are defense-in-depth examples, not a substitute for server authentication.

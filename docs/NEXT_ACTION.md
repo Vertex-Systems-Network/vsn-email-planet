@@ -1,7 +1,7 @@
 # Exact next action
 
-1. Checkpoint the P1-04 migration increment after local verification, then inspect its native PostgreSQL CI result and fix any failure before advancing.
-2. Follow with P1-06 authenticated identity and tenant authorization after the persistence boundary is concretely designed; begin with explicit threat cases and negative isolation tests.
+1. Continue P0-02 research: finish source-grounded provider capability/limits, competitor feature comparisons, standards, pricing snapshots and risk gaps; keep facts dated and sourced.
+2. Close remaining Phase 0 design and feasibility gaps before implementing P1-06 authenticated identity and tenant authorization.
 3. Keep provider credentials absent; use mocks/synthetic fixtures until a sandbox and controlled mailbox are authorized.
 4. Resume the highest-priority open backlog item and record implementation and test evidence before updating its status.
 

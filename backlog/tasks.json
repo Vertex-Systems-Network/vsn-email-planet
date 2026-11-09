@@ -795,7 +795,7 @@
       "dependencies": [
         "P1-01"
       ],
-      "current_status": "PARTIALLY_VERIFIED",
+      "current_status": "VERIFIED",
       "acceptance_criteria": [
         "Tenant-owned rows include organization_id",
         "Migrations are deterministic and reversible where safe",
@@ -815,23 +815,21 @@
         "docs/RESEARCH/ORM_MIGRATION_EVALUATION.md",
         "docs/TEST_EVIDENCE/2026-11-09-initial-checkpoint.md"
       ],
-      "verification_level": "PGLITE_POSTGRES_SEMANTICS_AND_NEGATIVE_TENANT_FK_TESTS",
+      "verification_level": "LOCAL_PGLITE_AND_GITHUB_ACTIONS_POSTGRES_16",
       "target_environment": "LOCAL_INTEGRATION",
-      "last_verified_commit": null,
+      "last_verified_commit": "97582d1f8f5851c755141035b64d71104f364359",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
       "started_at": "2026-11-09",
       "completed_at": null,
-      "blockers": [
-        "Native PostgreSQL 16 / node-postgres verification is configured in GitHub Actions but has not yet run for this increment."
-      ],
+      "blockers": [],
       "external_requirements": [],
       "risks": [
-        "PGlite does not prove native network-driver behavior, multi-process advisory-lock behavior, extensions, or production migration performance."
+        "Production rollouts still require a backup/recovery rehearsal and operational policy for multi-replica coordination; no rollback migration is provided for destructive operations."
       ],
       "decisions": [],
-      "next_action": "Verify the native PostgreSQL CI smoke and upgrade behavior; then continue the API persistence and identity boundary.",
-      "notes": "Implemented a control-plane-only schema, transactional checksummed migration runner with transaction advisory lock, and PGlite tests for clean apply, idempotency, schema upgrade with existing data, checksum drift, rollback, and cross-tenant FK denial. Full local verification passed with 11 total tests. Native PostgreSQL CI result and API persistence remain unverified.",
+      "next_action": "Preserve migration immutability; implement application persistence only after the Phase 0 and identity/security gates.",
+      "notes": "Schema/migration task acceptance verified locally and remotely: clean apply, idempotent rerun, existing-row upgrade, checksum drift rejection, transactional rollback, and cross-tenant FK denial. Native PostgreSQL 16 GitHub Actions run passed; app-level persistence is outside this task.",
       "status_history": [
         {
           "from": null,
@@ -860,6 +858,13 @@
           "changed_at": "2026-11-09T19:56:55.489Z",
           "actor": "Codex",
           "evidence": "Fresh npm ci, typecheck, all 11 tests (including PGlite schema upgrade), backlog validation, production builds, HTTP smokes, and npm audit passed. Native PostgreSQL CI smoke is pending."
+        },
+        {
+          "from": "PARTIALLY_VERIFIED",
+          "to": "VERIFIED",
+          "changed_at": "2026-11-09T20:00:07+00:00",
+          "actor": "Codex",
+          "evidence": "PGlite upgrade/checksum/rollback/isolation tests passed; native PostgreSQL 16 CI passed at commit 97582d1f8f5851c755141035b64d71104f364359 (workflow run 42688360871)."
         }
       ]
     },

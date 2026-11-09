@@ -13,6 +13,6 @@ The authoritative task records and legal status transitions are in `backlog/task
 | P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Complete visual and accessibility review |
 | P1-03 | P1 | API health process | VERIFIED | Extend beyond process health only after persistence increment |
 | P1-09 | P1 | CI and verification evidence | PARTIALLY_VERIFIED | Add pending integration/browser/licensing gates |
-| P1-04 | P0 | Tenant-keyed PostgreSQL schema/migrations | PARTIALLY_VERIFIED | Verify the native PostgreSQL CI smoke and production-driver path |
+| P1-04 | P0 | Tenant-keyed PostgreSQL schema/migrations | VERIFIED | Maintain immutable migrations; production rollout is a separate gate |
 
 No product task is marked `DONE`; verified means only that the specific stated acceptance evidence is satisfied. Status changes must follow the transition map and include status history in `backlog/tasks.json`.

@@ -173,3 +173,11 @@ npm warn Unknown env config "http-proxy". This will stop working in the next maj
 - Existing `main` history preserved: `4758f49` README initialization, `ad2cf39` empty spec placeholder, `9182b40` full specification. No prior application code was present.
 - Bootstrap checkpoint `315737ac1b46fc2b9a827bf70a929fa4319c32c1` passed GitHub Actions CI (run `42685458941`, success): https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42685458941
 - The native PostgreSQL service and smoke script were added after that baseline run; a new run is required to verify the database increment.
+
+## Native PostgreSQL CI verification
+
+- Recorded: 2026-11-09T20:00:07+00:00
+- Commit: `97582d1f8f5851c755141035b64d71104f364359`
+- GitHub Actions CI: PASS; all steps succeeded, including `npm run test:postgres` against PostgreSQL 16 (`pg` driver), `npm test`, typecheck, build, web/API smokes, backlog validation and high-severity npm audit.
+- Workflow run: https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42688360871
+- This verifies the schema/migration task acceptance. It does not indicate the Nest API has connected to the database or that production auth/persistence is implemented.
