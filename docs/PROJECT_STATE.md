@@ -1,6 +1,6 @@
 # Project state
 
-Last updated: 2026-11-09
+Last updated: 2026-11-10
 
 ## Verified repository facts
 
@@ -9,7 +9,7 @@ Last updated: 2026-11-09
 - The initial README called the project “VSN Orbicore Email Operations Platform”; the current requested product name, VSN Email Planet, is used in the maintained project docs and app.
 - PR #5 integrated the feature branch into `main` at `7b199403ad8e53a6b7845b1eaa302f5efcf5d4e2`, preserving current main-only history and verified updates.
 - Governing spec: `AI_Native_Central_Email_Platform_Master_Prompt.md` (v1.0 plus execution addendum, 2026-11-09), 1,592 lines / 142,653 bytes; read in full before the addendum.
-- Initial stack decision: npm workspaces, Next.js App Router + React for web, NestJS API, TypeScript, future PostgreSQL/Redis integration. See ADR-0001.
+- Provisional stack direction reconciled 2026-11-10 with the implementation: Next.js web + NestJS API + TypeScript + PostgreSQL SQL-first migrations. Redis, ORM, object store and production deployment remain undecided. See ADR-0001 and the prior scorecard hypothesis in `docs/RESEARCH/OPTIONS.md`.
 
 ## Delivery state
 
@@ -45,6 +45,17 @@ The feature prototype, tenant detail routes, screen inventory, knowledge banks a
 - Pricing and differentiator claims require further primary-source market research and user validation.
 - OAuth consent/verification, privacy/legal review and any provider app registrations are external release dependencies.
 
+## 2026-11-10 continuation checkpoint
+
+- Continued P0-02 provider permission/retention research in `docs/RESEARCH/PROVIDER_LIMITS.md`: Google Workspace Directory user deletion scope and Vault legal-hold/restoration boundaries; cPanel legacy deletion semantics versus current UAPI direction and undocumented host backup purge.
+- Evidence: `docs/TEST_EVIDENCE/2026-11-10-provider-retention-research.md`. Local `npm run check` passed (34 backlog records, 42 tests), `npm run typecheck` passed (web and API), and `npm run build` passed (web and API). No provider tenant was accessed.
+- P0 remains open: buyer interviews/competitor trial, browser visual/keyboard/screen-reader review, self-host footprint and outage-recovery proof remain open. Shared Chrome returned `net::ERR_CONNECTION_REFUSED` for the loopback dashboard; see `docs/TEST_EVIDENCE/2026-11-10-browser-preview-attempt.md`. None blocks independent, reversible P1-06 implementation.
+- Reconciled an obsolete P0-03 scorecard/ADR mismatch: the scorecard had nominated React/Vite although the implemented foundation is Next.js. ADR-0001 and architecture/options docs now identify Next.js + NestJS + PostgreSQL as the provisional direction, keep production lock open and distinguish build evidence from missing deployment/footprint benchmarks.
+- GitHub metadata confirms `Vertex-Systems-Network/vsn-email-planet` is organization-owned and the connected account has push permission. The user explicitly authorized merging local commits and the active continuation branch to `main`; the merged local main is verified and push/remote CI confirmation remain pending.
+- P0-03 fresh-install checkpoint at base revision `f919245`: `npm run verify:local` passed `npm ci`, typecheck, 42 tests, backlog validation, web/API builds, web/API HTTP smokes and `npm audit --audit-level=high`; see `docs/TEST_EVIDENCE/verification-20261109T213909Z-f919245.md`. This proves the current local environment and lockfile recover cleanly; self-host resource footprint, outage behavior and workload benchmarks remain unmeasured.
+- Merged local main at `5fbdc2f0e3a8922c97d71bc4f038b49084812b4f` with remote commits `eac29b6` and `46afedb`, plus the current continuation research branch. Fresh `npm run verify:local` passed `npm ci`, typecheck, 46 tests, backlog validation, web/API production builds, web/API HTTP smokes and high-severity npm audit. Evidence: `docs/TEST_EVIDENCE/verification-20261109T220000Z-5fbdc2f.md`. Self-host footprint, outage recovery and browser/accessibility evidence remain open.
+- The local `feat/phase-0-foundation` branch is a divergent stale copy of the already-merged upstream feature. Its current tree removes 63 paths present in the merged implementation, including the Next/Nest foundation, lockfile, migrations and verification files, so it was deliberately not merged into `main`.
+
 ## Next action
 
-Follow `docs/NEXT_ACTION.md` and `docs/EXECUTION_PLAYBOOK.md`. P1-06 contract is written; next resolve P0-03 stack fork, then implement and test the server-side session resolver and tenant authorization against the contract. Continue P0 evidence. P2/P3 remain gated on P1 authorization criteria. Preserve all current main history.
+Follow `docs/NEXT_ACTION.md` and `docs/EXECUTION_PLAYBOOK.md`. P0-03 stack direction is reconciled; self-host footprint and recovery proof remain open but do not block P1-06. Implement and test the server-side session resolver and tenant authorization against `docs/API_CONTRACTS.md`. P2/P3 remain gated on P1 authorization criteria. Preserve all remote main history.

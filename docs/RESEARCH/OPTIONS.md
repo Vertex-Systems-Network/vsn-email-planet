@@ -8,7 +8,7 @@ Checked 2026-11-09. This is a documented engineering judgment based on primary d
 | Next.js full-stack app + PostgreSQL, separate worker | 4 | 4 | 5 | 4 | 3 | 5 | 4 | 4.15 |
 | Django web/API + PostgreSQL + separate frontend/worker | 4 | 4 | 4 | 4 | 4 | 3 | 4 | 3.90 |
 
-Scores are hypotheses; the tie between first two is intentional. Selected **provisional direction**: React/Vite + NestJS as a modular monolith because this authenticated operations app has little public SEO need, static assets can be served same-origin, and API/worker contracts remain explicit. Next.js remains a viable alternative if integrated server rendering reduces measured complexity. No framework dependency has been installed or benchmarked.
+Scores are hypotheses; the tie between first two is intentional. At the time of this 2026-11-09 scorecard, React/Vite + NestJS was the provisional recommendation because this authenticated operations app has little public SEO need, static assets can be served same-origin, and API/worker contracts remain explicit. The repository subsequently implemented and verified a Next.js/NestJS foundation; see the dated reconciliation below. Neither framework has been workload-benchmarked.
 
 ## Decisions still open before locking exact production stack
 - ORM: compare Prisma and Drizzle on generated migration clarity, PostgreSQL RLS/context, transaction control and team ergonomics. Prisma supports PostgreSQL and current repo shows Apache-2.0; add migration proof before selection.
@@ -27,5 +27,6 @@ Primary evidence:
 - PostgreSQL license: https://www.postgresql.org/about/licence/
 - Nest and Next licenses: https://github.com/nestjs/nest ; https://github.com/vercel/next.js
 
-## Current decision
-`ADR-0001` remains PROPOSED. Adopt the React/Vite + NestJS + PostgreSQL direction for the next architecture prototype, but do not lock ORM/queue/object storage or production versions until a vertical slice measures migrations, tenant context and worker recovery.
+## Current decision (reconciled 2026-11-10)
+
+The scorecard above is the 2026-11-09 pre-implementation hypothesis; it is not a measured framework benchmark. The repository now implements Next.js + NestJS + PostgreSQL migrations and has fresh clean-install, build, typecheck, test and HTTP smoke evidence. `ADR-0001` therefore keeps this implemented direction as the provisional foundation and explicitly rejects a React/Vite rewrite without evidence of benefit. The ADR remains `PROPOSED`: self-host footprint, dependency-outage behavior, workload performance, queue recovery and production security are still open. ORM, broker, object storage and external search remain unselected.
