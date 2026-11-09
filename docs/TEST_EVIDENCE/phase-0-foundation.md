@@ -91,4 +91,4 @@ Verification level: local prototype contract only; not a release gate.
 - `npm run check` passed on Node `v24.22.1`: state validation succeeds; 17/17 tests pass, 0 fail, 0 skipped.
 - Contract tests confirm allowed synthetic operations return provenance; `NEEDS_ADMIN`, `PROVIDER_DISABLED`, `RATE_LIMITED` and `UNSUPPORTED` never dispatch handlers; a missing handler fails as `BROKEN`; unclassified adapter exceptions are sanitized.
 - cPanel-like cases are synthetic only. No provider host, credential, mailbox or network call was used. Live validation still requires an authorized sandbox.
-- Remote CI for this exact increment is pending push.
+- GitHub Actions run `42689186984` passed on commit `b1640660f866c9dc1ad804eff9348d8bea3cfd2e`; the `verify` job passed.

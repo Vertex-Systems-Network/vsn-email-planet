@@ -415,9 +415,9 @@
         "test/provider-contract.test.js",
         "docs/CAPABILITY_CONTRACT.md"
       ],
-      "verification_level": "LOCAL_CONTRACT_AND_MOCK_TESTS_PASS",
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS",
       "target_environment": "LOCAL_MOCK",
-      "last_verified_commit": null,
+      "last_verified_commit": "b1640660f866c9dc1ad804eff9348d8bea3cfd2e",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-10",
       "started_at": "2026-11-09",
@@ -461,9 +461,9 @@
         "apps/api/src/capabilities.js",
         "test/provider-contract.test.js"
       ],
-      "verification_level": "LOCAL_SYNTHETIC_MOCKS_PASS_LIVE_BLOCKED",
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_MOCK_PASS_LIVE_BLOCKED",
       "target_environment": "LOCAL_MOCK",
-      "last_verified_commit": null,
+      "last_verified_commit": "b1640660f866c9dc1ad804eff9348d8bea3cfd2e",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-10",
       "started_at": null,
