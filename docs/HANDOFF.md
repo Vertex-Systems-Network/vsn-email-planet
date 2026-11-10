@@ -12,11 +12,9 @@ This repository contains only VSN Email Planet. Keep Orbicore, WooCommerce and u
 ## Verified checkpoints
 
 - P0-07 plan consistency passed [run 42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063); evidence follow-up passed [run 42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435).
-- P1-06 session/actor guard plus CSRF-protected logout passed [run 42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243); evidence: `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`.
+- P1-06 session/actor guard plus CSRF-protected logout passed [run 42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243).
+- P1-11 password verifier and credential schema passed [run 42916848390](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42916848390) on `8b465df558fda26add9d95672d3feec76eb2e32c`; evidence: `docs/TEST_EVIDENCE/2026-11-11-p1-11-password-verifier.md`.
 
 ## Active work
 
-P1-06 remains PARTIALLY_VERIFIED. P1-11 is TESTING for a narrow first slice: versioned scrypt password verifier plus one-to-one PostgreSQL credential table. CI result is pending. The use of scrypt is deliberate for the supported runtime: OWASP lists scrypt as fallback when Argon2id is unavailable, and Node 24's Argon2 API remains Release Candidate; see ADR-0003.
-
-If that CI passes, continue P1-11 with repository-backed credential creation/verification and one-time bootstrap/invitation. Login throttling, admin MFA/recovery and session/CSRF issuance still need implementation and tests. Then complete P1-12 denial auditing, P1-13 tenant resource authorization and P1-14 queued-job reauthorization. Never use live provider credentials or send mail in CI.
-
+P1-06 remains PARTIALLY_VERIFIED. P1-11 is PARTIALLY_VERIFIED only for the scrypt verifier/schema slice. Continue with repository-backed credential creation/verification and a single-use bootstrap/invitation path; keep CI synthetic and do not send mail or use live provider credentials. Then add shared throttling, privileged MFA/recovery and login session+CSRF issuance. P1-12 denial audit, P1-13 tenant resource authorization and P1-14 queued-job reauthorization remain separately tracked and open.

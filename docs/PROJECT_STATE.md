@@ -21,7 +21,7 @@ Last updated: 2026-11-11
 ## Current delivery state
 
 - P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan consistency is VERIFIED for the validated ledger and gates.
-- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified. P1-11 is implementing the accepted local identity baseline; login/issuance/rotation, MFA/recovery, denial auditing, resource RBAC/ABAC and queued-job reauthorization remain open.
+- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified. P1-11 is PARTIALLY_VERIFIED only for its password-verifier/schema slice; login/issuance/rotation, MFA/recovery, denial auditing, resource RBAC/ABAC and queued-job reauthorization remain open.
 - P2–P12: NOT_STARTED. Backlog entries are plans only. No live provider connection, mailbox read/send, administration, DNS mutation, migration, client release or enterprise integration is claimed.
 - Documentation research, simulation and live-provider validation are distinct evidence. API acceptance is not proof of data erasure or production behavior.
 
@@ -36,4 +36,4 @@ The prior session persistence and guarded `GET /api/session/me` slice passed run
 P1-06 remains PARTIALLY_VERIFIED. Evidence and recovery history: `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`. Login/credential verification, issuance and CSRF-cookie delivery, session rotation, denied-event audit coverage, resource-specific authorization and queued-job reauthorization remain open.
 ## P1-11 password verifier checkpoint (2026-11-11)
 
-A versioned scrypt verifier helper and a one-to-one platform-user credential table are on remote `main`; GitHub Actions verification is pending. This is not login or credential issuance. The implementation uses OWASP's scrypt fallback profile because the supported Node 24 built-in Argon2 API is still Release Candidate; see ADR-0003. P1-11 remains TESTING until a passing run is recorded.
+A versioned scrypt verifier helper and one-to-one platform-user credential table passed GitHub Actions [run 42916848390](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42916848390) on commit `8b465df558fda26add9d95672d3feec76eb2e32c`. This is not login or credential issuance. The implementation uses OWASP's scrypt fallback profile because the supported Node 24 built-in Argon2 API remains Release Candidate; see ADR-0003. P1-11 remains PARTIALLY_VERIFIED for this slice only; see `docs/TEST_EVIDENCE/2026-11-11-p1-11-password-verifier.md`.
