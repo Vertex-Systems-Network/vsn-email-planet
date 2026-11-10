@@ -2,7 +2,7 @@
   "schema_version": 1,
   "epics": [
     {
-      "id": "P0-RESEARCH",
+      "id": "P0-PHASE",
       "phase": "P0",
       "title": "Pre-development and evidence",
       "status": "IN_PROGRESS",
@@ -17,9 +17,9 @@
       ]
     },
     {
-      "id": "P1-FOUNDATION",
+      "id": "P1-PHASE",
       "phase": "P1",
-      "title": "Local web platform foundation",
+      "title": "Repository foundation and DevOps",
       "status": "IN_PROGRESS",
       "tasks": [
         "P1-01",
@@ -27,36 +27,132 @@
         "P1-03",
         "P1-04",
         "P1-05",
-        "P1-06"
+        "P1-06",
+        "P1-07",
+        "P1-08",
+        "P1-09",
+        "P1-10"
       ]
     },
     {
-      "id": "P2-CONNECTORS",
+      "id": "P2-PHASE",
       "phase": "P2",
-      "title": "Provider connector and capability engine",
-      "status": "IN_PROGRESS",
+      "title": "Provider connectivity and inventory",
+      "status": "NOT_STARTED",
       "tasks": [
         "P2-01",
-        "P2-02"
+        "P2-02",
+        "P2-03",
+        "P2-04",
+        "P2-05",
+        "P2-06",
+        "P2-07",
+        "P2-08"
       ]
     },
     {
-      "id": "P3-MAIL",
+      "id": "P3-PHASE",
       "phase": "P3",
-      "title": "Mail synchronization and unified inbox",
+      "title": "Mail synchronization and inbox",
       "status": "NOT_STARTED",
       "tasks": [
         "P3-01",
-        "P3-02"
+        "P3-02",
+        "P3-03",
+        "P3-04",
+        "P3-05",
+        "P3-06",
+        "P3-07",
+        "P3-08",
+        "P3-09",
+        "P3-10"
       ]
     },
     {
-      "id": "P9-RELEASE",
+      "id": "P4-PHASE",
+      "phase": "P4",
+      "title": "Provider administration",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P4-01",
+        "P4-02",
+        "P4-03",
+        "P4-04",
+        "P4-05",
+        "P4-06",
+        "P4-07"
+      ]
+    },
+    {
+      "id": "P5-PHASE",
+      "phase": "P5",
+      "title": "DNS and infrastructure observability",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P5-01"
+      ]
+    },
+    {
+      "id": "P6-PHASE",
+      "phase": "P6",
+      "title": "Migration and backup",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P6-01"
+      ]
+    },
+    {
+      "id": "P7-PHASE",
+      "phase": "P7",
+      "title": "Incident response and safe automation",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P7-01"
+      ]
+    },
+    {
+      "id": "P8-PHASE",
+      "phase": "P8",
+      "title": "AI assistance and privacy",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P8-01"
+      ]
+    },
+    {
+      "id": "P9-PHASE",
       "phase": "P9",
-      "title": "Self-host release gates",
+      "title": "Web release and self-hosting",
       "status": "NOT_STARTED",
       "tasks": [
         "P9-01"
+      ]
+    },
+    {
+      "id": "P10-PHASE",
+      "phase": "P10",
+      "title": "Desktop clients",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P10-01"
+      ]
+    },
+    {
+      "id": "P11-PHASE",
+      "phase": "P11",
+      "title": "Mobile clients",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P11-01"
+      ]
+    },
+    {
+      "id": "P12-PHASE",
+      "phase": "P12",
+      "title": "Enterprise integration",
+      "status": "NOT_STARTED",
+      "tasks": [
+        "P12-01"
       ]
     }
   ]

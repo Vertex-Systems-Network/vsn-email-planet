@@ -2,29 +2,27 @@
 
 PROJECT: VSN Email Planet — Universal Email Operations Control Platform  
 REPOSITORY: `Vertex-Systems-Network/vsn-email-planet`  
-BRANCH/HEAD: GitHub remote `main`; resolve its live SHA before every continuation.  
-CURRENT PHASE: P0 active; P1 foundation increment in progress.
+BRANCH: GitHub remote `main`; resolve its live SHA before continuation.  
+STATUS: P0 and P1 open; P2–P12 gated and not started.
 
-## Verified remote checkpoint
+## Repository boundary
 
-- Audit baseline: `main` at `81e5a8552d3d51d51b37f5fbdb176c7f87bfe71c`; CI run `42710075852` passed.
-- PR #5 is merged. Remote `feat/phase-0-foundation` is zero commits ahead and 11 behind `main`; no unique feature work is waiting there.
-- This is the VSN Email Planet repository only. VSN Orbicore and WooCommerce projects remain in their own repositories. Any Multi-Hosting integration belongs behind the documented scoped API contract.
-- The prior handoff's “local integration before publication” and “push pending” wording was stale and has been removed.
+This repository contains only VSN Email Planet. Keep Orbicore, WooCommerce and unrelated products in their own repositories. Integrate with Multi-Hosting only through its versioned scoped API. GitHub remote is the source of truth: make changes and run checks through GitHub; do not use local clones, worktrees or scratch copies for implementation/verification.
 
-## Product status
+## Plan structure
 
-- P0: open. P0-01/P0-03/P0-05/P0-06/P0-07 verified; P0-02 and P0-04 partially verified. Research, UX evidence, and the P0 gate remain open.
-- P1: open. Workspace/dashboard/health/schema work exists. P1-05 durable queue/worker/outbox primitives are partially verified. P1-06 identity/session runtime is in progress; the persistent session repository and NestJS guard are not yet wired.
-- No production authentication, live provider connection, mailbox read/send, provider administration, or production readiness is claimed.
-- Latest integrated research and code checkpoints are recorded in `docs/PROJECT_STATE.md` and `docs/TEST_EVIDENCE/`.
+- `backlog/phase-gates.json` is the single machine-readable source for P0–P12 criteria and task mapping.
+- `backlog/epics.json` mirrors phase grouping; `backlog/tasks.json` is the status ledger.
+- Roadmap-only tasks remain DISCOVERED. Do not report planned work as implemented or tested.
+- Update project state only with evidence tied to a remote commit and Actions run.
 
-## Next action
+## Next actions
 
-Implement P1-06: add the checksummed PostgreSQL session migration/repository, wire `resolveSessionActor` into a NestJS guard, and add remote CI coverage for unauthenticated and cross-tenant HTTP denials plus membership revocation on native PostgreSQL. Continue independent P0-02 research and P0-04 CI-capable accessibility checks.
+1. Inspect the plan-repair commit's GitHub Actions result. Keep P0-07 IN_PROGRESS unless state/backlog validators and workflow pass.
+2. Continue P0-02 primary-source research and P0-04 UX evidence independently where possible.
+3. Continue P1-06 persistent sessions and API authorization guard; P1 remains open until tenant-isolation and revocation checks pass remotely.
+4. Do not start P2/P3 implementation until P1 security prerequisites and phase criteria are met.
 
-## Work and verification rules
+## Safety and reporting
 
-- GitHub remote is the only source of truth for Codex work on this repo. Do not use local clones, worktrees, or scratch copies for implementation or verification.
-- Make changes directly in GitHub, publish them to this repository, then verify the remote ref and GitHub Actions result before reporting completion.
-- If remote CI cannot provide a required check, document that exact limitation and keep its acceptance criterion open. Never report a local-only change or result as complete.
+Provider capabilities and permissions are operation-specific. Hosting credentials never imply content consent. Sending is policy-gated; uncertain sends require reconciliation. Never claim live integration, erasure, release, phase completion or test success without commit-specific evidence. If remote CI cannot exercise a criterion, record the limitation and leave it open.

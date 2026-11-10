@@ -1,11 +1,230 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-10",
   "phases": [
-    {"id":"P0","name":"Pre-development and research","status":"IN_PROGRESS","scope":"Evidence-based product, provider, market, security, UX and stack research; prototype and tests","exit_criteria":["Primary-source research documented with checked dates and confidence","MVP boundaries and risks reviewed","Stack ADR, data model, threat model, UX states and diagrams coherent","Synthetic end-to-end feasibility path and automated checks pass","Backlog and handoff validated"],"non_gating_validation":["Buyer interviews and pricing willingness-to-pay validation","Live provider sandbox access","Manual visual/screen-reader browser review when the development browser cannot reach the local app"]},
-    {"id":"P1","name":"Repository foundation and DevOps","status":"IN_PROGRESS","scope":"Monorepo, web/API, typed errors, auth/tenancy, persistence, audit, local install and CI","exit_criteria":["Fresh npm ci and reproducible builds","Two authenticated tenants demonstrate API/worker/search isolation","Postgres and queue integration tests pass","Authenticated API and worker health checks pass","CI and setup smoke evidence recorded"]},
-    {"id":"P2","name":"Provider connectivity and admin inventory","status":"NOT_STARTED","scope":"Capability engine, cPanel/WHM, IMAP discovery and connection UX","exit_criteria":["Scoped live or explicitly marked mock connection tests","Provider permissions and capabilities exposed per resource","No content read without separate authorization"]},
-    {"id":"P3","name":"Primary mail sync and unified inbox","status":"NOT_STARTED","scope":"Gmail, Graph and IMAP sync, inbox, drafts, sending and search","exit_criteria":["Initial/incremental sync and recovery tests pass","Tenant ACL and privacy tests pass","Lost-send receipt remains UNKNOWN until reconciled"]},
-    {"id":"P4-P12","name":"Advanced operations and clients","status":"NOT_STARTED","scope":"Provider admin, DNS, migration, backup, incidents, automation, AI, web release, desktop, mobile and enterprise","exit_criteria":["See governing master specification phases P4-P12"]}
+    {
+      "id": "P0",
+      "name": "Pre-development and evidence",
+      "status": "IN_PROGRESS",
+      "scope": "Evidence-based product, provider, market, security, UX and stack research; synthetic feasibility.",
+      "task_ids": [
+        "P0-01",
+        "P0-02",
+        "P0-03",
+        "P0-04",
+        "P0-05",
+        "P0-06",
+        "P0-07"
+      ],
+      "exit_criteria": [
+        "Primary-source research has checked dates, confidence and limits",
+        "MVP boundaries, threat model, data model, UX states and stack ADR agree",
+        "Synthetic feasibility and automated checks pass",
+        "P0 task coverage and handoff are validated"
+      ]
+    },
+    {
+      "id": "P1",
+      "name": "Repository foundation and DevOps",
+      "status": "IN_PROGRESS",
+      "scope": "Web/API, identity, authorization, persistence, audit, workers, install and CI.",
+      "task_ids": [
+        "P1-01",
+        "P1-02",
+        "P1-03",
+        "P1-04",
+        "P1-05",
+        "P1-06",
+        "P1-07",
+        "P1-08",
+        "P1-09",
+        "P1-10"
+      ],
+      "exit_criteria": [
+        "Fresh install and repeatable builds pass in GitHub Actions",
+        "Two authenticated tenants prove API, worker and search isolation",
+        "PostgreSQL, queue, recovery and revocation cases pass",
+        "Authenticated health and commit-specific evidence are recorded"
+      ]
+    },
+    {
+      "id": "P2",
+      "name": "Provider connectivity and inventory",
+      "status": "NOT_STARTED",
+      "scope": "Capability SDK, cPanel/WHM, IMAP/SMTP, catalog, inventory and permissions.",
+      "task_ids": [
+        "P2-01",
+        "P2-02",
+        "P2-03",
+        "P2-04",
+        "P2-05",
+        "P2-06",
+        "P2-07",
+        "P2-08"
+      ],
+      "exit_criteria": [
+        "Each provider exposes exact capabilities and permissions per operation",
+        "Connection inventory is distinct from content consent",
+        "Fault, revocation, throttle and malformed-response fixtures pass",
+        "Live and simulated evidence are distinguished"
+      ]
+    },
+    {
+      "id": "P3",
+      "name": "Mail synchronization and inbox",
+      "status": "NOT_STARTED",
+      "scope": "Gmail, Graph, IMAP sync, normalized messages, inbox, search and safe outbound.",
+      "task_ids": [
+        "P3-01",
+        "P3-02",
+        "P3-03",
+        "P3-04",
+        "P3-05",
+        "P3-06",
+        "P3-07",
+        "P3-08",
+        "P3-09",
+        "P3-10"
+      ],
+      "exit_criteria": [
+        "Initial/incremental sync, replay, cursor expiry and restart recovery pass",
+        "Tenant/mailbox grants apply to sync, storage, search and attachments",
+        "Lost send receipt remains UNKNOWN until reconciliation",
+        "Live and simulated provider evidence are distinguished"
+      ]
+    },
+    {
+      "id": "P4",
+      "name": "Provider administration",
+      "status": "NOT_STARTED",
+      "scope": "Mailbox lifecycle, directory operations, cPanel/WHM, delegation and bulk actions.",
+      "task_ids": [
+        "P4-01",
+        "P4-02",
+        "P4-03",
+        "P4-04",
+        "P4-05",
+        "P4-06",
+        "P4-07"
+      ],
+      "exit_criteria": [
+        "Every operation exposes exact capability, permission and target",
+        "Destructive actions require approval and idempotent receipts",
+        "Provider state is reconciled; API acceptance is not final erasure",
+        "Bulk partial failure, rate-limit and cancellation recovery pass"
+      ]
+    },
+    {
+      "id": "P5",
+      "name": "DNS and infrastructure observability",
+      "status": "NOT_STARTED",
+      "scope": "Source-grounded DNS and infrastructure observations with provenance.",
+      "task_ids": [
+        "P5-01"
+      ],
+      "exit_criteria": [
+        "Every value has source, observation time, confidence and freshness",
+        "Simulated values and stale/missing observations are labeled",
+        "Read probes cannot trigger DNS cutover or destructive change"
+      ]
+    },
+    {
+      "id": "P6",
+      "name": "Migration and backup",
+      "status": "NOT_STARTED",
+      "scope": "Migration preflight, resumable manifests, backup, restore and verification.",
+      "task_ids": [
+        "P6-01"
+      ],
+      "exit_criteria": [
+        "Synthetic transfer/restore verifies counts, hashes and checkpoints",
+        "Partial failure resumes without silent data loss or duplicate work",
+        "Live transfer evidence is separate from synthetic proof"
+      ]
+    },
+    {
+      "id": "P7",
+      "name": "Incident response and safe automation",
+      "status": "NOT_STARTED",
+      "scope": "Evidence-linked incidents, approved actions, policy and rollback.",
+      "task_ids": [
+        "P7-01"
+      ],
+      "exit_criteria": [
+        "Incident evidence is traceable to source and authorized actor",
+        "Multi-client simulated incidents exercise approval and rollback",
+        "No action exceeds policy or blindly retries uncertain mutation"
+      ]
+    },
+    {
+      "id": "P8",
+      "name": "AI assistance and privacy",
+      "status": "NOT_STARTED",
+      "scope": "Privacy-governed AI gateway, redaction, evaluation and injection defenses.",
+      "task_ids": [
+        "P8-01"
+      ],
+      "exit_criteria": [
+        "Only approved minimized/redacted content reaches models",
+        "Red-team rejects cross-tenant retrieval and unauthorized sending",
+        "Outputs cite evidence and remain advisory absent approval"
+      ]
+    },
+    {
+      "id": "P9",
+      "name": "Web release and self-hosting",
+      "status": "NOT_STARTED",
+      "scope": "Install, upgrade, backup/restore, hardening, artifacts and operations.",
+      "task_ids": [
+        "P9-01"
+      ],
+      "exit_criteria": [
+        "Fresh install, upgrade, backup and restore pass on supported target",
+        "Security findings, SBOM and artifact hashes are recorded",
+        "Rollback/recovery is exercised; no unsupported readiness claim"
+      ]
+    },
+    {
+      "id": "P10",
+      "name": "Desktop clients",
+      "status": "NOT_STARTED",
+      "scope": "Secure desktop clients after web/API gate.",
+      "task_ids": [
+        "P10-01"
+      ],
+      "exit_criteria": [
+        "Supported OS builds/install/upgrade/uninstall have repeatable evidence",
+        "Credential storage and offline behavior pass security checks",
+        "Real signed artifact exists before release claim"
+      ]
+    },
+    {
+      "id": "P11",
+      "name": "Mobile clients",
+      "status": "NOT_STARTED",
+      "scope": "Android/iOS after mobile design and API gates.",
+      "task_ids": [
+        "P11-01"
+      ],
+      "exit_criteria": [
+        "Device/emulator tests cover isolation, expiry and offline behavior",
+        "Secure storage and notification privacy are verified",
+        "Build/signing status is evidenced without store-deployment claim"
+      ]
+    },
+    {
+      "id": "P12",
+      "name": "Enterprise integration",
+      "status": "NOT_STARTED",
+      "scope": "Enterprise policy and separate hosting platform via scoped API.",
+      "task_ids": [
+        "P12-01"
+      ],
+      "exit_criteria": [
+        "Independent operation works without shared DB or raw credentials",
+        "Versioned contract enforces tenant, audience, expiry and revocation",
+        "Enterprise and cross-product credential isolation tests pass"
+      ]
+    }
   ]
 }

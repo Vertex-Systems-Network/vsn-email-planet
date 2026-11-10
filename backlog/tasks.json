@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-09",
+  "updated_at": "2026-11-10",
   "allowed_statuses": [
     "DISCOVERED",
     "RESEARCHING",
@@ -119,7 +119,7 @@
   "tasks": [
     {
       "id": "P0-01",
-      "epic": "P0",
+      "epic": "P0-PHASE",
       "phase": "P0",
       "title": "Audit repository contents and Git history",
       "outcome": "Preserve pre-existing work and establish a verified baseline",
@@ -174,7 +174,7 @@
     },
     {
       "id": "P0-02",
-      "epic": "P0",
+      "epic": "P0-PHASE",
       "phase": "P0",
       "title": "Complete bounded competitor and standards research",
       "outcome": "Choose credible MVP scope and validated market opportunities",
@@ -242,7 +242,7 @@
     },
     {
       "id": "P0-03",
-      "epic": "P0",
+      "epic": "P0-PHASE",
       "phase": "P0",
       "title": "Select and document secure web-first stack",
       "outcome": "Create an evidence-backed and testable architecture baseline",
@@ -359,7 +359,7 @@
     },
     {
       "id": "P0-04",
-      "epic": "P0",
+      "epic": "P0-PHASE",
       "phase": "P0",
       "title": "Define user journeys and operational design foundation",
       "outcome": "A provenance-first interface with clear permission and failure states",
@@ -426,7 +426,7 @@
     },
     {
       "id": "P0-05",
-      "epic": "P0",
+      "epic": "P0-PHASE",
       "phase": "P0",
       "title": "Build synthetic feasibility prototype",
       "outcome": "Demonstrate tenant/resource scoping and capability-truth contracts without live credentials",
@@ -506,8 +506,179 @@
       ]
     },
     {
+      "id": "P0-06",
+      "epic": "P0-PHASE",
+      "phase": "P0",
+      "title": "Inventory product screens, roles, devices and key states",
+      "outcome": "A complete, traceable design scope exists before expanding UI implementation",
+      "description": "Translate the master screen inventory into a machine-readable route/role/device/state map with truthful implementation status.",
+      "scope": [
+        "knowledge/screens/screen-inventory.json",
+        "test/screen-inventory.test.js",
+        "docs/UX_SPEC.md"
+      ],
+      "priority": "P1",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P0-01",
+        "P0-05"
+      ],
+      "current_status": "VERIFIED",
+      "acceptance_criteria": [
+        "At least 100 routes cover all ten required functional areas",
+        "Each route lists roles, devices, states and implementation status",
+        "Only implemented routes link to existing evidence",
+        "Automated test validates completeness and unique route IDs"
+      ],
+      "test_plan": [
+        "Node test validates screen inventory completeness and evidence references",
+        "npm run check"
+      ],
+      "evidence_paths": [
+        "knowledge/screens/screen-inventory.json",
+        "test/screen-inventory.test.js"
+      ],
+      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS",
+      "target_environment": "LOCAL_DOCUMENTATION",
+      "last_verified_commit": "0a956fc86542e2b5b1cab053663b0eb7ab6272b7",
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Route/state inventory may be broader than an MVP; phase labels provide sequencing"
+      ],
+      "decisions": [],
+      "next_action": "Revisit only when routes or role/device/state requirements change; keep implementation status synchronized with verified UI evidence.",
+      "notes": "131 route records cover all ten required product areas. Local test validates unique IDs, role/device/state fields, allowed implementation statuses and evidence paths for partial prototype routes. This is scope definition, not route implementation.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "VERIFIED",
+          "changed_at": "2026-11-09T00:00:00+00:00",
+          "actor": "Codex",
+          "evidence": [
+            "knowledge/screens/screen-inventory.json",
+            "test/screen-inventory.test.js"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "P0-07",
+      "epic": "P0-PHASE",
+      "phase": "P0",
+      "title": "Enforce autonomous execution and plan consistency",
+      "outcome": "Continuation requests produce working increments and the plan cannot silently stall on non-gating external evidence.",
+      "description": "Reconcile the master prompt, agent rules, next action and phase gates; strengthen backlog validation and add regression coverage for stale/ambiguous planning state.",
+      "scope": [
+        "continuation contract",
+        "phase-gate source of truth",
+        "task quality validation",
+        "recovery checkpoint"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": "Codex",
+      "dependencies": [
+        "P0-01",
+        "P0-05"
+      ],
+      "current_status": "IN_PROGRESS",
+      "acceptance_criteria": [
+        "Continuation signals explicitly resume implementation instead of status-only replies",
+        "External browser/interview/provider access blocks only criteria that require it",
+        "Phase-gate criteria have one machine-readable source and allow independent safe work",
+        "Backlog check rejects duplicate evidence, invalid dependencies/cycles, blocked-status mismatches, and vague active actions",
+        "Known stale blockers and duplicate evidence are removed from the current ledger"
+      ],
+      "test_plan": [
+        "npm run check:backlog",
+        "npm run validate:state",
+        "npm test",
+        "npm run verify:local",
+        "GitHub Actions full workflow"
+      ],
+      "evidence_paths": [
+        "AGENTS.md",
+        "AI_Native_Central_Email_Platform_Master_Prompt.md",
+        "docs/EXECUTION_PLAYBOOK.md",
+        "docs/NEXT_ACTION.md",
+        "backlog/phase-gates.json",
+        "scripts/validate-backlog.mjs",
+        "tests/backlog-validator.test.mjs",
+        "docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md",
+        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
+      ],
+      "verification_level": "FULL_LOCAL_AND_REMOTE_CI",
+      "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
+      "last_verified_commit": "eac29b6a571f4a898320eb14a482b90ed499543a",
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-10",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Overly strict validation could misclassify a legitimate task as blocked or incomplete."
+      ],
+      "decisions": [
+        "Only backlog/phase-gates.json determines phase exit criteria.",
+        "Buyer interviews, browser access, and live credentials remain task-level validation unless declared as phase criteria."
+      ],
+      "next_action": "Validate repaired phase/task mappings in GitHub Actions; close this task only after the remote workflow passes.",
+      "notes": "Plan validator regression coverage and remote GitHub Actions passed on eac29b6a571f4a898320eb14a482b90ed499543a (run 42705339401). This closes only the execution-plan consistency task; P0 gate remains open.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T21:00:00Z",
+          "actor": "Codex",
+          "evidence": "Found prose-level external prerequisites absent from the machine-readable P0 gate and validator gaps in the current backlog."
+        },
+        {
+          "from": "DISCOVERED",
+          "to": "SPECIFIED",
+          "changed_at": "2026-11-09T21:01:00Z",
+          "actor": "Codex",
+          "evidence": "Defined bounded rule, phase-gate, validator, and regression-test acceptance criteria."
+        },
+        {
+          "from": "SPECIFIED",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-09T21:02:00Z",
+          "actor": "Codex",
+          "evidence": "Started updating prompt, agent rules, phase gate, and active next action."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-09T21:30:00Z",
+          "actor": "Codex",
+          "evidence": "Backlog/schema checks and 46 local tests passed; full local verification report recorded."
+        },
+        {
+          "from": "TESTING",
+          "to": "VERIFIED",
+          "changed_at": "2026-11-09T21:46:00+00:00",
+          "actor": "Codex",
+          "evidence": "GitHub Actions CI run 42705339401 passed for eac29b6a571f4a898320eb14a482b90ed499543a; local npm run check passed 46 tests and state/backlog validators."
+        },
+        {
+          "from": "VERIFIED",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Audit found phase coverage, epic/task mapping and gate granularity gaps requiring repair and remote CI verification."
+        }
+      ]
+    },
+    {
       "id": "P1-01",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Establish pinned npm workspace and cross-agent rules",
       "outcome": "Reproducible web/API foundation with persistent agent guidance",
@@ -588,7 +759,7 @@
     },
     {
       "id": "P1-02",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Implement responsive operations dashboard prototype",
       "outcome": "A credible local shell with clear state/provenance and usable filters",
@@ -667,7 +838,7 @@
     },
     {
       "id": "P1-03",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Add typed API health skeleton",
       "outcome": "A minimal separate backend process reports only its verified process health",
@@ -737,78 +908,8 @@
       ]
     },
     {
-      "id": "P1-06",
-      "epic": "P1",
-      "phase": "P1",
-      "title": "Implement authenticated identity and tenant authorization",
-      "outcome": "Two tenants cannot access each other's protected resources",
-      "description": "Implement verified login/session, organization memberships, authorization policy and negative coverage across APIs and jobs.",
-      "scope": [
-        "auth",
-        "tenant membership",
-        "server-side resource policy",
-        "audit"
-      ],
-      "priority": "P0",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P1-03",
-        "P1-04"
-      ],
-      "current_status": "IN_PROGRESS",
-      "acceptance_criteria": [
-        "Actor tenant scope comes only from a verified session",
-        "Cross-tenant direct ID and search requests deny without leakage",
-        "Queued work rechecks current membership",
-        "Auth changes are audited"
-      ],
-      "test_plan": [
-        "Two-tenant API isolation suite",
-        "revoked membership queued-job test",
-        "unauthenticated route test"
-      ],
-      "evidence_paths": [
-        "docs/API_CONTRACTS.md",
-        "apps/api/src/session-auth.js",
-        "tests/session-auth.test.mjs",
-        "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md"
-      ],
-      "verification_level": "SESSION_PRIMITIVE_LOCAL_TESTS_PASS; PERSISTENCE_AND_HTTP_INTEGRATION_PENDING",
-      "target_environment": "LOCAL_INTEGRATION",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": "2026-11-09",
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [
-        "Critical cross-tenant exposure risk if UI-only checks are used"
-      ],
-      "decisions": [],
-      "next_action": "Add a checksummed PostgreSQL session migration and repository adapter, then install an API guard that calls resolveSessionActor before protected handlers; test it against native PostgreSQL and unauthenticated/cross-tenant HTTP requests.",
-      "notes": "The session primitive creates a 256-bit opaque secret, stores/compares keyed HMAC digests, and derives frozen actor scope from current user/membership rows. Local unit tests cover invalid, revoked, expired, disabled, stale membership, and forged request claims. It is not wired into NestJS routes and no persistent session table or login flow exists.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "READY",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        },
-        {
-          "from": "READY",
-          "to": "IN_PROGRESS",
-          "changed_at": "2026-11-09T21:48:00+00:00",
-          "actor": "Codex",
-          "evidence": "docs/API_CONTRACTS.md defines the production session, actor, membership, tenant policy, job reauthorization, audit, and denial contracts; implementation remains unverified."
-        }
-      ]
-    },
-    {
       "id": "P1-04",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Design PostgreSQL schema and migration workflow",
       "outcome": "Provide authoritative tenant-keyed records and safe schema evolution.",
@@ -895,7 +996,7 @@
     },
     {
       "id": "P1-05",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Add bounded worker and idempotency primitives",
       "outcome": "Durably process work without duplicate business effects.",
@@ -981,8 +1082,78 @@
       ]
     },
     {
+      "id": "P1-06",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Implement authenticated identity and tenant authorization",
+      "outcome": "Two tenants cannot access each other's protected resources",
+      "description": "Implement verified login/session, organization memberships, authorization policy and negative coverage across APIs and jobs.",
+      "scope": [
+        "auth",
+        "tenant membership",
+        "server-side resource policy",
+        "audit"
+      ],
+      "priority": "P0",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-03",
+        "P1-04"
+      ],
+      "current_status": "IN_PROGRESS",
+      "acceptance_criteria": [
+        "Actor tenant scope comes only from a verified session",
+        "Cross-tenant direct ID and search requests deny without leakage",
+        "Queued work rechecks current membership",
+        "Auth changes are audited"
+      ],
+      "test_plan": [
+        "Two-tenant API isolation suite",
+        "revoked membership queued-job test",
+        "unauthenticated route test"
+      ],
+      "evidence_paths": [
+        "docs/API_CONTRACTS.md",
+        "apps/api/src/session-auth.js",
+        "tests/session-auth.test.mjs",
+        "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md"
+      ],
+      "verification_level": "SESSION_PRIMITIVE_LOCAL_TESTS_PASS; PERSISTENCE_AND_HTTP_INTEGRATION_PENDING",
+      "target_environment": "LOCAL_INTEGRATION",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": "2026-11-09",
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Critical cross-tenant exposure risk if UI-only checks are used"
+      ],
+      "decisions": [],
+      "next_action": "Add a checksummed PostgreSQL session migration and repository adapter, then install an API guard that calls resolveSessionActor before protected handlers; test it against native PostgreSQL and unauthenticated/cross-tenant HTTP requests.",
+      "notes": "The session primitive creates a 256-bit opaque secret, stores/compares keyed HMAC digests, and derives frozen actor scope from current user/membership rows. Local unit tests cover invalid, revoked, expired, disabled, stale membership, and forged request claims. It is not wired into NestJS routes and no persistent session table or login flow exists.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        },
+        {
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-09T21:48:00+00:00",
+          "actor": "Codex",
+          "evidence": "docs/API_CONTRACTS.md defines the production session, actor, membership, tenant policy, job reauthorization, audit, and denial contracts; implementation remains unverified."
+        }
+      ]
+    },
+    {
       "id": "P1-07",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Implement secret references and auditable policy decisions",
       "outcome": "Protect credentials and make privileged actions reviewable.",
@@ -1032,7 +1203,7 @@
     },
     {
       "id": "P1-08",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Build local development and self-host deployment baseline",
       "outcome": "Reproduce supported services from a clean environment.",
@@ -1082,7 +1253,7 @@
     },
     {
       "id": "P1-09",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Harden CI and generate verification evidence",
       "outcome": "Make core repository checks repeatable on every authorized push.",
@@ -1165,7 +1336,7 @@
     },
     {
       "id": "P1-10",
-      "epic": "P1",
+      "epic": "P1-PHASE",
       "phase": "P1",
       "title": "Specify installation wizard and tenant-isolation acceptance flow",
       "outcome": "Make first setup and policy boundaries verifiable.",
@@ -1217,7 +1388,7 @@
     },
     {
       "id": "P2-01",
-      "epic": "P2",
+      "epic": "P2-PHASE",
       "phase": "P2",
       "title": "Build typed connector SDK and capability engine",
       "outcome": "Every provider action exposes its actual capability and reason.",
@@ -1265,7 +1436,7 @@
     },
     {
       "id": "P2-02",
-      "epic": "P2",
+      "epic": "P2-PHASE",
       "phase": "P2",
       "title": "Implement cPanel UAPI metadata discovery",
       "outcome": "Authorized panel users can inventory permitted accounts without inferred inbox access.",
@@ -1314,7 +1485,7 @@
     },
     {
       "id": "P2-03",
-      "epic": "P2",
+      "epic": "P2-PHASE",
       "phase": "P2",
       "title": "Implement WHM scoped inventory",
       "outcome": "Reseller and root visibility match actual privileges.",
@@ -1362,7 +1533,7 @@
     },
     {
       "id": "P2-04",
-      "epic": "P2",
+      "epic": "P2-PHASE",
       "phase": "P2",
       "title": "Implement generic IMAP/SMTP connection probe",
       "outcome": "Mailbox connectivity is TLS-verified and capability-aware.",
@@ -1411,7 +1582,7 @@
     },
     {
       "id": "P2-05",
-      "epic": "P2",
+      "epic": "P2-PHASE",
       "phase": "P2",
       "title": "Enforce provider and mailbox-content permission boundary",
       "outcome": "No control-plane credential implicitly grants mail content access.",
@@ -1458,8 +1629,167 @@
       ]
     },
     {
+      "id": "P2-06",
+      "epic": "P2-PHASE",
+      "phase": "P2",
+      "title": "Provider catalog and safe setup workflow",
+      "outcome": "Catalog supported providers, auth modes, capabilities and exact scope requirements.",
+      "description": "Catalog supported providers, auth modes, capabilities and exact scope requirements.",
+      "scope": [
+        "Catalog supported providers, auth modes, capabilities and exact scope requirements."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Catalog declares supported and unsupported operations",
+        "Setup uses least privilege and separates connection from content consent",
+        "Mock and live results are labeled distinctly"
+      ],
+      "test_plan": [
+        "Catalog schema tests",
+        "Scope-denial fixtures",
+        "Setup state tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P2-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P2-07",
+      "epic": "P2-PHASE",
+      "phase": "P2",
+      "title": "Bulk inventory import and deduplication",
+      "outcome": "Import mailbox inventory with stable identity, tenant scope, provenance and safe replay.",
+      "description": "Import mailbox inventory with stable identity, tenant scope, provenance and safe replay.",
+      "scope": [
+        "Import mailbox inventory with stable identity, tenant scope, provenance and safe replay."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Imports are tenant-scoped and idempotent",
+        "Duplicate identities do not overwrite user data",
+        "Imported fields record source and observation time"
+      ],
+      "test_plan": [
+        "Duplicate/replay fixtures",
+        "Cross-tenant denial",
+        "Partial recovery"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P2-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P2-08",
+      "epic": "P2-PHASE",
+      "phase": "P2",
+      "title": "Provider permission and fault test matrix",
+      "outcome": "Exercise permission denial, throttling, timeout, malformed responses, revocation and recovery.",
+      "description": "Exercise permission denial, throttling, timeout, malformed responses, revocation and recovery.",
+      "scope": [
+        "Exercise permission denial, throttling, timeout, malformed responses, revocation and recovery."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Each adapter runs shared fault contract",
+        "Retries bounded; unsafe mutations become UNKNOWN",
+        "Simulations are labeled"
+      ],
+      "test_plan": [
+        "429/timeout/revocation tests",
+        "Unknown mutation tests",
+        "Contract fixtures"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P2-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
       "id": "P3-01",
-      "epic": "P3",
+      "epic": "P3-PHASE",
       "phase": "P3",
       "title": "Add Gmail OAuth capability and history recovery",
       "outcome": "Authorized Gmail access syncs without silent history gaps.",
@@ -1508,7 +1838,7 @@
     },
     {
       "id": "P3-02",
-      "epic": "P3",
+      "epic": "P3-PHASE",
       "phase": "P3",
       "title": "Add Microsoft Graph delegated mail connection",
       "outcome": "Graph mailbox access respects tenant grants and folder delta semantics.",
@@ -1556,7 +1886,7 @@
     },
     {
       "id": "P3-03",
-      "epic": "P3",
+      "epic": "P3-PHASE",
       "phase": "P3",
       "title": "Build common sync state machine and MIME normalization",
       "outcome": "Provider changes are deduplicated and cursor-safe.",
@@ -1605,450 +1935,167 @@
       ]
     },
     {
-      "id": "P3-08",
-      "epic": "P3",
+      "id": "P3-04",
+      "epic": "P3-PHASE",
       "phase": "P3",
-      "title": "Build safe outbound message state machine",
-      "outcome": "Lost provider receipts never produce an unverified duplicate send.",
-      "description": "Sender authorization, persistent idempotency key, receipt/UNKNOWN state and reconciliation.",
-      "scope": "Sender authorization, persistent idempotency key, receipt/UNKNOWN state and reconciliation.",
+      "title": "Gmail history incremental sync and recovery",
+      "outcome": "Persist Gmail history cursors, paginate, recover expiration, and schedule idempotent sync.",
+      "description": "Persist Gmail history cursors, paginate, recover expiration, and schedule idempotent sync.",
+      "scope": [
+        "Persist Gmail history cursors, paginate, recover expiration, and schedule idempotent sync."
+      ],
       "priority": "P1",
       "complexity": "L",
       "owner_agent": null,
       "dependencies": [
-        "P1-05",
-        "P2-05"
+        "P3-01"
       ],
       "current_status": "DISCOVERED",
       "acceptance_criteria": [
-        "No send outside policy",
-        "Lost response becomes UNKNOWN",
-        "Retry requires reconciliation evidence"
+        "Cursor advances only after durable writes",
+        "Expired cursor triggers safe reconciliation",
+        "Replay is idempotent and tenant-scoped"
       ],
       "test_plan": [
-        "Accepted-but-timeout fixture",
-        "Duplicate submit and invalid sender tests"
+        "Pagination/replay",
+        "Expired cursor",
+        "Tenant boundary"
       ],
       "evidence_paths": [],
       "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
       "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
       "started_at": null,
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
-      "risks": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
       "decisions": [],
-      "next_action": "Keep deferred until dependencies P1-05, P2-05 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
+      "next_action": "Keep gated until P3-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
       "status_history": [
         {
           "from": null,
           "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
         }
       ]
     },
     {
-      "id": "P5-01",
-      "epic": "P5",
-      "phase": "P5",
-      "title": "Add source-grounded DNS and infrastructure observations",
-      "outcome": "Operators can trace domain/mail routing with provenance and uncertainty.",
-      "description": "Public DNS observations, topology records, SPF/DKIM/DMARC analysis and drift evidence.",
-      "scope": "Public DNS observations, topology records, SPF/DKIM/DMARC analysis and drift evidence.",
+      "id": "P3-05",
+      "epic": "P3-PHASE",
+      "phase": "P3",
+      "title": "Graph delta and notification recovery",
+      "outcome": "Persist Graph delta links, manage subscriptions, validate webhooks and recover missed notifications.",
+      "description": "Persist Graph delta links, manage subscriptions, validate webhooks and recover missed notifications.",
+      "scope": [
+        "Persist Graph delta links, manage subscriptions, validate webhooks and recover missed notifications."
+      ],
       "priority": "P1",
       "complexity": "L",
       "owner_agent": null,
       "dependencies": [
-        "P1-04",
-        "P2-01"
+        "P3-02"
       ],
       "current_status": "DISCOVERED",
       "acceptance_criteria": [
-        "Observed and inferred links are distinct",
-        "Every observation has source/time",
-        "DNS writes require separately scoped authorization"
+        "Delta and subscription state survive restart",
+        "Webhook authenticity and tenant ownership checked before enqueue",
+        "Expired state triggers bounded resync"
       ],
       "test_plan": [
-        "Stale DNS and wrong-provider fixtures",
-        "Record parsing tests"
+        "Invalid/duplicate webhook",
+        "Delta expiration",
+        "Restart recovery"
       ],
       "evidence_paths": [],
       "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
       "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
       "started_at": null,
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
-      "risks": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
       "decisions": [],
-      "next_action": "Keep deferred until dependencies P1-04, P2-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
+      "next_action": "Keep gated until P3-02 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
       "status_history": [
         {
           "from": null,
           "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
         }
       ]
     },
     {
-      "id": "P6-01",
-      "epic": "P6",
-      "phase": "P6",
-      "title": "Build migration preflight and resumable manifest",
-      "outcome": "Mailbox migration cannot report success without verified parity.",
-      "description": "Source/destination mapping, quota/licensing preflight, snapshots, delta state, conflicts and validation.",
-      "scope": "Source/destination mapping, quota/licensing preflight, snapshots, delta state, conflicts and validation.",
+      "id": "P3-06",
+      "epic": "P3-PHASE",
+      "phase": "P3",
+      "title": "MIME, folders and thread normalization",
+      "outcome": "Normalize provider messages, MIME, folders/labels and thread relationships with provenance.",
+      "description": "Normalize provider messages, MIME, folders/labels and thread relationships with provenance.",
+      "scope": [
+        "Normalize provider messages, MIME, folders/labels and thread relationships with provenance."
+      ],
       "priority": "P1",
       "complexity": "L",
       "owner_agent": null,
       "dependencies": [
-        "P3-03",
-        "P3-08"
+        "P3-03"
       ],
       "current_status": "DISCOVERED",
       "acceptance_criteria": [
-        "Source is retained by default",
-        "Pause/resume is idempotent",
-        "Parity gaps and unsupported fields are explicit"
+        "Malformed MIME handled safely",
+        "Folder/thread mappings preserve provider IDs",
+        "Bodies and attachments remain scoped and untrusted"
       ],
       "test_plan": [
-        "Quota-full and interruption tests",
-        "Attachment/MIME parity sample",
-        "No-source-delete assertion"
+        "Nested/malformed MIME",
+        "Mapping tests",
+        "HTML safety"
       ],
       "evidence_paths": [],
       "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
       "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
       "started_at": null,
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
-      "risks": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
       "decisions": [],
-      "next_action": "Keep deferred until dependencies P3-03, P3-08 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
+      "next_action": "Keep gated until P3-03 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
       "status_history": [
         {
           "from": null,
           "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        }
-      ]
-    },
-    {
-      "id": "P7-01",
-      "epic": "P7",
-      "phase": "P7",
-      "title": "Build evidence-linked incident and safe automation core",
-      "outcome": "Operators receive traceable diagnosis and policy-gated remedies.",
-      "description": "Incident model, evidence provenance, safe diagnostics, action previews and approved workflow runner.",
-      "scope": "Incident model, evidence provenance, safe diagnostics, action previews and approved workflow runner.",
-      "priority": "P1",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P1-07",
-        "P2-01"
-      ],
-      "current_status": "DISCOVERED",
-      "acceptance_criteria": [
-        "Evidence confidence is visible",
-        "Each mutation is authorized, auditable and verified",
-        "Loop prevention and bounded retries exist"
-      ],
-      "test_plan": [
-        "Synthetic shared-server incident",
-        "Denied remediation and retry-loop tests"
-      ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": null,
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Keep deferred until dependencies P1-07, P2-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        }
-      ]
-    },
-    {
-      "id": "P8-01",
-      "epic": "P8",
-      "phase": "P8",
-      "title": "Add privacy-governed AI gateway and evaluation harness",
-      "outcome": "AI may draft or explain authorized facts without expanding access.",
-      "description": "Per-tenant opt-in, redaction, grounding/evidence citations, draft-only output, prompt-injection evaluations.",
-      "scope": "Per-tenant opt-in, redaction, grounding/evidence citations, draft-only output, prompt-injection evaluations.",
-      "priority": "P1",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P3-07",
-        "P7-01"
-      ],
-      "current_status": "DISCOVERED",
-      "acceptance_criteria": [
-        "No provider secrets or unapproved mail content leave the tenant boundary",
-        "Email instructions cannot grant tools",
-        "Send remains policy-gated"
-      ],
-      "test_plan": [
-        "Prompt-injection fixture",
-        "Cross-tenant retrieval denial",
-        "PII leakage evaluation"
-      ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": null,
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Keep deferred until dependencies P3-07, P7-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        }
-      ]
-    },
-    {
-      "id": "P9-01",
-      "epic": "P9",
-      "phase": "P9",
-      "title": "Pass web release and self-host installation gates",
-      "outcome": "Authorized users can install, operate, restore and upgrade the web product.",
-      "description": "Wizard, Docker Compose, key lifecycle, backups, performance/security, artifacts and rollback.",
-      "scope": "Wizard, Docker Compose, key lifecycle, backups, performance/security, artifacts and rollback.",
-      "priority": "P1",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P1-10",
-        "P2-05",
-        "P3-08",
-        "P6-01",
-        "P7-01"
-      ],
-      "current_status": "DISCOVERED",
-      "acceptance_criteria": [
-        "Fresh supported VPS install and restore are verified",
-        "Critical/high findings resolved",
-        "SBOM, hashes and upgrade path recorded"
-      ],
-      "test_plan": [
-        "Install/upgrade E2E",
-        "Restore drill",
-        "Security and performance release checks"
-      ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": null,
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Keep deferred until dependencies P1-10, P2-05, P3-08, P6-01, P7-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        }
-      ]
-    },
-    {
-      "id": "P10-01",
-      "epic": "P10",
-      "phase": "P10",
-      "title": "Deliver secure desktop clients after web gate",
-      "outcome": "Windows/macOS/Linux clients reuse the governed API with secure local sessions.",
-      "description": "Tauri/Electron decision, OS key store, callback, notifications, encrypted offline cache and packages.",
-      "scope": "Tauri/Electron decision, OS key store, callback, notifications, encrypted offline cache and packages.",
-      "priority": "P1",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P9-01"
-      ],
-      "current_status": "DISCOVERED",
-      "acceptance_criteria": [
-        "Each supported OS installer is built and smoke-tested",
-        "Offline cache encryption and revocation are verified"
-      ],
-      "test_plan": [
-        "OS device matrix",
-        "Offline conflict/revocation tests"
-      ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": null,
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Keep deferred until dependencies P9-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        }
-      ]
-    },
-    {
-      "id": "P11-01",
-      "epic": "P11",
-      "phase": "P11",
-      "title": "Deliver Android/iOS client after mobile design and API gates",
-      "outcome": "Mobile mail actions respect platform limits and protected offline state.",
-      "description": "Mobile UX, keychain, push, encrypted cache, attachment controls and signed builds.",
-      "scope": "Mobile UX, keychain, push, encrypted cache, attachment controls and signed builds.",
-      "priority": "P1",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P9-01",
-        "P10-01"
-      ],
-      "current_status": "DISCOVERED",
-      "acceptance_criteria": [
-        "Real devices/emulators tested",
-        "Platform store/signing limitations documented"
-      ],
-      "test_plan": [
-        "Android/iOS device matrix",
-        "Push revocation and offline recovery tests"
-      ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": null,
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Keep deferred until dependencies P9-01, P10-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
-        }
-      ]
-    },
-    {
-      "id": "P12-01",
-      "epic": "P12",
-      "phase": "P12",
-      "title": "Integrate enterprise policies and hosting platform via scoped API",
-      "outcome": "Independent products exchange authorized, versioned identifiers without sharing secrets.",
-      "description": "SSO/SCIM, client mapping, white-label, external SDK and versioned Multi-Hosting Platform API.",
-      "scope": "SSO/SCIM, client mapping, white-label, external SDK and versioned Multi-Hosting Platform API.",
-      "priority": "P1",
-      "complexity": "L",
-      "owner_agent": null,
-      "dependencies": [
-        "P9-01"
-      ],
-      "current_status": "DISCOVERED",
-      "acceptance_criteria": [
-        "Independent operation works without the other product",
-        "No shared raw credentials or database coupling"
-      ],
-      "test_plan": [
-        "API contract/version compatibility tests",
-        "Revoked service credential tests"
-      ],
-      "evidence_paths": [],
-      "verification_level": "NOT_YET_IMPLEMENTED",
-      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
-      "last_verified_commit": null,
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": null,
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [],
-      "decisions": [],
-      "next_action": "Keep deferred until dependencies P9-01 meet their acceptance gates; then split this scope into tested increments.",
-      "notes": "Roadmap task only; not implemented or tested.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "DISCOVERED",
-          "changed_at": "2026-11-09T19:34:27+00:00",
-          "actor": "Codex",
-          "evidence": "Seeded from governing specification; not verified."
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
         }
       ]
     },
     {
       "id": "P3-07",
-      "epic": "P3",
+      "epic": "P3-PHASE",
       "phase": "P3",
       "title": "Build unified inbox, threading, draft and search workflows",
       "outcome": "Authorized mail content can be read and prepared across supported providers with correct identity and privacy.",
@@ -2109,166 +2156,921 @@
       ]
     },
     {
-      "id": "P0-06",
-      "epic": "P0-RESEARCH",
-      "phase": "P0",
-      "title": "Inventory product screens, roles, devices and key states",
-      "outcome": "A complete, traceable design scope exists before expanding UI implementation",
-      "description": "Translate the master screen inventory into a machine-readable route/role/device/state map with truthful implementation status.",
-      "scope": [
-        "knowledge/screens/screen-inventory.json",
-        "test/screen-inventory.test.js",
-        "docs/UX_SPEC.md"
-      ],
+      "id": "P3-08",
+      "epic": "P3-PHASE",
+      "phase": "P3",
+      "title": "Build safe outbound message state machine",
+      "outcome": "Lost provider receipts never produce an unverified duplicate send.",
+      "description": "Sender authorization, persistent idempotency key, receipt/UNKNOWN state and reconciliation.",
+      "scope": "Sender authorization, persistent idempotency key, receipt/UNKNOWN state and reconciliation.",
       "priority": "P1",
-      "complexity": "M",
+      "complexity": "L",
       "owner_agent": null,
       "dependencies": [
-        "P0-01",
-        "P0-05"
+        "P1-05",
+        "P2-05"
       ],
-      "current_status": "VERIFIED",
+      "current_status": "DISCOVERED",
       "acceptance_criteria": [
-        "At least 100 routes cover all ten required functional areas",
-        "Each route lists roles, devices, states and implementation status",
-        "Only implemented routes link to existing evidence",
-        "Automated test validates completeness and unique route IDs"
+        "No send outside policy",
+        "Lost response becomes UNKNOWN",
+        "Retry requires reconciliation evidence"
       ],
       "test_plan": [
-        "Node test validates screen inventory completeness and evidence references",
-        "npm run check"
+        "Accepted-but-timeout fixture",
+        "Duplicate submit and invalid sender tests"
       ],
-      "evidence_paths": [
-        "knowledge/screens/screen-inventory.json",
-        "test/screen-inventory.test.js"
-      ],
-      "verification_level": "LOCAL_AND_GITHUB_ACTIONS_PASS",
-      "target_environment": "LOCAL_DOCUMENTATION",
-      "last_verified_commit": "0a956fc86542e2b5b1cab053663b0eb7ab6272b7",
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
       "created_at": "2026-11-09",
       "updated_at": "2026-11-09",
-      "started_at": "2026-11-09",
+      "started_at": null,
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
-      "risks": [
-        "Route/state inventory may be broader than an MVP; phase labels provide sequencing"
-      ],
+      "risks": [],
       "decisions": [],
-      "next_action": "Revisit only when routes or role/device/state requirements change; keep implementation status synchronized with verified UI evidence.",
-      "notes": "131 route records cover all ten required product areas. Local test validates unique IDs, role/device/state fields, allowed implementation statuses and evidence paths for partial prototype routes. This is scope definition, not route implementation.",
-      "status_history": [
-        {
-          "from": null,
-          "to": "VERIFIED",
-          "changed_at": "2026-11-09T00:00:00+00:00",
-          "actor": "Codex",
-          "evidence": [
-            "knowledge/screens/screen-inventory.json",
-            "test/screen-inventory.test.js"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "P0-07",
-      "epic": "P0-RESEARCH",
-      "phase": "P0",
-      "title": "Enforce autonomous execution and plan consistency",
-      "outcome": "Continuation requests produce working increments and the plan cannot silently stall on non-gating external evidence.",
-      "description": "Reconcile the master prompt, agent rules, next action and phase gates; strengthen backlog validation and add regression coverage for stale/ambiguous planning state.",
-      "scope": [
-        "continuation contract",
-        "phase-gate source of truth",
-        "task quality validation",
-        "recovery checkpoint"
-      ],
-      "priority": "P0",
-      "complexity": "M",
-      "owner_agent": "Codex",
-      "dependencies": [
-        "P0-01",
-        "P0-05"
-      ],
-      "current_status": "VERIFIED",
-      "acceptance_criteria": [
-        "Continuation signals explicitly resume implementation instead of status-only replies",
-        "External browser/interview/provider access blocks only criteria that require it",
-        "Phase-gate criteria have one machine-readable source and allow independent safe work",
-        "Backlog check rejects duplicate evidence, invalid dependencies/cycles, blocked-status mismatches, and vague active actions",
-        "Known stale blockers and duplicate evidence are removed from the current ledger"
-      ],
-      "test_plan": [
-        "npm run check:backlog",
-        "npm run validate:state",
-        "npm test",
-        "npm run verify:local",
-        "GitHub Actions full workflow"
-      ],
-      "evidence_paths": [
-        "AGENTS.md",
-        "AI_Native_Central_Email_Platform_Master_Prompt.md",
-        "docs/EXECUTION_PLAYBOOK.md",
-        "docs/NEXT_ACTION.md",
-        "backlog/phase-gates.json",
-        "scripts/validate-backlog.mjs",
-        "tests/backlog-validator.test.mjs",
-        "docs/TEST_EVIDENCE/verification-20261109T213807Z-37fe0bb.md",
-        "docs/TEST_EVIDENCE/2026-11-09-github-actions-history.md"
-      ],
-      "verification_level": "FULL_LOCAL_AND_REMOTE_CI",
-      "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
-      "last_verified_commit": "eac29b6a571f4a898320eb14a482b90ed499543a",
-      "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
-      "started_at": "2026-11-09",
-      "completed_at": null,
-      "blockers": [],
-      "external_requirements": [],
-      "risks": [
-        "Overly strict validation could misclassify a legitimate task as blocked or incomplete."
-      ],
-      "decisions": [
-        "Only backlog/phase-gates.json determines phase exit criteria.",
-        "Buyer interviews, browser access, and live credentials remain task-level validation unless declared as phase criteria."
-      ],
-      "next_action": "Keep the execution rules active; inspect future task transitions for precise actions, blockers, evidence paths, and passing verification.",
-      "notes": "Plan validator regression coverage and remote GitHub Actions passed on eac29b6a571f4a898320eb14a482b90ed499543a (run 42705339401). This closes only the execution-plan consistency task; P0 gate remains open.",
+      "next_action": "Keep deferred until dependencies P1-05, P2-05 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
       "status_history": [
         {
           "from": null,
           "to": "DISCOVERED",
-          "changed_at": "2026-11-09T21:00:00Z",
+          "changed_at": "2026-11-09T19:34:27+00:00",
           "actor": "Codex",
-          "evidence": "Found prose-level external prerequisites absent from the machine-readable P0 gate and validator gaps in the current backlog."
-        },
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P3-09",
+      "epic": "P3-PHASE",
+      "phase": "P3",
+      "title": "Tenant-safe message search",
+      "outcome": "Search authorized synchronized content with indexing policy, revocation handling and query limits.",
+      "description": "Search authorized synchronized content with indexing policy, revocation handling and query limits.",
+      "scope": [
+        "Search authorized synchronized content with indexing policy, revocation handling and query limits."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P3-03"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "No cross-tenant/mailbox results",
+        "Revoked/deleted content is suppressed within documented bound",
+        "Results retain provenance and access checks"
+      ],
+      "test_plan": [
+        "Cross-tenant denial",
+        "Revocation/deletion",
+        "Query limits"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P3-03 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
         {
-          "from": "DISCOVERED",
-          "to": "SPECIFIED",
-          "changed_at": "2026-11-09T21:01:00Z",
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "Defined bounded rule, phase-gate, validator, and regression-test acceptance criteria."
-        },
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P3-10",
+      "epic": "P3-PHASE",
+      "phase": "P3",
+      "title": "End-to-end mail sync and recovery fixtures",
+      "outcome": "Create deterministic E2E fixtures for OAuth, sync, replay, provider faults, ambiguous send and tenant isolation.",
+      "description": "Create deterministic E2E fixtures for OAuth, sync, replay, provider faults, ambiguous send and tenant isolation.",
+      "scope": [
+        "Create deterministic E2E fixtures for OAuth, sync, replay, provider faults, ambiguous send and tenant isolation."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P3-03"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Fixtures cover complete supported flow without customer data",
+        "Simulated/live state is distinct",
+        "CI covers restart, replay and recovery"
+      ],
+      "test_plan": [
+        "Provider E2E fixtures",
+        "Restart/replay",
+        "CI evidence"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P3-03 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
         {
-          "from": "SPECIFIED",
-          "to": "IN_PROGRESS",
-          "changed_at": "2026-11-09T21:02:00Z",
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "Started updating prompt, agent rules, phase gate, and active next action."
-        },
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-01",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "Mailbox lifecycle and administration APIs",
+      "outcome": "Implement provider-authorized mailbox lifecycle actions with capability, permission and reconciliation checks.",
+      "description": "Implement provider-authorized mailbox lifecycle actions with capability, permission and reconciliation checks.",
+      "scope": [
+        "Implement provider-authorized mailbox lifecycle actions with capability, permission and reconciliation checks."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-05"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Exact capability and permission gate each operation",
+        "Destructive operations require confirmation and idempotency",
+        "Provider state reconciled before reporting completion"
+      ],
+      "test_plan": [
+        "Capability denial",
+        "Destructive confirmation",
+        "Reconciliation"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P2-05 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
         {
-          "from": "IN_PROGRESS",
-          "to": "TESTING",
-          "changed_at": "2026-11-09T21:30:00Z",
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "Backlog/schema checks and 46 local tests passed; full local verification report recorded."
-        },
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-02",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "Google Workspace directory administration",
+      "outcome": "Implement Directory actions with separately consented scopes and organization-role checks.",
+      "description": "Implement Directory actions with separately consented scopes and organization-role checks.",
+      "scope": [
+        "Implement Directory actions with separately consented scopes and organization-role checks."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P4-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Directory scopes separate from Gmail content scopes",
+        "Admin and target scope checked",
+        "Holds/retention not represented as guaranteed erasure"
+      ],
+      "test_plan": [
+        "Scope denial",
+        "Org/target boundary",
+        "Retention caveat"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P4-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
         {
-          "from": "TESTING",
-          "to": "VERIFIED",
-          "changed_at": "2026-11-09T21:46:00+00:00",
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
-          "evidence": "GitHub Actions CI run 42705339401 passed for eac29b6a571f4a898320eb14a482b90ed499543a; local npm run check passed 46 tests and state/backlog validators."
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-03",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "Microsoft 365 directory and mailbox administration",
+      "outcome": "Implement admin actions with explicit Graph/Entra capability and tenant/role validation.",
+      "description": "Implement admin actions with explicit Graph/Entra capability and tenant/role validation.",
+      "scope": [
+        "Implement admin actions with explicit Graph/Entra capability and tenant/role validation."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P4-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Permission and admin-role requirements declared",
+        "Tenant/resource checked server-side",
+        "API acceptance not treated as final erasure"
+      ],
+      "test_plan": [
+        "Role/scope matrix",
+        "Cross-tenant denial",
+        "Retention reconciliation"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P4-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-04",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "cPanel and WHM mailbox operations",
+      "outcome": "Implement version-aware cPanel UAPI/WHM operations with ACL boundaries and no implied content grant.",
+      "description": "Implement version-aware cPanel UAPI/WHM operations with ACL boundaries and no implied content grant.",
+      "scope": [
+        "Implement version-aware cPanel UAPI/WHM operations with ACL boundaries and no implied content grant."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P2-02"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Version and ACL discovered before mutation",
+        "Account scope cannot escape authorization",
+        "Host backup erasure is never assumed"
+      ],
+      "test_plan": [
+        "Version fixtures",
+        "ACL denial",
+        "Reconciliation"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P2-02 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-05",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "Groups, delegation and send-as permissions",
+      "outcome": "Manage groups, delegation and send-as as distinct auditable capabilities.",
+      "description": "Manage groups, delegation and send-as as distinct auditable capabilities.",
+      "scope": [
+        "Manage groups, delegation and send-as as distinct auditable capabilities."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P4-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Grant targets and scopes shown before mutation",
+        "Grant/revoke idempotent and audited",
+        "Send-as and read access remain distinct"
+      ],
+      "test_plan": [
+        "Capability separation",
+        "Grant/revoke replay",
+        "Unauthorized target"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P4-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-06",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "Bulk provider administration operations",
+      "outcome": "Provide preflighted bulk actions with item results, rate limits, cancellation and resumable recovery.",
+      "description": "Provide preflighted bulk actions with item results, rate limits, cancellation and resumable recovery.",
+      "scope": [
+        "Provide preflighted bulk actions with item results, rate limits, cancellation and resumable recovery."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P4-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Preflight exposes targets, permissions and impact",
+        "Each item has durable result and idempotency key",
+        "Partial failure and cancellation recover without unsafe duplicates"
+      ],
+      "test_plan": [
+        "Partial failure/resume",
+        "Rate limits",
+        "Cancellation/replay"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P4-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P4-07",
+      "epic": "P4-PHASE",
+      "phase": "P4",
+      "title": "Mailbox lifecycle and administration UX",
+      "outcome": "Show exact capabilities, permissions, confirmation, provider state and operation receipts.",
+      "description": "Show exact capabilities, permissions, confirmation, provider state and operation receipts.",
+      "scope": [
+        "Show exact capabilities, permissions, confirmation, provider state and operation receipts."
+      ],
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P4-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Required permission and target visible before action",
+        "Simulated/live results distinct",
+        "Pending/unknown/failure states never shown as success"
+      ],
+      "test_plan": [
+        "Keyboard/state rendering",
+        "Permission explanation",
+        "Unknown receipt"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_SYNTHETIC_AND_AUTHORIZED_PROVIDER_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Live provider behavior remains unverified until an authorized version-specific sandbox test is recorded."
+      ],
+      "decisions": [],
+      "next_action": "Keep gated until P4-01 is verified; then implement a bounded slice and add named CI evidence.",
+      "notes": "Roadmap task added during the 2026-11-10 plan audit; not implemented or verified.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-10T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Added to close a master-spec phase coverage gap; implementation remains pending."
+        }
+      ]
+    },
+    {
+      "id": "P5-01",
+      "epic": "P5-PHASE",
+      "phase": "P5",
+      "title": "Add source-grounded DNS and infrastructure observations",
+      "outcome": "Operators can trace domain/mail routing with provenance and uncertainty.",
+      "description": "Public DNS observations, topology records, SPF/DKIM/DMARC analysis and drift evidence.",
+      "scope": "Public DNS observations, topology records, SPF/DKIM/DMARC analysis and drift evidence.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-04",
+        "P2-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Observed and inferred links are distinct",
+        "Every observation has source/time",
+        "DNS writes require separately scoped authorization"
+      ],
+      "test_plan": [
+        "Stale DNS and wrong-provider fixtures",
+        "Record parsing tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P1-04, P2-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P6-01",
+      "epic": "P6-PHASE",
+      "phase": "P6",
+      "title": "Build migration preflight and resumable manifest",
+      "outcome": "Mailbox migration cannot report success without verified parity.",
+      "description": "Source/destination mapping, quota/licensing preflight, snapshots, delta state, conflicts and validation.",
+      "scope": "Source/destination mapping, quota/licensing preflight, snapshots, delta state, conflicts and validation.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P3-03",
+        "P3-08"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Source is retained by default",
+        "Pause/resume is idempotent",
+        "Parity gaps and unsupported fields are explicit"
+      ],
+      "test_plan": [
+        "Quota-full and interruption tests",
+        "Attachment/MIME parity sample",
+        "No-source-delete assertion"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P3-03, P3-08 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P7-01",
+      "epic": "P7-PHASE",
+      "phase": "P7",
+      "title": "Build evidence-linked incident and safe automation core",
+      "outcome": "Operators receive traceable diagnosis and policy-gated remedies.",
+      "description": "Incident model, evidence provenance, safe diagnostics, action previews and approved workflow runner.",
+      "scope": "Incident model, evidence provenance, safe diagnostics, action previews and approved workflow runner.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-07",
+        "P2-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Evidence confidence is visible",
+        "Each mutation is authorized, auditable and verified",
+        "Loop prevention and bounded retries exist"
+      ],
+      "test_plan": [
+        "Synthetic shared-server incident",
+        "Denied remediation and retry-loop tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P1-07, P2-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P8-01",
+      "epic": "P8-PHASE",
+      "phase": "P8",
+      "title": "Add privacy-governed AI gateway and evaluation harness",
+      "outcome": "AI may draft or explain authorized facts without expanding access.",
+      "description": "Per-tenant opt-in, redaction, grounding/evidence citations, draft-only output, prompt-injection evaluations.",
+      "scope": "Per-tenant opt-in, redaction, grounding/evidence citations, draft-only output, prompt-injection evaluations.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P3-07",
+        "P7-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "No provider secrets or unapproved mail content leave the tenant boundary",
+        "Email instructions cannot grant tools",
+        "Send remains policy-gated"
+      ],
+      "test_plan": [
+        "Prompt-injection fixture",
+        "Cross-tenant retrieval denial",
+        "PII leakage evaluation"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P3-07, P7-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P9-01",
+      "epic": "P9-PHASE",
+      "phase": "P9",
+      "title": "Pass web release and self-host installation gates",
+      "outcome": "Authorized users can install, operate, restore and upgrade the web product.",
+      "description": "Wizard, Docker Compose, key lifecycle, backups, performance/security, artifacts and rollback.",
+      "scope": "Wizard, Docker Compose, key lifecycle, backups, performance/security, artifacts and rollback.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-10",
+        "P2-05",
+        "P3-08",
+        "P6-01",
+        "P7-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Fresh supported VPS install and restore are verified",
+        "Critical/high findings resolved",
+        "SBOM, hashes and upgrade path recorded"
+      ],
+      "test_plan": [
+        "Install/upgrade E2E",
+        "Restore drill",
+        "Security and performance release checks"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P1-10, P2-05, P3-08, P6-01, P7-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P10-01",
+      "epic": "P10-PHASE",
+      "phase": "P10",
+      "title": "Deliver secure desktop clients after web gate",
+      "outcome": "Windows/macOS/Linux clients reuse the governed API with secure local sessions.",
+      "description": "Tauri/Electron decision, OS key store, callback, notifications, encrypted offline cache and packages.",
+      "scope": "Tauri/Electron decision, OS key store, callback, notifications, encrypted offline cache and packages.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P9-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Each supported OS installer is built and smoke-tested",
+        "Offline cache encryption and revocation are verified"
+      ],
+      "test_plan": [
+        "OS device matrix",
+        "Offline conflict/revocation tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P9-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P11-01",
+      "epic": "P11-PHASE",
+      "phase": "P11",
+      "title": "Deliver Android/iOS client after mobile design and API gates",
+      "outcome": "Mobile mail actions respect platform limits and protected offline state.",
+      "description": "Mobile UX, keychain, push, encrypted cache, attachment controls and signed builds.",
+      "scope": "Mobile UX, keychain, push, encrypted cache, attachment controls and signed builds.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P9-01",
+        "P10-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Real devices/emulators tested",
+        "Platform store/signing limitations documented"
+      ],
+      "test_plan": [
+        "Android/iOS device matrix",
+        "Push revocation and offline recovery tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P9-01, P10-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P12-01",
+      "epic": "P12-PHASE",
+      "phase": "P12",
+      "title": "Integrate enterprise policies and hosting platform via scoped API",
+      "outcome": "Independent products exchange authorized, versioned identifiers without sharing secrets.",
+      "description": "SSO/SCIM, client mapping, white-label, external SDK and versioned Multi-Hosting Platform API.",
+      "scope": "SSO/SCIM, client mapping, white-label, external SDK and versioned Multi-Hosting Platform API.",
+      "priority": "P1",
+      "complexity": "L",
+      "owner_agent": null,
+      "dependencies": [
+        "P9-01"
+      ],
+      "current_status": "DISCOVERED",
+      "acceptance_criteria": [
+        "Independent operation works without the other product",
+        "No shared raw credentials or database coupling"
+      ],
+      "test_plan": [
+        "API contract/version compatibility tests",
+        "Revoked service credential tests"
+      ],
+      "evidence_paths": [],
+      "verification_level": "NOT_YET_IMPLEMENTED",
+      "target_environment": "LOCAL_SYNTHETIC_AND_AUTHORIZED_SANDBOX",
+      "last_verified_commit": null,
+      "created_at": "2026-11-09",
+      "updated_at": "2026-11-09",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [],
+      "decisions": [],
+      "next_action": "Keep deferred until dependencies P9-01 meet their acceptance gates; then split this scope into tested increments.",
+      "notes": "Roadmap task only; not implemented or tested.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "DISCOVERED",
+          "changed_at": "2026-11-09T19:34:27+00:00",
+          "actor": "Codex",
+          "evidence": "Seeded from governing specification; not verified."
         }
       ]
     }

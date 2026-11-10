@@ -1,26 +1,21 @@
 # Exact next action
 
 **Canonical repo:** [Vertex-Systems-Network/vsn-email-planet](https://github.com/Vertex-Systems-Network/vsn-email-planet)  
-**Source of truth:** GitHub remote only. Do not implement or test from a local clone/worktree.
+**Source of truth:** GitHub remote `main`; do not implement or verify from a local clone/worktree.
 
-## Active work
+## Immediate checkpoint
 
-1. Continue **P1-06 identity/session runtime**. The identity contract and framework-neutral resolver are already documented and tested.
-2. Add a checksummed PostgreSQL session migration and repository adapter.
-3. Wire `resolveSessionActor` into a NestJS API guard before protected handlers.
-4. Add and run remote CI cases for unauthenticated denial, cross-tenant denial, and membership revocation against native PostgreSQL.
-5. Update task evidence and this handoff only when the remote checks pass. Keep P1-06 open until then.
+1. Read live `main` and inspect the plan-repair commit.
+2. Confirm GitHub Actions ran for that exact SHA and inspect required checks.
+3. If it passes, record run URL and tested SHA in the audit evidence, then close P0-07 with legal status history. If it fails, fix that remote-state issue and keep P0-07 open.
 
-## Parallel P0 work
+## Active work after the checkpoint
 
-- Continue dated, primary-source provider retention/permission research under P0-02.
-- Add automated viewport and keyboard checks for P0-04 if they can run in GitHub Actions. Keep interactive visual/screen-reader evidence explicitly pending until a supported remote browser runner is available.
-- Do not treat interviews, browser access, provider credentials, or live mailboxes as prerequisites for unrelated, reversible work.
-- P0 remains open until every P0 exit criterion in `backlog/phase-gates.json` has evidence. P2/P3 connector and mail-data-plane work remains gated by the P1 authorization criteria.
+- Continue P0-02 with dated primary-source provider research; distinguish documented behavior from tenant-specific validation.
+- Continue P0-04 UX/screen-state evidence. Keep manual visual/screen-reader review open if no reachable remote browser runner exists.
+- Continue P1-06 session persistence and NestJS authorization guard; prove unauthenticated denial, cross-tenant denial and membership-revocation denial in remote CI.
+- Keep P2/P3 gated until P1 identity, tenant boundary and persistence prerequisites pass. Do not mark roadmap work implemented.
 
 ## Remote-only publication
 
-- Read the current remote `main` ref and the target files before editing.
-- Create the change directly in GitHub; publish it to this repository and verify the new remote SHA.
-- Use GitHub Actions for checks. Record the run URL, tested commit, result, and any check unavailable remotely.
-- If `main` advances during an edit, stop the ref update, reread the changed files, and reapply only the intended change.
+Read current refs and target files before edits. Create cohesive GitHub commits with compare-and-swap ref updates. Use GitHub Actions for verification; record exact run, commit, result and unavailable checks. If `main` advances during an edit, reread and reapply only intended changes.

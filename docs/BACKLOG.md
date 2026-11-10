@@ -1,24 +1,24 @@
 # Backlog dashboard
 
-The authoritative task records and legal status transitions are in `backlog/tasks.json`; phase exit criteria are in `backlog/phase-gates.json`. Validate structure with `npm run check:backlog` after edits.
+Authoritative tasks and legal status transitions: `backlog/tasks.json`. Per-phase scope and exit criteria: `backlog/phase-gates.json`. Epic grouping: `backlog/epics.json`. GitHub Actions validates the state and backlog.
 
-## Current priority
+## Phase status
 
-| ID | Priority | Work | State | Next action |
-|---|---|---|---|---|
-| P0-01 | P0 | Repository and history audit | VERIFIED | Preserve existing commits; no repeat audit needed |
-| P0-02 | P0 | Research bank | PARTIALLY_VERIFIED | Continue primary-source provider-policy review; buyer interviews remain separately authorized external validation |
-| P0-05 | P0 | Synthetic feasibility workflow | VERIFIED | Review prototype and close remaining P0 evidence gates |
-| P0-06 | P0 | Product screen, role, device and state inventory | VERIFIED | Revisit only when route or access requirements change; keep implementation status tied to UI evidence |
-| P0-07 | P0 | Enforce autonomous execution and plan consistency | VERIFIED | Preserve guardrails and keep validator enforced |
-| P0-03 | P0 | Stack decision and feasibility | VERIFIED | Reopen only if measured workload/deployment evidence contradicts the chosen baseline |
-| P0-04 | P0 | UX and screen foundation | PARTIALLY_VERIFIED | Add CI-runnable viewport/keyboard checks; manual browser review remains pending |
-| P1-01 | P1 | Workspace, rules, CI | PARTIALLY_VERIFIED | Continue with the exact executable action in `docs/NEXT_ACTION.md` |
-| P1-02 | P1 | Dashboard | PARTIALLY_VERIFIED | Run viewport and keyboard checks through a browser runner that can reach the app |
-| P1-03 | P1 | API health process | VERIFIED | Extend beyond process health only after persistence increment |
-| P1-09 | P1 | CI and verification evidence | PARTIALLY_VERIFIED | Upload uniquely named verification report with tested commit provenance |
-| P1-04 | P0 | Tenant-keyed PostgreSQL schema/migrations | VERIFIED | Maintain immutable migrations; production rollout is a separate gate |
-| P1-05 | P1 | Durable job lease/idempotency/outbox primitives | PARTIALLY_VERIFIED | Split broker adapter, crash recovery, and bounded-load work after P1-06 contract |
-| P1-06 | P1 | Identity and tenant authorization | IN_PROGRESS | Resolve P0-03 stack choice, then implement and test contract in `docs/API_CONTRACTS.md` |
+| Phase | State | Summary |
+|---|---|---|
+| P0 | IN_PROGRESS | Research, feasibility and UX evidence open; plan repair awaits remote CI. |
+| P1 | IN_PROGRESS | Foundation exists; authenticated session runtime and tenant-isolation proof remain open. |
+| P2 | NOT_STARTED | Connector, inventory and permission-boundary work is roadmap only. |
+| P3 | NOT_STARTED | Sync, inbox, search and safe-send work is roadmap only. |
+| P4–P12 | NOT_STARTED | Separate gates and task mappings exist; no implementation is claimed. |
 
-No product task is marked `DONE`; verified means only that the specific stated acceptance evidence is satisfied. Status changes must follow the transition map and include status history in `backlog/tasks.json`.
+## Highest-priority open work
+
+| ID | State | Next action |
+|---|---|---|
+| P0-02 | PARTIALLY_VERIFIED | Continue dated primary-source research; buyer validation remains separate. |
+| P0-04 | PARTIALLY_VERIFIED | Complete route/state coverage and available CI viewport/keyboard checks. |
+| P0-07 | IN_PROGRESS | Pass plan-state validation in GitHub Actions; then record commit-specific evidence. |
+| P1-06 | IN_PROGRESS | Implement persistent sessions/API guard; prove auth, tenant and revocation denials remotely. |
+
+P2–P12 remain planned unless task records later show evidence-backed progress. VERIFIED satisfies only the exact task acceptance criteria; DONE also requires committed implementation and applicable acceptance evidence. Follow `backlog/tasks.json` transitions.
