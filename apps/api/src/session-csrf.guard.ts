@@ -82,7 +82,7 @@ export class SessionCsrfGuard implements CanActivate {
       const candidate = digestCsrfToken(cookieToken, digestKey);
       const stored = await createSessionRepository(this.pool)
         .findCsrfDigestForSession(actor.sessionId, actor.userId, actor.organizationId);
-      if (!stored || candidate.byteLength !== stored.byteLength
+      if (!stored || !candidate || candidate.byteLength !== stored.byteLength
         || !timingSafeEqual(candidate, Buffer.from(stored))) throw forbidden();
       return true;
     } catch (error) {
