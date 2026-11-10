@@ -61,7 +61,7 @@ export class SessionAuthGuard implements CanActivate, OnModuleDestroy {
       });
     }
 
-    let result;
+    let result: Awaited<ReturnType<typeof resolveSessionActor>>;
     try {
       result = await resolveSessionActor({
         sessionSecret,
