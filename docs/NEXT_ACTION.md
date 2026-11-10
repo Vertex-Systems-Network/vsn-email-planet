@@ -5,18 +5,19 @@
 
 ## Current verified increment
 
-P1-06 session persistence and guarded actor endpoint passed [GitHub Actions run 42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019) on commit `2b27404889ecee50a7e2812a6399d7409050689d`. It remains PARTIALLY_VERIFIED; see the linked evidence in `docs/PROJECT_STATE.md`.
+P1-06 PostgreSQL session resolution, guarded actor endpoint, same-origin session-bound CSRF logout, atomic successful-logout audit and cookie clearing passed GitHub Actions run [42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243) on commit `64b2bb9cad2db69693141f790ddf2776d0c4d5bb`. P1-06 remains PARTIALLY_VERIFIED; see `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`.
 
 ## Continue P1-06
 
-1. Define and implement deliberate credential verification and session issuance; do not accept the synthetic CI fixture as a login path.
-2. Add session rotation/logout/revocation and same-origin plus CSRF enforcement before any state-changing browser route.
-3. Add append-only security audit events for session and membership changes without recording secrets.
-4. Extend request authorization to tenant-owned resource queries and enforce membership/grant rechecks immediately before queued-job dispatch.
-5. Use GitHub Actions/PostgreSQL CI for denial, revocation, audit and no-cross-tenant evidence. Keep P1-06 partial until every acceptance criterion has evidence.
+1. Define the credential-verification and login/session-issuance mechanism. Keep it unimplemented until the selected mechanism, rate limits, recovery and MFA policy are specified; do not treat synthetic CI fixtures as login.
+2. Implement issuance with a session-bound CSRF token digest and deliver its cookie with the documented security attributes; add rotation and recovery/revocation behavior.
+3. Add denial-event audit coverage for authentication, CSRF and authorization failures without storing secrets or untrusted tenant identity.
+4. Extend authorization to tenant-owned direct-ID/list/search/count/mutation requests and prove non-disclosing cross-tenant behavior.
+5. Reauthorize user, membership, target ownership and required grants immediately before queued-job dispatch; prove revoked authorization prevents handler/provider dispatch.
+6. Add PostgreSQL-backed acceptance evidence for each bounded slice. Keep P1-06 PARTIALLY_VERIFIED until every acceptance criterion is covered.
 
 Continue P0-02 research and P0-04 UX evidence independently. P0 and P1 gates stay open; P2/P3 remain gated on P1 security prerequisites.
 
 ## Remote-only publication
 
-Read the live ref and target files before each edit. Create commits directly in GitHub with compare-and-swap ref updates. Use GitHub Actions for verification, record exact run/commit/result, and leave unverified criteria open.
+Resolve live `main` and inspect edited paths before each update. Create commits directly in GitHub with compare-and-swap ref updates. Verify through GitHub Actions, preserve failure/recovery evidence and leave unverified criteria open.

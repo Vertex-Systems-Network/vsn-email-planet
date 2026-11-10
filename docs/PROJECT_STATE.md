@@ -20,7 +20,7 @@ Last updated: 2026-11-11
 ## Current delivery state
 
 - P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan consistency is VERIFIED for the validated ledger and gates.
-- P1: open. Foundation and selected persistence/worker increments exist. The PostgreSQL session/actor-guard slice is partially verified; login/issuance, logout/rotation, CSRF, audit writes, resource RBAC/ABAC and queued-job reauthorization remain open.
+- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified; login/issuance/rotation, denial auditing, resource RBAC/ABAC and queued-job reauthorization remain open.
 - P2–P12: NOT_STARTED. Backlog entries are plans only. No live provider connection, mailbox read/send, administration, DNS mutation, migration, client release or enterprise integration is claimed.
 - Documentation research, simulation and live-provider validation are distinct evidence. API acceptance is not proof of data erasure or production behavior.
 
@@ -28,10 +28,8 @@ Last updated: 2026-11-11
 
 Plan repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed GitHub Actions run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063), and evidence follow-up `a6f5268906993e671fa4244bc82078cabc9e607c` passed run [42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435). P0-07 is VERIFIED for plan consistency only. P0 and P1 gates remain IN_PROGRESS.
 
-## P1-06 runtime increment (2026-11-11)
+## P1-06 session lifecycle increment (2026-11-11)
 
-A PostgreSQL session schema/repository and guarded `GET /api/session/me` are being added. The target CI integration proves synthetic stored-session resolution, tenant context cannot be changed by request claims, and membership changes invalidate the session. This remains an incomplete P1-06 slice: login/issuance, logout/rotation, CSRF, audit writes, resource-specific authorization and job-dispatch reauthorization remain open. Record commit-specific CI evidence before updating this status.
+The prior session persistence and guarded `GET /api/session/me` slice passed run [42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019). The follow-up added session-bound CSRF verification, exact-origin enforcement, transactional logout revocation plus success audit, and secure cookie clearing. Full run [42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243) passed on commit `64b2bb9cad2db69693141f790ddf2776d0c4d5bb`.
 
-## P1-06 session/guard increment
-
-Commit `2b27404889ecee50a7e2812a6399d7409050689d` passed [GitHub Actions run 42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019). P1-06 is PARTIALLY_VERIFIED for PostgreSQL session persistence, active membership resolution, tenant-claim resistance and membership invalidation only. See `docs/TEST_EVIDENCE/2026-11-11-p1-06-session-runtime.md` for passing checks, failed-run recovery and remaining scope.
+P1-06 remains PARTIALLY_VERIFIED. Evidence and recovery history: `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`. Login/credential verification, issuance and CSRF-cookie delivery, session rotation, denied-event audit coverage, resource-specific authorization and queued-job reauthorization remain open.

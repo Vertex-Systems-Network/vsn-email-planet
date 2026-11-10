@@ -1129,7 +1129,8 @@
         "unauthenticated route test",
         "PGlite session repository test for digest lookup and membership-version invalidation",
         "PostgreSQL 16 HTTP smoke for missing cookie, stored session, forged tenant header/query, and suspended membership",
-        "PostgreSQL 16 HTTP logout test for foreign Origin/mismatched CSRF denial, atomic revocation+audit, cookie clearing, and post-logout denial"
+        "PostgreSQL 16 HTTP logout test for foreign Origin/mismatched CSRF denial, atomic revocation+audit, cookie clearing, and post-logout denial",
+        "PostgreSQL 16 HTTP smoke for foreign-Origin and mismatched-CSRF denial, valid logout, atomic revocation plus success audit, both cookie clears, and post-logout 401"
       ],
       "evidence_paths": [
         "apps/api/db/migrations/0004_identity_sessions.sql",
@@ -1142,11 +1143,14 @@
         "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md",
         "scripts/smoke-api.mjs",
         "tests/session-auth.test.mjs",
-        "tests/session-repository.test.mjs"
+        "tests/session-repository.test.mjs",
+        "apps/api/db/migrations/0005_session_csrf.sql",
+        "apps/api/src/session-csrf.guard.ts",
+        "docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md"
       ],
-      "verification_level": "PGLITE_AND_POSTGRES16_HTTP_CI_PASS; LOGIN_AUDIT_RESOURCE_AUTHZ_AND_JOB_REAUTHORIZATION_OPEN",
+      "verification_level": "POSTGRES16_CI_SESSION_GUARD_AND_CSRF_LOGOUT_PASS; LOGIN_ISSUANCE_DENIAL_AUDIT_RESOURCE_AUTHZ_AND_JOB_REAUTHORIZATION_OPEN",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
-      "last_verified_commit": "2b27404889ecee50a7e2812a6399d7409050689d",
+      "last_verified_commit": "64b2bb9cad2db69693141f790ddf2776d0c4d5bb",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-11",
       "started_at": "2026-11-09",
@@ -1157,8 +1161,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Choose and implement a verified login/session-issuance mechanism that mints and stores per-session CSRF digests, then add logout-rotation/recovery and denial audit coverage before applying tenant RBAC/ABAC to resources and queued jobs.",
-      "notes": "PostgreSQL session resolution, same-origin session-bound CSRF-protected logout, atomic revocation/audit and cookie clearing are the next remote CI slice. Login/credential verification, session issuance/rotation, CSRF token delivery, denial audit, resource authorization and queued-job reauthorization remain open.",
+      "next_action": "Specify credential verification, login/session issuance, rate limits, recovery and MFA policy; implement issuance with session-bound CSRF digest delivery and rotation only after that design is selected, then add denial audit and tenant/resource/job reauthorization coverage.",
+      "notes": "PostgreSQL session resolution and guarded actor endpoint are verified with synthetic fixtures. Session-bound CSRF enforcement requires exact APP_ORIGIN, matching cookie/header, and stored per-session digest. Logout atomically revokes and writes a successful session.logout audit row, then clears both cookies. GitHub Actions run 42913312243 passed on 64b2bb9cad2db69693141f790ddf2776d0c4d5bb. Credential verification/login, issuance/rotation and CSRF-cookie delivery, denial-event auditing, resource authorization and queued-job reauthorization remain open.",
       "status_history": [
         {
           "from": null,

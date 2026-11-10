@@ -1,6 +1,6 @@
-# Current local API contract
+# Current API contract
 
-This is a prototype contract, not a versioned production API. Server binds to `127.0.0.1`; records are hard-coded synthetic fixtures.
+This is a prototype contract, not a versioned production API. Fixture routes use synthetic records and the local server binds to `127.0.0.1`; the separate NestJS session routes use PostgreSQL and remain a partial identity foundation.
 
 | Method/path | Auth | Behavior | State |
 |---|---|---|---|

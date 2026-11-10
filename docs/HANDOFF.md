@@ -15,11 +15,13 @@ P0-07 plan consistency passed run [42743243063](https://github.com/Vertex-System
 
 ## Active implementation: P1-06
 
-- Session persistence and guarded `GET /api/session/me` are PARTIALLY_VERIFIED on commit `2b27404889ecee50a7e2812a6399d7409050689d`, CI run [42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019).
-- Verified in remote CI: no-cookie denial, server-derived actor, forged tenant header/query ignored, membership status change invalidates session.
-- Remaining: credential verification/login and session issuance, rotation/logout, CSRF, audit writes, resource RBAC/ABAC and queued-job reauthorization.
-- Preserve the failed-run/fix chain in `docs/TEST_EVIDENCE/2026-11-11-p1-06-session-runtime.md`; do not report full P1-06 or P1 complete.
-- Continue P0-02 research/P0-04 UX evidence independently. P2/P3 stay gated on P1 identity/tenant security criteria.
+- Session persistence and guarded `GET /api/session/me` passed on commit `2b27404889ecee50a7e2812a6399d7409050689d`, run [42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019).
+- Session-bound CSRF logout, exact `APP_ORIGIN` enforcement, atomic revocation plus successful-logout audit and cookie clearing passed on commit `64b2bb9cad2db69693141f790ddf2776d0c4d5bb`, run [42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243).
+- Failure/recovery chain is documented in `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`; do not erase the failed checks or report full P1-06.
+- Still open: credential verification/login and issuance, CSRF token delivery and session rotation/recovery, denied-event auditing, resource RBAC/ABAC, and queued-job reauthorization.
+- Next: specify credential/login policy, then implement issuance and token delivery with synthetic-only CI; proceed to denial audit and tenant/resource/job authorization in separately bounded tasks.
+
+Continue P0-02 research/P0-04 UX evidence independently. P2/P3 stay gated on P1 identity/tenant security criteria.
 
 ## Safety and reporting
 
