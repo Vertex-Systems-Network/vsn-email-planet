@@ -97,3 +97,12 @@ Migration `0006_platform_password_credentials.sql` adds a one-to-one platform-us
 ### Credential lookup foundation — 2026-11-11
 
 `verifyLocalCredential(pool, email, password)` checks only platform password credentials, performs dummy scrypt work for unknown/malformed account lookups, and returns current active memberships only after a valid password. It returns one generic `null` result for unknown, disabled, invalid-password and membership-less accounts. This helper does not issue sessions, enforce shared rate limits or record audit events; there is still no login or bootstrap route.
+
+
+## First-admin bootstrap
+
+`POST /api/auth/bootstrap` is available only while the platform has no users and the database bootstrap claim is absent. The caller must provide the configured exact `Origin` and the environment-only `x-vsn-bootstrap-token`; both are required. The 32-byte base64url token is compared in constant time, is never stored or included in audit data, and deployment access logs must redact the header. Responses are `no-store`.
+
+A successful call atomically creates the initial organization, active owner membership, versioned password verifier, one-time claim and success audit event. It returns opaque IDs plus `mfaEnrollmentRequired: true`; it does not create a session, set cookies, grant usable privileged access, or send email. Bootstrap cannot be retried after any platform user exists. Operators must configure a canonical `APP_ORIGIN`, inject a fresh random token through the deployment secret manager, and remove/rotate that secret after the claim is established.
+
+Wrong origin/token and malformed input fail without identity writes. A database or required-audit failure rolls back the whole operation and returns a generic unavailable response. External account verification and mail delivery are not part of this boundary.

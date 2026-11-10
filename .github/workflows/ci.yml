@@ -43,6 +43,10 @@ jobs:
       - run: npm run validate:state
       - run: npm run build
       - run: node scripts/smoke-web.mjs
+      - run: node scripts/smoke-bootstrap-api.mjs
+        env:
+          DATABASE_URL: postgres://vsn:vsn_local_test_only@127.0.0.1:5432/vsn_test
+          VSN_TEST_DATABASE: "1"
       - run: node scripts/smoke-api.mjs
         env:
           DATABASE_URL: postgres://vsn:vsn_local_test_only@127.0.0.1:5432/vsn_test
