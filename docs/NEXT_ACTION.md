@@ -5,7 +5,7 @@
 
 ## Verified P1-11 slice
 
-The versioned scrypt verifier and PostgreSQL credential schema passed [run 42916848390](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42916848390). Repository-backed lookup is the current P1-11 increment and awaits CI. It verifies platform credentials and active memberships only; it does not issue sessions or expose a login endpoint.
+The versioned scrypt verifier and PostgreSQL credential schema passed [run 42916848390](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42916848390). Repository-backed lookup and active membership filtering passed [run 42917902168](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42917902168) on commit `a507f7f9c1553ff8710f2070f97f30e26e4d12a5`. It verifies platform credentials only; it does not issue sessions or expose a login endpoint.
 
 ## Continue P1-11
 

@@ -3134,7 +3134,7 @@
       "dependencies": [
         "P1-06"
       ],
-      "current_status": "TESTING",
+      "current_status": "PARTIALLY_VERIFIED",
       "acceptance_criteria": [
         "Bootstrap can create only one first administrator and never stores or logs the bootstrap secret.",
         "Invitations are single-use, expiring and do not permit public self-registration.",
@@ -3161,9 +3161,9 @@
         "tests/password-repository.test.mjs",
         "docs/TEST_EVIDENCE/2026-11-11-p1-11-credential-lookup.md"
       ],
-      "verification_level": "Scrypt verifier/schema previously passed; credential lookup is awaiting CI; bootstrap/login/MFA/recovery/session issuance open",
+      "verification_level": "SCRYPT_VERIFIER_SCHEMA_AND_REPOSITORY_CREDENTIAL_LOOKUP_GITHUB_ACTIONS_PASS; BOOTSTRAP_LOGIN_THROTTLING_MFA_RECOVERY_SESSION_ISSUANCE_OPEN",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
-      "last_verified_commit": "8b465df558fda26add9d95672d3feec76eb2e32c",
+      "last_verified_commit": "a507f7f9c1553ff8710f2070f97f30e26e4d12a5",
       "created_at": "2026-11-11",
       "updated_at": "2026-11-11",
       "started_at": "2026-11-11",
@@ -3176,8 +3176,8 @@
       "decisions": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
-      "next_action": "After remote CI verifies this credential lookup slice, implement single-use first-admin bootstrap and invitation activation with transactional credential+audit creation, then add shared throttling, MFA/recovery and session issuance.",
-      "notes": "P1-11 prior verifier/schema slice passed run 42916848390. This next slice adds a repository-backed credential lookup that returns only active memberships after password verification; it does not create sessions or expose a login route. Current commit is awaiting CI.",
+      "next_action": "Implement the single-use first-admin bootstrap and invitation activation with transactional credential and audit creation. Then add shared login throttling, privileged MFA/recovery and session+CSRF issuance; keep external mail/live provider use disabled.",
+      "notes": "P1-11 verifier/schema passed run 42916848390; repository-backed credential lookup and active membership filtering passed run 42917902168 on commit a507f7f9c1553ff8710f2070f97f30e26e4d12a5. No bootstrap, invitation, HTTP login, shared throttling, MFA/recovery, audit integration or session/CSRF issuance is implemented.",
       "status_history": [
         {
           "from": null,
@@ -3220,6 +3220,13 @@
           "changed_at": "2026-11-11T00:00:00Z",
           "actor": "Codex",
           "evidence": "Credential lookup and PostgreSQL test committed for GitHub Actions; result pending."
+        },
+        {
+          "from": "TESTING",
+          "to": "PARTIALLY_VERIFIED",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "GitHub Actions run 42917902168 passed repository-backed credential lookup on a507f7f9c1553ff8710f2070f97f30e26e4d12a5; scope is limited to credential verification and active membership lookup."
         }
       ]
     },

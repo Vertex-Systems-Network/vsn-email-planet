@@ -17,6 +17,6 @@ This repository contains only VSN Email Planet. Keep Orbicore, WooCommerce and u
 
 ## Active work
 
-P1-06 remains PARTIALLY_VERIFIED. P1-11 is TESTING for repository-backed credential lookup: valid password is required before the helper returns current active memberships; unknown, disabled, wrong-password and membership-less cases return null. It creates no session and is not a login endpoint. After its CI passes, continue with single-use bootstrap/invitations and audit, then throttling, MFA/recovery and session+CSRF issuance. Keep CI synthetic; do not send mail or use live provider credentials.
+P1-06 remains PARTIALLY_VERIFIED. P1-11 is PARTIALLY_VERIFIED for repository-backed credential lookup: run 42917902168 passed on a507f7f9c1553ff8710f2070f97f30e26e4d12a5. The helper returns current active memberships only after valid password verification; unknown, disabled, wrong-password and membership-less cases return null. It creates no session and is not a login endpoint. Continue with single-use bootstrap/invitations and audit, then throttling, MFA/recovery and session+CSRF issuance. Keep CI synthetic; do not send mail or use live provider credentials.
 
 P1-12 denial audit, P1-13 tenant resource authorization and P1-14 queued-job reauthorization remain separate and open.

@@ -20,7 +20,7 @@ Authoritative tasks and legal status transitions: `backlog/tasks.json`. Per-phas
 | P0-04 | PARTIALLY_VERIFIED | Complete route/state coverage and available CI viewport/keyboard checks. |
 | P0-07 | VERIFIED | Keep plan coverage and validator guardrails enforced; reopen on drift. |
 | P1-06 | PARTIALLY_VERIFIED | Umbrella outcome; remaining auth work is split into P1-11–14. |
-| P1-11 | PARTIALLY_VERIFIED | Scrypt verifier/schema slice passed; continue credential creation, bootstrap/invitation, throttling, MFA/recovery and session issuance. |
+| P1-11 | PARTIALLY_VERIFIED | Verifier/schema and active-membership credential lookup passed; implement single-use bootstrap/invitation, throttling, MFA/recovery and session issuance. |
 | P1-12 | READY | Add append-only authentication/authorization denial auditing and redaction/fail-closed tests. |
 | P1-13 | READY | Enforce tenant scope and non-disclosing behavior on protected resource queries. |
 | P1-14 | READY | Reauthorize membership, ownership and grants immediately before queued-job dispatch. |
