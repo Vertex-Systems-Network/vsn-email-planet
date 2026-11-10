@@ -1,6 +1,6 @@
 # Architecture (initial proposal)
 
-Proposed MVP: portable TypeScript-oriented modular monolith. The current foundation direction is Next.js web + NestJS API + PostgreSQL, documented in `ADR-0001-STACK.md`; it remains provisional until footprint, recovery and workload evidence is available. Web/API, identity and policy, connector adapters, durable worker jobs, PostgreSQL state, encrypted object storage and optional search are separated by bounded contracts. No microservice split before measured operational need.
+Proposed MVP: portable TypeScript-oriented modular monolith. Web/API, identity and policy, connector adapters, durable worker jobs, PostgreSQL state, encrypted object storage and optional search are separated by bounded contracts. No microservice split before measured operational need. No production stack selection is final until `ADR-0001-STACK.md` is complete.
 
 The synthetic prototype is a Node-served dashboard plus a read-only same-origin fixture API with two synthetic organizations. Published fixture bearer tokens model tenant filtering in tests; they are not authentication. Separately, the repository contains a Next.js web app, NestJS API, PostgreSQL migrations, and durable job/worker/outbox primitives with PGlite tests. Those foundations do not establish production authentication, a real PostgreSQL runtime proof, provider connectivity, mailbox-content access, or outbound mail.
 
