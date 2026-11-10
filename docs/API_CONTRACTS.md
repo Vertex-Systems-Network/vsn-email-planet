@@ -12,9 +12,10 @@ This is a prototype contract, not a versioned production API. Server binds to `1
 | `GET /api/mailboxes/{id}` | public fixture bearer token | Returns same-tenant synthetic mailbox metadata or non-disclosing 404. | Implemented locally |
 | `GET /api/providers/{id}` | public fixture bearer token | Returns same-tenant resource or non-disclosing 404. | Implemented for local fixtures |
 | `GET /api/providers/{id}/capabilities` | public fixture bearer token | Returns that tenant’s synthetic operation-level capability manifest or non-disclosing 404. Mutations are not supported. | Implemented for local fixtures |
-| `POST/PUT/PATCH/DELETE /api/*` | fixture bearer token required | Returns 405; no provider mutation exists. | Explicitly unavailable |
+| `POST /api/session/logout` | PostgreSQL session cookie + same-origin CSRF proof | Revokes current session, atomically audits success and clears cookies. | Implemented as a limited session lifecycle route |
+| Other `POST/PUT/PATCH/DELETE /api/*` | Not available | Returns 405; no provider mutation exists. | Explicitly unavailable |
 
-Errors use `{error:{code,message}}`; success returns `{data,meta:{environment,organizationId,role}}`. Fixture actor tokens are public strings in source and are not a session, credential, or usable production authorization. No database, real authentication, OAuth, mailbox-content endpoint, sending or external service call is implemented.
+Errors use `{error:{code,message}}`; fixture success returns `{data,meta:{environment,organizationId,role}}`. Fixture actor tokens are public strings and are not sessions, credentials, or production authorization. The separate NestJS session endpoints use PostgreSQL-backed session resolution and are only a partial lifecycle foundation. No login/credential verification, OAuth, mailbox-content endpoint, provider mutation, sending or external service call is implemented.
 
 
 ## Provider capability manifest
@@ -82,7 +83,9 @@ This is the implementation contract for the first authenticated API slice. It su
 ### Implemented runtime slice — 2026-11-11
 
 - `0004_identity_sessions.sql` adds versioned organization memberships and digest-only session records with a composite membership foreign key. Role/status changes advance the membership version so an existing session fails closed.
-- The NestJS `GET /api/session/me` route is guarded by `SessionAuthGuard`. It reads only the host-only `__Host-vsn_session` cookie and derives the immutable actor from `auth_sessions`, `platform_users` and the exact active organization membership. Query, header and body identity claims are ignored.
+- The NestJS `GET /api/session/me` route is guarded by `SessionAuthGuard`. It reads only the host-only `__Host-vsn_session` cookie and derives the immutable actor from `auth_sessions`, `platform_users` and the exact active organization membership. Query, header and body identity claims are ignored; actor responses are `Cache-Control: no-store`.
+- `POST /api/session/logout` is guarded by both the session and CSRF guards. It requires an exact configured `APP_ORIGIN`, matching `__Host-vsn_csrf` cookie and `X-CSRF-Token` header, and a per-session stored CSRF digest. Session revocation and the `session.logout` audit event are committed atomically. It clears both host-only cookies with matching path/security attributes.
+- Session creation must mint a new 256-bit CSRF token and store only `digestCsrfToken(token, SESSION_DIGEST_KEY)` in `csrf_digest`; that token must be delivered in a Secure, SameSite=Strict, JavaScript-readable host-only cookie. No session issuance endpoint exists yet, so current HTTP logout coverage seeds only synthetic CI sessions.
 - Configure `DATABASE_URL` and `SESSION_DIGEST_KEY` (32 random bytes encoded as base64url) before this route can verify presented sessions. Missing/malformed cookies return `401 AUTH_REQUIRED`; missing runtime configuration or database failure fails closed with a service-unavailable response. Do not log the cookie or digest key.
 - CI verifies missing-cookie denial and a PostgreSQL-backed synthetic session, forged tenant-context rejection and membership-revocation denial. The smoke fixture is test-only and creates no reusable credentials.
-- This slice does not implement login/credential verification, MFA, session issuance/rotation/logout, CSRF protection for future state-changing browser routes, audit-event writes, or resource-specific RBAC/ABAC. It is not production authentication or full P1-06 completion.
+- This slice does not implement login/credential verification, MFA, session issuance/rotation or CSRF token delivery. Logout is implemented only for already-issued valid sessions; audit currently records successful logout, while denial-event auditing, resource-specific RBAC/ABAC and queued-job reauthorization remain open. This is not production authentication or full P1-06 completion.

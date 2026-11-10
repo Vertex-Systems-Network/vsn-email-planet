@@ -1,4 +1,4 @@
-import type { Pool } from "pg";
+import type { Pool, PoolClient } from "pg";
 
 export const SESSION_DATABASE_POOL = "SESSION_DATABASE_POOL";
 
@@ -18,9 +18,45 @@ type MembershipRow = {
   status: string;
   version: number;
 };
+type DigestRow = { csrfDigest: Uint8Array | null };
+type IdRow = { id: string };
 
-/** PostgreSQL adapter used by the session resolver; all identity values come from stored rows. */
-export function createSessionRepository(pool: Pick<Pool, "query">) {
+type SessionActor = {
+  sessionId: string;
+  userId: string;
+  organizationId: string;
+};
+
+async function revokeSessionTransaction(client: PoolClient, actor: SessionActor): Promise<boolean> {
+  await client.query("BEGIN");
+  try {
+    const revoked = await client.query<IdRow>(
+      `UPDATE auth_sessions
+          SET revoked_at = now(), revocation_reason = 'user_logout'
+        WHERE id = $1 AND user_id = $2 AND organization_id = $3 AND revoked_at IS NULL
+        RETURNING id::text AS id`,
+      [actor.sessionId, actor.userId, actor.organizationId],
+    );
+    if (revoked.rows.length === 0) {
+      await client.query("ROLLBACK");
+      return false;
+    }
+    await client.query(
+      `INSERT INTO audit_events
+        (organization_id, actor_user_id, action_key, outcome, target_type, target_id, safe_attributes)
+       VALUES ($1, $2, 'session.logout', 'succeeded', 'session', $3, '{}'::jsonb)`,
+      [actor.organizationId, actor.userId, actor.sessionId],
+    );
+    await client.query("COMMIT");
+    return true;
+  } catch (error) {
+    try { await client.query("ROLLBACK"); } catch {}
+    throw error;
+  }
+}
+
+/** PostgreSQL adapter used by the session resolver; identity values come from stored rows. */
+export function createSessionRepository(pool: Pick<Pool, "query" | "connect">) {
   return {
     async findSessionByDigest(digest: Uint8Array) {
       const result = await pool.query<SessionRow>(
@@ -62,6 +98,26 @@ export function createSessionRepository(pool: Pick<Pool, "query">) {
         [userId, organizationId],
       );
       return result.rows[0] ?? null;
+    },
+
+    async findCsrfDigestForSession(sessionId: string, userId: string, organizationId: string) {
+      const result = await pool.query<DigestRow>(
+        `SELECT csrf_digest AS "csrfDigest"
+           FROM auth_sessions
+          WHERE id = $1 AND user_id = $2 AND organization_id = $3
+            AND revoked_at IS NULL`,
+        [sessionId, userId, organizationId],
+      );
+      return result.rows[0]?.csrfDigest ?? null;
+    },
+
+    async revokeSession(actor: SessionActor) {
+      const client = await pool.connect();
+      try {
+        return await revokeSessionTransaction(client, actor);
+      } finally {
+        client.release();
+      }
     },
   };
 }

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {
   createSessionSecret,
   digestSessionSecret,
+  digestCsrfToken,
   matchesSessionDigest,
   resolveSessionActor,
 } from '../apps/api/src/session-auth.js';
@@ -93,4 +94,13 @@ test('rejects disabled users, inactive memberships, invalid roles and stale memb
     const result = await resolveSessionActor({ sessionSecret, digestKey: key, repository: repository(overrides), now });
     assert.equal(result.ok, false);
   }
+});
+
+test('CSRF digests use a separate HMAC context and reject malformed tokens', () => {
+  const token = createSessionSecret();
+  const digest = digestCsrfToken(token, key);
+  assert.equal(digest.length, 32);
+  assert.notDeepEqual(digest, digestSessionSecret(token, key));
+  assert.notDeepEqual(digest, digestCsrfToken(token, Buffer.alloc(32, 8)));
+  assert.equal(digestCsrfToken('bad-token', key), null);
 });

@@ -11,7 +11,8 @@ import type { Pool } from "pg";
 import { resolveSessionActor } from "./session-auth.js";
 import { createSessionRepository, SESSION_DATABASE_POOL } from "./session-repository.js";
 
-const SESSION_COOKIE_NAME = "__Host-vsn_session";
+export const SESSION_COOKIE_NAME = "__Host-vsn_session";
+export const CSRF_COOKIE_NAME = "__Host-vsn_csrf";
 const SESSION_SECRET_PATTERN = /^[A-Za-z0-9_-]{43}$/;
 
 type SessionRequest = {
@@ -25,18 +26,20 @@ type SessionRequest = {
   }>;
 };
 
-function readSessionCookie(header: unknown): string | null {
+export function readCookieValue(header: unknown, name: string): string | null {
   if (typeof header !== "string") return null;
   const matches: string[] = [];
   for (const part of header.split(";")) {
     const separator = part.indexOf("=");
     if (separator < 0) continue;
-    if (part.slice(0, separator).trim() === SESSION_COOKIE_NAME) {
-      matches.push(part.slice(separator + 1).trim());
-    }
+    if (part.slice(0, separator).trim() === name) matches.push(part.slice(separator + 1).trim());
   }
-  if (matches.length !== 1 || !SESSION_SECRET_PATTERN.test(matches[0])) return null;
-  return matches[0];
+  return matches.length === 1 ? matches[0] : null;
+}
+
+function readSessionCookie(header: unknown): string | null {
+  const value = readCookieValue(header, SESSION_COOKIE_NAME);
+  return value && SESSION_SECRET_PATTERN.test(value) ? value : null;
 }
 
 function authError() {

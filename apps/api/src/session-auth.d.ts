@@ -29,6 +29,7 @@ export type SessionRepository = {
   } | null>;
 };
 
+export function digestCsrfToken(token: string, digestKey: Uint8Array): Buffer | null;
 export function resolveSessionActor(input: {
   sessionSecret: string;
   digestKey: Uint8Array;

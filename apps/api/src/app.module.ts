@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { Pool } from "pg";
 import { HealthController } from "./health.controller.js";
 import { SessionAuthGuard } from "./session-auth.guard.js";
+import { SessionCsrfGuard } from "./session-csrf.guard.js";
 import { SESSION_DATABASE_POOL } from "./session-repository.js";
 import { SessionController } from "./session.controller.js";
 
@@ -17,6 +18,7 @@ import { SessionController } from "./session.controller.js";
       }),
     },
     SessionAuthGuard,
+    SessionCsrfGuard,
   ],
 })
 export class AppModule {}

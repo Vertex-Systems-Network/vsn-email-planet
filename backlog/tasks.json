@@ -1128,7 +1128,8 @@
         "revoked membership queued-job test",
         "unauthenticated route test",
         "PGlite session repository test for digest lookup and membership-version invalidation",
-        "PostgreSQL 16 HTTP smoke for missing cookie, stored session, forged tenant header/query, and suspended membership"
+        "PostgreSQL 16 HTTP smoke for missing cookie, stored session, forged tenant header/query, and suspended membership",
+        "PostgreSQL 16 HTTP logout test for foreign Origin/mismatched CSRF denial, atomic revocation+audit, cookie clearing, and post-logout denial"
       ],
       "evidence_paths": [
         "apps/api/db/migrations/0004_identity_sessions.sql",
@@ -1156,8 +1157,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Implement deliberate session issuance/logout and revocation with CSRF/origin enforcement and audit events; then add tenant-owned resource RBAC/ABAC and queued-job reauthorization.",
-      "notes": "A bounded session persistence and protected actor endpoint slice passed GitHub Actions run 42909851019 on 2b27404889ecee50a7e2812a6399d7409050689d. The evidence report records three failed attempts and their fixes. Full P1-06 remains open: login/issuance, logout/rotation, CSRF, audit, resource-level authorization and queued-job reauthorization are not implemented.",
+      "next_action": "Choose and implement a verified login/session-issuance mechanism that mints and stores per-session CSRF digests, then add logout-rotation/recovery and denial audit coverage before applying tenant RBAC/ABAC to resources and queued jobs.",
+      "notes": "PostgreSQL session resolution, same-origin session-bound CSRF-protected logout, atomic revocation/audit and cookie clearing are the next remote CI slice. Login/credential verification, session issuance/rotation, CSRF token delivery, denial audit, resource authorization and queued-job reauthorization remain open.",
       "status_history": [
         {
           "from": null,

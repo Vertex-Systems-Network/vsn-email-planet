@@ -17,6 +17,15 @@ export function digestSessionSecret(secret, digestKey) {
   return createHmac('sha256', digestKey).update(secret, 'utf8').digest();
 }
 
+/** Hash a synchronizer token with a distinct context before persistence/comparison. */
+export function digestCsrfToken(token, digestKey) {
+  if (typeof token !== 'string' || !SESSION_SECRET_PATTERN.test(token)) return null;
+  if (!(digestKey instanceof Uint8Array) || digestKey.byteLength < 32) {
+    throw new TypeError('Session digest key must contain at least 32 bytes.');
+  }
+  return createHmac('sha256', digestKey).update('vsn-csrf-v1:', 'utf8').update(token, 'utf8').digest();
+}
+
 function validDate(value) {
   const date = value instanceof Date ? value : new Date(value);
   return Number.isFinite(date.getTime()) ? date : null;
