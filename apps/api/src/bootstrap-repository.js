@@ -53,7 +53,7 @@ async function createBootstrapTransaction(client, input) {
     await client.query(
       `INSERT INTO audit_events
         (organization_id, actor_user_id, action_key, outcome, target_type, target_id, safe_attributes)
-       VALUES ($1, $2, 'platform.bootstrap.completed', 'succeeded', 'platform_user', $2, $3::jsonb)`,
+       VALUES ($1, $2, 'platform.bootstrap.completed', 'succeeded', 'platform_user', $2::text, $3::jsonb)`,
       [organization.rows[0].id, user.rows[0].id, JSON.stringify({ bootstrapVersion: 1 })],
     );
     await client.query('COMMIT');
