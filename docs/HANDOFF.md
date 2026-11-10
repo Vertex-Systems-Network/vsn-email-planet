@@ -11,14 +11,15 @@ This repository contains only VSN Email Planet. Keep Orbicore, WooCommerce and u
 
 ## Verified plan checkpoint
 
-P0-07 plan consistency passed CI on commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` (run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063)). Its evidence follow-up passed on `a6f5268906993e671fa4244bc82078cabc9e607c` (run [42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435)). This does not close P0 or P1.
+P0-07 plan consistency passed run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063); evidence follow-up passed run [42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435). This does not close P0.
 
-## Active work
+## Active implementation: P1-06
 
-- P1-06 next increment: digest-only PostgreSQL sessions, membership-version invalidation, repository adapter and guarded `GET /api/session/me`.
-- Target remote CI: missing cookie gets 401; seeded synthetic PostgreSQL session resolves actor from authoritative rows; forged tenant header/query cannot change organization; revoked/suspended membership is denied.
-- Login/issuance, logout/rotation, CSRF, audit writes, tenant-owned resource policy and job reauthorization remain open. Do not claim full authentication.
-- Continue P0-02 research and P0-04 UX evidence independently. Keep P2/P3 gated until P1 security prerequisites pass.
+- Session persistence and guarded `GET /api/session/me` are PARTIALLY_VERIFIED on commit `2b27404889ecee50a7e2812a6399d7409050689d`, CI run [42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019).
+- Verified in remote CI: no-cookie denial, server-derived actor, forged tenant header/query ignored, membership status change invalidates session.
+- Remaining: credential verification/login and session issuance, rotation/logout, CSRF, audit writes, resource RBAC/ABAC and queued-job reauthorization.
+- Preserve the failed-run/fix chain in `docs/TEST_EVIDENCE/2026-11-11-p1-06-session-runtime.md`; do not report full P1-06 or P1 complete.
+- Continue P0-02 research/P0-04 UX evidence independently. P2/P3 stay gated on P1 identity/tenant security criteria.
 
 ## Safety and reporting
 

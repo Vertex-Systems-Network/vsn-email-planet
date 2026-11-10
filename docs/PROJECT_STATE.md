@@ -1,6 +1,6 @@
 # Project state
 
-Last updated: 2026-11-10
+Last updated: 2026-11-11
 
 ## Repository boundary and source of truth
 
@@ -20,7 +20,7 @@ Last updated: 2026-11-10
 ## Current delivery state
 
 - P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan consistency is VERIFIED for the validated ledger and gates.
-- P1: open. Foundation and selected persistence/worker increments exist. Authenticated session runtime and end-to-end tenant authorization remain in progress.
+- P1: open. Foundation and selected persistence/worker increments exist. The PostgreSQL session/actor-guard slice is partially verified; login/issuance, logout/rotation, CSRF, audit writes, resource RBAC/ABAC and queued-job reauthorization remain open.
 - P2–P12: NOT_STARTED. Backlog entries are plans only. No live provider connection, mailbox read/send, administration, DNS mutation, migration, client release or enterprise integration is claimed.
 - Documentation research, simulation and live-provider validation are distinct evidence. API acceptance is not proof of data erasure or production behavior.
 
@@ -31,3 +31,7 @@ Plan repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed GitHub Acti
 ## P1-06 runtime increment (2026-11-11)
 
 A PostgreSQL session schema/repository and guarded `GET /api/session/me` are being added. The target CI integration proves synthetic stored-session resolution, tenant context cannot be changed by request claims, and membership changes invalidate the session. This remains an incomplete P1-06 slice: login/issuance, logout/rotation, CSRF, audit writes, resource-specific authorization and job-dispatch reauthorization remain open. Record commit-specific CI evidence before updating this status.
+
+## P1-06 session/guard increment
+
+Commit `2b27404889ecee50a7e2812a6399d7409050689d` passed [GitHub Actions run 42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019). P1-06 is PARTIALLY_VERIFIED for PostgreSQL session persistence, active membership resolution, tenant-claim resistance and membership invalidation only. See `docs/TEST_EVIDENCE/2026-11-11-p1-06-session-runtime.md` for passing checks, failed-run recovery and remaining scope.

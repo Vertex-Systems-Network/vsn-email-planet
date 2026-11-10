@@ -1115,7 +1115,7 @@
         "P1-03",
         "P1-04"
       ],
-      "current_status": "IN_PROGRESS",
+      "current_status": "PARTIALLY_VERIFIED",
       "acceptance_criteria": [
         "Actor tenant scope comes only from a verified session",
         "Cross-tenant direct ID and search requests deny without leakage",
@@ -1137,14 +1137,15 @@
         "apps/api/src/session-repository.ts",
         "apps/api/src/session.controller.ts",
         "docs/API_CONTRACTS.md",
+        "docs/TEST_EVIDENCE/2026-11-11-p1-06-session-runtime.md",
         "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md",
         "scripts/smoke-api.mjs",
         "tests/session-auth.test.mjs",
         "tests/session-repository.test.mjs"
       ],
-      "verification_level": "SESSION_RESOLVER_UNIT_TESTS_PASS; POSTGRES_REPOSITORY_AND_HTTP_GUARD_AWAITING_REMOTE_CI",
-      "target_environment": "GITHUB_ACTIONS_POSTGRES16_AND_PGLITE",
-      "last_verified_commit": null,
+      "verification_level": "PGLITE_AND_POSTGRES16_HTTP_CI_PASS; LOGIN_AUDIT_RESOURCE_AUTHZ_AND_JOB_REAUTHORIZATION_OPEN",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": "2b27404889ecee50a7e2812a6399d7409050689d",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-11",
       "started_at": "2026-11-09",
@@ -1155,8 +1156,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Add deliberate session issuance/login and logout/revocation with CSRF/origin enforcement and security audit events; then extend authorization to tenant-owned resources and queued-job dispatch.",
-      "notes": "P1-06 runtime increment is in review: PostgreSQL digest-only session persistence, membership-version invalidation and a guarded GET /api/session/me actor endpoint are implemented. Login/issuance, logout/rotation, CSRF, audit events, resource RBAC/ABAC and queued-job reauthorization remain open; do not claim full authentication or task completion.",
+      "next_action": "Implement deliberate session issuance/logout and revocation with CSRF/origin enforcement and audit events; then add tenant-owned resource RBAC/ABAC and queued-job reauthorization.",
+      "notes": "A bounded session persistence and protected actor endpoint slice passed GitHub Actions run 42909851019 on 2b27404889ecee50a7e2812a6399d7409050689d. The evidence report records three failed attempts and their fixes. Full P1-06 remains open: login/issuance, logout/rotation, CSRF, audit, resource-level authorization and queued-job reauthorization are not implemented.",
       "status_history": [
         {
           "from": null,
@@ -1171,6 +1172,20 @@
           "changed_at": "2026-11-09T21:48:00+00:00",
           "actor": "Codex",
           "evidence": "docs/API_CONTRACTS.md defines the production session, actor, membership, tenant policy, job reauthorization, audit, and denial contracts; implementation remains unverified."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-10T21:56:33Z",
+          "actor": "Codex",
+          "evidence": "Remote GitHub Actions run 42909851019 started on commit 2b27404889ecee50a7e2812a6399d7409050689d for the PostgreSQL session/guard increment."
+        },
+        {
+          "from": "TESTING",
+          "to": "PARTIALLY_VERIFIED",
+          "changed_at": "2026-11-10T21:57:43Z",
+          "actor": "Codex",
+          "evidence": "GitHub Actions run 42909851019 passed typecheck, unit/PGlite tests, native PostgreSQL checks, state/backlog validation, build, API smoke and high-severity audit. P1-06's full acceptance remains open."
         }
       ]
     },

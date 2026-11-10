@@ -3,21 +3,20 @@
 **Canonical repo:** [Vertex-Systems-Network/vsn-email-planet](https://github.com/Vertex-Systems-Network/vsn-email-planet)  
 **Source of truth:** GitHub remote `main`; do not implement or verify from a local clone/worktree.
 
-## Active implementation: P1-06
+## Current verified increment
 
-Implement the bounded persistent-session/API-guard slice in the remote repository:
+P1-06 session persistence and guarded actor endpoint passed [GitHub Actions run 42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019) on commit `2b27404889ecee50a7e2812a6399d7409050689d`. It remains PARTIALLY_VERIFIED; see the linked evidence in `docs/PROJECT_STATE.md`.
 
-1. Add a checksummed PostgreSQL session table and membership-version invalidation.
-2. Add a repository adapter that resolves the session digest, active user and exact active membership from PostgreSQL.
-3. Guard `GET /api/session/me`; derive actor scope from server records only.
-4. Verify missing-cookie denial, stored-session resolution, forged tenant-context rejection and membership-revocation denial through GitHub Actions/PostgreSQL CI.
-5. Keep P1-06 IN_PROGRESS or PARTIALLY_VERIFIED only with exact evidence. Login/issuance, logout/rotation, CSRF, audit events and resource/job authorization are subsequent open criteria.
+## Continue P1-06
 
-## Independent P0 work
+1. Define and implement deliberate credential verification and session issuance; do not accept the synthetic CI fixture as a login path.
+2. Add session rotation/logout/revocation and same-origin plus CSRF enforcement before any state-changing browser route.
+3. Add append-only security audit events for session and membership changes without recording secrets.
+4. Extend request authorization to tenant-owned resource queries and enforce membership/grant rechecks immediately before queued-job dispatch.
+5. Use GitHub Actions/PostgreSQL CI for denial, revocation, audit and no-cross-tenant evidence. Keep P1-06 partial until every acceptance criterion has evidence.
 
-- Continue P0-02 dated primary-source research and P0-04 UX evidence independently where possible.
-- P0-07 plan consistency is VERIFIED; P0 and P1 gates remain open. Keep P2/P3 implementation gated on P1 identity/tenant security prerequisites.
+Continue P0-02 research and P0-04 UX evidence independently. P0 and P1 gates stay open; P2/P3 remain gated on P1 security prerequisites.
 
 ## Remote-only publication
 
-Read the live ref and target files before each edit. Create commits directly in GitHub with compare-and-swap ref updates. Use GitHub Actions for verification, record the exact run/commit/result, and leave unverified criteria open.
+Read the live ref and target files before each edit. Create commits directly in GitHub with compare-and-swap ref updates. Use GitHub Actions for verification, record exact run/commit/result, and leave unverified criteria open.
