@@ -93,3 +93,7 @@ This is the implementation contract for the first authenticated API slice. It su
 ### Local credential verifier foundation — 2026-11-11
 
 Migration `0006_platform_password_credentials.sql` adds a one-to-one platform-user credential row; it does not store provider credentials. The dependency-free helper `apps/api/src/password-auth.js` enforces the current length/context policy and produces a versioned scrypt verifier using N=32768, r=8, p=3, a random 16-byte salt and a 32-byte derived key. Only canonical verifier strings with the exact supported parameter set are accepted. The verifier helper and schema are foundations only: no login, bootstrap, invitation, MFA, recovery or session-issuance endpoint exists yet. See ADR-0003 and P1-11.
+
+### Credential lookup foundation — 2026-11-11
+
+`verifyLocalCredential(pool, email, password)` checks only platform password credentials, performs dummy scrypt work for unknown/malformed account lookups, and returns current active memberships only after a valid password. It returns one generic `null` result for unknown, disabled, invalid-password and membership-less accounts. This helper does not issue sessions, enforce shared rate limits or record audit events; there is still no login or bootstrap route.

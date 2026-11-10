@@ -3134,7 +3134,7 @@
       "dependencies": [
         "P1-06"
       ],
-      "current_status": "PARTIALLY_VERIFIED",
+      "current_status": "TESTING",
       "acceptance_criteria": [
         "Bootstrap can create only one first administrator and never stores or logs the bootstrap secret.",
         "Invitations are single-use, expiring and do not permit public self-registration.",
@@ -3155,9 +3155,13 @@
         "apps/api/src/password-auth.js",
         "apps/api/src/password-auth.d.ts",
         "tests/password-auth.test.mjs",
-        "docs/TEST_EVIDENCE/2026-11-11-p1-11-password-verifier.md"
+        "docs/TEST_EVIDENCE/2026-11-11-p1-11-password-verifier.md",
+        "apps/api/src/password-repository.js",
+        "apps/api/src/password-repository.d.ts",
+        "tests/password-repository.test.mjs",
+        "docs/TEST_EVIDENCE/2026-11-11-p1-11-credential-lookup.md"
       ],
-      "verification_level": "SCRYPT_VERIFIER_SCHEMA_AND_GITHUB_ACTIONS_PASS; LOGIN_BOOTSTRAP_INVITATION_THROTTLING_MFA_RECOVERY_AND_SESSION_ISSUANCE_OPEN",
+      "verification_level": "Scrypt verifier/schema previously passed; credential lookup is awaiting CI; bootstrap/login/MFA/recovery/session issuance open",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
       "last_verified_commit": "8b465df558fda26add9d95672d3feec76eb2e32c",
       "created_at": "2026-11-11",
@@ -3172,8 +3176,8 @@
       "decisions": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
-      "next_action": "Continue P1-11 with repository-backed credential creation/verification and a single-use bootstrap/invitation path; preserve the no-email/no-live-provider boundary, then add shared login throttling, privileged MFA/recovery and session+CSRF issuance.",
-      "notes": "Verified only the versioned scrypt verifier, password input bounds/common-context block checks, PostgreSQL credential schema constraint and full GitHub Actions workflow on commit 8b465df558fda26add9d95672d3feec76eb2e32c (run 42916848390). No login, bootstrap, invitation, shared throttling, MFA/recovery, audit integration or session/CSRF issuance is implemented.",
+      "next_action": "After remote CI verifies this credential lookup slice, implement single-use first-admin bootstrap and invitation activation with transactional credential+audit creation, then add shared throttling, MFA/recovery and session issuance.",
+      "notes": "P1-11 prior verifier/schema slice passed run 42916848390. This next slice adds a repository-backed credential lookup that returns only active memberships after password verification; it does not create sessions or expose a login route. Current commit is awaiting CI.",
       "status_history": [
         {
           "from": null,
@@ -3202,6 +3206,20 @@
           "changed_at": "2026-11-11T00:00:00Z",
           "actor": "Codex",
           "evidence": "GitHub Actions run 42916848390 passed on commit 8b465df558fda26add9d95672d3feec76eb2e32c; evidence is docs/TEST_EVIDENCE/2026-11-11-p1-11-password-verifier.md. This closes only the password-verifier/schema slice."
+        },
+        {
+          "from": "PARTIALLY_VERIFIED",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Continuing P1-11 with repository-backed credential lookup; previous verifier/schema slice remains verified."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Credential lookup and PostgreSQL test committed for GitHub Actions; result pending."
         }
       ]
     },
