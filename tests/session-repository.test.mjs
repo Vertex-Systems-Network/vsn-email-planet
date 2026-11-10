@@ -50,7 +50,7 @@ test("PostgreSQL session repository derives tenant actor and rejects changed mem
     assert.equal(result.actor.membershipRole, "operator");
     assert.equal(Object.isFrozen(result.actor), true);
 
-    const stored = await db.query("SELECT secret_digest, csrf_digest, membership_version WHERE organization_id = $1", [organizationA]);
+    const stored = await db.query("SELECT secret_digest, csrf_digest, membership_version FROM auth_sessions WHERE organization_id = $1", [organizationA]);
     assert.deepEqual(Buffer.from(stored.rows[0].secret_digest), digest);
     assert.deepEqual(Buffer.from(stored.rows[0].csrf_digest), csrfDigest);
     assert.notDeepEqual(stored.rows[0].secret_digest, Buffer.from(secret));
