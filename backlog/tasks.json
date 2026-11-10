@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-11",
+  "updated_at": "2026-11-10",
   "allowed_statuses": [
     "DISCOVERED",
     "RESEARCHING",
@@ -3159,13 +3159,18 @@
         "apps/api/src/password-repository.js",
         "apps/api/src/password-repository.d.ts",
         "tests/password-repository.test.mjs",
-        "docs/TEST_EVIDENCE/2026-11-11-p1-11-credential-lookup.md"
+        "docs/TEST_EVIDENCE/2026-11-11-p1-11-credential-lookup.md",
+        "apps/api/db/migrations/0007_platform_bootstrap_claims.sql",
+        "apps/api/src/bootstrap-repository.js",
+        "apps/api/src/bootstrap-repository.d.ts",
+        "tests/bootstrap-repository.test.mjs",
+        "docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md"
       ],
-      "verification_level": "SCRYPT_VERIFIER_SCHEMA_AND_REPOSITORY_CREDENTIAL_LOOKUP_GITHUB_ACTIONS_PASS; BOOTSTRAP_LOGIN_THROTTLING_MFA_RECOVERY_SESSION_ISSUANCE_OPEN",
+      "verification_level": "SCRYPT_VERIFIER_SCHEMA_CREDENTIAL_LOOKUP_AND_FIRST_ADMIN_PERSISTENCE_GITHUB_ACTIONS_PASS; HTTP_BOOTSTRAP_CONCURRENCY_LOGIN_THROTTLING_INVITATION_MFA_RECOVERY_SESSION_ISSUANCE_OPEN",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
-      "last_verified_commit": "a507f7f9c1553ff8710f2070f97f30e26e4d12a5",
+      "last_verified_commit": "29e35a2dd3b8ef43c87f44cfe0070f652622f872",
       "created_at": "2026-11-11",
-      "updated_at": "2026-11-11",
+      "updated_at": "2026-11-10",
       "started_at": "2026-11-11",
       "completed_at": null,
       "blockers": [],
@@ -3176,8 +3181,8 @@
       "decisions": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
-      "next_action": "Implement the single-use first-admin bootstrap and invitation activation with transactional credential and audit creation. Then add shared login throttling, privileged MFA/recovery and session+CSRF issuance; keep external mail/live provider use disabled.",
-      "notes": "P1-11 verifier/schema passed run 42916848390; repository-backed credential lookup and active membership filtering passed run 42917902168 on commit a507f7f9c1553ff8710f2070f97f30e26e4d12a5. No bootstrap, invitation, HTTP login, shared throttling, MFA/recovery, audit integration or session/CSRF issuance is implemented.",
+      "next_action": "Implement POST /api/auth/bootstrap with environment-only one-time high-entropy token, exact APP_ORIGIN match, constant-time comparison, no-store responses and no session issuance; add HTTP denial/replay/database-failure tests and a PostgreSQL multi-connection race test. Then implement login throttle + MFA enrollment/session-CSRF; add invitation lifecycle after authenticated owner access exists.",
+      "notes": "P1-11 verifier/schema passed run 42916848390; repository-backed credential lookup and active membership filtering passed run 42917902168 on commit a507f7f9c1553ff8710f2070f97f30e26e4d12a5. No bootstrap, invitation, HTTP login, shared throttling, MFA/recovery, audit integration or session/CSRF issuance is implemented. First-admin persistence slice passed full GitHub Actions run 42919767918 on 29e35a2dd3b8ef43c87f44cfe0070f652622f872; sequential replay and atomic owner/credential/claim/success-audit behavior are covered by PGlite. Two failed runs and fixes are recorded in docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md. HTTP boundary, concurrent race, invites, login, throttle, MFA/recovery and session issuance remain open.",
       "status_history": [
         {
           "from": null,

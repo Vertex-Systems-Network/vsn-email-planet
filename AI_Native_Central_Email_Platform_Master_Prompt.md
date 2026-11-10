@@ -1564,7 +1564,7 @@ This addendum clarifies the execution contract where planning and tool limits pr
 3. Convert roadmap themes into bounded acceptance-sized tasks before implementation. Every active task must name the outcome, dependencies, files/artifact, test command and fixture, target environment, evidence path, blockers, and executable next action. Split broad tasks spanning independent services, failure modes, or release gates.
 4. `docs/EXECUTION_PLAYBOOK.md` defines the mandatory loop and plan-quality gate. `scripts/validate-backlog.mjs` and CI must reject duplicate evidence, malformed dependencies, stale blocker/status combinations, vague active next actions, and any dependency cycle.
 5. After an environment failure, diagnose once and try one reasonable fallback. If it still fails, checkpoint the limitation and continue elsewhere rather than repeating the failure or returning only a progress message.
-6. Before pushing, validate the actual commit tree/backlog and run required tests locally. After pushing, confirm the remote SHA and CI. Update `docs/PROJECT_STATE.md`, `docs/NEXT_ACTION.md`, `docs/HANDOFF.md`, and the task ledger from observed results; never infer a pass from local success or a queued CI run.
+6. Before publishing, inspect and validate the exact remote Git tree/backlog. Use the repository's authorized CI workflow for tests, publish through GitHub with compare-and-swap, then confirm the remote SHA and CI. Update `docs/PROJECT_STATE.md`, `docs/NEXT_ACTION.md`, `docs/HANDOFF.md`, and the task ledger from observed results; never infer a pass from local success or a queued CI run.
 7. Report phase counts and evidence, not a guessed percentage. Phase exit criteria still govern release; incomplete external validation must remain visible without blocking unrelated safe development.
 8. `backlog/phase-gates.json` is the sole source of phase exit criteria. Do not add hard prerequisites only in `docs/NEXT_ACTION.md`. Buyer interviews, live provider accounts, and manual browser review remain task-level validation unless explicitly listed in the phase gate; lack of access blocks only the affected evidence. Safe, reversible foundation work may proceed in parallel when its recorded dependencies pass. Do not claim the phase is complete until every declared exit criterion passes.
 9. Resolve architecture forks before adding a second implementation path. If the repository contains two competing stacks or prototypes, the next task must choose one canonical runnable path, define the status/migration of the other, and verify the choice against real CI and local install evidence.
@@ -1584,9 +1584,23 @@ AI owns research, product design, UX/UI, frontend, backend, data flows, charts, 
 
 Use provider capability detection, explicit mailbox access permissions, tenant isolation, safe send-state handling, audit trails, idempotent workers and authoritative sync reconciliation. Do not infer universal private-mail access from cPanel/WHM credentials. Treat received emails as untrusted AI input. Never perform unauthorized/destructive/expensive external actions or unapproved sending. Use scoped standing policies to minimize repeated confirmations.
 
-Run only necessary CLI commands, reuse valid previous checks, prevent duplicate runners, and finish work in verifiable increments. Test each increment locally before committing. Update the machine-readable backlog, actual test evidence and exact next action, then commit and push to the already-authorized development branch when available. Before session/context/credit limits, checkpoint early. Never claim a push, provider integration, test, finished phase or artifact build happened unless verified.
+Run only necessary CLI commands, reuse valid previous checks, prevent duplicate runners, and finish work in verifiable increments. For a remote-only repository, publish each increment directly through GitHub to its authorized branch using compare-and-swap; run all verification through repository CI. Update the machine-readable backlog, actual test evidence and exact next action, and confirm the remote ref and CI result. Before session/context/credit limits, checkpoint early. Never claim a push, provider integration, test, finished phase or artifact build happened unless verified.
 
 Begin now. Produce real files, tests, designs and working increments; do not stop at a high-level plan. If an external integration is unavailable, record the exact blocker, build and test the mock path, and continue with independent work.
 ```
 
 **END OF MASTER SPECIFICATION v1.0**
+
+
+## 78. VSN Email Planet remote-only repository addendum (2026-11-10)
+
+For `Vertex-Systems-Network/vsn-email-planet`, this repository-specific rule overrides any generic instruction above that says to use a local clone, local test run, local commit, or separate development branch:
+
+1. GitHub remote `main` is the sole source of truth. Do not clone, create a worktree, edit a scratch copy, or treat local/library/chat attachments as project source files.
+2. Before every change, resolve the live `main` SHA and inspect `AGENTS.md`, the current task/state/handoff, and every exact target path at that SHA.
+3. Create code, migration, test, plan, and evidence changes as GitHub objects and publish the commit to `main` with compare-and-swap against the inspected SHA. If the SHA changed, reread and rebuild the intended tree; never overwrite newer work.
+4. Run repository-defined tests and checks in GitHub Actions. A queued/running check is not a pass. Preserve failed run IDs and recovery commits/evidence. If Actions cannot run a required check, leave that criterion open.
+5. Keep this repository exclusive to VSN Email Planet. Put Orbicore, WooCommerce plugin and other product work only in their own repositories. Cross-product integration is limited to documented versioned APIs.
+6. Do not delete Git history or repository files to satisfy requests to remove local/library/chat copies. Use only the relevant authorized storage control for those non-Git copies; if unavailable, state that specific limitation without altering Git.
+
+The product contract and security boundaries remain unchanged. This addendum changes only where source edits and verification occur.

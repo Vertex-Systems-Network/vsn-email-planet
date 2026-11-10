@@ -1,6 +1,6 @@
 # Project state
 
-Last updated: 2026-11-11
+Last updated: 2026-11-10
 
 ## Repository boundary and source of truth
 
@@ -21,7 +21,7 @@ Last updated: 2026-11-11
 ## Current delivery state
 
 - P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan consistency is VERIFIED for the validated ledger and gates.
-- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified. P1-11 is PARTIALLY_VERIFIED only for its password-verifier/schema slice; login/issuance/rotation, MFA/recovery, denial auditing, resource RBAC/ABAC and queued-job reauthorization remain open.
+- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified. P1-11 is PARTIALLY_VERIFIED for password verifier/schema, active-membership lookup and transactional first-admin persistence; protected HTTP bootstrap, login/session/CSRF issuance, shared throttling, invitations and MFA/recovery remain open. P1-12 denial auditing, P1-13 resource authorization and P1-14 job reauthorization remain separate open tasks.
 - P2–P12: NOT_STARTED. Backlog entries are plans only. No live provider connection, mailbox read/send, administration, DNS mutation, migration, client release or enterprise integration is claimed.
 - Documentation research, simulation and live-provider validation are distinct evidence. API acceptance is not proof of data erasure or production behavior.
 
@@ -37,3 +37,7 @@ P1-06 remains PARTIALLY_VERIFIED. Evidence and recovery history: `docs/TEST_EVID
 ## P1-11 password verifier checkpoint (2026-11-11)
 
 A versioned scrypt verifier helper and one-to-one platform-user credential table passed GitHub Actions [run 42916848390](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42916848390) on commit `8b465df558fda26add9d95672d3feec76eb2e32c`. This is not login or credential issuance. The implementation uses OWASP's scrypt fallback profile because the supported Node 24 built-in Argon2 API remains Release Candidate; see ADR-0003. P1-11 remains PARTIALLY_VERIFIED: verifier/schema evidence is in `docs/TEST_EVIDENCE/2026-11-11-p1-11-password-verifier.md`; repository lookup evidence is in `docs/TEST_EVIDENCE/2026-11-11-p1-11-credential-lookup.md`.
+
+## P1-11 first-admin persistence checkpoint (2026-11-10)
+
+Migration 0007 and the transactional `bootstrapFirstAdmin` repository helper passed full GitHub Actions [run 42919767918](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42919767918) on `29e35a2dd3b8ef43c87f44cfe0070f652622f872`. PGlite covers success, atomic owner/credential/claim/audit persistence, sequential replay rejection and pre-connection validation. Two earlier CI failures and their fixes are preserved in `docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md`. Multi-connection race and HTTP secret/origin checks are not yet verified. The next increment is the protected HTTP bootstrap boundary; do not claim login or MFA completion.
