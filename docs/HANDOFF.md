@@ -9,20 +9,22 @@ STATUS: P0/P1 gates open; P2–P12 gated and not started.
 
 This repository contains only VSN Email Planet. Keep Orbicore, WooCommerce and unrelated products in their own repositories. Integrate with Multi-Hosting only through its versioned scoped API. GitHub remote is the source of truth: make changes and run checks through GitHub; do not use local clones, worktrees or scratch copies for implementation/verification.
 
-## Verified plan checkpoint
+## Verified checkpoints
 
-P0-07 plan consistency passed run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063); evidence follow-up passed run [42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435). This does not close P0.
+- P0-07 plan consistency passed run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063); evidence follow-up passed run [42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435). This does not close P0.
+- P1-06 PostgreSQL session/actor guard plus CSRF-protected logout passed run [42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243), code commit `64b2bb9cad2db69693141f790ddf2776d0c4d5bb`. Failure/fix history: `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`.
 
-## Active implementation: P1-06
+## Next work
 
-- Session persistence and guarded `GET /api/session/me` passed on commit `2b27404889ecee50a7e2812a6399d7409050689d`, run [42909851019](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42909851019).
-- Session-bound CSRF logout, exact `APP_ORIGIN` enforcement, atomic revocation plus successful-logout audit and cookie clearing passed on commit `64b2bb9cad2db69693141f790ddf2776d0c4d5bb`, run [42913312243](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42913312243).
-- Failure/recovery chain is documented in `docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md`; do not erase the failed checks or report full P1-06.
-- Still open: credential verification/login and issuance, CSRF token delivery and session rotation/recovery, denied-event auditing, resource RBAC/ABAC, and queued-job reauthorization.
-- Next: specify credential/login policy, then implement issuance and token delivery with synthetic-only CI; proceed to denial audit and tenant/resource/job authorization in separately bounded tasks.
+P1-06 remains PARTIALLY_VERIFIED. It is now decomposed to prevent login, audit, resource authorization and job-dispatch checks from being reported as one vague increment:
 
-Continue P0-02 research/P0-04 UX evidence independently. P2/P3 stay gated on P1 identity/tenant security criteria.
+1. **P1-11 READY:** invite-only first-admin bootstrap, local platform login, Argon2id password verifier, throttling, privileged-role MFA/recovery, session+CSRF issuance. Contract: `docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md`.
+2. **P1-12 READY:** allowlisted success/denial audit events and fail-closed audit transactions.
+3. **P1-13 READY:** tenant-scoped protected resource reads/search/count/mutations and non-disclosing responses.
+4. **P1-14 READY:** reauthorize current user/membership/ownership/grants immediately before worker dispatch; prove no handler call after revocation.
+
+CI must use synthetic fixtures only. Do not send mail or use live provider credentials. OIDC/SCIM remains later enterprise work. P0-02 research and P0-04 UX evidence continue independently; P2/P3 remain gated on P1 security prerequisites.
 
 ## Safety and reporting
 
-Provider capabilities and permissions are operation-specific. Hosting credentials never imply content consent. Sending is policy-gated; uncertain sends require reconciliation. Never claim live integration, erasure, release, phase completion or test success without commit-specific evidence. If remote CI cannot exercise a criterion, record the limitation and leave it open.
+Provider capabilities and permissions are operation-specific. Hosting credentials never imply content consent. Sending is policy-gated; uncertain sends require reconciliation. Never claim live integration, erasure, release, phase completion or test success without commit-specific evidence. Leave criteria open when remote CI cannot prove them.

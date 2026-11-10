@@ -1,0 +1,52 @@
+# ADR-0003: Self-hosted operator authentication and session issuance
+
+- Status: `ACCEPTED_FOR_P1_BASELINE`
+- Date: 2026-11-11
+- Decision owners: project maintainers
+- Scope: VSN Email Planet platform users only. Provider mailbox credentials and OAuth grants remain separate identities and authorization domains.
+
+## Context
+
+P1 needs a real, self-hostable first-admin and user-authentication path before tenant resource and worker authorization can be accepted. The existing PostgreSQL session guard and logout route deliberately have no session issuer. The governing prompt requires a safe single first-admin bootstrap, MFA/recovery options, no secrets in generated configuration, and a later SSO/SCIM capability. Do not confuse email-provider credentials with platform-user credentials.
+
+## Decision
+
+1. Use invite-only local platform accounts for the self-hosted P1 baseline. Disable public self-registration. Create exactly one initial administrator through a single-use, high-entropy bootstrap flow; never ship default credentials, store the bootstrap secret in generated files, or log it. Force the first administrator to set their own credential and enroll a second factor before privileged operations.
+2. Use Argon2id for local password verifiers, with OWASP's minimum baseline of 19 MiB memory, 2 passes and 1 lane. Benchmark on the supported deployment target, rate-limit before expensive verification, and increase costs when measured capacity permits. Never use plaintext, reversible encryption, fast hashes or bcrypt for new credentials. Do not store an HMAC pepper in the database.
+3. Require at least 15 characters, accept at least 64 characters and password-manager paste/autofill, reject common/compromised/context-specific passwords using a blocklist, and do not impose character-composition rules or periodic forced resets. Force reset only after compromise or authorized recovery.
+4. Require MFA enrollment for the first administrator and privileged roles before access to privileged operations. Prefer WebAuthn/passkeys; allow TOTP only as an explicitly labeled fallback. Generate one-use recovery codes, store only salted hashes, rate-limit their use and audit issuance/use/revocation. Store TOTP seeds encrypted under an application key held outside PostgreSQL; never log authenticator secrets.
+5. On a successful login, recheck active user and membership from PostgreSQL, create a fresh opaque 256-bit session secret and session-bound CSRF token, persist only their keyed digests, and issue the existing host-only secure cookies. Rotate the session on login, organization-context change, MFA/security change and recovery. Revoke affected sessions on password reset, account disablement, membership revocation or recovery.
+6. Rate-limit failed login, MFA and recovery attempts using shared persistent state so limits apply across API replicas. Use generic responses for unknown users and bad credentials; perform a dummy password verification for unknown accounts to reduce account enumeration. Record allowlisted success and denial audit events without storing secrets or untrusted tenant claims.
+7. Until a verified and authorized outbound mail channel exists, do not send password-reset or invitation links through a provider mailbox. Use the explicit bootstrap/invitation flow or audited operator-assisted recovery that revokes all active sessions. Email-based self-service recovery is a later decision.
+8. Defer OIDC/enterprise SSO and SCIM to the enterprise phase. Do not silently accept provider OAuth tokens as platform login credentials.
+
+## Rationale and standards
+
+Argon2id is OWASP's preferred password hashing choice, with the selected minimum work profile above. NIST SP 800-63B Revision 4 requires 15 characters for single-factor passwords, supports long passwords and password managers, rejects composition rules, calls for blocklists and rate limiting, and describes secure recovery authenticator handling. The selected MFA baseline keeps privileged access separate from mailbox-provider authorization. The policy is scoped to a self-hosted P1 baseline; deployment-specific assurance and regulatory needs may require stronger controls.
+
+## Alternatives considered
+
+| Option | Decision |
+|---|---|
+| Public self-signup and email reset | Rejected for P1: no verified outbound channel or abuse controls exist. |
+| Provider mailbox password or OAuth token as platform login | Rejected: it crosses separate identity and consent boundaries. |
+| Password-only first-admin access | Rejected: the product prompt requires MFA/recovery options for safe administrator bootstrap. |
+| Enterprise OIDC/SCIM as the only login | Deferred: P12 enterprise capability; it cannot be a prerequisite for self-hosted initial setup. |
+| Password + mandatory WebAuthn/TOTP for privileged roles | Selected: supports self-hosting while keeping MFA and recovery explicit. |
+
+## Acceptance tests for implementation
+
+- Bootstrap succeeds once, never reveals the bootstrap secret again, and refuses a second initial administrator.
+- Invite-only account activation rejects expired, reused, malformed and unauthorized invitations without account enumeration.
+- Password policy accepts long/passphrase and Unicode input, rejects blocklisted values, and stores only Argon2id verifiers with unique salts and the selected parameters.
+- Login rate limiting works across multiple API instances; unknown-user and wrong-password responses are equivalent and do not create sessions.
+- Admin/privileged login cannot access privileged routes before required MFA enrollment and challenge completion; recovery codes are one-use, hashed, throttled and audited.
+- Successful login persists only session and CSRF digests, issues correct cookies, writes the appropriate audit event and can immediately call `GET /api/session/me`.
+- Rotation, logout, password reset, account disablement, membership revocation and recovery revoke or replace sessions as specified.
+- CI never sends mail or uses real provider credentials; all fixtures are synthetic.
+
+## Sources
+
+- [OWASP Password Storage Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html) — Argon2id recommendation and minimum configurations.
+- [NIST SP 800-63B Revision 4: Passwords](https://pages.nist.gov/800-63-4/sp800-63b/passwords/) — password length, blocklists, throttling and password-manager requirements.
+- [NIST SP 800-63B Revision 4](https://pages.nist.gov/800-63-4/sp800-63b.html) — authenticators, MFA and recovery requirements.

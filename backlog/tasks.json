@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-10",
+  "updated_at": "2026-11-11",
   "allowed_statuses": [
     "DISCOVERED",
     "RESEARCHING",
@@ -1146,7 +1146,8 @@
         "tests/session-repository.test.mjs",
         "apps/api/db/migrations/0005_session_csrf.sql",
         "apps/api/src/session-csrf.guard.ts",
-        "docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md"
+        "docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md",
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
       "verification_level": "POSTGRES16_CI_SESSION_GUARD_AND_CSRF_LOGOUT_PASS; LOGIN_ISSUANCE_DENIAL_AUDIT_RESOURCE_AUTHZ_AND_JOB_REAUTHORIZATION_OPEN",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
@@ -1161,8 +1162,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Specify credential verification, login/session issuance, rate limits, recovery and MFA policy; implement issuance with session-bound CSRF digest delivery and rotation only after that design is selected, then add denial audit and tenant/resource/job reauthorization coverage.",
-      "notes": "PostgreSQL session resolution and guarded actor endpoint are verified with synthetic fixtures. Session-bound CSRF enforcement requires exact APP_ORIGIN, matching cookie/header, and stored per-session digest. Logout atomically revokes and writes a successful session.logout audit row, then clears both cookies. GitHub Actions run 42913312243 passed on 64b2bb9cad2db69693141f790ddf2776d0c4d5bb. Credential verification/login, issuance/rotation and CSRF-cookie delivery, denial-event auditing, resource authorization and queued-job reauthorization remain open.",
+      "next_action": "Start P1-11: implement the accepted invite-only local credential/bootstrap, MFA/recovery, session issuance and CSRF delivery design in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md. Then work P1-12 denial auditing, P1-13 resource authorization and P1-14 queued-job reauthorization as separate tasks.",
+      "notes": "P1-06 is the security outcome umbrella. Its independent remaining failure modes are decomposed into P1-11 credential/bootstrap/MFA and session issuance, P1-12 audit/denial coverage, P1-13 tenant resource policy, and P1-14 worker dispatch reauthorization. Current session guard/logout slice remains partially verified on evidence in docs/TEST_EVIDENCE/2026-11-11-p1-06-csrf-logout.md.",
       "status_history": [
         {
           "from": null,
@@ -3114,6 +3115,246 @@
           "changed_at": "2026-11-09T19:34:27+00:00",
           "actor": "Codex",
           "evidence": "Seeded from governing specification; not verified."
+        }
+      ]
+    },
+    {
+      "id": "P1-11",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Implement local credential login, bootstrap, MFA and session issuance",
+      "outcome": "An invited platform user can authenticate and receive a secure session only after identity and MFA policy checks succeed.",
+      "description": "Implement the self-hosted invite-only local identity baseline and single-use first-admin bootstrap, secure password verifiers, MFA/recovery and CSRF-bound session issuance.",
+      "scope": [
+        "identity security"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-06"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Bootstrap can create only one first administrator and never stores or logs the bootstrap secret.",
+        "Invitations are single-use, expiring and do not permit public self-registration.",
+        "Passwords follow ADR-0003 and are stored only as Argon2id verifiers; login and recovery are rate-limited.",
+        "Privileged roles complete required MFA before privileged access; recovery codes are one-use hashed values.",
+        "Successful login creates a session and CSRF digest, sets secure host-only cookies, and writes an audit event; failures create no session."
+      ],
+      "test_plan": [
+        "Unit tests for password policy, Argon2id encoding/verification and generic login outcomes.",
+        "PostgreSQL bootstrap/invitation replay and uniqueness tests.",
+        "PostgreSQL HTTP login, MFA-required, CSRF-cookie issuance, session resolution and revocation smoke tests.",
+        "Multi-instance throttling and recovery-code replay tests."
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/API_CONTRACTS.md"
+      ],
+      "verification_level": "DESIGN_ACCEPTED_IMPLEMENTATION_UNVERIFIED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-11",
+      "updated_at": "2026-11-11",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Implement bootstrap and invite activation, Argon2id verifier, throttled login/MFA/recovery and session+CSRF issuance with synthetic PostgreSQL tests.",
+      "notes": "Synthetic fixtures only. Do not claim a live mail channel, real account verification, production MFA assurance, or delivery.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Accepted implementation contract in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md; implementation is not yet verified."
+        }
+      ]
+    },
+    {
+      "id": "P1-12",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Audit authentication and authorization denials",
+      "outcome": "Security-sensitive successful and denied identity events are recorded without secrets or untrusted tenant claims.",
+      "description": "Implement allowlisted append-only audit coverage for login, MFA, bootstrap, invitation, recovery, logout and authorization denials.",
+      "scope": [
+        "identity security"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-06",
+        "P1-11"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Successful and denied auth/MFA/recovery events use trusted actor/tenant context or platform scope before authentication.",
+        "Audit rows include action, outcome, target, timestamp, request correlation and allowlisted safe attributes.",
+        "No password, session secret, CSRF token, provider token, mailbox content or untrusted tenant claim is persisted.",
+        "Security-critical state changes fail closed when their audit transaction fails."
+      ],
+      "test_plan": [
+        "PostgreSQL audit allowlist and redaction tests.",
+        "Failure injection proves required audit failure rolls back security mutation.",
+        "HTTP denial tests prove no secret or tenant-claim leakage in stored audit rows."
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/API_CONTRACTS.md"
+      ],
+      "verification_level": "DESIGN_ACCEPTED_IMPLEMENTATION_UNVERIFIED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-11",
+      "updated_at": "2026-11-11",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Add audit schema/append-only permissions where missing, then write tests that denial and recovery events persist safely and fail closed on required audit errors.",
+      "notes": "Synthetic fixtures only. Do not claim a live mail channel, real account verification, production MFA assurance, or delivery.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Accepted implementation contract in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md; implementation is not yet verified."
+        }
+      ]
+    },
+    {
+      "id": "P1-13",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Enforce tenant authorization on protected resources",
+      "outcome": "A tenant cannot read, search, count or mutate another tenant's resources through direct or collection APIs.",
+      "description": "Apply server-side resource ownership and role policy to protected API queries, including list, search, count, pagination, export and mutation paths.",
+      "scope": [
+        "identity security"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-06",
+        "P1-11"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Every tenant-owned direct ID, list, search, count, pagination, export and mutation uses the actor tenant in storage predicates.",
+        "Unknown and foreign resource IDs follow the same non-disclosing response policy.",
+        "Mailbox content additionally requires a current mailbox-specific grant and is never authorized by tenant membership alone."
+      ],
+      "test_plan": [
+        "Two-tenant PostgreSQL direct-ID/list/search/count tests.",
+        "Role-based allow/deny matrix for reads and mutations.",
+        "Mailbox-grant absence/revocation tests with no provider dispatch."
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/API_CONTRACTS.md"
+      ],
+      "verification_level": "DESIGN_ACCEPTED_IMPLEMENTATION_UNVERIFIED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-11",
+      "updated_at": "2026-11-11",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Inventory protected NestJS routes and repositories, add actor-scoped query predicates and operation policy, then prove same response for unknown and foreign IDs.",
+      "notes": "Synthetic fixtures only. Do not claim a live mail channel, real account verification, production MFA assurance, or delivery.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Accepted implementation contract in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md; implementation is not yet verified."
+        }
+      ]
+    },
+    {
+      "id": "P1-14",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Reauthorize tenant access before queued-job dispatch",
+      "outcome": "A queued job with revoked identity, membership, ownership or grant cannot reach its handler or provider adapter.",
+      "description": "Recheck current actor, active membership, target ownership and required grants/capabilities immediately before worker handler dispatch.",
+      "scope": [
+        "identity security"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-05",
+        "P1-11",
+        "P1-13"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Worker reloads user, membership, target ownership, capability and content grant immediately before dispatch.",
+        "Revoked or stale authorization ends as authorization_revoked with no handler/provider call.",
+        "Authorization and job results preserve safe audit correlation without credential or message-content payloads."
+      ],
+      "test_plan": [
+        "PostgreSQL worker tests for revoked user, membership, resource ownership, capability and mailbox grant.",
+        "Spy-handler/provider tests prove zero dispatch after authorization revocation.",
+        "Race test rechecks immediately at dispatch rather than relying only on enqueue-time snapshot."
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/API_CONTRACTS.md"
+      ],
+      "verification_level": "DESIGN_ACCEPTED_IMPLEMENTATION_UNVERIFIED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-11",
+      "updated_at": "2026-11-11",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Add worker-side authorization resolver at dispatch boundary and PostgreSQL tests that revoke each required authorization after enqueue but before handler execution.",
+      "notes": "Synthetic fixtures only. Do not claim a live mail channel, real account verification, production MFA assurance, or delivery.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Accepted implementation contract in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md; implementation is not yet verified."
         }
       ]
     }

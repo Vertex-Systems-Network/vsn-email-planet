@@ -16,6 +16,7 @@ Last updated: 2026-11-11
 - Added roadmap work for missing P2 inventory/fault coverage, P3 cursor recovery/search/E2E coverage and P4 administration. Added tasks remain DISCOVERED and are not implementation claims.
 - Reconciled the architecture overview with ADR-0001: Next.js/React, NestJS and PostgreSQL are provisional; optional infrastructure and production topology remain open.
 - Removed stale current-summary claims tied to deleted evidence files. Git history is preserved.
+- Split the remaining P1-06 identity work into bounded dependent tasks P1-11–14: credential/bootstrap/MFA issuance, denial audit, resource authorization, and queued-job reauthorization.
 
 ## Current delivery state
 

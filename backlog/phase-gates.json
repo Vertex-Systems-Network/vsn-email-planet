@@ -38,7 +38,11 @@
         "P1-07",
         "P1-08",
         "P1-09",
-        "P1-10"
+        "P1-10",
+        "P1-11",
+        "P1-12",
+        "P1-13",
+        "P1-14"
       ],
       "exit_criteria": [
         "Fresh install and repeatable builds pass in GitHub Actions",
