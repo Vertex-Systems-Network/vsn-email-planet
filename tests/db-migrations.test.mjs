@@ -14,10 +14,10 @@ test("control-plane migrations apply once and are idempotent", async () => {
   try {
     const first = await migrateDatabase(db, { executeSql: (sql) => db.exec(sql) });
     const second = await migrateDatabase(db, { executeSql: (sql) => db.exec(sql) });
-    assert.deepEqual(first.applied, ["0001_control_plane.sql", "0002_organization_updated_at.sql", "0003_durable_jobs_and_outbox.sql", "0004_identity_sessions.sql", "0005_session_csrf.sql"]);
+    assert.deepEqual(first.applied, ["0001_control_plane.sql", "0002_organization_updated_at.sql", "0003_durable_jobs_and_outbox.sql", "0004_identity_sessions.sql", "0005_session_csrf.sql", "0006_platform_password_credentials.sql"]);
     assert.deepEqual(second.applied, []);
     const history = await db.query("SELECT migration_id, checksum_sha256 FROM app_meta.schema_migrations");
-    assert.equal(history.rows.length, 5);
+    assert.equal(history.rows.length, 6);
     assert.match(history.rows[0].checksum_sha256, /^[a-f0-9]{64}$/);
   } finally {
     await db.close();
@@ -110,5 +110,27 @@ test("failed migrations roll back schema changes and migration records", async (
   } finally {
     await db.close();
     await rm(directory, { recursive: true, force: true });
+  }
+});
+
+test("platform password credentials accept only the versioned scrypt verifier shape", async () => {
+  const db = new PGlite();
+  try {
+    await migrateDatabase(db, { executeSql: sql => db.exec(sql) });
+    const user = await db.query(
+      "INSERT INTO platform_users (email) VALUES ('credential@example.test') RETURNING id",
+    );
+    await db.query(
+      "INSERT INTO platform_password_credentials (user_id, password_verifier) VALUES ($1, $2)",
+      [user.rows[0].id, "scrypt-v1$32768$8$3$AAAAAAAAAAAAAAAAAAAAAA$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"],
+    );
+    await assert.rejects(
+      db.query(
+        "INSERT INTO platform_password_credentials (user_id, password_verifier) VALUES ($1, $2)",
+        [user.rows[0].id, "plaintext-password"],
+      ),
+    );
+  } finally {
+    await db.close();
   }
 });

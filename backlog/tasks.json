@@ -3134,30 +3134,34 @@
       "dependencies": [
         "P1-06"
       ],
-      "current_status": "READY",
+      "current_status": "TESTING",
       "acceptance_criteria": [
         "Bootstrap can create only one first administrator and never stores or logs the bootstrap secret.",
         "Invitations are single-use, expiring and do not permit public self-registration.",
-        "Passwords follow ADR-0003 and are stored only as Argon2id verifiers; login and recovery are rate-limited.",
+        "Passwords follow ADR-0003 and are stored only as versioned scrypt verifiers using the ADR-0003 supported-runtime profile; login and recovery are rate-limited.",
         "Privileged roles complete required MFA before privileged access; recovery codes are one-use hashed values.",
         "Successful login creates a session and CSRF digest, sets secure host-only cookies, and writes an audit event; failures create no session."
       ],
       "test_plan": [
-        "Unit tests for password policy, Argon2id encoding/verification and generic login outcomes.",
+        "Unit tests for password policy, scrypt verifier encoding/verification and generic login outcomes.",
         "PostgreSQL bootstrap/invitation replay and uniqueness tests.",
         "PostgreSQL HTTP login, MFA-required, CSRF-cookie issuance, session resolution and revocation smoke tests.",
         "Multi-instance throttling and recovery-code replay tests."
       ],
       "evidence_paths": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
-        "docs/API_CONTRACTS.md"
+        "docs/API_CONTRACTS.md",
+        "apps/api/db/migrations/0006_platform_password_credentials.sql",
+        "apps/api/src/password-auth.js",
+        "apps/api/src/password-auth.d.ts",
+        "tests/password-auth.test.mjs"
       ],
-      "verification_level": "DESIGN_ACCEPTED_IMPLEMENTATION_UNVERIFIED",
+      "verification_level": "VERSIONED_SCRYPT_VERIFIER_AND_SCHEMA_IMPLEMENTED_CI_PENDING; LOGIN_BOOTSTRAP_MFA_RECOVERY_AND_ISSUANCE_OPEN",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
       "last_verified_commit": null,
       "created_at": "2026-11-11",
       "updated_at": "2026-11-11",
-      "started_at": null,
+      "started_at": "2026-11-11",
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
@@ -3167,8 +3171,8 @@
       "decisions": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
-      "next_action": "Implement bootstrap and invite activation, Argon2id verifier, throttled login/MFA/recovery and session+CSRF issuance with synthetic PostgreSQL tests.",
-      "notes": "Synthetic fixtures only. Do not claim a live mail channel, real account verification, production MFA assurance, or delivery.",
+      "next_action": "After this CI checkpoint, implement repository-backed credential creation/verification and the single-use bootstrap/invitation path; preserve the no-email/no-live-provider boundary and add login-rate-limit, MFA and session issuance as subsequent acceptance slices.",
+      "notes": "First P1-11 implementation slice is a versioned scrypt password verifier and PostgreSQL credential table only. CI has not yet verified this commit. Login/bootstrap/invitation, blocklist provenance beyond the local common/context checks, throttling, MFA/recovery and session/CSRF issuance remain open.",
       "status_history": [
         {
           "from": null,
@@ -3176,6 +3180,20 @@
           "changed_at": "2026-11-11T00:00:00Z",
           "actor": "Codex",
           "evidence": "Accepted implementation contract in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md; implementation is not yet verified."
+        },
+        {
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "P1-11 password verifier and credential schema implementation started on GitHub remote main."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-11T00:00:00Z",
+          "actor": "Codex",
+          "evidence": "Code and database migration committed for remote GitHub Actions verification; result pending."
         }
       ]
     },
