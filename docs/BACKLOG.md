@@ -6,7 +6,7 @@ Authoritative tasks and legal status transitions: `backlog/tasks.json`. Per-phas
 
 | Phase | State | Summary |
 |---|---|---|
-| P0 | IN_PROGRESS | Research, feasibility and UX evidence open; plan repair awaits remote CI. |
+| P0 | IN_PROGRESS | Research, feasibility and UX evidence remain open; plan consistency is verified. |
 | P1 | IN_PROGRESS | Foundation exists; authenticated session runtime and tenant-isolation proof remain open. |
 | P2 | NOT_STARTED | Connector, inventory and permission-boundary work is roadmap only. |
 | P3 | NOT_STARTED | Sync, inbox, search and safe-send work is roadmap only. |
@@ -19,6 +19,6 @@ Authoritative tasks and legal status transitions: `backlog/tasks.json`. Per-phas
 | P0-02 | PARTIALLY_VERIFIED | Continue dated primary-source research; buyer validation remains separate. |
 | P0-04 | PARTIALLY_VERIFIED | Complete route/state coverage and available CI viewport/keyboard checks. |
 | P0-07 | VERIFIED | Keep plan coverage and validator guardrails enforced; reopen on drift. |
-| P1-06 | IN_PROGRESS | Implement persistent sessions/API guard; prove auth, tenant and revocation denials remotely. |
+| P1-06 | IN_PROGRESS | Add PostgreSQL session persistence and guarded actor endpoint; prove session, tenant-claim and revocation behavior in remote CI. |
 
 P2–P12 remain planned unless task records later show evidence-backed progress. VERIFIED satisfies only the exact task acceptance criteria; DONE also requires committed implementation and applicable acceptance evidence. Follow `backlog/tasks.json` transitions.

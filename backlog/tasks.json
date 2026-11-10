@@ -1120,24 +1120,33 @@
         "Actor tenant scope comes only from a verified session",
         "Cross-tenant direct ID and search requests deny without leakage",
         "Queued work rechecks current membership",
-        "Auth changes are audited"
+        "Auth changes are audited",
+        "Opaque session secret is stored only as a keyed digest in PostgreSQL; role/status membership changes invalidate an existing session."
       ],
       "test_plan": [
         "Two-tenant API isolation suite",
         "revoked membership queued-job test",
-        "unauthenticated route test"
+        "unauthenticated route test",
+        "PGlite session repository test for digest lookup and membership-version invalidation",
+        "PostgreSQL 16 HTTP smoke for missing cookie, stored session, forged tenant header/query, and suspended membership"
       ],
       "evidence_paths": [
-        "docs/API_CONTRACTS.md",
+        "apps/api/db/migrations/0004_identity_sessions.sql",
+        "apps/api/src/session-auth.guard.ts",
         "apps/api/src/session-auth.js",
+        "apps/api/src/session-repository.ts",
+        "apps/api/src/session.controller.ts",
+        "docs/API_CONTRACTS.md",
+        "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md",
+        "scripts/smoke-api.mjs",
         "tests/session-auth.test.mjs",
-        "docs/TEST_EVIDENCE/verification-20261109T220016Z-f37f830.md"
+        "tests/session-repository.test.mjs"
       ],
-      "verification_level": "SESSION_PRIMITIVE_LOCAL_TESTS_PASS; PERSISTENCE_AND_HTTP_INTEGRATION_PENDING",
-      "target_environment": "LOCAL_INTEGRATION",
+      "verification_level": "SESSION_RESOLVER_UNIT_TESTS_PASS; POSTGRES_REPOSITORY_AND_HTTP_GUARD_AWAITING_REMOTE_CI",
+      "target_environment": "GITHUB_ACTIONS_POSTGRES16_AND_PGLITE",
       "last_verified_commit": null,
       "created_at": "2026-11-09",
-      "updated_at": "2026-11-09",
+      "updated_at": "2026-11-11",
       "started_at": "2026-11-09",
       "completed_at": null,
       "blockers": [],
@@ -1146,8 +1155,8 @@
         "Critical cross-tenant exposure risk if UI-only checks are used"
       ],
       "decisions": [],
-      "next_action": "Add a checksummed PostgreSQL session migration and repository adapter, then install an API guard that calls resolveSessionActor before protected handlers; test it against native PostgreSQL and unauthenticated/cross-tenant HTTP requests.",
-      "notes": "The session primitive creates a 256-bit opaque secret, stores/compares keyed HMAC digests, and derives frozen actor scope from current user/membership rows. Local unit tests cover invalid, revoked, expired, disabled, stale membership, and forged request claims. It is not wired into NestJS routes and no persistent session table or login flow exists.",
+      "next_action": "Add deliberate session issuance/login and logout/revocation with CSRF/origin enforcement and security audit events; then extend authorization to tenant-owned resources and queued-job dispatch.",
+      "notes": "P1-06 runtime increment is in review: PostgreSQL digest-only session persistence, membership-version invalidation and a guarded GET /api/session/me actor endpoint are implemented. Login/issuance, logout/rotation, CSRF, audit events, resource RBAC/ABAC and queued-job reauthorization remain open; do not claim full authentication or task completion.",
       "status_history": [
         {
           "from": null,

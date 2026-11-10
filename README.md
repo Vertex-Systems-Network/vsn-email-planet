@@ -1,6 +1,6 @@
 # VSN Email Planet
 
-VSN Email Planet is a provider-neutral email operations control plane. The repository currently contains a Next.js web app, NestJS API, PostgreSQL migrations and durable job/outbox foundation, plus a read-only synthetic inventory prototype. The active plan phase is P0; no live provider operation or production readiness is claimed.
+VSN Email Planet is a provider-neutral email operations control plane. The repository currently contains a Next.js web app, NestJS API, PostgreSQL migrations and durable job/outbox foundation, plus a read-only synthetic inventory prototype. P0 and P1 are in progress; P2–P12 remain gated/not started. A PostgreSQL-backed session guard slice is under CI verification; no login flow, live provider operation or production readiness is claimed.
 
 ## Run locally
 

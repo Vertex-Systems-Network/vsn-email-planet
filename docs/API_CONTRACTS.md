@@ -77,3 +77,12 @@ This is the implementation contract for the first authenticated API slice. It su
 4. A queued-job test revokes membership after enqueue and proves no handler/provider dispatch occurs.
 5. Audit tests prove required actions are recorded and secrets/content are excluded.
 6. The selected identity implementation and the full test suite pass; local contract documentation alone is not production authentication evidence.
+
+
+### Implemented runtime slice — 2026-11-11
+
+- `0004_identity_sessions.sql` adds versioned organization memberships and digest-only session records with a composite membership foreign key. Role/status changes advance the membership version so an existing session fails closed.
+- The NestJS `GET /api/session/me` route is guarded by `SessionAuthGuard`. It reads only the host-only `__Host-vsn_session` cookie and derives the immutable actor from `auth_sessions`, `platform_users` and the exact active organization membership. Query, header and body identity claims are ignored.
+- Configure `DATABASE_URL` and `SESSION_DIGEST_KEY` (32 random bytes encoded as base64url) before this route can verify presented sessions. Missing/malformed cookies return `401 AUTH_REQUIRED`; missing runtime configuration or database failure fails closed with a service-unavailable response. Do not log the cookie or digest key.
+- CI verifies missing-cookie denial and a PostgreSQL-backed synthetic session, forged tenant-context rejection and membership-revocation denial. The smoke fixture is test-only and creates no reusable credentials.
+- This slice does not implement login/credential verification, MFA, session issuance/rotation/logout, CSRF protection for future state-changing browser routes, audit-event writes, or resource-specific RBAC/ABAC. It is not production authentication or full P1-06 completion.

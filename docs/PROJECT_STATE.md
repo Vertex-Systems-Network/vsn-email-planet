@@ -6,7 +6,7 @@ Last updated: 2026-11-10
 
 - Canonical project: [Vertex-Systems-Network/vsn-email-planet](https://github.com/Vertex-Systems-Network/vsn-email-planet), default branch `main`.
 - This repository is exclusively VSN Email Planet. Orbicore, WooCommerce plugins and unrelated product code/plans belong in their own repositories. Multi-Hosting integration is limited to its documented, versioned and scoped API contract.
-- Remote baseline audited for this repair: `65ab8a8b142fb5a042b12bf2a11d481b30c3d3b4`. Resolve live `main` before every continuation.
+- Remote-only plan repair is on `main` through `a6f5268906993e671fa4244bc82078cabc9e607c`; resolve the live `main` SHA before every continuation.
 - The governing master prompt remains the product contract. If it is unavailable in a future session, recover it from its original source before redefining scope; do not infer missing requirements from this handoff.
 
 ## Plan audit repairs
@@ -19,11 +19,15 @@ Last updated: 2026-11-10
 
 ## Current delivery state
 
-- P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan-consistency work is reopened pending remote CI.
+- P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan consistency is VERIFIED for the validated ledger and gates.
 - P1: open. Foundation and selected persistence/worker increments exist. Authenticated session runtime and end-to-end tenant authorization remain in progress.
 - P2–P12: NOT_STARTED. Backlog entries are plans only. No live provider connection, mailbox read/send, administration, DNS mutation, migration, client release or enterprise integration is claimed.
 - Documentation research, simulation and live-provider validation are distinct evidence. API acceptance is not proof of data erasure or production behavior.
 
 ## Verification
 
-Plan-repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed GitHub Actions run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063): install, typecheck, unit tests, PostgreSQL checks, backlog/state validation, build, web/API smoke and high-severity npm audit. P0-07 is VERIFIED for plan consistency only. P0 and P1 gates remain IN_PROGRESS.
+Plan repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed GitHub Actions run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063), and evidence follow-up `a6f5268906993e671fa4244bc82078cabc9e607c` passed run [42743640435](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743640435). P0-07 is VERIFIED for plan consistency only. P0 and P1 gates remain IN_PROGRESS.
+
+## P1-06 runtime increment (2026-11-11)
+
+A PostgreSQL session schema/repository and guarded `GET /api/session/me` are being added. The target CI integration proves synthetic stored-session resolution, tenant context cannot be changed by request claims, and membership changes invalidate the session. This remains an incomplete P1-06 slice: login/issuance, logout/rotation, CSRF, audit writes, resource-specific authorization and job-dispatch reauthorization remain open. Record commit-specific CI evidence before updating this status.
