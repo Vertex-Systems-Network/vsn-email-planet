@@ -17,7 +17,7 @@ Persistence and the protected HTTP bootstrap boundary are implemented and verifi
 
 ## Next bounded task: shared identity-attempt throttling (P1-15)
 
-First amend ADR-0003 with keying, limits/windows, retention, privacy, failure behavior and anti-lockout policy. Then implement migration `0008` and shared PostgreSQL state across API replicas. Throttle keys must use a keyed digest, never raw identifiers or secrets; document key rotation before implementation. Test concurrent attempts through two independent pools, expiry/reset boundaries, generic responses and fail-closed behavior if storage is unavailable. Add a narrow audited operator recovery procedure; no global bypass.
+ADR-0003 now defines numeric login/MFA/recovery thresholds, account+trusted-network buckets, HMAC key rotation, 24-hour retention, bounded cleanup, fail-closed behavior and audited operator recovery. P1-15 implementation is in progress: migration 0008, transaction-backed shared throttles and independent-pool concurrency tests.
 
 Then proceed in dependency order: P1-16 MFA enrollment/challenge and one-use recovery; P1-17 MFA-gated login with CSRF-bound session issuance; P1-18 invite-only membership activation with email delivery disabled. P1-12 denial audit, P1-13 resource authorization and P1-14 queued-job reauthorization remain separate. Keep P1-06 PARTIALLY_VERIFIED until aggregate criteria have evidence.
 

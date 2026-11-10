@@ -8,6 +8,7 @@ import {
 } from "../apps/api/db/jobs.mjs";
 import { migrateDatabase } from "../apps/api/db/migrate.mjs";
 import { runOutboxPublisherOnce, runWorkerOnce } from "../apps/api/db/worker.mjs";
+import { consumeIdentityAttempt, clearIdentityAttempts } from "../apps/api/src/identity-throttle.js";
 
 const databaseUrl = process.env.DATABASE_URL;
 if (process.env.VSN_TEST_DATABASE !== "1" || !databaseUrl || !new URL(databaseUrl).pathname.endsWith("/vsn_test")) {
@@ -22,6 +23,25 @@ try {
   assert.ok(first.checked >= 1);
   assert.equal(second.checked, first.checked);
   assert.deepEqual(second.applied, []);
+
+  const throttleKey = randomBytes(32).toString('base64url');
+  const throttleInput = { purpose: "login", accountIdentifier: "parallel@example.test", clientNetwork: "192.0.2.77/32", key: throttleKey };
+  const throttlePoolA = new pg.Pool({ connectionString: databaseUrl, max: 2, application_name: "vsn-throttle-pool-a" });
+  const throttlePoolB = new pg.Pool({ connectionString: databaseUrl, max: 2, application_name: "vsn-throttle-pool-b" });
+  try {
+    await clearIdentityAttempts(throttlePoolA, throttleInput);
+    const concurrent = await Promise.all(Array.from({ length: 20 }, (_, index) =>
+      consumeIdentityAttempt(index % 2 === 0 ? throttlePoolA : throttlePoolB, throttleInput)));
+    assert.equal(concurrent.filter(result => result.allowed).length, 10);
+    assert.equal(concurrent.filter(result => !result.allowed).length, 10);
+    const buckets = await throttlePoolA.query("SELECT dimension, attempt_count FROM platform_identity_attempt_throttles WHERE purpose = 'login'");
+    assert.equal(buckets.rows.length, 2);
+    assert.ok(buckets.rows.every(row => row.attempt_count === 20));
+    await clearIdentityAttempts(throttlePoolA, throttleInput);
+  } finally {
+    await throttlePoolA.end();
+    await throttlePoolB.end();
+  }
 
   const organizationA = "00000000-0000-4000-8000-000000000011";
   const organizationB = "00000000-0000-4000-8000-000000000012";

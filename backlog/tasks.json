@@ -3439,7 +3439,7 @@
       "dependencies": [
         "P1-11"
       ],
-      "current_status": "READY",
+      "current_status": "IN_PROGRESS",
       "acceptance_criteria": [
         "Throttle state is shared across independent API instances and survives process restart.",
         "Keys use a keyed digest; raw identifiers, passwords, MFA values and recovery tokens are not stored.",
@@ -3455,14 +3455,19 @@
       ],
       "evidence_paths": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
-        "docs/NEXT_ACTION.md"
+        "docs/NEXT_ACTION.md",
+        "apps/api/db/migrations/0008_platform_identity_attempt_throttles.sql",
+        "apps/api/src/identity-throttle.js",
+        "apps/api/src/identity-throttle.d.ts",
+        "tests/identity-throttle.test.mjs",
+        "scripts/smoke-postgres.mjs"
       ],
       "verification_level": "NOT_IMPLEMENTED",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
       "last_verified_commit": null,
       "created_at": "2026-11-10",
       "updated_at": "2026-11-10",
-      "started_at": null,
+      "started_at": "2026-11-10",
       "completed_at": null,
       "blockers": [],
       "external_requirements": [],
@@ -3473,7 +3478,7 @@
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
       "next_action": "Update ADR-0003 with keying, windows, retention, privacy, failure and anti-lockout policy; then implement migration 0008 and repository tests.",
-      "notes": "Bounded follow-up decomposed from partially verified P1-11; no implementation or verification is claimed.",
+      "notes": "Throttle policy and implementation started on remote main. Numeric limits, HMAC key rotation and two-pool verification are specified; CI evidence pending.",
       "status_history": [
         {
           "from": null,
@@ -3481,6 +3486,13 @@
           "changed_at": "2026-11-10T23:19:15Z",
           "actor": "Codex",
           "evidence": "Decomposed from partially verified P1-11; acceptance criteria are scoped and ordered. No implementation claim."
+        },
+        {
+          "from": "READY",
+          "to": "IN_PROGRESS",
+          "changed_at": "2026-11-10T23:33:00Z",
+          "actor": "Codex",
+          "evidence": "Started migration 0008, shared throttle repository and two-pool PostgreSQL verification on remote main; CI evidence pending."
         }
       ]
     },
