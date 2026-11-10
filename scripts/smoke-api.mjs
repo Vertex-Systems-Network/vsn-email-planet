@@ -18,6 +18,8 @@ if (!integrationEnabled && databaseUrl) {
 let pool;
 let fixture;
 let child;
+let childOutput = "";
+let childSpawnError;
 const digestKey = Buffer.alloc(32, 41).toString("base64url");
 try {
   if (integrationEnabled) {
@@ -67,13 +69,17 @@ try {
       API_PORT: "4000",
       ...(integrationEnabled ? { SESSION_DIGEST_KEY: digestKey } : {}),
     },
-    stdio: "ignore",
+    stdio: ["ignore", "pipe", "pipe"],
   });
+  child.stdout.setEncoding("utf8").on("data", chunk => { childOutput = (childOutput + chunk).slice(-4000); });
+  child.stderr.setEncoding("utf8").on("data", chunk => { childOutput = (childOutput + chunk).slice(-4000); });
+  child.on("error", error => { childSpawnError = error; });
 
   let response;
   let lastError;
   for (let attempt = 0; attempt < 30; attempt += 1) {
-    if (child.exitCode !== null) throw new Error(`API exited before responding (${child.exitCode}).`);
+    if (childSpawnError) throw new Error(`API process failed to start: ${childSpawnError.message}`);
+    if (child.exitCode !== null) throw new Error(`API exited before responding (${child.exitCode}).\n${childOutput.trim()}`);
     try {
       response = await fetch("http://127.0.0.1:4000/health");
       break;
@@ -82,7 +88,7 @@ try {
       await delay(100);
     }
   }
-  if (!response) throw new Error(`API health request did not connect: ${lastError}`);
+  if (!response) throw new Error(`API health request did not connect: ${lastError}.\n${childOutput.trim()}`);
   const health = await response.json();
   assert.equal(response.ok, true);
   assert.equal(health.verification, "process-only");
