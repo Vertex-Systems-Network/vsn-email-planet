@@ -18,7 +18,7 @@ This repository contains only VSN Email Planet. Keep Orbicore, WooCommerce and u
 
 ## Next actions
 
-1. Inspect the plan-repair commit's GitHub Actions result. Keep P0-07 IN_PROGRESS unless state/backlog validators and workflow pass.
+1. Plan repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed GitHub Actions run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063); P0-07 is VERIFIED for plan consistency only.
 2. Continue P0-02 primary-source research and P0-04 UX evidence independently where possible.
 3. Continue P1-06 persistent sessions and API authorization guard; P1 remains open until tenant-isolation and revocation checks pass remotely.
 4. Do not start P2/P3 implementation until P1 security prerequisites and phase criteria are met.

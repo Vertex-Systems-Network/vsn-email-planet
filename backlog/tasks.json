@@ -587,7 +587,7 @@
         "P0-01",
         "P0-05"
       ],
-      "current_status": "IN_PROGRESS",
+      "current_status": "VERIFIED",
       "acceptance_criteria": [
         "Continuation signals explicitly resume implementation instead of status-only replies",
         "External browser/interview/provider access blocks only criteria that require it",
@@ -615,7 +615,7 @@
       ],
       "verification_level": "FULL_LOCAL_AND_REMOTE_CI",
       "target_environment": "LOCAL_AND_GITHUB_ACTIONS",
-      "last_verified_commit": "eac29b6a571f4a898320eb14a482b90ed499543a",
+      "last_verified_commit": "9d67a3ef79c988e8f181e5ab8d276c800f0798fb",
       "created_at": "2026-11-09",
       "updated_at": "2026-11-10",
       "started_at": "2026-11-09",
@@ -629,8 +629,8 @@
         "Only backlog/phase-gates.json determines phase exit criteria.",
         "Buyer interviews, browser access, and live credentials remain task-level validation unless declared as phase criteria."
       ],
-      "next_action": "Validate repaired phase/task mappings in GitHub Actions; close this task only after the remote workflow passes.",
-      "notes": "Plan validator regression coverage and remote GitHub Actions passed on eac29b6a571f4a898320eb14a482b90ed499543a (run 42705339401). This closes only the execution-plan consistency task; P0 gate remains open.",
+      "next_action": "Keep the validator and plan alignment checks enforced; reopen this task if task-to-epic, gate coverage, evidence paths or source-of-truth drift is detected.",
+      "notes": "Plan consistency repair passed GitHub Actions run 42743243063 on commit 9d67a3ef79c988e8f181e5ab8d276c800f0798fb. This closes only this task; P0 and P1 phase gates remain open.",
       "status_history": [
         {
           "from": null,
@@ -673,6 +673,20 @@
           "changed_at": "2026-11-10T00:00:00Z",
           "actor": "Codex",
           "evidence": "Audit found phase coverage, epic/task mapping and gate granularity gaps requiring repair and remote CI verification."
+        },
+        {
+          "from": "IN_PROGRESS",
+          "to": "TESTING",
+          "changed_at": "2026-11-10T02:31:00Z",
+          "actor": "Codex",
+          "evidence": "Remote GitHub Actions run 42743243063 started against commit 9d67a3ef79c988e8f181e5ab8d276c800f0798fb and completed all required workflow steps successfully."
+        },
+        {
+          "from": "TESTING",
+          "to": "VERIFIED",
+          "changed_at": "2026-11-10T02:31:00Z",
+          "actor": "Codex",
+          "evidence": "GitHub Actions run 42743243063 passed: typecheck, unit tests, PostgreSQL checks, backlog/state validation, build, web/API smoke checks and npm audit; https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063"
         }
       ]
     },

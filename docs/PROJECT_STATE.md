@@ -26,4 +26,4 @@ Last updated: 2026-11-10
 
 ## Verification
 
-The repair is unverified until GitHub Actions passes for its exact commit. Record that tested SHA and run URL in the audit evidence before closing P0-07. A failed or unavailable check leaves the task and affected phase gate open.
+Plan-repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed GitHub Actions run [42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063): install, typecheck, unit tests, PostgreSQL checks, backlog/state validation, build, web/API smoke and high-severity npm audit. P0-07 is VERIFIED for plan consistency only. P0 and P1 gates remain IN_PROGRESS.

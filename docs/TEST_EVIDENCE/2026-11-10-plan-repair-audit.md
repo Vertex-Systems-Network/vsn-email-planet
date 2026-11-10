@@ -16,6 +16,9 @@
 
 ## Verification
 
-- GitHub Actions for resulting repair commit: PENDING at commit creation.
-- P0-07 remains IN_PROGRESS until the state/backlog validators and workflow pass. Add exact run URL and tested SHA before status closure.
+- Tested commit: `9d67a3ef79c988e8f181e5ab8d276c800f0798fb`.
+- GitHub Actions: [run 42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063) — PASS.
+- Completed: npm ci, typecheck, unit tests, PostgreSQL checks, backlog validator, state validator, build, web/API smoke checks and `npm audit --audit-level=high`.
+- P0-07 is VERIFIED for plan consistency. P0/P1 phase gates remain open; P2–P12 remain not started.
+- This evidence verifies the plan repair and repository checks only. It does not claim live-provider validation, product feature completion or production readiness.
 - No local checkout, local test execution, live mailbox/provider access or customer data was used for this audit.

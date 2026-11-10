@@ -3,13 +3,11 @@
 **Canonical repo:** [Vertex-Systems-Network/vsn-email-planet](https://github.com/Vertex-Systems-Network/vsn-email-planet)  
 **Source of truth:** GitHub remote `main`; do not implement or verify from a local clone/worktree.
 
-## Immediate checkpoint
+## Verified plan-repair checkpoint
 
-1. Read live `main` and inspect the plan-repair commit.
-2. Confirm GitHub Actions ran for that exact SHA and inspect required checks.
-3. If it passes, record run URL and tested SHA in the audit evidence, then close P0-07 with legal status history. If it fails, fix that remote-state issue and keep P0-07 open.
+Plan repair commit `9d67a3ef79c988e8f181e5ab8d276c800f0798fb` passed [GitHub Actions run 42743243063](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42743243063). P0-07 is VERIFIED for plan consistency. P0 and P1 remain open.
 
-## Active work after the checkpoint
+## Active work
 
 - Continue P0-02 with dated primary-source provider research; distinguish documented behavior from tenant-specific validation.
 - Continue P0-04 UX/screen-state evidence. Keep manual visual/screen-reader review open if no reachable remote browser runner exists.
