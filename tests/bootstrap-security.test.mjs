@@ -8,7 +8,7 @@ test("bootstrap secret accepts only canonical 256-bit base64url values", () => {
   assert.equal(isValidBootstrapSecret(secret), true);
   assert.equal(isValidBootstrapSecret("short-secret"), false);
   assert.equal(isValidBootstrapSecret(`${secret}=`), false);
-  assert.equal(isValidBootstrapSecret("A".repeat(43)), false);
+  assert.equal(isValidBootstrapSecret("A".repeat(42) + "B"), false);
 });
 
 test("bootstrap secret comparison accepts exact matches and rejects malformed or different tokens", () => {
