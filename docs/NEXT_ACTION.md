@@ -9,13 +9,17 @@
 - Repository credential lookup and active-membership filtering passed [run 42917902168](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42917902168).
 - First-admin database transaction, claim migration, credential/audit atomicity and sequential replay protection passed full [run 42919767918](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42919767918) on commit `29e35a2dd3b8ef43c87f44cfe0070f652622f872`. Failure and recovery history is recorded in `docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md`.
 
-These are persistence and verification slices. There is still no HTTP bootstrap route or login/session issuance.
+Persistence and the protected HTTP bootstrap boundary are implemented and verified. Login issuance, shared throttling, MFA/recovery and invitations remain open.
 
-## Next bounded task: secured first-admin HTTP bootstrap
+## Verified HTTP bootstrap boundary
 
-Implement `POST /api/auth/bootstrap` with an environment-only, single-use 256-bit base64url secret; exact `Origin === APP_ORIGIN`; constant-time secret comparison; input/password policy validation; no-store responses; and the transactional repository call. Do not persist/log the secret, expose public registration, send email, or issue a session. Return only opaque user/organization IDs and an MFA-enrollment-required state. Add HTTP-level tests proving wrong origin/token, malformed input, replay and database failure create no privileged session; add a PostgreSQL multi-connection race test.
+`POST /api/auth/bootstrap` passed full GitHub Actions [run 42922183396](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42922183396) on commit `638b4af1f37341cd9a41965979f4950e23650eec`. Evidence: `docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-http.md`. It verifies origin/token denial, malformed input, atomic rollback on audit failure, concurrent first-admin race (one success, one conflict), and no session/cookie issuance.
 
-After that bounded task, proceed in dependency order: login throttling and login/session+CSRF with mandatory MFA enrollment, then invite creation/activation (email delivery stays disabled), then MFA recovery. P1-12 denial audit, P1-13 resource authorization and P1-14 queued-job reauthorization remain separate open tasks. Keep P1-06 PARTIALLY_VERIFIED until its aggregate criteria have evidence.
+## Next bounded task: shared identity-attempt throttling (P1-15)
+
+First amend ADR-0003 with keying, limits/windows, retention, privacy, failure behavior and anti-lockout policy. Then implement migration `0008` and shared PostgreSQL state across API replicas. Throttle keys must use a keyed digest, never raw identifiers or secrets; document key rotation before implementation. Test concurrent attempts through two independent pools, expiry/reset boundaries, generic responses and fail-closed behavior if storage is unavailable. Add a narrow audited operator recovery procedure; no global bypass.
+
+Then proceed in dependency order: P1-16 MFA enrollment/challenge and one-use recovery; P1-17 MFA-gated login with CSRF-bound session issuance; P1-18 invite-only membership activation with email delivery disabled. P1-12 denial audit, P1-13 resource authorization and P1-14 queued-job reauthorization remain separate. Keep P1-06 PARTIALLY_VERIFIED until aggregate criteria have evidence.
 
 P0-02 research and P0-04 UX evidence continue independently. P0 and P1 remain open; P2/P3 remain gated on P1 security prerequisites.
 

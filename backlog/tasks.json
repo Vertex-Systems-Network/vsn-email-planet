@@ -3164,11 +3164,16 @@
         "apps/api/src/bootstrap-repository.js",
         "apps/api/src/bootstrap-repository.d.ts",
         "tests/bootstrap-repository.test.mjs",
-        "docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md"
+        "docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md",
+        "apps/api/src/bootstrap.controller.ts",
+        "apps/api/src/bootstrap-security.js",
+        "apps/api/src/bootstrap-security.d.ts",
+        "scripts/smoke-bootstrap-api.mjs",
+        "docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-http.md"
       ],
-      "verification_level": "SCRYPT_VERIFIER_SCHEMA_CREDENTIAL_LOOKUP_AND_FIRST_ADMIN_PERSISTENCE_GITHUB_ACTIONS_PASS; HTTP_BOOTSTRAP_CONCURRENCY_LOGIN_THROTTLING_INVITATION_MFA_RECOVERY_SESSION_ISSUANCE_OPEN",
+      "verification_level": "SCRYPT_VERIFIER_SCHEMA_CREDENTIAL_LOOKUP_FIRST_ADMIN_PERSISTENCE_AND_HTTP_BOOTSTRAP_POSTGRES16_CI_PASS; LOGIN_THROTTLING_INVITATION_MFA_RECOVERY_SESSION_ISSUANCE_OPEN",
       "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
-      "last_verified_commit": "29e35a2dd3b8ef43c87f44cfe0070f652622f872",
+      "last_verified_commit": "638b4af1f37341cd9a41965979f4950e23650eec",
       "created_at": "2026-11-11",
       "updated_at": "2026-11-10",
       "started_at": "2026-11-11",
@@ -3181,8 +3186,8 @@
       "decisions": [
         "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
       ],
-      "next_action": "Implement POST /api/auth/bootstrap with environment-only one-time high-entropy token, exact APP_ORIGIN match, constant-time comparison, no-store responses and no session issuance; add HTTP denial/replay/database-failure tests and a PostgreSQL multi-connection race test. Then implement login throttle + MFA enrollment/session-CSRF; add invitation lifecycle after authenticated owner access exists.",
-      "notes": "P1-11 verifier/schema passed run 42916848390; repository-backed credential lookup and active membership filtering passed run 42917902168 on commit a507f7f9c1553ff8710f2070f97f30e26e4d12a5. No bootstrap, invitation, HTTP login, shared throttling, MFA/recovery, audit integration or session/CSRF issuance is implemented. First-admin persistence slice passed full GitHub Actions run 42919767918 on 29e35a2dd3b8ef43c87f44cfe0070f652622f872; sequential replay and atomic owner/credential/claim/success-audit behavior are covered by PGlite. Two failed runs and fixes are recorded in docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md. HTTP boundary, concurrent race, invites, login, throttle, MFA/recovery and session issuance remain open.",
+      "next_action": "Continue with P1-15 shared login/MFA/recovery throttling: define keying, windows, retention, privacy, failure behavior and anti-lockout controls in ADR-0003, then implement migration 0008 and two-Pool PostgreSQL tests. P1-16 MFA/recovery, P1-17 MFA-gated session issuance and P1-18 invite-only activation follow in dependency order.",
+      "notes": "P1-11 verifier/schema passed run 42916848390; repository-backed credential lookup and active membership filtering passed run 42917902168 on commit a507f7f9c1553ff8710f2070f97f30e26e4d12a5. No bootstrap, invitation, HTTP login, shared throttling, MFA/recovery, audit integration or session/CSRF issuance is implemented. First-admin persistence slice passed full GitHub Actions run 42919767918 on 29e35a2dd3b8ef43c87f44cfe0070f652622f872; sequential replay and atomic owner/credential/claim/success-audit behavior are covered by PGlite. Two failed runs and fixes are recorded in docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md. HTTP boundary, concurrent race, invites, login, throttle, MFA/recovery and session issuance remain open. Protected POST /api/auth/bootstrap, exact-origin/token denial, malformed input, rollback on audit failure, concurrent first-admin race, and no-session/no-cookie behavior passed full run 42922183396 on 638b4af1f37341cd9a41965979f4950e23650eec; evidence docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-http.md. Remaining login/throttling/MFA/recovery/invitation work is split into P1-15..18.",
       "status_history": [
         {
           "from": null,
@@ -3411,6 +3416,265 @@
           "changed_at": "2026-11-11T00:00:00Z",
           "actor": "Codex",
           "evidence": "Accepted implementation contract in docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md; implementation is not yet verified."
+        }
+      ]
+    },
+    {
+      "id": "P1-15",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Implement shared identity-attempt throttling",
+      "outcome": "Login, MFA and recovery abuse limits apply consistently across API replicas.",
+      "description": "Specify and implement privacy-preserving shared PostgreSQL throttling for credential login, MFA challenge and recovery attempts.",
+      "scope": [
+        "ADR-0003 policy",
+        "shared PostgreSQL state",
+        "login throttle",
+        "MFA throttle",
+        "recovery throttle"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-11"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Throttle state is shared across independent API instances and survives process restart.",
+        "Keys use a keyed digest; raw identifiers, passwords, MFA values and recovery tokens are not stored.",
+        "Windows, thresholds, retention, reset semantics and key rotation are documented.",
+        "Unknown-user and wrong-password outcomes remain generic; MFA/recovery throttling is independently scoped.",
+        "Storage failure fails closed for authentication and recovery without disabling global limits.",
+        "Two independent pools prove concurrent limits, expiry and recovery behavior."
+      ],
+      "test_plan": [
+        "PGlite repository tests",
+        "PostgreSQL 16 tests through two independent pools",
+        "GitHub Actions policy/backlog/build/smoke pipeline"
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/NEXT_ACTION.md"
+      ],
+      "verification_level": "NOT_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Update ADR-0003 with keying, windows, retention, privacy, failure and anti-lockout policy; then implement migration 0008 and repository tests.",
+      "notes": "Bounded follow-up decomposed from partially verified P1-11; no implementation or verification is claimed.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-10T23:19:15Z",
+          "actor": "Codex",
+          "evidence": "Decomposed from partially verified P1-11; acceptance criteria are scoped and ordered. No implementation claim."
+        }
+      ]
+    },
+    {
+      "id": "P1-16",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Implement MFA enrollment, challenge and recovery",
+      "outcome": "Privileged accounts can enroll and prove a second factor, with one-use safe recovery.",
+      "description": "Implement policy-compliant privileged MFA enrollment/challenge and one-use recovery after the shared throttling primitives exist.",
+      "scope": [
+        "WebAuthn preferred path",
+        "TOTP fallback",
+        "one-use recovery codes",
+        "audit integration"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-11",
+        "P1-15"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Privileged actions remain blocked until MFA enrollment and challenge requirements pass.",
+        "Recovery codes are generated once, stored only as salted hashes, consumed atomically once and throttled.",
+        "TOTP secrets are encrypted using a key outside PostgreSQL; no secret appears in audit/logs.",
+        "Enrollment, challenge, recovery, rotation and revocation outcomes are audited without secrets.",
+        "Replay, expiry, failed challenge and database failure fail closed."
+      ],
+      "test_plan": [
+        "Unit cryptographic/policy tests",
+        "PostgreSQL replay/atomicity tests",
+        "HTTP MFA enrollment/challenge/recovery smoke"
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/NEXT_ACTION.md"
+      ],
+      "verification_level": "NOT_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Implement MFA persistence and flows only after P1-15 provides shared throttling.",
+      "notes": "Bounded follow-up decomposed from partially verified P1-11; no implementation or verification is claimed.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-10T23:19:15Z",
+          "actor": "Codex",
+          "evidence": "Decomposed from partially verified P1-11; acceptance criteria are scoped and ordered. No implementation claim."
+        }
+      ]
+    },
+    {
+      "id": "P1-17",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Implement MFA-gated login and session issuance",
+      "outcome": "A valid user receives a secure session only after password, membership and MFA checks succeed.",
+      "description": "Connect credential verification, shared throttling, MFA challenge and existing session/CSRF repositories into a login route.",
+      "scope": [
+        "login route",
+        "generic credentials response",
+        "session and CSRF issuance",
+        "secure host-only cookies",
+        "audit integration"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-11",
+        "P1-15",
+        "P1-16"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Unknown user and wrong password have indistinguishable responses and dummy verifier work.",
+        "Inactive user/membership, throttle denial or missing required MFA creates no session.",
+        "Successful login reloads membership, audits success and stores only session/CSRF digests.",
+        "Cookie attributes meet ADR-0003; CSRF is session-bound; no credential/session secret is logged.",
+        "HTTP tests cover success, failure, MFA-required, CSRF, cookie, audit failure and immediate session resolution."
+      ],
+      "test_plan": [
+        "Password verifier unit tests",
+        "PostgreSQL login/session integration tests",
+        "HTTP smoke and no-session denial checks"
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/NEXT_ACTION.md"
+      ],
+      "verification_level": "NOT_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Implement login after P1-15 throttling and P1-16 MFA/recovery are verified.",
+      "notes": "Bounded follow-up decomposed from partially verified P1-11; no implementation or verification is claimed.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-10T23:19:15Z",
+          "actor": "Codex",
+          "evidence": "Decomposed from partially verified P1-11; acceptance criteria are scoped and ordered. No implementation claim."
+        }
+      ]
+    },
+    {
+      "id": "P1-18",
+      "epic": "P1-PHASE",
+      "phase": "P1",
+      "title": "Implement invite-only account activation",
+      "outcome": "Only an authorized owner can activate a new member through a single-use expiring invitation.",
+      "description": "Add organization-bound invitations with opaque hashed activation tokens; do not add email delivery before a verified outbound channel is approved.",
+      "scope": [
+        "owner authorization",
+        "hashed invitation tokens",
+        "single-use expiry",
+        "membership activation",
+        "no outbound email"
+      ],
+      "priority": "P0",
+      "complexity": "M",
+      "owner_agent": null,
+      "dependencies": [
+        "P1-17"
+      ],
+      "current_status": "READY",
+      "acceptance_criteria": [
+        "Only an active authorized owner can create an invitation for the same organization.",
+        "Token is high-entropy, stored as a keyed digest, organization-bound, expires and is consumed atomically once.",
+        "Expired, replayed, malformed and unauthorized activation disclose no account or tenant details.",
+        "Activation cannot bypass password and MFA policy or create a privileged session prematurely.",
+        "No outbound email is sent; tokens are never logged."
+      ],
+      "test_plan": [
+        "PostgreSQL invitation replay/expiry tests",
+        "HTTP authorization/non-disclosure tests",
+        "Synthetic no-email CI smoke"
+      ],
+      "evidence_paths": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md",
+        "docs/NEXT_ACTION.md"
+      ],
+      "verification_level": "NOT_IMPLEMENTED",
+      "target_environment": "GITHUB_ACTIONS_PGLITE_AND_POSTGRES16",
+      "last_verified_commit": null,
+      "created_at": "2026-11-10",
+      "updated_at": "2026-11-10",
+      "started_at": null,
+      "completed_at": null,
+      "blockers": [],
+      "external_requirements": [],
+      "risks": [
+        "Security-sensitive identity changes require fail-closed behavior and must not be inferred from provider credentials."
+      ],
+      "decisions": [
+        "docs/DECISIONS/ADR-0003-IDENTITY-AUTHENTICATION.md"
+      ],
+      "next_action": "Implement invitation creation/activation after authenticated owner login exists; keep email delivery disabled.",
+      "notes": "Bounded follow-up decomposed from partially verified P1-11; no implementation or verification is claimed.",
+      "status_history": [
+        {
+          "from": null,
+          "to": "READY",
+          "changed_at": "2026-11-10T23:19:15Z",
+          "actor": "Codex",
+          "evidence": "Decomposed from partially verified P1-11; acceptance criteria are scoped and ordered. No implementation claim."
         }
       ]
     }

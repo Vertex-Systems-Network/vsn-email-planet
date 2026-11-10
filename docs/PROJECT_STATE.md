@@ -6,7 +6,7 @@ Last updated: 2026-11-10
 
 - Canonical project: [Vertex-Systems-Network/vsn-email-planet](https://github.com/Vertex-Systems-Network/vsn-email-planet), default branch `main`.
 - This repository is exclusively VSN Email Planet. Orbicore, WooCommerce plugins and unrelated product code/plans belong in their own repositories. Multi-Hosting integration is limited to its documented, versioned and scoped API contract.
-- Remote-only plan repair is on `main` through `a6f5268906993e671fa4244bc82078cabc9e607c`; resolve the live `main` SHA before every continuation.
+- All work is published directly to this repository's remote `main`; resolve the live `main` SHA before every continuation. Latest verified code checkpoint: `638b4af1f37341cd9a41965979f4950e23650eec`.
 - The governing master prompt remains the product contract. If it is unavailable in a future session, recover it from its original source before redefining scope; do not infer missing requirements from this handoff.
 
 ## Plan audit repairs
@@ -16,12 +16,12 @@ Last updated: 2026-11-10
 - Added roadmap work for missing P2 inventory/fault coverage, P3 cursor recovery/search/E2E coverage and P4 administration. Added tasks remain DISCOVERED and are not implementation claims.
 - Reconciled the architecture overview with ADR-0001: Next.js/React, NestJS and PostgreSQL are provisional; optional infrastructure and production topology remain open.
 - Removed stale current-summary claims tied to deleted evidence files. Git history is preserved.
-- Split the remaining P1-06 identity work into bounded dependent tasks P1-11–14: credential/bootstrap/MFA issuance, denial audit, resource authorization, and queued-job reauthorization.
+- Split the remaining P1-06 identity work into P1-11–18: credential/bootstrap umbrella, denial audit, resource authorization, queued-job reauthorization, shared throttling, MFA/recovery, MFA-gated login/session issuance, and invite-only activation.
 
 ## Current delivery state
 
 - P0: open. Research, feasibility review and UX evidence remain incomplete. P0-07 plan consistency is VERIFIED for the validated ledger and gates.
-- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified. P1-11 is PARTIALLY_VERIFIED for password verifier/schema, active-membership lookup and transactional first-admin persistence; protected HTTP bootstrap, login/session/CSRF issuance, shared throttling, invitations and MFA/recovery remain open. P1-12 denial auditing, P1-13 resource authorization and P1-14 job reauthorization remain separate open tasks.
+- P1: open. Foundation and selected persistence/worker increments exist. PostgreSQL session/actor resolution and CSRF-protected logout with atomic success audit are partially verified. P1-11 is PARTIALLY_VERIFIED for verifier/schema, active-membership lookup, transactional first-admin persistence and protected HTTP bootstrap. Login/session issuance, shared throttling, invitations and MFA/recovery remain open and are decomposed into P1-15–18. P1-12 denial auditing, P1-13 resource authorization and P1-14 job reauthorization remain separate open tasks.
 - P2–P12: NOT_STARTED. Backlog entries are plans only. No live provider connection, mailbox read/send, administration, DNS mutation, migration, client release or enterprise integration is claimed.
 - Documentation research, simulation and live-provider validation are distinct evidence. API acceptance is not proof of data erasure or production behavior.
 
@@ -40,4 +40,4 @@ A versioned scrypt verifier helper and one-to-one platform-user credential table
 
 ## P1-11 first-admin persistence checkpoint (2026-11-10)
 
-Migration 0007 and the transactional `bootstrapFirstAdmin` repository helper passed full GitHub Actions [run 42919767918](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42919767918) on `29e35a2dd3b8ef43c87f44cfe0070f652622f872`. PGlite covers success, atomic owner/credential/claim/audit persistence, sequential replay rejection and pre-connection validation. Two earlier CI failures and their fixes are preserved in `docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md`. Multi-connection race and HTTP secret/origin checks are not yet verified. The next increment is the protected HTTP bootstrap boundary; do not claim login or MFA completion.
+Migration 0007 and the transactional `bootstrapFirstAdmin` repository helper passed full GitHub Actions [run 42919767918](https://github.com/Vertex-Systems-Network/vsn-email-planet/actions/runs/42919767918) on `29e35a2dd3b8ef43c87f44cfe0070f652622f872`. PGlite covers success, atomic owner/credential/claim/audit persistence, sequential replay rejection and pre-connection validation. Two earlier CI failures and their fixes are preserved in `docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-repository.md`. Protected HTTP secret/origin checks, transactional rollback and concurrent first-admin race are now verified by run 42922183396 on commit 638b4af1f37341cd9a41965979f4950e23650eec. Evidence: docs/TEST_EVIDENCE/2026-11-10-p1-11-bootstrap-http.md. Login/session issuance, throttling, MFA/recovery and invitation lifecycle remain open.

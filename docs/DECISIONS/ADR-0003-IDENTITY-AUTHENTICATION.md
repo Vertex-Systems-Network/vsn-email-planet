@@ -20,6 +20,10 @@ P1 needs a real, self-hostable first-admin and user-authentication path before t
 7. Until a verified and authorized outbound mail channel exists, do not send password-reset or invitation links through a provider mailbox. Use the explicit bootstrap/invitation flow or audited operator-assisted recovery that revokes all active sessions. Email-based self-service recovery is a later decision.
 8. Defer OIDC/enterprise SSO and SCIM to the enterprise phase. Do not silently accept provider OAuth tokens as platform login credentials.
 
+## Shared throttling policy to specify before implementation (P1-15)
+
+Before migration 0008, resolve independent dimensions for normalized account identifier and trusted client network; use keyed HMAC digests rather than raw identifiers; document thresholds and rolling windows for password, MFA and recovery; set bounded retention/expiry and reset behavior after verified success; and use atomic increments safe under concurrent replicas. Do not trust forwarded client IP headers unless deployment proxy allowlisting is configured. Never persist passwords, MFA proofs, recovery codes, raw email addresses or raw IP addresses in throttle records. Specify key rotation so active windows cannot be bypassed. Authentication and recovery fail closed if throttle storage is unavailable. Provide a narrow, audited operator recovery procedure; do not add a global bypass or public reset endpoint. Choose numeric limits with threat-model rationale and test self-hosted usability.
+
 ## Rationale and standards
 
 Argon2id is OWASP's preferred password hashing choice, with the selected minimum work profile above. NIST SP 800-63B Revision 4 requires 15 characters for single-factor passwords, supports long passwords and password managers, rejects composition rules, calls for blocklists and rate limiting, and describes secure recovery authenticator handling. The selected MFA baseline keeps privileged access separate from mailbox-provider authorization. The policy is scoped to a self-hosted P1 baseline; deployment-specific assurance and regulatory needs may require stronger controls.
